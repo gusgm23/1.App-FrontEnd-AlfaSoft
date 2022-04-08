@@ -1,0 +1,50 @@
+.titulo-registro-aula {
+    font-size: 40px;
+}
+
+.contenedor-registro-aula {
+    margin-top: 150px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.contenedor-elementos {
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+}
+
+.contenedor-flex {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.inputs {
+    width: 180px;
+    border: 1px solid #c8c8c8;
+    background: #e3e6ec;
+    box-shadow: 5px 5px 12px #d1d9e6,
+    -5px -5px 12px #ffffff;
+}
+
+.labels {
+    font-size: 25px;
+}
+
+.contenedor-general {
+    width: 500px;
+}
+
+.btn {
+    width: 180px;
+}
+
+.contenedor-botones {
+display: flex;
+justify-content: space-evenly
+}
