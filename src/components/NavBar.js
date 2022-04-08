@@ -13,9 +13,11 @@ export const NavBar = () => {
                         <NavLink exact='true' activeClassName="active" to='/registrousuario' className="nav-link">Registrarse</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/login' className="nav-link">Login</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/about' className="nav-link">About</NavLink>
+                        
                     </div>
                 </div>
             </div>
         </nav>
     )
 }
+//probando rama dev
