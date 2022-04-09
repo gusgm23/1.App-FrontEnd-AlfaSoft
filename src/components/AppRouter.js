@@ -14,6 +14,7 @@ import { LoginScreen } from './LoginScreen';
 import { RegistroAulasScreen } from './RegistroAulas/RegistroAulasScreen';
 import { RegistroUsuarios } from './RegistroUsuariosScreen';
 import { Error404Screen } from './Page404/Error404Screen';
+import { VistaAulas } from './VistaAulas';
 
 export const AppRouter = () => {
     return (
@@ -28,6 +29,7 @@ export const AppRouter = () => {
                     <Route exact path='/login'              element={<LoginScreen/>}/>
                     <Route exact path='/registroaula'       element={<RegistroAulasScreen/>}/>
                     <Route exact path='/registrousuario'    element={<RegistroUsuarios/>}/>
+                    <Route exact path='/veraulas'           element={<VistaAulas/>}/>
                     <Route path='*'                         element={<Error404Screen/>}/>
                 </Routes>
             </div>
