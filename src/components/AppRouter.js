@@ -12,7 +12,9 @@ import { AboutScreen } from './AboutScreen';
 import { HomeScreen } from './HomeScreen';
 import { LoginScreen } from './LoginScreen';
 
-import { RegistroUsuarios } from './RegistroUsuariosScreen';
+//import { RegistroUsuarios } from './RegistroUsuariosScreen';
+
+import { RegistroUsuarios } from './RegistroUsuarios/RegistroUsuarios';
 import { Error404Screen } from './Page404/Error404Screen';
 import { VistaAulas } from './Aulas/Ver Aulas/VistaAulas';
 import { RegistroAulasScreen } from './Aulas/RegistroAulas/RegistroAulasScreen';
