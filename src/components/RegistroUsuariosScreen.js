@@ -3,7 +3,7 @@ import React from 'react'
 export const RegistroUsuarios = () => {
     return (
         <div>
-            <h1>RegistroUsuarios</h1>
+            <h1>Registro de Usuarios</h1>
             <hr/>
         </div>
     )
