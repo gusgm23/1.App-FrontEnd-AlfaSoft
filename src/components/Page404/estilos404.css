@@ -3,13 +3,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
+    margin-top: 80px;
 }
 
 .img-404 {
-    width: 30%;
+    width: 25%;
 }
 
 .parrafo-404 {
-    font-size: 30px;
+    font-size: 25px;
 }
