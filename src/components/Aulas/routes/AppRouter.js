@@ -7,15 +7,15 @@ import {
 } from "react-router-dom";
 
 
-import { NavBar } from './NavBar';
-import { AboutScreen } from './AboutScreen';
-import { HomeScreen } from './HomeScreen';
-import { LoginScreen } from './LoginScreen';
+import { NavBar } from '../../NavBar';
+import { AboutScreen } from '../../AboutScreen';
+import { HomeScreen } from '../../HomeScreen';
+import { LoginScreen } from '../../LoginScreen';
 
-import { RegistroUsuarios } from './RegistroUsuariosScreen';
-import { Error404Screen } from './Page404/Error404Screen';
-import { VistaAulas } from './Aulas/Ver Aulas/VistaAulas';
-import { RegistroAulasScreen } from './Aulas/RegistroAulas/RegistroAulasScreen';
+import { RegistroUsuarios } from '../../RegistroUsuariosScreen';
+import { Error404Screen } from '../../Page404/Error404Screen';
+import { VistaAulas } from '../Ver Aulas/VistaAulas';
+import { RegistroAulasScreen } from '../RegistroAulas/RegistroAulasScreen';
 
 
 export const AppRouter = () => {

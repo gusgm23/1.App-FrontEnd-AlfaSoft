@@ -1,5 +1,6 @@
 import React from 'react'
-import { AppRouter } from './AppRouter'
+import { AppRouter } from './Aulas/routes/AppRouter'
+
 
 export const MainApp = () => {
     return (
