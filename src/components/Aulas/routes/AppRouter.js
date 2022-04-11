@@ -7,10 +7,10 @@ import {
 } from "react-router-dom";
 
 
-import { NavBar } from './NavBar';
-import { AboutScreen } from './AboutScreen';
-import { HomeScreen } from './HomeScreen';
-import { LoginScreen } from './LoginScreen';
+import { NavBar } from '../../NavBar';
+import { AboutScreen } from '../../AboutScreen';
+import { HomeScreen } from '../../HomeScreen';
+import { LoginScreen } from '../../LoginScreen';
 
 //import { RegistroUsuarios } from './RegistroUsuariosScreen';
 

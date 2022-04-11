@@ -33,7 +33,6 @@
     background-color: #FFC107;
     border: 1px solid #c8c8c8;
     box-shadow: 5px 5px 12px #c8c8c8;
-    color: #ffffff;
     border-radius: 8px;
     transition: .5s;
 }
@@ -49,4 +48,9 @@
 
 .caja-pequeña {
     width: 15%;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
 }
