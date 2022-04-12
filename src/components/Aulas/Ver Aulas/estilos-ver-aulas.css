@@ -1,0 +1,56 @@
+.contenedor-gral {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-elementos-lista {
+    width: 60%;
+}
+
+.titulo-ver-aulas {
+    font-size: 30px;
+}
+
+.contenedor-datos-aula {
+    height: 45px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    border: 1px solid #c8c8c8;
+    background: #e3e6ec;
+    box-shadow: 5px 5px 12px #d1d9e6,
+    -5px -5px 12px #ffffff;
+
+    margin: 10px;
+}
+
+.btn-editar {
+    width: 140px;
+    background-color: #FFC107;
+    border: 1px solid #c8c8c8;
+    box-shadow: 5px 5px 12px #c8c8c8;
+    border-radius: 8px;
+    transition: .5s;
+}
+
+.btn-editar:hover {
+    color: #ffffff;
+    background-color: rgba(255, 193, 7, .5);
+}
+
+.caja-campos {
+    width: 25%;
+}
+
+.caja-pequeña {
+    width: 15%;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
