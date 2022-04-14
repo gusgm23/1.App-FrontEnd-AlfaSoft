@@ -12,6 +12,7 @@ export const NavBar = () => {
                         <NavLink exact='true' activeClassName="active" to='/registroaula' className="nav-link">Registrar Aula</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/registrousuario' className="nav-link">Registrarse</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/login' className="nav-link">Login</NavLink>
+                        <NavLink exact='true' activeClassName="active" to='/reservaaulas' className="nav-link">Reservar Aula</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/veraulas' className="nav-link">Aulas</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/about' className="nav-link">About</NavLink>
                         

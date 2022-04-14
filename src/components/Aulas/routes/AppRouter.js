@@ -18,6 +18,7 @@ import { RegistroUsuarios } from '../../RegistroUsuarios/RegistroUsuarios';
 import { Error404Screen } from '../../Page404/Error404Screen';
 import { VistaAulas } from '../../Aulas/Ver Aulas/VistaAulas';
 import { RegistroAulasScreen } from '../../Aulas/RegistroAulas/RegistroAulasScreen';
+import { FormularioReservaAula } from '../../ReservaAulas/FormularioReservaAula';
 
 
 export const AppRouter = () => {
@@ -34,6 +35,7 @@ export const AppRouter = () => {
                     <Route exact path='/registroaula'       element={<RegistroAulasScreen/>}/>
                     <Route exact path='/registrousuario'    element={<RegistroUsuarios/>}/>
                     <Route exact path='/veraulas'           element={<VistaAulas/>}/>
+                    <Route exact path='/reservaaulas'        element={<FormularioReservaAula/>}/>
                     <Route path='*'                         element={<Error404Screen/>}/>
                 </Routes>
             </div>

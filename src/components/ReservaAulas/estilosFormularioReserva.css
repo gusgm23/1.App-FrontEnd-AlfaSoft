@@ -1,0 +1,58 @@
+.contenedor-reserva-aulas{
+    margin-top: 0px;
+ 
+}
+.contenedor-reserva{
+    background-color: white;
+    margin-top: 5%;
+    display: flex;
+    margin-left: 35%;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    width: 600px;
+    font-weight: bolder;
+}
+.contenedor-elementos-reserva-aulas{
+    padding-top: 5%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+
+}
+.campos-reserva-aulas{
+    padding: 20px;
+    display: flex;
+}
+.btns-reserva-aula{
+   
+}
+.inputs{
+    width: 180px;
+    border: 1px solid #c8c8c8;
+    background: #e3e6ec;
+    box-shadow: 5px 5px 12px #d1d9e6,
+    -5px -5px 12px #ffffff;
+}
+.boton-cancelar{
+    background-color: red;
+    height: 40px;
+    width: 120px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bolder;
+    margin-bottom: 20px ;
+
+}
+.boton-aceptar{
+    background-color: rgb(77, 202, 77);
+    height: 40px;
+    width: 120px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bolder;
+
+    margin-left: 30px;
+    margin-bottom: 20px ;
+
+}
