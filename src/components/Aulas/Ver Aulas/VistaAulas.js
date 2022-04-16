@@ -9,7 +9,7 @@ export const VistaAulas = () => {
     return (
         <div className='contenedor-gral'>
             <div className='contenedor-elementos-lista'>
-                <h2 className='titulo-ver-aulas'>Aulas Registradas:</h2>
+                <h2 className='titulo-ver-aulas'>Aulas Registradas: {Aulas.length}</h2>
                 <hr/>
                 {
                     Aulas.map( (item) => (
