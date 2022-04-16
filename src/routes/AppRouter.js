@@ -7,17 +7,16 @@ import {
 } from "react-router-dom";
 
 
-import { NavBar } from '../../NavBar';
-import { AboutScreen } from '../../AboutScreen';
-import { HomeScreen } from '../../HomeScreen';
-import { LoginScreen } from '../../LoginScreen';
-
-//import { RegistroUsuarios } from './RegistroUsuariosScreen';
-
-import { RegistroUsuarios } from '../../RegistroUsuarios/RegistroUsuarios';
-import { Error404Screen } from '../../Page404/Error404Screen';
-import { VistaAulas } from '../../Aulas/Ver Aulas/VistaAulas';
-import { RegistroAulasScreen } from '../../Aulas/RegistroAulas/RegistroAulasScreen';
+import { NavBar } from '../components/NavBar/NavBar';
+import { AboutScreen } from '../components/AboutScreen';
+import { HomeScreen } from '../components/HomeScreen';
+import { LoginScreen } from '../components/LoginScreen';
+import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
+import { Error404Screen } from '../components/Page404/Error404Screen';
+import { VistaAulas } from '../components/Aulas/Ver Aulas/VistaAulas';
+import { RegistroAulasScreen } from '../components/Aulas/RegistroAulas/RegistroAulasScreen';
+import { RegistroMateria } from '../components/Materias/RegistroMateria/RegistroMateria';
+import { VerMaterias } from '../components/Materias/VerMaterias/VerMaterias';
 
 
 export const AppRouter = () => {
@@ -33,7 +32,11 @@ export const AppRouter = () => {
                     <Route exact path='/login'              element={<LoginScreen/>}/>
                     <Route exact path='/registroaula'       element={<RegistroAulasScreen/>}/>
                     <Route exact path='/registrousuario'    element={<RegistroUsuarios/>}/>
+                    <Route exact path='/registromateria'    element={<RegistroMateria/>}/>
+
                     <Route exact path='/veraulas'           element={<VistaAulas/>}/>
+                    <Route exact path='/vermaterias'        element={<VerMaterias/>}/>
+
                     <Route path='*'                         element={<Error404Screen/>}/>
                 </Routes>
             </div>
