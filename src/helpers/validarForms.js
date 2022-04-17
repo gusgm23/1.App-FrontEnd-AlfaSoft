@@ -2,9 +2,11 @@
 export const validarCamposVaciosMateria = (valores = {}) => {
     const {codSis, materia, grupo} = valores;
 
-    if(codSis.length == 0 && materia.length == 0 && grupo.length == 0){
+    const Sis = parseInt(codSis);
+
+    if(Sis === 0 && materia.length == 0 && grupo.length == 0){
         return true;
-    }else if(codSis.length == 0 || materia.length == 0 || grupo.length == 0){
+    }else if(Sis === 0 || materia.length == 0 || grupo.length == 0){
         return true;
     }else {
         return false;
@@ -13,11 +15,14 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 }
 
 export const validarCamposLlenosMateria = (valores = {}) => {
+    
     const {codSis, materia, grupo} = valores;
+    // const Sis = parseInt(codSis);
 
-    if( codSis.length >= 8 && materia.length >= 4 && grupo >= 1 ){
+    if( codSis.length >= 8 && materia.length >= 4 && grupo.length >= 1 ){
         return true;
     }else{
+        console.log(codSis.length, materia.length, grupo.length)
         return false;
     }
 

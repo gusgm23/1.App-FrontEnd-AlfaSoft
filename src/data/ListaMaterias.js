@@ -1,6 +1,6 @@
 const ListaMaterias = [{
     id: 1,
-    codSis: 201602903,
+    codSis: 201702903,
     materia: 'Algebra II',
     grupo: '6A'
 },

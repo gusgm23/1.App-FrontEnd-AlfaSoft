@@ -7,7 +7,7 @@ export const VerMaterias = () => {
     return (
         <div className='contenedor-gral'>
             <div className='contenedor-elementos-lista'>
-                <h2 className='titulo-ver-aulas'>Aulas Registradas: {ListaMaterias.length}</h2>
+                <h2 className='titulo-ver-aulas'>Materias Registradas: {ListaMaterias.length}</h2>
                 <hr/>
                 {
                     ListaMaterias.map( (item) => (

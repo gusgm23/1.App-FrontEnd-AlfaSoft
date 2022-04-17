@@ -1,11 +1,15 @@
 import React from 'react'
+import { useModal } from '../../../hooks/useModal';
+import { FormRegistroMateria } from '../../Modal/Contenidos/FormRegistroMateria';
+import { ModalGenerico } from '../../Modal/ModalGenerico';
 
 import './estilos-ver-materias.css'
 
 export const Materia = ({elem}) => {
 
     const { id, codSis, materia, grupo } = elem;
-    console.log(elem)
+
+    const [ isOpen, openModalEdition, closeModalEdition ] = useModal(false);
 
     return (
         <div className='contenedor-datos-aula'>
@@ -21,11 +25,14 @@ export const Materia = ({elem}) => {
                     <div className='caja-btn-editar'>
                         <button 
                             className='btn-editar'
-                            // onClick={openModal}
+                            onClick={ openModalEdition }
                             >
                                 Editar
                         </button>
                     </div>
+                    <ModalGenerico isOpen={ isOpen } closeModal={closeModalEdition}>
+                        <FormRegistroMateria codiSis={codSis} materi={materia} group={grupo} closeModal={closeModalEdition}/>
+                    </ModalGenerico>
                 </div>
     )
 }
