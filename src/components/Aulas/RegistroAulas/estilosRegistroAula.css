@@ -76,3 +76,24 @@ img {
     color: #ffffff;
     background-color: #4fa8fb;
 }
+
+.contenedor-btns-confirmacion {
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn-confirmacion {
+    width: 40%;
+    margin: 10px;
+    border: none;
+    color: #ffffff;
+}
+
+.btn-cancelar {
+    background-color: rgba(220, 53, 69, .9);
+}
+
+.btn-guardar {
+    background-color: #4fa8fb;
+}

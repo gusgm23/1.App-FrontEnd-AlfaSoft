@@ -1,11 +1,14 @@
 import React from 'react'
+import { validarCamposLlenosMateria, validarCamposVaciosMateria } from '../../../helpers/validarForms';
+
 import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
 import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio';
+import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
 
 export const RegistroMateria = () => {
-    const [formValues, handleInputChange] = useForm({
+    const [formValues, handleInputChange, reset] = useForm({
         codSis: '',
         materia: '',
         grupo: ''
@@ -14,12 +17,31 @@ export const RegistroMateria = () => {
     const { codSis, materia, grupo } = formValues;
 
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
+    const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         console.log(formValues)
 
+    }
+
+    const validarForm = () => {
+        if(validarCamposVaciosMateria(formValues)){
+            openModalFormVacio();
+        }else{
+            
+            if( validarCamposLlenosMateria(formValues) ){
+                openModalConfirm();
+            }else{
+                console.log('cumple´nt');
+            }
+
+        }
+    }
+
+    const guardarDatos = () => {
+        console.log('guardando datos de nueva materia');
     }
     
     return (
@@ -66,14 +88,14 @@ export const RegistroMateria = () => {
                         <button 
                             type='button' 
                             className='btn btn-warning'
-                            // onClick={handleCancel}
+                            onClick={ reset }
                         >
                             Cancelar
                         </button>
                         <button 
                             type='submit' 
                             className='btn btn-primary'
-                            onClick={openModalFormVacio}
+                            onClick={validarForm}
                         >
                             Guardar
                         </button>
@@ -82,6 +104,9 @@ export const RegistroMateria = () => {
             </form>
             <ModalGenerico isOpen={ isOpenModalFormVacio } closeModal={ closeModalFormVacio }>
                 <AdvertenciaFormVacio cerrarModal={ closeModalFormVacio }/>
+            </ModalGenerico>
+            <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
+                <Confirmacion cerrarModal={closeModalConfirm} funcGuardar={guardarDatos}/>
             </ModalGenerico>
         </div>
     )

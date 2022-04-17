@@ -5,10 +5,12 @@ import { ModalGenerico } from '../../Modal/ModalGenerico'
 
 import './estilosRegistroAula.css'
 import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio'
+import { validarCamposLlenosAula, validarCamposVaciosAula } from '../../../helpers/validarForms'
+import { Confirmacion } from '../../Modal/Contenidos/Confirmacion'
 
 export const RegistroAulasScreen = () => {
     
-    const [formValues, handleInputChange] = useForm({
+    const [formValues, handleInputChange, reset] = useForm({
         aula: '',
         capacidad: '',
     })
@@ -16,15 +18,34 @@ export const RegistroAulasScreen = () => {
     const { aula, capacidad } = formValues;
     
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
-
-    const handleClick = () => {
-        const seleccion = document.getElementById('estados');
-        console.log(seleccion.options[seleccion.selectedIndex].value);
-        console.log(formValues, );
-    }
-
+    const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
+    
     const handleCancel = () => {
         console.log('cancelar')
+    }
+    
+    const validarFormulario = () => {
+        
+        const seleccion = document.getElementById('estados');
+        const itemSeleccionado = seleccion.options[seleccion.selectedIndex].value;
+
+        if( validarCamposVaciosAula( formValues, itemSeleccionado )){
+            openModalFormVacio();
+        }else{
+            if( validarCamposLlenosAula(formValues) ){
+                openModalConfirm();
+            }else{
+                console.log('datos no cumplen');
+            }
+        }
+    }
+
+    const guardarDatos = () => {
+        
+        const seleccion = document.getElementById('estados');
+        const itemSeleccionado = seleccion.options[seleccion.selectedIndex].value;
+        console.log('datos a guardar: ', formValues, itemSeleccionado);
+
     }
     
     return (
@@ -58,7 +79,7 @@ export const RegistroAulasScreen = () => {
                         <div className='contenedor-flex'>
                             <label className='labels'>Estado:</label>
                             <select id='estados' className='inputs'>
-                                <option value='' defaultValue='selected'>Estado</option>
+                                <option value='estado' defaultValue='selected'>Estado</option>
                                 <option value='libre' >Libre</option>
                                 <option value='deshabilitado' >Deshabilitado</option>
                             </select>
@@ -68,14 +89,14 @@ export const RegistroAulasScreen = () => {
                         <button 
                             type='button' 
                             className='btn btn-warning'
-                            onClick={openModalFormVacio}
+                            onClick={ reset }
                         >
                             Cancelar
                         </button>
                         <button 
                             type='button' 
                             className='btn btn-primary'
-                            onClick={openModalFormVacio}
+                            onClick={validarFormulario}
                         >
                             Confirmar
                         </button>
@@ -84,6 +105,9 @@ export const RegistroAulasScreen = () => {
             </form>
             <ModalGenerico isOpen={isOpenModalFormVacio} closeModal={ closeModalFormVacio }>
                 <AdvertenciaFormVacio cerrarModal={closeModalFormVacio}/>
+            </ModalGenerico>
+            <ModalGenerico isOpen={isOpenModalConfirm} closeModal={ closeModalConfirm }>
+                <Confirmacion cerrarModal={ closeModalConfirm } funcGuardar={ guardarDatos }/>
             </ModalGenerico>
         </div>
     )
