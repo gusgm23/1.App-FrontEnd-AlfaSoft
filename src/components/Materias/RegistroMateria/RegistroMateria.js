@@ -1,5 +1,8 @@
 import React from 'react'
 import { useForm } from '../../../hooks/useForm';
+import { useModal } from '../../../hooks/useModal';
+import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio';
+import { ModalGenerico } from '../../Modal/ModalGenerico';
 
 export const RegistroMateria = () => {
     const [formValues, handleInputChange] = useForm({
@@ -9,6 +12,8 @@ export const RegistroMateria = () => {
     });
 
     const { codSis, materia, grupo } = formValues;
+
+    const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -68,13 +73,16 @@ export const RegistroMateria = () => {
                         <button 
                             type='submit' 
                             className='btn btn-primary'
-                            // onClick={handleClick}
+                            onClick={openModalFormVacio}
                         >
                             Guardar
                         </button>
                     </div>
                 </div>
             </form>
+            <ModalGenerico isOpen={ isOpenModalFormVacio } closeModal={ closeModalFormVacio }>
+                <AdvertenciaFormVacio cerrarModal={ closeModalFormVacio }/>
+            </ModalGenerico>
         </div>
     )
 }

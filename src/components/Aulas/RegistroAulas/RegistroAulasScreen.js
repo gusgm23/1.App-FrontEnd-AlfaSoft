@@ -1,7 +1,10 @@
 import React from 'react'
 import { useForm } from '../../../hooks/useForm'
+import { useModal } from '../../../hooks/useModal'
+import { ModalGenerico } from '../../Modal/ModalGenerico'
 
 import './estilosRegistroAula.css'
+import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio'
 
 export const RegistroAulasScreen = () => {
     
@@ -12,6 +15,8 @@ export const RegistroAulasScreen = () => {
 
     const { aula, capacidad } = formValues;
     
+    const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
+
     const handleClick = () => {
         const seleccion = document.getElementById('estados');
         console.log(seleccion.options[seleccion.selectedIndex].value);
@@ -63,20 +68,23 @@ export const RegistroAulasScreen = () => {
                         <button 
                             type='button' 
                             className='btn btn-warning'
-                            onClick={handleCancel}
+                            onClick={openModalFormVacio}
                         >
                             Cancelar
                         </button>
                         <button 
                             type='button' 
                             className='btn btn-primary'
-                            onClick={handleClick}
+                            onClick={openModalFormVacio}
                         >
                             Confirmar
                         </button>
                     </div>
                 </div>
             </form>
+            <ModalGenerico isOpen={isOpenModalFormVacio} closeModal={ closeModalFormVacio }>
+                <AdvertenciaFormVacio cerrarModal={closeModalFormVacio}/>
+            </ModalGenerico>
         </div>
     )
 }

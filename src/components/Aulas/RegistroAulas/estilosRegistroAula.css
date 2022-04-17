@@ -48,3 +48,31 @@
 display: flex;
 justify-content: space-evenly
 }
+
+img {
+    width: 200px;
+}
+
+.img-advertencia {
+    width: 290px;
+}
+
+.contenedor-advertencia {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.parrafo-advertencia {
+    margin: 10px;
+    font-size: 20px;
+}
+
+.btn-entendido {
+    border: none;
+    width: 30%;
+    height: 40px;
+    color: #ffffff;
+    background-color: #4fa8fb;
+}

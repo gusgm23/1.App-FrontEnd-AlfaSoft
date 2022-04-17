@@ -1,7 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useModal } from '../../../hooks/useModal';
 import { ModalEjm } from '../../Modal/ModalEjm';
-import { useModal } from '../../Modal/useModal';
+;
 
 export const Aula = ({elem}) => {
 
