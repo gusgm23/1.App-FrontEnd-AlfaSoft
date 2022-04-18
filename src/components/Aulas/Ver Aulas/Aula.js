@@ -1,8 +1,9 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+
 import { useModal } from '../../../hooks/useModal';
 import { ModalEjm } from '../../Modal/ModalEjm';
-;
+import { ModalGenerico } from '../../Modal/ModalGenerico';
+import { FormRegistroAula } from '../RegistroAulas/FormRegistroAula';
 
 export const Aula = ({elem}) => {
 
@@ -12,7 +13,7 @@ export const Aula = ({elem}) => {
         console.log(id);
     }
 
-    const [isOpenModal, openModal, closeModal] = useModal(false);
+    const [isOpenModalEdicion, openModalEdicion, closeModalEdicion] = useModal(false);
 
     return (
         <div className='contenedor-datos-aula'>
@@ -28,17 +29,20 @@ export const Aula = ({elem}) => {
                     <div className='caja-pequeña'>
                         <button 
                             className='btn-editar'
-                            onClick={openModal}
+                            onClick={openModalEdicion}
                             >
                                 Editar
                         </button>
-                        <ModalEjm 
+                        {/* <ModalEjm 
                             isOpen={isOpenModal} 
                             closeModal={closeModal}
                             aula={aula}
                             capacidad={capacidad}
-                        />
+                        /> */}
                     </div>
+                    <ModalGenerico isOpen={isOpenModalEdicion} closeModal={closeModalEdicion}>
+                        <FormRegistroAula aulaEdi={aula} cap={capacidad} estado={estado} closeModal={closeModalEdicion}/>
+                    </ModalGenerico>
                 </div>
     )
 }

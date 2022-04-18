@@ -1,14 +1,15 @@
 import React from 'react'
+
 import { validarCamposLlenosMateria, validarCamposVaciosMateria } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
-import { ModalGenerico } from '../ModalGenerico';
-import { AdvertenciaFormVacio } from './AdvertenciaFormVacio';
-import { Confirmacion } from './Confirmacion';
+import { ModalGenerico } from '../../Modal/ModalGenerico';
+import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio';
+import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
 
-export const FormRegistroMateria = ({ codiSis='', materi, group, closeModal }) => {
+export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModal = () => {} }) => {
     
-    const [formValues, handleInputChange] = useForm({
+    const [formValues, handleInputChange, reset] = useForm({
         codSis: codiSis,
         materia: materi,
         grupo: group
@@ -34,6 +35,7 @@ export const FormRegistroMateria = ({ codiSis='', materi, group, closeModal }) =
             if( validarCamposLlenosMateria(formValues) ){
                 openModalConfirm();
             }else{
+                console.log(typeof(codSis));
                 console.log('cumple´nt');
             }
 
@@ -88,7 +90,9 @@ export const FormRegistroMateria = ({ codiSis='', materi, group, closeModal }) =
                         <button 
                             type='button' 
                             className='btn btn-warning'
-                            onClick={ closeModal }
+                            onClick={ 
+                                codiSis === '' ? reset : closeModal
+                            }
                         >
                             Cancelar
                         </button>

@@ -17,9 +17,9 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 export const validarCamposLlenosMateria = (valores = {}) => {
     
     const {codSis, materia, grupo} = valores;
-    // const Sis = parseInt(codSis);
+    const Sis = String(codSis)
 
-    if( codSis.length >= 8 && materia.length >= 4 && grupo.length >= 1 ){
+    if( Sis.length >= 8 && materia.length >= 4 && grupo.length >= 1 ){
         return true;
     }else{
         console.log(codSis.length, materia.length, grupo.length)

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useModal } from '../../../hooks/useModal';
-import { FormRegistroMateria } from '../../Modal/Contenidos/FormRegistroMateria';
+import { FormRegistroMateria } from '../RegistroMateria/FormRegistroMateria';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
 
 import './estilos-ver-materias.css'

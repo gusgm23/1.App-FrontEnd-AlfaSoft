@@ -11,7 +11,7 @@ export const VerMaterias = () => {
                 <hr/>
                 {
                     ListaMaterias.map( (item) => (
-                        <Materia elem={item}/>
+                        <Materia elem={item} key={item.id}/>
                     ) )
                 }
             </div>
