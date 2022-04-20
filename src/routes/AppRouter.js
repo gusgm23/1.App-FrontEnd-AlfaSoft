@@ -10,7 +10,7 @@ import { NavBar } from '../components/NavBar/NavBar';
 import { AboutScreen } from '../components/AboutScreen';
 import { HomeScreen } from '../components/HomeScreen';
 import { LoginScreen } from '../components/LoginScreen';
-import { RegistroUsuarios } from '../components/RegistroUsuariosScreen';
+import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
 import { Error404Screen } from '../components/Page404/Error404Screen';
 import { VistaAulas } from '../components/Aulas/Ver Aulas/VistaAulas';
 import { RegistroAulasScreen } from '../components/Aulas/RegistroAulas/RegistroAulasScreen';
