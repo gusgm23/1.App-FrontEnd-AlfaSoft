@@ -59,31 +59,31 @@ const Aulas = [{
     estado: 'libre'
 },
 {
-    id:6,
+    id:11,
     aula: '693B',
     capacidad: 60,
     estado: 'libre'
 },
 {
-    id:7,
+    id:12,
     aula: '693A',
     capacidad: 60,
     estado: 'libre'
 },
 {
-    id:8,
+    id:13,
     aula: '655',
     capacidad: 25,
     estado: 'libre'
 },
 {
-    id:9,
+    id:14,
     aula: '617C',
     capacidad: 35,
     estado: 'libre'
 },
 {
-    id:10,
+    id:15,
     aula: '624',
     capacidad: 80,
     estado: 'libre'

@@ -1,0 +1,19 @@
+.caja-grupo {
+    width: 10%;
+}
+
+.caja-sis {
+    width: 20%;
+}
+
+.caja-materia {
+    width: 30%;
+    height: 60%;
+    
+    
+    overflow: auto;
+}
+
+.caja-btn-editar {
+    width: 16%;
+}
