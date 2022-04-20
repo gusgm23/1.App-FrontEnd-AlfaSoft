@@ -7,6 +7,9 @@ import { ModalGenerico } from '../../Modal/ModalGenerico';
 import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio';
 import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
 
+//importacion de las APIs para materia
+import { getMateria, getMateriaId, createMateria, updateMateriaId, deleteMateriaId } from '../../../service/apiMateria';
+
 export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModal = () => {} }) => {
     
     const [formValues, handleInputChange, reset] = useForm({
