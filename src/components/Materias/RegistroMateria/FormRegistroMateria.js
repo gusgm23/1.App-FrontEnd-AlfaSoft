@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { validarCamposLlenosMateria, validarCamposVaciosMateria } from '../../../helpers/validarForms';
+import { controlarCampoCodSis, controlarCampoGrupo, controlarCampoMateria, validarCamposLlenosMateria, validarCamposVaciosMateria } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
@@ -22,11 +22,46 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
 
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
     const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
 
-        // console.log(formValues)
+    const [StatusInputCodSis, setStatusInputCodSis] = useState(false);
+    const [StatusInputMateria, setStatusInputMateria] = useState(false);
+    const [StatusInputGrupo, setStatusInputGrupo] = useState(false);
+
+    const [MsjErrorMateria, setMsjErrorMateria] = useState('');
+    const [MsjErrorGroup, setMsjErrorGroup] = useState('');
+    
+    useEffect(() => {
+        if( codSis === '' ){
+            setStatusInputCodSis(false);
+        }else{
+            controlarCampoCodSis( codSis, setStatusInputCodSis );
+        }
+    }, [codSis])
+    
+    useEffect(() => {
+        
+        if( materia === '' ){
+            setStatusInputMateria(false);
+        }else{
+            controlarCampoMateria( materia, setStatusInputMateria, setMsjErrorMateria )
+        }
+
+    }, [materia])
+    
+    useEffect(() => {
+        
+        if( grupo === '' ){
+            setStatusInputGrupo(false);
+        }else{
+            controlarCampoGrupo( grupo, setStatusInputGrupo, setMsjErrorGroup );
+        }
+
+    }, [grupo])
+    
+
+    const handleSubmit = (e) => {
+        
+        e.preventDefault();
 
     }
     
@@ -57,36 +92,53 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                     <div className='contenedor-elementos'>
                         <div className='contenedor-aula contenedor-flex'>
                             <label className='labels'>Código SIS:</label>
-                            <input 
-                                name='codSis'
-                                className='inputs' 
-                                type='number'
-                                placeholder='201002903'
-                                value={ codSis }
-                                onChange={ handleInputChange }
-                            />
+                            <div className='contenedor-input'>
+                                <input 
+                                    name='codSis'
+                                    className={ StatusInputCodSis===true ? "input-error": "inputs" } 
+                                    type='number'
+                                    placeholder='201002903'
+                                    value={ codSis }
+                                    onChange={ handleInputChange }
+                                />
+                                <p className={ StatusInputCodSis===true? "msj-error": "msj-error-oculto" }>
+                                    Debe ingresar un valor mayor a 8 digitos y no más de 9
+                                </p>
+                            </div>
                         </div>
                         <div className='contenedor-flex'>
                             <label className='labels'>Materia:</label>
-                            <input 
-                                name='materia'
-                                className='inputs' 
-                                type='text'
-                                placeholder='Algebra II'
-                                value={ materia }
-                                onChange={ handleInputChange }
-                            />
+                            <div className='contenedor-input'>
+                                <input 
+                                    name='materia'
+                                    className={ StatusInputMateria ===true ? "input-error": "inputs" }
+                                    type='text'
+                                    placeholder='Algebra II'
+                                    value={ materia }
+                                    onChange={ handleInputChange }
+                                    autoComplete='off'
+                                />
+                                <p className={ StatusInputMateria===true? "msj-error": "msj-error-oculto" }>
+                                    { MsjErrorMateria }
+                                </p>
+                            </div>
                         </div>
                         <div className='contenedor-flex'>
                             <label className='labels'>Grupo:</label>
-                            <input
-                                name='grupo'
-                                className='inputs' 
-                                type='text'
-                                placeholder='6A'
-                                value={ grupo }
-                                onChange={ handleInputChange }
-                            />
+                            <div className='contenedor-input'>
+                                <input
+                                    name='grupo'
+                                    className={ StatusInputGrupo===true? "input-error": "inputs" }
+                                    type='text'
+                                    placeholder='6A'
+                                    value={ grupo }
+                                    onChange={ handleInputChange }
+                                    autoComplete='off'
+                                />
+                                <p className={ StatusInputGrupo===true? "msj-error": "msj-error-oculto" }>
+                                    { MsjErrorGroup }
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div className='contenedor-botones'>

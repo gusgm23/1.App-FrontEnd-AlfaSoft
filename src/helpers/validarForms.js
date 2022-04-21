@@ -78,3 +78,49 @@ export const controlarCampoAula = ( aula='', setStatusInputAula ) => {
     }
 
 }
+
+export const controlarCampoCodSis = ( codSis='', setStatusInputCodSis ) => {
+
+    const sis = String(codSis).length;
+
+    if( sis >= 8 && sis <= 9 ){
+        setStatusInputCodSis(false);
+    }else{
+        setStatusInputCodSis(true);
+    }
+
+}
+
+export const controlarCampoMateria = ( materia='', setStatusInputMateria, setMsjErrorMateria ) => {
+    
+    const tamanioMateria = materia.length;
+
+    if( tamanioMateria < 4 ){
+        setStatusInputMateria(true);
+        setMsjErrorMateria('El nombre es demasiado corto.');
+    } else if( tamanioMateria > 40 ){
+        setStatusInputMateria(true);
+        setMsjErrorMateria('El nombre es demasiado largo.');
+    }else {
+        setStatusInputMateria(false);
+        setMsjErrorMateria('');
+    }
+
+}
+
+export const controlarCampoGrupo = ( grupo='', setStatusInputGroup, setMsjErrorGroup ) => {
+
+    const tamanioGrupo = grupo.length;
+
+    if( tamanioGrupo < 1 ) {
+        setStatusInputGroup(true);
+        setMsjErrorGroup('El dato ingresado es demasiado corto.');
+    }else if ( tamanioGrupo > 3 ) {
+        setStatusInputGroup(true);
+        setMsjErrorGroup('El dato ingresado es demasiado largo.')
+    }else{
+        setStatusInputGroup(false);
+        setMsjErrorGroup('');
+    }
+
+}
