@@ -1,10 +1,13 @@
-import React from 'react'
-import { validarCamposLlenosAula, validarCamposVaciosAula } from '../../../helpers/validarForms';
+import React, { useEffect, useState } from 'react'
+
+import { controlarCampoAula, controlarCampoCapacidad, validarCamposLlenosAula, validarCamposVaciosAula } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm'
 import { useModal } from '../../../hooks/useModal';
 import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio';
 import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
+
+import './estilosRegistroAula.css';
 
 export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = () => {} }) => {
     
@@ -17,7 +20,27 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
 
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
     const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
+
+    const [statusInputCapacidad, setStatusInputCapacidad] = useState(false);
+    const [statusInputAula, setStatusInputAula] = useState(false);
+
+    useEffect(() => {
+        if(capacidad === ''){
+            setStatusInputCapacidad(false)
+        }else{
+            controlarCampoCapacidad( capacidad, setStatusInputCapacidad );
+        }
+    }, [capacidad])
     
+    useEffect(() => {
+        if( aula === '' ){
+            setStatusInputAula(false)
+        }else{
+            controlarCampoAula( aula, setStatusInputAula );
+        }
+    }, [aula])
+    
+
     const validarFormulario = () => {
         
         const seleccion = document.getElementById('estados');
@@ -50,25 +73,37 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
                     <div className='contenedor-elementos'>
                         <div className='contenedor-aula contenedor-flex'>
                             <label className='labels'>Aula:</label>
-                            <input 
-                                name='aula'
-                                className='inputs' 
-                                type='text'
-                                placeholder='690A'
-                                value={ aula }
-                                onChange={ handleInputChange }
-                            />
+                            <div className='contenedor-input'>
+                                <input 
+                                    name='aula'
+                                    className={statusInputAula===true ? "input-error": "inputs"} 
+                                    type='text'
+                                    placeholder='690A'
+                                    value={ aula }
+                                    onChange={ handleInputChange }
+                                    autoComplete='off'
+                                />
+                                <p className={ statusInputAula===true? "msj-error": "msj-error-oculto" }>
+                                    Debes ingresar un nombre con almenos 3 letras y no más de 10 letras
+                                </p>
+                            </div>
                         </div>
                         <div className='contenedor-flex'>
                             <label className='labels'>Capacidad:</label>
-                            <input 
-                                name='capacidad'
-                                className='inputs' 
-                                type='number'
-                                placeholder='10'
-                                value={ capacidad }
-                                onChange={ handleInputChange }
-                            />
+                            <div className='contenedor-input'>
+                                <input 
+                                    name='capacidad'
+                                    className={statusInputCapacidad===true ? "input-error": "inputs" }
+                                    type='number'
+                                    placeholder='10'
+                                    value={ capacidad }
+                                    onChange={ handleInputChange }
+                                />
+                                <p className={statusInputCapacidad===true? "msj-error": "msj-error-oculto"}
+                                >
+                                    Debe ingresar una cantidad entre 5 y 100
+                                </p>
+                            </div>
                         </div>
                         <div className='contenedor-flex'>
                             <label className='labels'>Estado:</label>

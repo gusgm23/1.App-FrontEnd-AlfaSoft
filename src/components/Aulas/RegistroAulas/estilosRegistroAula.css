@@ -100,3 +100,31 @@ img {
 .form-registro-aula {
     margin: 0px;
 }
+
+.input-error {
+    width: 180px;
+    background: #e3e6ec;
+    box-shadow: 5px 5px 12px #d1d9e6,
+    -5px -5px 12px #ffffff;
+    outline-color: red;
+    border: 1px solid #c8c8c8;
+}
+
+input {
+    outline-color: #4fa8fb;
+}
+
+.contenedor-input {
+    width: 45%;
+}
+
+.msj-error-oculto{
+    display: none;
+}
+
+.msj-error {
+    font-size: 12px;
+    margin: 0px;
+    color: red;
+    display: flex;
+}

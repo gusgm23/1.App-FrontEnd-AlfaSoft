@@ -56,3 +56,25 @@ export const validarCamposLlenosAula = ( valores = {} ) => {
     }
 
 }
+
+export const controlarCampoCapacidad = (capacidad, setStatusInput) => {
+    const numCapacidad = parseInt(capacidad);
+
+    if( numCapacidad >= 5 && numCapacidad <= 100){
+        setStatusInput(false);
+    }else{
+        setStatusInput(true);
+    }
+}
+
+export const controlarCampoAula = ( aula='', setStatusInputAula ) => {
+
+    const tamanioAula = aula.length
+    
+    if(tamanioAula >= 3 && tamanioAula <= 10){
+        setStatusInputAula(false);
+    }else{
+        setStatusInputAula(true);
+    }
+
+}
