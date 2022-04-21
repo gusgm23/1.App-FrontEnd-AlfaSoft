@@ -7,20 +7,20 @@ import './estilos-ver-materias.css'
 
 export const Materia = ({elem}) => {
 
-    const { id, codSis, materia, grupo } = elem;
+    const { id, nombreMateria, grupoMateria, codigoMateria } = elem;
 
     const [ isOpen, openModalEdition, closeModalEdition ] = useModal(false);
 
     return (
         <div className='contenedor-datos-aula'>
                     <div className='caja-sis'>
-                        <label>Código SIS: {codSis}</label>
+                        <label>Código SIS: {codigoMateria}</label>
                     </div>
                     <div className='caja-materia'>
-                        Materia: {materia}
+                        Materia: {nombreMateria}
                     </div>
                     <div className='caja-grupo'>
-                        <label>Grupo: {grupo}</label>
+                        <label>Grupo: {grupoMateria}</label>
                     </div>
                     <div className='caja-btn-editar'>
                         <button 
@@ -31,7 +31,7 @@ export const Materia = ({elem}) => {
                         </button>
                     </div>
                     <ModalGenerico isOpen={ isOpen } closeModal={closeModalEdition}>
-                        <FormRegistroMateria codiSis={codSis} materi={materia} group={grupo} closeModal={closeModalEdition}/>
+                        <FormRegistroMateria codiSis={codigoMateria} materi={nombreMateria} group={grupoMateria} closeModal={closeModalEdition}/>
                     </ModalGenerico>
                 </div>
     )

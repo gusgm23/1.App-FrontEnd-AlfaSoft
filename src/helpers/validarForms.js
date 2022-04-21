@@ -98,7 +98,7 @@ export const controlarCampoMateria = ( materia='', setStatusInputMateria, setMsj
     if( tamanioMateria < 4 ){
         setStatusInputMateria(true);
         setMsjErrorMateria('El nombre es demasiado corto.');
-    } else if( tamanioMateria > 40 ){
+    } else if( tamanioMateria > 80 ){
         setStatusInputMateria(true);
         setMsjErrorMateria('El nombre es demasiado largo.');
     }else {

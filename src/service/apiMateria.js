@@ -1,7 +1,16 @@
 import axios from "axios";
 
-export const getMateria = () =>{
-    return axios.get('http://127.0.0.1:8000/api/obtenerMaterias');
+export const getMateria = ( setListaMateria ) =>{
+    axios.get('http://127.0.0.1:8000/api/obtenerMaterias')
+    .then( response => {
+        setListaMateria({
+            state: true,
+            data: response.data
+        });
+    } )
+    .catch( e => {
+        console.log(e);
+    } )
 }
 
 export const getMateriaId = (id) =>{
