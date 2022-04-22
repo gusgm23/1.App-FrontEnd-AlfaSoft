@@ -124,3 +124,4 @@ export const controlarCampoGrupo = ( grupo='', setStatusInputGroup, setMsjErrorG
     }
 
 }
+

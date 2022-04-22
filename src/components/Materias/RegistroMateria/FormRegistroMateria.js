@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { controlarCampoCodSis, controlarCampoGrupo, controlarCampoMateria, validarCamposLlenosMateria, validarCamposVaciosMateria } from '../../../helpers/validarForms';
+import { controlarCampoCodSis, controlarCampoGrupo, controlarCampoMateria, ObtenerListaMaterias, validarCamposLlenosMateria, validarCamposVaciosMateria } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
@@ -9,6 +9,8 @@ import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
 
 //importacion de las APIs para materia
 import { getMateria, getMateriaId, createMateria, updateMateriaId, deleteMateriaId } from '../../../service/apiMateria';
+import { ErrorGuardarDatos } from '../../Modal/Contenidos/ErrorGuardarDatos';
+import { Hecho } from '../../Modal/Contenidos/Hecho';
 
 export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModal = () => {} }) => {
     
@@ -20,15 +22,27 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
 
     const { codSis, materia, grupo } = formValues;
 
+    //Hooks para controlar Modales
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
     const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
+    const [isOpenModalWarning, openModalWarning, closeModalWarning] = useModal(false);
+    const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
 
+    //Hooks para controlar contenido de campos
     const [StatusInputCodSis, setStatusInputCodSis] = useState(false);
     const [StatusInputMateria, setStatusInputMateria] = useState(false);
     const [StatusInputGrupo, setStatusInputGrupo] = useState(false);
 
+    //Hooks para mostrar mensajes de errores en los campos respectivos
     const [MsjErrorMateria, setMsjErrorMateria] = useState('');
     const [MsjErrorGroup, setMsjErrorGroup] = useState('');
+
+    const [listaMaterias, setListaMaterias] = useState({
+        state: false,
+        data: []
+    });
+
+    const { state, data } = listaMaterias;
     
     useEffect(() => {
         if( codSis === '' ){
@@ -56,7 +70,11 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
             controlarCampoGrupo( grupo, setStatusInputGrupo, setMsjErrorGroup );
         }
 
-    }, [grupo])
+    }, [grupo]);
+
+    useEffect(() => {
+        getMateria( setListaMaterias );
+    }, [])
     
 
     const handleSubmit = (e) => {
@@ -80,8 +98,11 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
         }
     }
 
+    
     const guardarDatos = () => {
-        console.log('guardando datos de nueva materia', formValues);
+        
+        createMateria( formValues, `materia-${data.length+1}`, 'user-1', openModalSuccess, openModalWarning );
+        console.log(data.length);
     }
 
     return (
@@ -166,6 +187,12 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
                 <Confirmacion cerrarModal={closeModalConfirm} funcGuardar={guardarDatos}/>
+            </ModalGenerico>
+            <ModalGenerico isOpen={ isOpenModalWarning } closeModal={ closeModalWarning }>
+                <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
+            </ModalGenerico>
+            <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
+                <Hecho cerrarModal={ closeModalSuccess }/>
             </ModalGenerico>
         </div>
     )
