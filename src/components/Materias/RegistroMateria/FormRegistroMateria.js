@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { controlarCampoCodSis, controlarCampoGrupo, controlarCampoMateria, ObtenerListaMaterias, validarCamposLlenosMateria, validarCamposVaciosMateria } from '../../../helpers/validarForms';
+import { controlarCampoCodSis, controlarCampoGrupo, controlarCampoMateria, ObtenerListaMaterias, validarCamposLlenosMateria, validarCamposVaciosMateria, verificarExistenciaMateria } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
@@ -101,8 +101,8 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
     
     const guardarDatos = () => {
         
-        createMateria( formValues, `materia-${data.length+1}`, 'user-1', openModalSuccess, openModalWarning );
-        console.log(data.length);
+        // createMateria( formValues, `materia-${data.length+1}`, 'user-1', openModalSuccess, openModalWarning );
+        console.log(verificarExistenciaMateria());
     }
 
     return (

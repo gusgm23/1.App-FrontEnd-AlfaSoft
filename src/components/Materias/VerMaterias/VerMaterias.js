@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import ListaMaterias from '../../../data/ListaMaterias'
 import { getMateria } from '../../../service/apiMateria'
 import Spinner from '../../Spinner/Spinner'
 import { Materia } from './Materia'
@@ -19,7 +18,9 @@ export const VerMaterias = () => {
     }, [state])
     
 
-    
+    const holi = () => {
+        console.log('probando')
+    }
 
     return (
         <div className='contenedor-gral'>
@@ -28,9 +29,7 @@ export const VerMaterias = () => {
                 <hr/>
                 {
                     state ?
-                    data.map( (item) => (
-                        <Materia elem={item} key={item.id}/>
-                    ) )
+                    <Materia data={data}/>
                     : <Spinner/>
                 }
             </div>

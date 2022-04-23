@@ -1,3 +1,4 @@
+import ListaMaterias from '../data/ListaMaterias'
 
 export const validarCamposVaciosMateria = (valores = {}) => {
     const {codSis, materia, grupo} = valores;
@@ -14,6 +15,17 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 
 }
 
+export const validaCamposVaciosGrupo = ( valores = {} ) => {
+    const { grupo } = valores;
+
+    if( grupo.length == 0){
+        return true;
+    }else {
+        return false;
+    }
+
+}
+
 export const validarCamposLlenosMateria = (valores = {}) => {
     
     const {codSis, materia, grupo} = valores;
@@ -23,6 +35,18 @@ export const validarCamposLlenosMateria = (valores = {}) => {
         return true;
     }else{
         console.log(codSis.length, materia.length, grupo.length)
+        return false;
+    }
+
+}
+
+export const validarCamposLlenosGrupo = ( valores = {} ) => {
+
+    const { grupo } = valores;
+
+    if( grupo.length >=1 && grupo.length <= 5){
+        return true;
+    }else{
         return false;
     }
 
@@ -115,7 +139,7 @@ export const controlarCampoGrupo = ( grupo='', setStatusInputGroup, setMsjErrorG
     if( tamanioGrupo < 1 ) {
         setStatusInputGroup(true);
         setMsjErrorGroup('El dato ingresado es demasiado corto.');
-    }else if ( tamanioGrupo > 3 ) {
+    }else if ( tamanioGrupo > 5 ) {
         setStatusInputGroup(true);
         setMsjErrorGroup('El dato ingresado es demasiado largo.')
     }else{
@@ -125,3 +149,10 @@ export const controlarCampoGrupo = ( grupo='', setStatusInputGroup, setMsjErrorG
 
 }
 
+export const verificarExistenciaMateria = () => {
+    
+    const {codSis} = ListaMaterias;
+
+    return ListaMaterias.includes(201602903);
+
+}
