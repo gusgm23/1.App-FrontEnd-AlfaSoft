@@ -58,7 +58,7 @@ export const Materia = ({data=[]}) => {
                                             <button 
                                                 className='btn-editar editar-mat btn-ver-mat'
                                                 >
-                                                    <NavLink exact='true' to='/vergrupos' >About</NavLink>
+                                                    <NavLink exact='true' to='/vergrupos' >Detalles</NavLink>
                                             </button>
                                         </section>
                                     </td>
