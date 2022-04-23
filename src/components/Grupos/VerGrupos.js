@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 import ListaMaterias from '../../data/ListaMaterias'
 import { useModal } from '../../hooks/useModal'
@@ -18,12 +19,19 @@ export const VerGrupos = () => {
                 <div className='contenedor-elementos-lista'>
                     <div className='contenedor-titulo-componente-tabla'>
                         <h2>Grupos registrados para la materia: { ListaMaterias.length }</h2>
-                        <button
-                            className='btn-crear-grupo'
-                            onClick={ openModalCreate }
-                        >
-                            Crear grupo
-                        </button>
+                        <div className='contenedor-btns-tabla-grupos'>
+                            <button
+                                className='btn-crear-grupo'
+                                onClick={ openModalCreate }
+                            >
+                                Crear grupo
+                            </button>
+                            <button
+                                className='btn-volver-grupo'
+                            >
+                                <NavLink exact='true' to='/vermaterias' >Volver</NavLink>
+                            </button>
+                        </div>
                     </div>
                     <hr/>
                     <TablaGrupos data={ListaMaterias}/>

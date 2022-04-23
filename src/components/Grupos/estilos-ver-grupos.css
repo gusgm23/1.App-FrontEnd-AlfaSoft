@@ -31,7 +31,7 @@
 .btn-crear-grupo {
     background-color: rgba(25, 135, 84, .9);
     color: #fff;
-    width: 130px;
+    width: 60%;
     box-shadow: 5px 5px 12px #c8c8c8;
     border: solid 1px silver;
     transition: .5s;
@@ -73,4 +73,27 @@
 
 .contenedor-input-crear-grupo {
     width: 100%;
+}
+
+.contenedor-btns-tabla-grupos {
+    display: flex;
+}
+
+.btn-volver-grupo {
+    background-color: #4fa8fb;
+    color: #fff;
+    width: 100px;
+    box-shadow: 5px 5px 12px #c8c8c8;
+    border: solid 1px silver;
+    transition: .5s;
+    margin-left: 10px;
+}
+
+.btn-volver-grupo:hover {
+    background-color: rgba(79, 168, 251, .7);
+    color: #fff;
+}
+
+a:hover{
+    color: #fff;
 }
