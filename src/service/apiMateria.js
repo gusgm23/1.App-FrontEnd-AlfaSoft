@@ -17,14 +17,12 @@ export const getMateriaId = (id) =>{
     return axios.get(`http://127.0.0.1:8000/api/obtenerMateriasId/${id}`);
 }
 
-export const createMateria = ({ codSis, materia, grupo }, id, user_id, openModalSuccess, openModalWarning) =>{
+export const createMateria = ({ codSis, materia }, user_id, estado,openModalSuccess, openModalWarning) =>{
     return axios.post('http://127.0.0.1:8000/api/crearMateria',
     {
-        id:             `${id}`,
         codigoMateria:  `${codSis}`,
         nombreMateria:  `${materia}`,
-        //grupoMateria:   `${grupo}`,
-        //estadoMateria:  `${estadoMateria}`,
+        estadoMateria:  `${estado}`,
         user_id:        `${user_id}`
     }
     ).then( (response) => {

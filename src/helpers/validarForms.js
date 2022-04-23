@@ -1,13 +1,13 @@
 import ListaMaterias from '../data/ListaMaterias'
 
 export const validarCamposVaciosMateria = (valores = {}) => {
-    const {codSis, materia, grupo} = valores;
+    const {codSis, materia} = valores;
 
     const Sis = parseInt(codSis);
 
-    if(Sis === 0 && materia.length == 0 && grupo.length == 0){
+    if(Sis === 0 && materia.length == 0){
         return true;
-    }else if(Sis === 0 || materia.length == 0 || grupo.length == 0){
+    }else if(Sis === 0 || materia.length == 0){
         return true;
     }else {
         return false;
@@ -28,13 +28,13 @@ export const validaCamposVaciosGrupo = ( valores = {} ) => {
 
 export const validarCamposLlenosMateria = (valores = {}) => {
     
-    const {codSis, materia, grupo} = valores;
+    const {codSis, materia} = valores;
     const Sis = String(codSis)
 
-    if( Sis.length >= 8 && materia.length >= 4 && grupo.length >= 1 ){
+    if( Sis.length >= 8 && materia.length >= 4 ){
         return true;
     }else{
-        console.log(codSis.length, materia.length, grupo.length)
+        console.log(codSis.length, materia.length)
         return false;
     }
 
@@ -149,10 +149,27 @@ export const controlarCampoGrupo = ( grupo='', setStatusInputGroup, setMsjErrorG
 
 }
 
-export const verificarExistenciaMateria = () => {
-    
-    const {codSis} = ListaMaterias;
+export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExiste, setCodExiste, setSePuedeGuardar) => {
 
-    return ListaMaterias.includes(201602903);
+    const { codSis,  materia} = formValues
+
+    data.forEach(element => {
+        
+        if(element.codigoMateria === codSis){
+            if(element.nombreMateria === materia){
+                setCodExiste(true);
+                setMateriaExiste(true);
+                setSePuedeGuardar(false);
+            }else{
+                setCodExiste(true);
+                setSePuedeGuardar(false);
+            }
+        }else if(element.nombreMateria === materia){
+            setMateriaExiste(true);
+            setSePuedeGuardar(false);
+        }else{
+            setSePuedeGuardar(true);
+        }
+    });
 
 }

@@ -17,7 +17,6 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
     const [formValues, handleInputChange, reset] = useForm({
         codSis: codiSis,
         materia: materi,
-        grupo: group
     })
 
     const { codSis, materia, grupo } = formValues;
@@ -31,16 +30,21 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
     //Hooks para controlar contenido de campos
     const [StatusInputCodSis, setStatusInputCodSis] = useState(false);
     const [StatusInputMateria, setStatusInputMateria] = useState(false);
-    const [StatusInputGrupo, setStatusInputGrupo] = useState(false);
+    const [codExiste, setCodExiste] = useState(false);
+    const [materiaExiste, setMateriaExiste] = useState(false)
 
     //Hooks para mostrar mensajes de errores en los campos respectivos
     const [MsjErrorMateria, setMsjErrorMateria] = useState('');
-    const [MsjErrorGroup, setMsjErrorGroup] = useState('');
+
+    //Hook para estado de peticion de materias
+    const [statePerition, setStatePetition] = useState(false);
 
     const [listaMaterias, setListaMaterias] = useState({
         state: false,
         data: []
     });
+
+    const [sePuedeGuardar, setSePuedeGuardar] = useState(false);
 
     const { state, data } = listaMaterias;
     
@@ -50,6 +54,9 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
         }else{
             controlarCampoCodSis( codSis, setStatusInputCodSis );
         }
+
+        setCodExiste(false);
+
     }, [codSis])
     
     useEffect(() => {
@@ -60,36 +67,34 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
             controlarCampoMateria( materia, setStatusInputMateria, setMsjErrorMateria )
         }
 
-    }, [materia])
-    
-    useEffect(() => {
-        
-        if( grupo === '' ){
-            setStatusInputGrupo(false);
-        }else{
-            controlarCampoGrupo( grupo, setStatusInputGrupo, setMsjErrorGroup );
-        }
+        setMateriaExiste(false);
 
-    }, [grupo]);
+    }, [materia])
 
     useEffect(() => {
         getMateria( setListaMaterias );
-    }, [])
+    }, [statePerition]);
     
-
     const handleSubmit = (e) => {
         
         e.preventDefault();
 
     }
     
+    useEffect(() => {
+        verificarExistenciaMateria(listaMaterias, formValues, setMateriaExiste, setCodExiste , setSePuedeGuardar);
+    }, [formValues])
+    
+    
     const validarForm = () => {
         if(validarCamposVaciosMateria(formValues)){
             openModalFormVacio();
         }else{
             
-            if( validarCamposLlenosMateria(formValues) ){
-                openModalConfirm();
+            if( validarCamposLlenosMateria(formValues)){
+                if(!codExiste && !materiaExiste){
+                    openModalConfirm();
+                }
             }else{
                 console.log(typeof(codSis));
                 console.log('cumple´nt');
@@ -100,9 +105,10 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
 
     
     const guardarDatos = () => {
+        setStatePetition(true);
         
-        // createMateria( formValues, `materia-${data.length+1}`, 'user-1', openModalSuccess, openModalWarning );
-        console.log(verificarExistenciaMateria());
+        createMateria( formValues, '1', 'habilitado', openModalSuccess, openModalWarning );
+
     }
 
     return (
@@ -125,6 +131,9 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                                 <p className={ StatusInputCodSis===true? "msj-error": "msj-error-oculto" }>
                                     Debe ingresar un valor mayor a 8 digitos y no más de 9
                                 </p>
+                                <p className={ codExiste===true? "msj-error": "msj-error-oculto" }>
+                                    El código SIS ingresado ya se encuentra registrado.
+                                </p>
                             </div>
                         </div>
                         <div className='contenedor-flex'>
@@ -142,25 +151,12 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                                 <p className={ StatusInputMateria===true? "msj-error": "msj-error-oculto" }>
                                     { MsjErrorMateria }
                                 </p>
-                            </div>
-                        </div>
-                        <div className='contenedor-flex'>
-                            <label className='labels'>Grupo:</label>
-                            <div className='contenedor-input'>
-                                <input
-                                    name='grupo'
-                                    className={ StatusInputGrupo===true? "input-error": "inputs" }
-                                    type='text'
-                                    placeholder='6A'
-                                    value={ grupo }
-                                    onChange={ handleInputChange }
-                                    autoComplete='off'
-                                />
-                                <p className={ StatusInputGrupo===true? "msj-error": "msj-error-oculto" }>
-                                    { MsjErrorGroup }
+                                <p className={ materiaExiste===true? "msj-error": "msj-error-oculto" }>
+                                    El nombre de la materia ingresada ya se fue registrado.
                                 </p>
                             </div>
                         </div>
+                        {/* estado va aqui */}
                     </div>
                     <div className='contenedor-botones'>
                         <button 
@@ -176,6 +172,7 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                             type='submit' 
                             className='btn btn-primary'
                             onClick={validarForm}
+                            
                         >
                             Guardar
                         </button>
