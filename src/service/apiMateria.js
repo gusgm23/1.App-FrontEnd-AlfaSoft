@@ -24,7 +24,7 @@ export const createMateria = ({ codSis, materia, grupo }, id, user_id, openModal
         codigoMateria:  `${codSis}`,
         nombreMateria:  `${materia}`,
         //grupoMateria:   `${grupo}`,
-        estadoMateria:  `${estadoMateria}`,
+        //estadoMateria:  `${estadoMateria}`,
         user_id:        `${user_id}`
     }
     ).then( (response) => {
