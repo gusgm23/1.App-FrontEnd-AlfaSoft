@@ -16,7 +16,8 @@ export const VerMaterias = () => {
     useEffect(() => {
         getMateria(setListaMateria);
     }, [state])
-    
+
+    // setTimeout('getMateria(setListaMateria)',10000);
 
     const holi = () => {
         console.log('probando')
@@ -29,7 +30,7 @@ export const VerMaterias = () => {
                 <hr/>
                 {
                     state ?
-                    <Materia data={data}/>
+                    <Materia data={data} />
                     : <Spinner/>
                 }
             </div>

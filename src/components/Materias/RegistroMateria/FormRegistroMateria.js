@@ -12,7 +12,7 @@ import { getMateria, getMateriaId, createMateria, updateMateriaId, deleteMateria
 import { ErrorGuardarDatos } from '../../Modal/Contenidos/ErrorGuardarDatos';
 import { Hecho } from '../../Modal/Contenidos/Hecho';
 
-export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModal = () => {} }) => {
+export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModal = () => {}, titulo='' , idMat=''}) => {
     
     const [formValues, handleInputChange, reset] = useForm({
         codSis: codiSis,
@@ -82,7 +82,7 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
     }
     
     useEffect(() => {
-        verificarExistenciaMateria(listaMaterias, formValues, setMateriaExiste, setCodExiste , setSePuedeGuardar);
+        verificarExistenciaMateria(listaMaterias, formValues, setMateriaExiste, setCodExiste , setSePuedeGuardar , codiSis, materi);
     }, [formValues])
     
     
@@ -106,14 +106,21 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
     
     const guardarDatos = () => {
         setStatePetition(true);
+
+        const seleccion = document.getElementById('estados');
+        const itemSeleccionado = seleccion.options[seleccion.selectedIndex].value;
         
-        createMateria( formValues, '1', 'habilitado', openModalSuccess, openModalWarning );
+        if(idMat === ''){
+            createMateria( formValues, '1', itemSeleccionado, openModalSuccess, openModalWarning );
+        }else{
+            updateMateriaId( formValues, '1', itemSeleccionado, openModalSuccess, openModalWarning, idMat );
+        }
 
     }
 
     return (
         <div className='contenedor-registro-aula form-registro-aula'>
-            <h2 className='titulo-registro-aula'>Registro de Materia</h2>
+            <h2 className='titulo-registro-aula'>{ titulo === ''? 'Registrar materia': `${titulo} materia` }</h2>
             <form onSubmit={ handleSubmit }>
                 <div className='contenedor-general'>
                     <div className='contenedor-elementos'>
@@ -156,7 +163,13 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                                 </p>
                             </div>
                         </div>
-                        {/* estado va aqui */}
+                        <div className='contenedor-flex'>
+                            <label className='labels'>Estado:</label>
+                            <select id='estados' className='inputs'>
+                                <option value='Habilitado' >Habilitado</option>
+                                <option value='deshabilitado' >Deshabilitado</option>
+                            </select>
+                        </div>
                     </div>
                     <div className='contenedor-botones'>
                         <button 

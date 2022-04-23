@@ -149,27 +149,47 @@ export const controlarCampoGrupo = ( grupo='', setStatusInputGroup, setMsjErrorG
 
 }
 
-export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExiste, setCodExiste, setSePuedeGuardar) => {
+export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExiste, setCodExiste, setSePuedeGuardar, codiSis, materi) => {
 
     const { codSis,  materia} = formValues
 
     data.forEach(element => {
         
-        if(element.codigoMateria === codSis){
-            if(element.nombreMateria === materia){
-                setCodExiste(true);
+        if(codiSis === ''){
+            if(element.codigoMateria === codSis){
+                if(element.nombreMateria === materia){
+                    setCodExiste(true);
+                    setMateriaExiste(true);
+                    setSePuedeGuardar(false);
+                }else{
+                    setCodExiste(true);
+                    setSePuedeGuardar(false);
+                }
+            }else if(element.nombreMateria === materia){
                 setMateriaExiste(true);
                 setSePuedeGuardar(false);
             }else{
-                setCodExiste(true);
-                setSePuedeGuardar(false);
+                setSePuedeGuardar(true);
             }
-        }else if(element.nombreMateria === materia){
-            setMateriaExiste(true);
-            setSePuedeGuardar(false);
         }else{
-            setSePuedeGuardar(true);
+            
+            if(element.codigoMateria === codSis && element.codigoMateria != codiSis){
+                if(element.nombreMateria === materia && element.nombreMateria != materi){
+                    setCodExiste(true);
+                    setMateriaExiste(true);
+                    setSePuedeGuardar(false);
+                }else{
+                    setCodExiste(true);
+                    setSePuedeGuardar(false);
+                }
+            }else if(element.nombreMateria === materia && element.nombreMateria != materi){
+                setMateriaExiste(true);
+                setSePuedeGuardar(false);
+            }else{
+                setSePuedeGuardar(true);
+            }
         }
+
     });
 
 }

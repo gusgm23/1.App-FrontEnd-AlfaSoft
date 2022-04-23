@@ -13,15 +13,17 @@ export const Materia = ({data=[]}) => {
     const [values, setValues] = useState({
         codigoMat:'',
         nombreMat:'',
+        id: ''
     });
 
-    const { codigoMat, nombreMat } = values;
+    const { codigoMat, nombreMat, id } = values;
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
 
     const actualizar = (item) => {
         setValues({
             codigoMat: item.codigoMateria,
             nombreMat: item.nombreMateria,
+            id: item.id
         });
         openModalEdicion();
     }
@@ -37,6 +39,7 @@ export const Materia = ({data=[]}) => {
                             <th>#</th>
                             <th>Codigo SIS</th>
                             <th>Materia</th>
+                            <th>Estado</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -47,6 +50,7 @@ export const Materia = ({data=[]}) => {
                                     <td> { i+1 } </td>
                                     <td> { item.codigoMateria } </td>
                                     <td> { item.nombreMateria } </td>
+                                    <td> { item.estadoMateria } </td>
                                     <td className='td-btns'>
                                         <section className='caja-btns'>
                                             <button 
@@ -71,7 +75,7 @@ export const Materia = ({data=[]}) => {
             {
                 isOpen &&
                 <ModalGenerico isOpen={ isOpen } closeModal={closeModalEdicion}>
-                    <FormRegistroMateria codiSis={codigoMat} materi={nombreMat} closeModal={closeModalEdicion}/>
+                    <FormRegistroMateria codiSis={codigoMat} materi={nombreMat} closeModal={closeModalEdicion} titulo='Editar' idMat={id} />
                 </ModalGenerico>
             }
             </>
