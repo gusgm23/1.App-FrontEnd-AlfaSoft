@@ -17,14 +17,15 @@ export const getMateriaId = (id) =>{
     return axios.get(`http://127.0.0.1:8000/api/obtenerMateriasId/${id}`);
 }
 
-export const createMateria = ({ codSis, materia, grupo }, id, name, openModalSuccess, openModalWarning) =>{
+export const createMateria = ({ codSis, materia, grupo }, id, user_id, openModalSuccess, openModalWarning) =>{
     return axios.post('http://127.0.0.1:8000/api/crearMateria',
     {
         id:             `${id}`,
-        nombreMateria:  `${materia}`,
-        grupoMateria:   `${grupo}`,
         codigoMateria:  `${codSis}`,
-        name:           `${name}`
+        nombreMateria:  `${materia}`,
+        //grupoMateria:   `${grupo}`,
+        //estadoMateria:  `${estadoMateria}`,
+        user_id:        `${user_id}`
     }
     ).then( (response) => {
 
@@ -42,10 +43,11 @@ export const updateMateriaId = (dato, id) =>{
     return axios.put(`http://127.0.0.1:8000/api/actualizarMateria/${id}`,
     {
         id:             `${dato.id}`,
-        nombreMateria:  `${dato.nombreMateria}`,
-        grupoMateria:   `${dato.grupoMateria}`,
         codigoMateria:  `${dato.codigoMateria}`,
-        name:           `${dato.name}`
+        nombreMateria:  `${dato.nombreMateria}`,
+        //grupoMateria:   `${dato.grupoMateria}`,
+        estadoMateria:  `${dato.estadoMateria}`,
+        user_id:        `${dato.user_id}`
     }
     ).then( (response) => {
         console.log(response);

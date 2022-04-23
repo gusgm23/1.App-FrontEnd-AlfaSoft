@@ -21,8 +21,9 @@ export const createSolicitud = (data) => {
         horaFinSolicitud:               `${data.horaFinSolicitud}`,
         periodoSolicitud:               `${data.periodoSolicitud}`,
         estadoSolicitud:                `${data.estadoSolicitud}`,
-        nombreMateria:                  `${data.nombreMateria}`,
-        grupoMateria:                   `${data.grupoMateria}`
+        materia_id:                     `${data.materia_id}`
+        //nombreMateria:                  `${data.nombreMateria}`,
+        //grupoMateria:                   `${data.grupoMateria}`
     }
     ).then(function (response) {
         console.log(response);
@@ -44,8 +45,9 @@ export const updateSolicitudId = (data, id) => {
         horaFinSolicitud:               `${data.horaFinSolicitud}`,
         periodoSolicitud:               `${data.periodoSolicitud}`,
         estadoSolicitud:                `${data.estadoSolicitud}`,
-        nombreMateria:                  `${data.nombreMateria}`,
-        grupoMateria:                   `${data.grupoMateria}`
+        materia_id:                     `${data.materia_id}`
+        //nombreMateria:                  `${data.nombreMateria}`,
+        //grupoMateria:                   `${data.grupoMateria}`
     }
     ).then(function (response) {
         console.log(response);
