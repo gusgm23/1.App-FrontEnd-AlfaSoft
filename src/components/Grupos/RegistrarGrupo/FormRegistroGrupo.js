@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { controlarCampoGrupo, validaCamposVaciosGrupo, validarCamposLlenosGrupo } from '../../../helpers/validarForms';
+import { controlarCampoGrupo, validaCamposVaciosGrupo, validarCamposLlenosGrupo, verificarExistenciaGrupo } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
+import { createGrupoMateria, getGrupoMateria, updateGrupoMateriaId } from '../../../service/apiGrupoMaterias';
 import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio';
 import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
 import { ErrorGuardarDatos } from '../../Modal/Contenidos/ErrorGuardarDatos';
 import { Hecho } from '../../Modal/Contenidos/Hecho';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
 
-export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeModal = () => {}, closeModalCreate = () => {} }) => {
-    
+export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', setCambio, closeModal = () => {}, closeModalCreate = () => {} }) => {
     const [ formValues, handleInputChange, reset ] = useForm({
         id: idEdit,
         grupo: grupoEdit
+    });
+
+    const [listaABuscar, setListaABuscar] = useState({
+        state: false,
+        dataMat: []
     })
 
     const { id, grupo } = formValues;
+    const { state, dataMat } = listaABuscar;
 
     //Hooks par controlar Modales
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
@@ -25,9 +31,16 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
 
     //Hooks para controlar contenido de campo grupo
     const [StatusInputGrupo, setStatusInputGrupo] = useState(false);
+    const [existeGrupo, setExisteGrupo] = useState(false);
 
     //Hooks para mostrar mensajes de errores en los campos respectivos
     const [MsjErrorGroup, setMsjErrorGroup] = useState('');
+
+    //Hook para controlar estado de peticion
+    const [statePetition, setStatePetition] = useState(false);
+
+    //Hook para controlar que el campo grupo no tenga errores para posteriormente crear o editar un grupo
+    const [sePuedeGuardar, setSePuedeGuardar] = useState(false);
 
     useEffect(() => {
         if( grupo === '' ){
@@ -35,7 +48,21 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
         }else{
             controlarCampoGrupo( grupo, setStatusInputGrupo, setMsjErrorGroup );
         }
+
     }, [grupo])
+    
+    useEffect(() => {
+        
+        getGrupoMateria(setListaABuscar);
+        
+    }, [statePetition]);
+
+    useEffect(() => {
+        
+        verificarExistenciaGrupo(dataMat, formValues, setExisteGrupo, setSePuedeGuardar, grupoEdit);
+
+    }, [grupo])
+    
     
     
     const handleSubmit = (e) => {
@@ -50,23 +77,34 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
             openModalFormVacio();
         }else{
 
-            if( validarCamposLlenosGrupo(formValues) ){
+            if( validarCamposLlenosGrupo(formValues) && !existeGrupo ){
                 openModalConfirm();
             }else{
                 console.log('no cumple');
             }
+        }
+    }
 
+    const guardarDatos = () => {
+        setStatePetition(true);
+
+        const idMat = localStorage.getItem('id');
+
+        const seleccion = document.getElementById('estados');
+        const itemSeleccionado = seleccion.options[seleccion.selectedIndex].value;
+
+        if(titulo === 'Registrar'){
+            createGrupoMateria(grupo, itemSeleccionado, idMat, openModalSuccess, openModalWarning, setCambio);
+        }else{
+            console.log('se deberia actualizar');
+            updateGrupoMateriaId(grupo, itemSeleccionado, idMat, openModalSuccess, openModalWarning, idEdit);
         }
 
     }
 
-    const guardarDatos = () => {
-        console.log(' datos a guardar ', formValues);
-    }
-
     return (
         <div className='contenedor-registro-aula form-registro-aula'>
-            <h2 className='titulo-registro-aula'> { titulo === ''? 'Registrar grupo' : titulo } </h2>
+            <h2 className='titulo-registro-aula'> { titulo === 'Registrar'? 'Registrar grupo' : titulo } </h2>
             
                 <div className='contenedor-general'>
                     <div className='contenedor-elementos'>
@@ -85,13 +123,23 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
                                 <p className={ StatusInputGrupo===true? "msj-error": "msj-error-oculto" }>
                                     { MsjErrorGroup }
                                 </p>
+                                <p className={ existeGrupo===true? "msj-error": "msj-error-oculto" }>
+                                    { 'El Grupo que deseas crear ya existe.' }
+                                </p>
+                            </div>
+                            <div className='contenedor-flex-grupo'>
+                                <label className='labels'>Estado:</label>
+                                <select id='estados' className='inputs'>
+                                    <option value='Habilitado' >Habilitado</option>
+                                    <option value='Deshabilitado' >Deshabilitado</option>
+                                </select>
                             </div>
                         </div>
                         <div className='contenedor-botones'>
                             <button
                                 className='btn btn-warning btn-form-crear-grupo'
                                 onClick={ 
-                                    grupo === '' ? closeModalCreate : closeModal
+                                    titulo === 'Registrar' ? closeModalCreate : closeModal
                                 }
                             >
                                 Cancelar

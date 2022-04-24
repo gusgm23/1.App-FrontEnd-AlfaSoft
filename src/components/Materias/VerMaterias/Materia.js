@@ -28,7 +28,11 @@ export const Materia = ({data=[]}) => {
         openModalEdicion();
     }
     
-    
+    const guardarID  = (id) => {
+        localStorage.setItem("id", id);
+
+        console.log(localStorage.getItem("id"));
+    }
 
     return (
             <>
@@ -61,6 +65,7 @@ export const Materia = ({data=[]}) => {
                                             </button>
                                             <button 
                                                 className='btn-editar editar-mat btn-ver-mat'
+                                                onClick={() => (guardarID(item.id))}
                                                 >
                                                     <NavLink exact='true' to='/vergrupos' >Detalles</NavLink>
                                             </button>

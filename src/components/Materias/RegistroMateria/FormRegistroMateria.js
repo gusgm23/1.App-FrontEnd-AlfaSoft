@@ -167,7 +167,7 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                             <label className='labels'>Estado:</label>
                             <select id='estados' className='inputs'>
                                 <option value='Habilitado' >Habilitado</option>
-                                <option value='deshabilitado' >Deshabilitado</option>
+                                <option value='Deshabilitado' >Deshabilitado</option>
                             </select>
                         </div>
                     </div>
