@@ -37,21 +37,24 @@ export const createMateria = ({ codSis, materia }, user_id, estado,openModalSucc
     });
 }
 
-export const updateMateriaId = (dato, id) =>{
+export const updateMateriaId = ({ codSis, materia }, user_id, estado,openModalSuccess, openModalWarning, id) =>{
     return axios.put(`http://127.0.0.1:8000/api/actualizarMateria/${id}`,
     {
-        id:             `${dato.id}`,
-        codigoMateria:  `${dato.codigoMateria}`,
-        nombreMateria:  `${dato.nombreMateria}`,
-        //grupoMateria:   `${dato.grupoMateria}`,
-        estadoMateria:  `${dato.estadoMateria}`,
-        user_id:        `${dato.user_id}`
+        id:             `${id}`,
+        codigoMateria:  `${codSis}`,
+        nombreMateria:  `${materia}`,
+        estadoMateria:  `${estado}`,
+        user_id:        `${user_id}`
     }
     ).then( (response) => {
-        console.log(response);
+        
+        openModalSuccess();
+
     }
     ).catch(function (error) {
-        console.log(error);
+        
+        openModalWarning();
+
     });
 }
 

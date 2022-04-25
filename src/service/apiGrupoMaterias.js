@@ -1,41 +1,67 @@
 import axios from "axios";
 
-export const getGrupoMateria = ( ) => {
+export const getGrupoMateria = ( setStateData ) => {
     axios.get('http://127.0.0.1:8000/api/obtenerGrupos')
+    .then( response => {
+        setStateData({
+            state: true,
+            dataMat: response.data
+        });
+    } )
+    .catch( e => {
+        console.log(e);
+    } )
 }
 
-export const getGrupoMateriaId = (id) => {
-    return axios.get(`http://127.0.0.1:8000/api/obtenerGruposId/${id}`);
+export const getGrupoMateriaId = (id, setStateData) => {
+    axios.get(`http://127.0.0.1:8000/api/obtenerGruposId/${id}`)
+    .then( response => {
+        setStateData({
+            state: true,
+            dataMat: response.data
+        });
+    } )
+    .catch( e => {
+        console.log(e);
+    } )
 }
 
-export const createGrupoMateria = () => {
+export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning, setCambio) => {
     return axios.post(`http://127.0.0.1:8000/api/crearGrupos`,
     {
-       id:                  `${id}`,
-       grupoMateria:        `${grupoMateria}`,
-       estadoGrupoMateria:  `${estadoGrupoMateria}`,
-       materia_id:          `${materia_id}`
+        grupoMateria:        `${grupoMateria}`,
+        estadoGrupoMateria:  `${estadoGrupoMateria}`,
+        materia_id:          `${materia_id}`
     }
     ).then( (response) => {
-        console.log(response);
+        
+        openModalSuccess();
+        setCambio();
+
     }).catch( (error) => {
-        console.log(error);
+
+        openModalWarning();
+
     });
 }
 
-export const updateGrupoMateriaId = (dato, id) => {
+export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning, id) => {
     return axios.put(`http://127.0.0.1:8000/api/actualizarGrupos/${id}`,
     {
-        id:                  `${dato.id}`,
-        grupoMateria:        `${dato.grupoMateria}`,
-        estadoGrupoMateria:  `${dato.estadoGrupoMateria}`,
-        materia_id:          `${dato.materia_id}`
+        id:                  `${id}`,
+        grupoMateria:        `${grupoMateria}`,
+        estadoGrupoMateria:  `${estadoGrupoMateria}`,
+        materia_id:          `${materia_id}`
     }
     ).then( (response) => {
-        console.log(response);
+        
+        openModalSuccess();
+
     }
     ).catch( function (error) {
-        console.log(error);
+        
+        openModalWarning();
+
     });
 }
 

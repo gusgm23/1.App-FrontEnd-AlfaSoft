@@ -97,3 +97,10 @@
 a:hover{
     color: #fff;
 }
+
+/* Estilos para combo-box */
+
+.contenedor-flex-grupo {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import ListaMaterias from '../../data/ListaMaterias'
@@ -12,6 +12,8 @@ import { TablaGrupos } from './TablaGrupos'
 export const VerGrupos = () => {
     
     const [isOpenModalCreate, openModalCreate, closeModalCreate] = useModal(false);
+
+    const [cambio, setCambio] = useState(false);
 
     return (
         <>
@@ -34,11 +36,11 @@ export const VerGrupos = () => {
                         </div>
                     </div>
                     <hr/>
-                    <TablaGrupos data={ListaMaterias}/>
+                    <TablaGrupos data={ListaMaterias} cambio={cambio} setCambio={setCambio}/>
                 </div>
             </div>
             <ModalGenerico isOpen={ isOpenModalCreate } closeModal={ closeModalCreate }>
-                <FormRegistroGrupo closeModalCreate={ closeModalCreate }/>
+                <FormRegistroGrupo closeModalCreate={ closeModalCreate } setCambio={ setCambio } titulo='Registrar'/>
             </ModalGenerico>
         </>
     )
