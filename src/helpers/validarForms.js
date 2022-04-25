@@ -173,3 +173,73 @@ export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExis
     });
 
 }
+
+//Para controlar los campos del formulario de solicitud de aulas
+export const controlarCampoNomDocente = ( nombreDocente='', setStatusInputNomDocente, setMsjErrorNomDocente) => {
+    const tamanioNomDocente = nombreDocente.length;
+
+    if( tamanioNomDocente < 3 ){
+        setStatusInputNomDocente(true);
+        setMsjErrorNomDocente('El nombre del docente es demasiado corto.');
+    }else if( tamanioNomDocente > 10 ){
+        setStatusInputNomDocente(true);
+        setMsjErrorNomDocente('El nombre del docente es demasiado largo.');
+    }else {
+        setStatusInputNomDocente(false);
+        setMsjErrorNomDocente('');
+    }
+}
+
+export const controlarCampoApeDocente = ( apellidoDocente='', setStatusInputApeDocente, setMsjErrorApeDocente ) => {
+    const tamanioApeDocente = apellidoDocente.length;
+
+    if( tamanioApeDocente < 3 ){
+        setStatusInputApeDocente(true);
+        setMsjErrorApeDocente('El apellido del docente es demasiado corto.');
+    }else if( tamanioApeDocente > 10 ){
+        setStatusInputApeDocente(true);
+        setMsjErrorApeDocente('El apellido del docente es demasiado largo.');
+    }else {
+        setStatusInputApeDocente(false);
+        setMsjErrorApeDocente('');
+    }
+}
+
+export const controlarCampoCantidad = ( cantidadEstudiantes, setStatusInputCantidad, setMsjErrorCantidad) => {
+    const cantidadE = parseInt(cantidadEstudiantes);
+
+    if( cantidadE >= 5 && cantidadE <= 100){
+        setStatusInputCantidad(false);
+        setMsjErrorCantidad('');
+    }else {
+        setStatusInputCantidad(true);
+        setMsjErrorCantidad('Debe ingresar una cantidad entre 5 y 100.');
+    }
+}
+
+export const controlarCampoMotivo = ( motivoSolicitud, setStatusInputMotivo, setMsjErrorMotivo ) => {
+    const tamanioMotivo = motivoSolicitud.length
+
+    if( tamanioMotivo < 10 ) {
+        setStatusInputMotivo(true);
+        setMsjErrorMotivo('Texto muy corto. Ej: Reserva para examen de primer parcial.');
+    }else if( tamanioMotivo > 100 ) {
+        setStatusInputMotivo(true);
+        setMsjErrorMotivo('Mensaje muy largo.');
+    }else {
+        setStatusInputMotivo(false);
+        setMsjErrorMotivo('');
+    }
+}
+
+export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, setMsjErrorPeriodo ) => {
+    const tamanioPeriodo = parseInt(peridoSolicitud);
+
+    if( tamanioPeriodo >= 1 && tamanioPeriodo <= 5 ){
+        setStatusInputPeriodo(false);
+        setMsjErrorPeriodo('');
+    }else {
+        setStatusInputPeriodo(true);
+        setMsjErrorPeriodo('Debe ingresar un numero entre 1 y 5.');
+    }
+}
