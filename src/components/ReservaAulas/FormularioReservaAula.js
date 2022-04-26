@@ -8,13 +8,18 @@ import { ModalGenerico } from '../Modal/ModalGenerico';
 import { AdvertenciaFormVacio } from '../Modal/Contenidos/AdvertenciaFormVacio';
 import { Confirmacion } from '../Modal/Contenidos/Confirmacion';
 
+//Importacion de las APIs para la solicitud
+import { getSolicitud, getSolicitudId, createSolicitud, updateSolicitudId, deleteSolicitud } from '../../service/apiSolicitudAulas';
+
+
 export const FormularioReservaAula = ({ 
-        nomDocente='', 
-        apeDocente='', 
-        cantEstudiantes='', 
-        motSolicitud='', 
-        perSolicitud='',
-        closeModal = () => {} 
+        nomDocente          ='', 
+        apeDocente          ='', 
+        cantEstudiantes     ='', 
+        motSolicitud        ='',
+        fecSolicitud        ='', 
+        perSolicitud        ='',
+        closeModal = () => {}, idsolicitud=''
     }) => {
 
     const [formValues, handleInputChange, reset] = useForm({
@@ -22,11 +27,12 @@ export const FormularioReservaAula = ({
         apellidoDocente:        apeDocente,
         cantidadEstudiantes:    cantEstudiantes,
         motivoSolicitud:        motSolicitud,
+        fechaSolicitud:         fecSolicitud,
         peridoSolicitud:        perSolicitud,
 
     })
 
-    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, peridoSolicitud } = formValues;
+    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, peridoSolicitud } = formValues;
 
     //hooks para controlar contenidos de campos
     const [StatusInputNomDocente, setStatusInputNomDocente] = useState(false);
@@ -41,6 +47,12 @@ export const FormularioReservaAula = ({
     const [MsjErrorCantidad, setMsjErrorCantidad] = useState('');
     const [MsjErrorMotivo, setMsjErrorMotivo] = useState('');
     const [MsjErrorPeriodo, setMsjErrorPeriodo] = useState('');
+
+    //Hooks para el estado de las peticiones de la solicitud
+    const [StatePetition, setStatePetition] = useState(false);
+
+    //Hooks para controlar modales
+    const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
 
     useEffect(() => {
         if( nombreDocente === ''){
@@ -81,6 +93,17 @@ export const FormularioReservaAula = ({
             controlarCampoPeriodo( peridoSolicitud, setStatusInputPeriodo, setMsjErrorPeriodo );
         }
     }, [peridoSolicitud])
+
+    const guardarDatosFormulario = () => {
+        setStatePetition(true);
+
+        const seleccion = document.getElementById('estados');
+        const itemSeleccionado = seleccion.options[ seleccion.selectedIndex ].value;
+
+        if( idsolicitud === '' ) {
+            createSolicitud( formValues, '1', itemSeleccionado );
+        }
+    }
 
     return (
         <div className="contenedor-reserva-aulas">
@@ -169,13 +192,14 @@ export const FormularioReservaAula = ({
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Fecha de Examen: </label>
-                            <input 
+                            <input
                                 name='fechaSolicitud'
-                                className="inputs"
+                                className='inputs'
                                 type="date"
-                                min="2022-04-24"
+                                min="2022-04-26"
+                                value={ fechaSolicitud }
                                 onChange={ handleInputChange }
-                            ></input>
+                            />
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Periodos:</label>
@@ -211,7 +235,9 @@ export const FormularioReservaAula = ({
                     </div>
                 </div>
             </form>
-            
+            <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
+                <Confirmacion cerrarModal={ closeModalConfirm } funcGuardar={ guardarDatosFormulario } />
+            </ModalGenerico>
         </div>
     )
 }

@@ -249,7 +249,7 @@ export const controlarCampoApeDocente = ( apellidoDocente='', setStatusInputApeD
     if( tamanioApeDocente < 3 ){
         setStatusInputApeDocente(true);
         setMsjErrorApeDocente('El apellido del docente es demasiado corto.');
-    }else if( tamanioApeDocente > 10 ){
+    }else if( tamanioApeDocente > 30 ){
         setStatusInputApeDocente(true);
         setMsjErrorApeDocente('El apellido del docente es demasiado largo.');
     }else {
