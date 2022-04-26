@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-
-
+import React, { useState } from 'react'
 
 import './estilos-ver-materias.css'
 import { useModal } from '../../../hooks/useModal';
@@ -30,8 +28,6 @@ export const Materia = ({data=[]}) => {
     
     const guardarID  = (id) => {
         localStorage.setItem("id", id);
-
-        console.log(localStorage.getItem("id"));
     }
 
     return (

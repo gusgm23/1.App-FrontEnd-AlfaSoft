@@ -1,5 +1,3 @@
-import ListaMaterias from '../data/ListaMaterias'
-
 export const validarCamposVaciosMateria = (valores = {}) => {
     const {codSis, materia} = valores;
 
