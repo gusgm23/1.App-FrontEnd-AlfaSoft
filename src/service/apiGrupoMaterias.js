@@ -5,7 +5,7 @@ export const getGrupoMateria = ( setStateData ) => {
     .then( response => {
         setStateData({
             state: true,
-            dataMat: response.data
+            data: response.data
         });
     } )
     .catch( e => {
@@ -26,7 +26,7 @@ export const getGrupoMateriaId = (id, setStateData) => {
     } )
 }
 
-export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning, setCambio) => {
+export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning) => {
     return axios.post(`http://127.0.0.1:8000/api/crearGrupos`,
     {
         grupoMateria:        `${grupoMateria}`,
@@ -36,7 +36,6 @@ export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id
     ).then( (response) => {
         
         openModalSuccess();
-        setCambio();
 
     }).catch( (error) => {
 
