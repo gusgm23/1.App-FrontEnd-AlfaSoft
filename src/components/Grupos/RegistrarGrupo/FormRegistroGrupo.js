@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { filtrarGrupos } from '../../../helpers/filtrarGrupos';
 import { controlarCampoGrupo, validaCamposVaciosGrupo, validarCamposLlenosGrupo, verificarExistenciaGrupo } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
@@ -9,7 +10,10 @@ import { ErrorGuardarDatos } from '../../Modal/Contenidos/ErrorGuardarDatos';
 import { Hecho } from '../../Modal/Contenidos/Hecho';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
 
-export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', setCambio, closeModal = () => {}, closeModalCreate = () => {} }) => {
+export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeModal = () => {}, closeModalCreate = () => {}, dataLimpia, setDataLimpia }) => {
+
+    
+
     const [ formValues, handleInputChange, reset ] = useForm({
         id: idEdit,
         grupo: grupoEdit
@@ -17,11 +21,11 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', setCambi
 
     const [listaABuscar, setListaABuscar] = useState({
         state: false,
-        dataMat: []
+        data: []
     })
 
     const { id, grupo } = formValues;
-    const { state, dataMat } = listaABuscar;
+    const { state, data } = listaABuscar;
 
     //Hooks par controlar Modales
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
@@ -42,6 +46,9 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', setCambi
     //Hook para controlar que el campo grupo no tenga errores para posteriormente crear o editar un grupo
     const [sePuedeGuardar, setSePuedeGuardar] = useState(false);
 
+    //!Hook para controlar estado de Combobox
+    const [selects, setSelects] = useState('Habilitado');
+
     useEffect(() => {
         if( grupo === '' ){
             setStatusInputGrupo(false);
@@ -53,23 +60,17 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', setCambi
     
     useEffect(() => {
         
-        getGrupoMateria(setListaABuscar);
-        
-    }, [statePetition]);
+        if(data != []){
+            getGrupoMateria(setListaABuscar);
+        }
+
+    }, [state]);
 
     useEffect(() => {
         
-        verificarExistenciaGrupo(dataMat, formValues, setExisteGrupo, setSePuedeGuardar, grupoEdit);
+        verificarExistenciaGrupo(data, formValues, setExisteGrupo, setSePuedeGuardar, grupoEdit);
 
     }, [grupo])
-    
-    
-    
-    const handleSubmit = (e) => {
-
-        e.preventDefault();
-
-    }
 
     const validarForm = () => {
 
@@ -85,19 +86,57 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', setCambi
         }
     }
 
+    const nuevoGrupo = ( newID, newGroup, newEstado, materiaID ) => {
+        const grupo = {
+            id:newID,
+            grupoMateria: newGroup,
+            estadoGrupoMateria: newEstado,
+            materia_id: materiaID
+        }
+
+        const lista = dataLimpia;
+        lista.push(grupo);
+
+        setDataLimpia(lista);
+
+    }
+
+    //!Metodo para editar un grupo y luego la tabla se actualice
+    const editarMateria = (id, nuevoGrupo, nuevoEstado) => {
+
+        const arreglo = dataLimpia;
+        
+        let contador = 0;
+
+        arreglo.map((materia) => {
+            
+            if(id == materia.id){
+                arreglo[contador].grupoMateria = nuevoGrupo;
+                arreglo[contador].estadoGrupoMateria = nuevoEstado;
+                console.log('sss')
+            }
+            contador++;
+        });
+
+        setDataLimpia(arreglo);
+
+    }
+
     const guardarDatos = () => {
         setStatePetition(true);
 
         const idMat = localStorage.getItem('id');
 
-        const seleccion = document.getElementById('estados');
-        const itemSeleccionado = seleccion.options[seleccion.selectedIndex].value;
-
         if(titulo === 'Registrar'){
-            createGrupoMateria(grupo, itemSeleccionado, idMat, openModalSuccess, openModalWarning, setCambio);
+            
+            createGrupoMateria(grupo, selects, idMat, openModalSuccess, openModalWarning);    
+            nuevoGrupo(dataLimpia.length+10, grupo, selects, idMat);
+
         }else{
-            console.log('se deberia actualizar');
-            updateGrupoMateriaId(grupo, itemSeleccionado, idMat, openModalSuccess, openModalWarning, idEdit);
+
+            updateGrupoMateriaId(grupo, selects, idMat, openModalSuccess, openModalWarning, idEdit);
+            editarMateria(idEdit, grupo, selects);
+
         }
 
     }
@@ -129,9 +168,9 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', setCambi
                             </div>
                             <div className='contenedor-flex-grupo'>
                                 <label className='labels'>Estado:</label>
-                                <select id='estados' className='inputs'>
-                                    <option value='Habilitado' >Habilitado</option>
-                                    <option value='Deshabilitado' >Deshabilitado</option>
+                                <select className='inputs' value={ selects } onChange={ e => setSelects(e.target.value) }>
+                                    <option >Habilitado</option>
+                                    <option>Deshabilitado</option>
                                 </select>
                             </div>
                         </div>
@@ -148,7 +187,7 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', setCambi
                                 className='btn btn-primary btn-form-crear-grupo'
                                 onClick={ validarForm }
                             >
-                                Crear
+                                {titulo === 'Registrar'? 'Crear' : 'Actualizar'}
                             </button>
                         </div>
                     </div>

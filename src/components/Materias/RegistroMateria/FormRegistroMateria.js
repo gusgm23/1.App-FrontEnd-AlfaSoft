@@ -165,10 +165,12 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                         </div>
                         <div className='contenedor-flex'>
                             <label className='labels'>Estado:</label>
-                            <select id='estados' className='inputs'>
-                                <option value='Habilitado' >Habilitado</option>
-                                <option value='Deshabilitado' >Deshabilitado</option>
-                            </select>
+                            <div className='contenedor-input'>
+                                <select id='estados' className='inputs'>
+                                    <option value='Habilitado' >Habilitado</option>
+                                    <option value='Deshabilitado' >Deshabilitado</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div className='contenedor-botones'>

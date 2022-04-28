@@ -195,20 +195,24 @@ export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExis
 //Métodos para formulario Grupo
 export const verificarExistenciaGrupo = (data=[], formValues, setExisteGrupo, setSePuedeGuardar, grupoEdit) => {
 
+    const idMat = localStorage.getItem('id');
+
     const { grupo } = formValues;
 
     let existeGrupo = false
 
     data.forEach(element => {
         if( grupoEdit === '' ){
-            if( element.grupoMateria === grupo && !existeGrupo){
+            if(element.materia_id == idMat){
+                if( element.grupoMateria === grupo && !existeGrupo ){
             
-                setExisteGrupo(true);
-                existeGrupo = true;
-                
-            }else if(element.grupoMateria != grupo &&!existeGrupo ){
-                setExisteGrupo(false);
-                setSePuedeGuardar(true);
+                    setExisteGrupo(true);
+                    existeGrupo = true;
+                    
+                }else if(element.grupoMateria != grupo &&!existeGrupo ){
+                    setExisteGrupo(false);
+                    setSePuedeGuardar(true);
+                }
             }
         }else{
             if( element.grupoMateria === grupo && !existeGrupo && element.grupoMateria != grupoEdit){
