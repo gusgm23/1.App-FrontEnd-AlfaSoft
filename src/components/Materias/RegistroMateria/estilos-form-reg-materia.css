@@ -1,3 +1,23 @@
 .componente {
     margin-top: 50px;
 }
+
+.contenedor-flex-estados-materia {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contenedor-flex-materia {
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.inputs {
+    width: 100%;
+}
+
+.contenedor-input {
+    width: 70%;
+}
