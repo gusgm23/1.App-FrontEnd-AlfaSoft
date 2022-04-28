@@ -294,3 +294,62 @@ export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, s
         setMsjErrorPeriodo('Debe ingresar un numero entre 1 y 5.');
     }
 }
+
+export const validarCamposVaciosSolicitud = (valores = {}) => {
+    const { nombreDocente,      
+            apellidoDocente,    
+            cantidadEstudiantes,
+            motivoSolicitud,    
+            fechaSolicitud,     
+            peridoSolicitud,    
+            horaSolicitud } = valores;
+
+    const cantEst = parseInt(cantidadEstudiantes);
+    const perSol = parseInt(peridoSolicitud);
+
+    if(nombreDocente.length === 0 && 
+        apellidoDocente.length === 0 &&
+        cantEst === 0 && 
+        motivoSolicitud.length === 0 &&
+        fechaSolicitud.length === 0 &&
+        perSol === 0 &&
+        horaSolicitud.length === 0) {
+            return true;
+        }else if(nombreDocente.length === 0 || 
+                apellidoDocente.length === 0 || 
+                cantEst === 0 || 
+                motivoSolicitud.length === 0 || 
+                fechaSolicitud.length === 0 || 
+                perSol === 0 || 
+                horaSolicitud.length === 0) {
+                    return true;
+                }else {
+                    return false;
+                }
+}
+
+export const validarCamposLlenosSolicitud = (valores = {}) => {
+    const {nombreDocente,
+        apellidoDocente,
+        cantidadEstudiantes,
+        motivoSolicitud,
+        peridoSolicitud} = valores;
+
+        const cantEst = parseInt(cantidadEstudiantes);
+        const perSol = parseInt(peridoSolicitud);
+
+        if(nombreDocente.length >= 3 &&
+            apellidoDocente.length >= 3 && 
+            cantEst >= 5 && 
+            motivoSolicitud.length >= 10 && 
+            perSol >= 1) {
+                return true;
+            }else {
+                console.log(nombreDocente.length, 
+                    apellidoDocente.length,
+                    cantidadEstudiantes.length,
+                    motivoSolicitud.length,
+                    peridoSolicitud);
+                return false;
+            }
+}
