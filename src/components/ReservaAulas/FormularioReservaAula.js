@@ -9,6 +9,9 @@ import { AdvertenciaFormVacio } from '../Modal/Contenidos/AdvertenciaFormVacio';
 import { Confirmacion } from '../Modal/Contenidos/Confirmacion';
 import { Hecho } from '../Modal/Contenidos/Hecho';
 import { ErrorGuardarDatos } from '../Modal/Contenidos/ErrorGuardarDatos';
+import { MateriasDocente } from './MateriasDocente'
+import { getMateria } from '../../service/apiMateria';
+
 
 
 //Importacion de las APIs para la solicitud
@@ -133,6 +136,28 @@ export const FormularioReservaAula = ({
             console.log('se envio los datos con exito');
         }
     }
+    //Lista Materias
+    const [listaMateria, setListaMateria] = useState({
+        state: false,
+        data: []
+    });
+
+    const {state, data} = listaMateria;
+
+    useEffect(() => {
+        getMateria(setListaMateria);
+    }, [state]);
+const datos =[{
+    
+        id:1,
+        nombreMateria: 'calculo',
+    } ,
+    {
+        id:2,
+        nombreMateria: 'progra',
+    }
+
+]
 
     return (
         <div className='contenedor-reserva-aulas'>
@@ -175,21 +200,28 @@ export const FormularioReservaAula = ({
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Materia: </label>
                             <div className='contenedor-input'>
-                                <select 
+                            
+                                {/* <select 
                                     name='materiaSolicitud'
                                     className="inputs" 
                                     //type='text'
                                     placeholder='Elegir Materia.'
                                     
-                                >
+                                > 
                                     <option >Algebra I</option>
                                     <option >Calculo I</option>
                                     <option >Fisica I</option>
                                     <option >Ingles I</option>
                                     <option >Metodologia</option>
                                     <option >Introduccion a la programacion</option>
-                                </select>
+                                   
+                                </select> */}
+                                <MateriasDocente data={data}/> 
+                                
+                                   
                             </div>
+                        </div>
+                        <div>
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Grupo(s): </label>
@@ -200,6 +232,7 @@ export const FormularioReservaAula = ({
                                     //type="number"
                                     placeholder='Elegir Grupo.'
                                 >
+                                        
                                     <option > 1 </option>
                                     <option > 2 </option>
                                     <option > 3 </option>
