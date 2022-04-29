@@ -130,6 +130,7 @@ export const FormularioReservaAula = ({
 
         if( idsolicitud === '' ) {
             createSolicitud( formValues, '1', itemSeleccionado, openModalSuccess, openModalWarning );
+            console.log('se envio los datos con exito');
         }
     }
 
