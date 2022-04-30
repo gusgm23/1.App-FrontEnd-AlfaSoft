@@ -6,7 +6,6 @@ import {
     Route,
 } from "react-router-dom";
 
-
 import { NavBar } from '../components/NavBar/NavBar';
 import { AboutScreen } from '../components/AboutScreen';
 import { HomeScreen } from '../components/HomeScreen';
@@ -15,8 +14,10 @@ import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuario
 import { Error404Screen } from '../components/Page404/Error404Screen';
 import { VistaAulas } from '../components/Aulas/Ver Aulas/VistaAulas';
 import { RegistroAulasScreen } from '../components/Aulas/RegistroAulas/RegistroAulasScreen';
+import { FormularioReservaAula } from '../components/ReservaAulas/FormularioReservaAula';
 import { RegistroMateria } from '../components/Materias/RegistroMateria/RegistroMateria';
 import { VerMaterias } from '../components/Materias/VerMaterias/VerMaterias';
+import { VerGrupos } from '../components/Grupos/VerGrupos';
 
 
 export const AppRouter = () => {
@@ -33,10 +34,11 @@ export const AppRouter = () => {
                     <Route exact path='/registroaula'       element={<RegistroAulasScreen/>}/>
                     <Route exact path='/registrousuario'    element={<RegistroUsuarios/>}/>
                     <Route exact path='/registromateria'    element={<RegistroMateria/>}/>
+                    <Route exact path='/reservaaulas'        element={<FormularioReservaAula/>}/>
 
                     <Route exact path='/veraulas'           element={<VistaAulas/>}/>
                     <Route exact path='/vermaterias'        element={<VerMaterias/>}/>
-
+                    <Route exact path='/vergrupos'          element={<VerGrupos/>}/>
                     <Route path='*'                         element={<Error404Screen/>}/>
                 </Routes>
             </div>
