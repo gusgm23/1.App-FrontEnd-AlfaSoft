@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom'
 
 export const NavBar = () => {
-    return (
+        return ( 
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
             <div className="container-fluid">
                 <Link to='/' className="navbar-brand">Asignación de Aulas</Link>
@@ -12,6 +12,8 @@ export const NavBar = () => {
                         <NavLink exact='true' activeClassName="active" to='/registroaula' className="nav-link">Registrar Aula</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/registrousuario' className="nav-link">Registrarse</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/registromateria' className="nav-link">Registrar Materia</NavLink>
+                        <NavLink exact='true' activeClassName="active" to='/versolicitudes' className="nav-link">Solicitudes</NavLink>
+                        <NavLink exact='true' activeClassName="active" to='/regsolicitudes' className="nav-link">Registro Solicitudes</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/reservaaulas' className="nav-link">Reservar Aula</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/veraulas' className="nav-link">Aulas</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/vermaterias' className="nav-link">Materias</NavLink>
@@ -23,6 +25,5 @@ export const NavBar = () => {
                 </div>
             </div>
         </nav>
-    )
-}
-//probando rama dev
+        )
+    }

@@ -1,0 +1,80 @@
+.Titulo-Soli {
+    width: 100%;
+    font-size: 50px;
+    text-align: center;
+}
+
+.titulo-ver-aulas {
+    width: 100%;
+    font-size: 50px;
+    text-align: center;
+}
+
+.titulos-soli {
+    font-size: 20px;
+    text-align: center;
+}
+
+.caja-grupo {
+    width: 10%;
+}
+
+.caja-sis {
+    width: 20%;
+}
+
+.caja-materia {
+    width: 30%;
+    height: 60%;
+    overflow: auto;
+}
+
+.caja-btns {
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.editar-mat {
+    width: 100%;
+    margin: 5px;
+    color: #fff;
+}
+
+.btn-ver-mat {
+    background-color: #4fa8fb;
+    transition: .6s;
+}
+
+.btn-ver-mat:hover {
+    background-color: rgba(79, 168, 251, .5);
+}
+
+table tr th,
+table tr td {
+    padding: 10px;
+}
+
+.td-btns {
+    width: 180px;
+}
+
+table {
+    border: solid 1px #c8c8c8;
+    box-shadow: 5px 5px 12px #c8c8c8;
+    margin: 20px;
+}
+
+table tr:nth-child(odd) td {
+    background-color: #ffffff;
+}
+
+.titulo-tabla {
+    background-color: rgba(33, 37, 41, .9);
+    color: #ffffff;
+}
+
+.contenedor-tabla {
+    display: flex;
+    justify-content: center;
+}
