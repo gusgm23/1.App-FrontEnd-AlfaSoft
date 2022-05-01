@@ -29,18 +29,19 @@
     display: flex;
     justify-content: space-between;
     margin: 5px;
+    width: 70%;
 }
 
-.contenedor-input{
-    width: 33%;
+.contenedor-inputs{
+    width: 30%;
 }
 
 .labels{
-    font-size: 19px;
+    font-size: 18px;
 }
 
-.inputs{
-    width: 200px;
+.inputsSolicitud{
+    width: 250px;
     border: 1px solid #c8c8c8;
     background: #e3e6ec;
     box-shadow: 5px 5px 12px #d1d9e6,
@@ -81,7 +82,7 @@ input{
 }
 
 .input-error{
-    width: 180px;
+    width: 250px;
     background: #e3e6ec;
     box-shadow: 5px 5px 12px #d1d9e6,
     -5px -5px 12px #ffffff;
@@ -98,8 +99,12 @@ input{
     margin: 0px;
     color: red;
     display: flex;
+    width: 250px;
 }
 
+.campos-reserva-aulas-estado{
+    display: none;
+}
 
 /*.boton-cancelar{
     background-color: red;

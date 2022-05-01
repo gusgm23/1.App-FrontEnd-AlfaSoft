@@ -13,12 +13,11 @@ import { MateriasDocente } from './MateriasDocente'
 import { getMateria } from '../../service/apiMateria';
 
 
-
 //Importacion de las APIs para la solicitud
 import { getSolicitud, getSolicitudId, createSolicitud, updateSolicitudId, deleteSolicitud } from '../../service/apiSolicitudAulas';
 
 
-export const FormularioReservaAula = ({ 
+export const FormularioReservaAula = ({
         nomDocente          ='', 
         apeDocente          ='', 
         cantEstudiantes     ='', 
@@ -26,6 +25,8 @@ export const FormularioReservaAula = ({
         fecSolicitud        ='', 
         horSolicitud        ='',
         perSolicitud        ='',
+
+        gruSolicitud        ='',
         closeModal = () => {}, idsolicitud=''
     }) => {
 
@@ -37,10 +38,11 @@ export const FormularioReservaAula = ({
         fechaSolicitud:         fecSolicitud,
         peridoSolicitud:        perSolicitud,
         horaSolicitud:          horSolicitud,
-
+        
+        grupoSolicitud:         gruSolicitud,
     })
 
-    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud } = formValues;
+    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud, grupoSolicitud} = formValues;
 
     //hooks para controlar contenidos de campos
     const [StatusInputNomDocente, setStatusInputNomDocente] = useState(false);
@@ -136,6 +138,7 @@ export const FormularioReservaAula = ({
             console.log('se envio los datos con exito');
         }
     }
+    
     //Lista Materias
     const [listaMateria, setListaMateria] = useState({
         state: false,
@@ -159,6 +162,7 @@ const datos =[{
 
 ]
 
+
     return (
         <div className='contenedor-reserva-aulas'>
             <h1 className="titulo-reserva-aulas"> Reservar Aula </h1>
@@ -167,10 +171,10 @@ const datos =[{
                     <div className="contenedor-elementos-reserva-aulas">
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Nombre Docente:</label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                                 <input 
                                     name='nombreDocente'
-                                    className={ StatusInputNomDocente===true? "input-error" : "inputs"} 
+                                    className={ StatusInputNomDocente===true? "input-error" : "inputsSolicitud"} 
                                     type="text"
                                     placeholder='Ingresar Nombre'
                                     value={ nombreDocente }
@@ -183,10 +187,10 @@ const datos =[{
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Apellido Docente:</label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                                 <input
                                     name='apellidoDocente' 
-                                    className={ StatusInputApeDocente===true? "input-error" : "inputs" }
+                                    className={ StatusInputApeDocente===true? "input-error" : "inputsSolicitud" }
                                     type="text"
                                     placeholder='Ingresar Apellido'
                                     value={ apellidoDocente }
@@ -199,7 +203,7 @@ const datos =[{
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Materia: </label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                             
                                 {/* <select 
                                     name='materiaSolicitud'
@@ -216,7 +220,7 @@ const datos =[{
                                     <option >Introduccion a la programacion</option>
                                    
                                 </select> */}
-                                <MateriasDocente data={data}/> 
+                                <MateriasDocente data={data}/>
                                 
                                    
                             </div>
@@ -225,12 +229,14 @@ const datos =[{
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Grupo(s): </label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                                 <select 
                                     name='grupoSolicitud'
-                                    className="inputs" 
-                                    //type="number"
+                                    className="inputsSolicitud" 
+                                    //id='grupos'
                                     placeholder='Elegir Grupo.'
+                                    value={ grupoSolicitud }
+                                    onChange={ handleInputChange }
                                 >
                                         
                                     <option > 1 </option>
@@ -243,10 +249,10 @@ const datos =[{
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Cantidad de Estudiantes: </label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                                 <input 
                                     name='cantidadEstudiantes'
-                                    className={ StatusInputCantidad===true? "input-error" : "inputs" }
+                                    className={ StatusInputCantidad===true? "input-error" : "inputsSolicitud" }
                                     type="number"
                                     placeholder='Cantidad Minima 5'
                                     value={ cantidadEstudiantes }
@@ -259,10 +265,10 @@ const datos =[{
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Motivo de solicitud:</label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                                 <textarea 
                                     name='motivoSolicitud'
-                                    className={ StatusInputMotivo===true? "input-error" : "inputs" }
+                                    className={ StatusInputMotivo===true? "input-error" : "inputsSolicitud" }
                                     type="text"
                                     placeholder='Ingresar Motivo Solicitud'
                                     value={ motivoSolicitud }
@@ -275,10 +281,10 @@ const datos =[{
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Fecha de Examen: </label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                                 <input
                                     name='fechaSolicitud'
-                                    className='inputs'
+                                    className='inputsSolicitud'
                                     type="date"
                                     min="2022-05-03"
                                     value={ fechaSolicitud }
@@ -288,10 +294,10 @@ const datos =[{
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Periodos:</label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                                 <input 
                                     name='peridoSolicitud'
-                                    className={ StatusInputPeriodo===true? "input-error" : "inputs" }
+                                    className={ StatusInputPeriodo===true? "input-error" : "inputsSolicitud" }
                                     type="number"
                                     placeholder='Periodo minimo 1'
                                     value={ peridoSolicitud }
@@ -304,22 +310,23 @@ const datos =[{
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Hora de Inicio: </label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                                 <input 
                                     name='horaSolicitud'
-                                    className="inputs"
+                                    className="inputsSolicitud"
                                     type="time"
                                     value={ horaSolicitud }
                                     onChange={ handleInputChange }
                                 ></input>
                             </div>
                         </div>
-                        <div className="campos-reserva-aulas">
+                        <div className="campos-reserva-aulas-estado">
                             <label className="labels"> Estado Solicitud: </label>
-                            <div className='contenedor-input'>
+                            <div className='contenedor-inputs'>
                                 <select 
+                                    name='estadoSolicitud'
                                     id='estados'
-                                    className="inputs"                                   
+                                    className="inputsSolicitud"                                   
                                 >
                                     <option value='Pendiente'> Pendiente </option>
                                 </select>

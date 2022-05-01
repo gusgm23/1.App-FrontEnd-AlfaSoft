@@ -15,7 +15,9 @@ export const createSolicitud = (
         motivoSolicitud, 
         fechaSolicitud, 
         horaSolicitud, 
-        peridoSolicitud, 
+        peridoSolicitud,
+        materiaSolicitud,
+        grupoSolicitud 
     }, materia_id, pendiente, openModalSuccess, openModalWarning,) => {
     return axios.post(`http://127.0.0.1:8000/api/crearSolicitud`, 
     {
@@ -29,6 +31,8 @@ export const createSolicitud = (
         //horaFinSolicitud:               `${}`,
         periodoSolicitud:               `${peridoSolicitud}`,
         estadoSolicitud:                `${pendiente}`,
+        materiaSolicitud:               `${materiaSolicitud}`,
+        grupoSolicitud:                 `${grupoSolicitud}`,
         materia_id:                     `${materia_id}`
         //nombreMateria:                  `${data.nombreMateria}`,
         //grupoMateria:                   `${data.grupoMateria}`
