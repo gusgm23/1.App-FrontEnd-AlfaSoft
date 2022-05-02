@@ -18,18 +18,13 @@ export const getSolicitudId = (id) => {
     return axios.get(`http://127.0.0.1:8000/api/obtenerSolicitudId/${id}`);
 }
 
-export const createSolicitud = ( 
-    {   nombreDocente, 
-        apellidoDocente, 
-        cantidadEstudiantes, 
-        motivoSolicitud, 
-        fechaSolicitud, 
-        horaSolicitud, 
-        peridoSolicitud,
-        materiaSolicitud,
-        grupoSolicitud 
-    }, materia_id, pendiente, openModalSuccess, openModalWarning,) => {
+export const createSolicitud = (  formValues , materia_id, materiaSolicitud, grupoSolicitud, pendiente='pendiente', openModalSuccess, openModalWarning) => {
+    
+    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud} = formValues;
+
+    
     return axios.post(`http://127.0.0.1:8000/api/crearSolicitud`, 
+    
     {
         //id:                             `${data.id}`,
         nombreDocenteSolicitud:         `${nombreDocente}`,

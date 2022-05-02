@@ -11,10 +11,12 @@ import { Hecho } from '../Modal/Contenidos/Hecho';
 import { ErrorGuardarDatos } from '../Modal/Contenidos/ErrorGuardarDatos';
 import { MateriasDocente } from './MateriasDocente'
 import { getMateria } from '../../service/apiMateria';
-
+import { GruposDocente } from './GruposDocente';
+import { getGrupoMateria } from '../../service/apiGrupoMaterias';
 
 //Importacion de las APIs para la solicitud
 import { getSolicitud, getSolicitudId, createSolicitud, updateSolicitudId, deleteSolicitud } from '../../service/apiSolicitudAulas';
+
 
 
 export const FormularioReservaAula = ({
@@ -26,7 +28,6 @@ export const FormularioReservaAula = ({
         horSolicitud        ='',
         perSolicitud        ='',
 
-        gruSolicitud        ='',
         closeModal = () => {}, idsolicitud=''
     }) => {
 
@@ -39,10 +40,9 @@ export const FormularioReservaAula = ({
         peridoSolicitud:        perSolicitud,
         horaSolicitud:          horSolicitud,
         
-        grupoSolicitud:         gruSolicitud,
     })
 
-    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud, grupoSolicitud} = formValues;
+    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud} = formValues;
 
     //hooks para controlar contenidos de campos
     const [StatusInputNomDocente, setStatusInputNomDocente] = useState(false);
@@ -66,6 +66,11 @@ export const FormularioReservaAula = ({
     const [isOpenModalWarning, openModalWarning, closeModalWarning] = useModal(false);
     const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
+
+    //controlar estados de select
+    const [selects, setSelects] = useState('Registrar materia');
+    const [selectsGrupos, setSelectsGrupos] = useState('Registrar grupo');
+
 
     useEffect(() => {
         if( nombreDocente === ''){
@@ -130,12 +135,8 @@ export const FormularioReservaAula = ({
     const guardarDatosFormulario = () => {
         setStatePetition(true);
 
-        const seleccion = document.getElementById('estados');
-        const itemSeleccionado = seleccion.options[ seleccion.selectedIndex ].value;
-
         if( idsolicitud === '' ) {
-            createSolicitud( formValues, '1', itemSeleccionado, openModalSuccess, openModalWarning );
-            console.log('se envio los datos con exito');
+            createSolicitud( formValues, '1', selects, selectsGrupos, 'pendiente', openModalSuccess, openModalWarning ); 
         }
     }
     
@@ -150,7 +151,9 @@ export const FormularioReservaAula = ({
     useEffect(() => {
         getMateria(setListaMateria);
     }, [state]);
-const datos =[{
+
+
+    const datos =[{
     
         id:1,
         nombreMateria: 'calculo',
@@ -158,9 +161,19 @@ const datos =[{
     {
         id:2,
         nombreMateria: 'progra',
-    }
+    }]
 
-]
+    //Obtener los grupos de materias y listarlas
+    const [listaGrupos, setStateData] = useState({
+        states: false,
+        datas: []
+    });
+
+    const {states, datas} = listaGrupos;
+
+    useEffect(() => {
+        getGrupoMateria(setStateData);
+    }, [states]);
 
 
     return (
@@ -220,7 +233,7 @@ const datos =[{
                                     <option >Introduccion a la programacion</option>
                                    
                                 </select> */}
-                                <MateriasDocente data={data}/>
+                                <MateriasDocente data={data} selects={ selects } setSelects={ setSelects } />
                                 
                                    
                             </div>
@@ -230,7 +243,7 @@ const datos =[{
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Grupo(s): </label>
                             <div className='contenedor-inputs'>
-                                <select 
+                                {/* <select 
                                     name='grupoSolicitud'
                                     className="inputsSolicitud" 
                                     //id='grupos'
@@ -244,7 +257,8 @@ const datos =[{
                                     <option > 3 </option>
                                     <option > 4 </option>
                                     <option > 5 </option>
-                                </select>
+                            </select> */}
+                            <GruposDocente datas={datas} selectsGrupos={ selectsGrupos } setSelectsGrupos={ setSelectsGrupos } />
                             </div>
                         </div>
                         <div className="campos-reserva-aulas">
@@ -326,9 +340,10 @@ const datos =[{
                                 <select 
                                     name='estadoSolicitud'
                                     id='estados'
-                                    className="inputsSolicitud"                                   
+                                    className="inputsSolicitud"  
+                                                                   
                                 >
-                                    <option value='Pendiente'> Pendiente </option>
+                                    <option > Pendiente </option>
                                 </select>
                             </div>
                         </div>
@@ -337,7 +352,7 @@ const datos =[{
                             <button 
                                 className="btn boton-cancelar" 
                                 type="button"
-                                inClick={ nomDocente === ''? reset : closeModal}
+                                onClick={ nomDocente === ''? reset : closeModal}
                             >
                                 Cancelar
                             </button>

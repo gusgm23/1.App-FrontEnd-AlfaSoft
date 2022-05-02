@@ -13,7 +13,7 @@ export const NavBar = () => {
                         <NavLink exact='true' activeClassName="active" to='/registrousuario' className="nav-link">Registrarse</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/registromateria' className="nav-link">Registrar Materia</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/versolicitudes' className="nav-link">Solicitudes</NavLink>
-                        <NavLink exact='true' activeClassName="active" to='/regsolicitudes' className="nav-link">Registro Solicitudes</NavLink>
+                        {/* <NavLink exact='true' activeClassName="active" to='/regsolicitudes' className="nav-link">Registro Solicitudes</NavLink> */}
                         <NavLink exact='true' activeClassName="active" to='/reservaaulas' className="nav-link">Reservar Aula</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/veraulas' className="nav-link">Aulas</NavLink>
                         <NavLink exact='true' activeClassName="active" to='/vermaterias' className="nav-link">Materias</NavLink>

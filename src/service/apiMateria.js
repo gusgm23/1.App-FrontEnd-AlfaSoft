@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const getMateria = ( setListaMateria ) =>{
-    axios.get('http://127.0.0.1:8000/api/obtenerMaterias')
+export const getMateria = async ( setListaMateria )  =>{
+    await axios.get('http://127.0.0.1:8000/api/obtenerMaterias')
     .then( response => {
         setListaMateria({
             state: true,

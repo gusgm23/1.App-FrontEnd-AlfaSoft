@@ -35,17 +35,17 @@ export const VerGrupos = () => {
 
     const materiaID = localStorage.getItem("id");
 
-    const { state, data } = listaMat;
+    const { states, datas } = listaMat;
     const { id, grupo } = datos;
     const { idGrupo, nombreGrupo, estadoGrupo } = grupoEditar;
 
     useEffect(() => {
 
-        if( data != [] ){
+        if( datas != [] ){
             getGrupoMateria(setListaMat);
-            filtrarGrupos(data,materiaID, setDataLimpia);
+            filtrarGrupos(datas,materiaID, setDataLimpia);
         }
-    }, [state]);
+    }, [states]);
 
     const editar = (idEditar, nombreGrupoEditar, estadoGrupoEditar) => {
         setGrupoEditar({

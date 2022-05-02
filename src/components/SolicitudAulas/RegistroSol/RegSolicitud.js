@@ -249,7 +249,7 @@ export const RegSolicitud = ({
                         <button 
                             type='button' 
                             className='btn btn-warning'
-                            inClick={ nomDocente === ''? reset : closeModal}
+                            onClick={ nomDocente === ''? reset : closeModal}
                         >
                             Cancelar
                         </button>

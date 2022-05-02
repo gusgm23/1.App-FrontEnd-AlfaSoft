@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const getGrupoMateria = ( setStateData ) => {
-    axios.get('http://127.0.0.1:8000/api/obtenerGrupos')
+export const getGrupoMateria = async ( setStateData ) => {
+    await axios.get('http://127.0.0.1:8000/api/obtenerGrupos')
     .then( response => {
         setStateData({
-            state: true,
-            data: response.data
+            states: true,
+            datas: response.data
         });
     } )
     .catch( e => {
