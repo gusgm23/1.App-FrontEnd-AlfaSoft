@@ -12,7 +12,7 @@ import { getMateria, getMateriaId, createMateria, updateMateriaId, deleteMateria
 import { ErrorGuardarDatos } from '../../Modal/Contenidos/ErrorGuardarDatos';
 import { Hecho } from '../../Modal/Contenidos/Hecho';
 
-export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModal = () => {}, titulo='' , idMat=''}) => {
+export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModal = () => {}, titulo='' , idMat='', dataOptenida, setListaMateria}) => {
     
     const [formValues, handleInputChange, reset] = useForm({
         codSis: codiSis,
@@ -38,6 +38,9 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
 
     //Hook para estado de peticion de materias
     const [statePerition, setStatePetition] = useState(false);
+
+    //!Hook para controlar estado de combobox
+    const [selects, setSelects] = useState('habilitado')
 
     const [listaMaterias, setListaMaterias] = useState({
         state: false,
@@ -103,17 +106,39 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
         }
     }
 
+    const editarMateria = (codigoSisEditar, materiaEditar, eleccion) => {
+
+        console.log(codigoSisEditar, materiaEditar, eleccion, data)
+
+        const arreglo = data;
+
+        let contador = 0;
+
+        arreglo.map( (materia) => {
+            if( idMat == materia.id ){
+                arreglo[contador].codigoMateria = codigoSisEditar;
+                arreglo[contador].nombreMateria = materiaEditar;
+                arreglo[contador].estadoMateria = eleccion;
+            console.log('sss')
+            }
+            contador++;
+        } );
+
+        setListaMateria({
+            state: true,
+            data: arreglo
+        });
+
+    }
     
     const guardarDatos = () => {
         setStatePetition(true);
-
-        const seleccion = document.getElementById('estados');
-        const itemSeleccionado = seleccion.options[seleccion.selectedIndex].value;
         
         if(idMat === ''){
-            createMateria( formValues, '1', itemSeleccionado, openModalSuccess, openModalWarning );
+            createMateria( formValues, '1', selects, openModalSuccess, openModalWarning );
         }else{
-            updateMateriaId( formValues, '1', itemSeleccionado, openModalSuccess, openModalWarning, idMat );
+            updateMateriaId( formValues, '1', selects, openModalSuccess, openModalWarning, idMat );
+            editarMateria(codSis, materia, selects);
         }
 
     }
@@ -166,9 +191,9 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                         <div className='contenedor-flex'>
                             <label className='labels'>Estado:</label>
                             <div className='contenedor-input'>
-                                <select id='estados' className='inputs'>
-                                    <option value='Habilitado' >Habilitado</option>
-                                    <option value='Deshabilitado' >Deshabilitado</option>
+                                <select className='inputs' value={selects} onChange={ e => setSelects( e.target.value ) }>
+                                    <option>Habilitado</option>
+                                    <option>Deshabilitado</option>
                                 </select>
                             </div>
                         </div>

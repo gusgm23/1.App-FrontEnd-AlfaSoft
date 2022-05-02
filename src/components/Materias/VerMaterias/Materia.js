@@ -6,15 +6,15 @@ import { ModalGenerico } from '../../Modal/ModalGenerico';
 import { FormRegistroMateria } from '../RegistroMateria/FormRegistroMateria';
 import { NavLink } from 'react-router-dom';
 
-export const Materia = ({data=[]}) => {
+export const Materia = ({data=[], setListaMateria}) => {
 
     const [values, setValues] = useState({
         codigoMat:'',
         nombreMat:'',
-        id: ''
+        id: '', 
     });
 
-    const { codigoMat, nombreMat, id } = values;
+    const { codigoMat, nombreMat, id, estado } = values;
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
 
     const actualizar = (item) => {
@@ -28,6 +28,10 @@ export const Materia = ({data=[]}) => {
     
     const guardarID  = (id) => {
         localStorage.setItem("id", id);
+    }
+
+    const editar = (item) => {
+
     }
 
     return (
@@ -76,7 +80,15 @@ export const Materia = ({data=[]}) => {
             {
                 isOpen &&
                 <ModalGenerico isOpen={ isOpen } closeModal={closeModalEdicion}>
-                    <FormRegistroMateria codiSis={codigoMat} materi={nombreMat} closeModal={closeModalEdicion} titulo='Editar' idMat={id} />
+                    <FormRegistroMateria 
+                        codiSis={codigoMat} 
+                        materi={nombreMat} 
+                        closeModal={closeModalEdicion} 
+                        titulo='Editar' 
+                        idMat={id}
+                        dataOptenida={data}
+                        setListaMateria={setListaMateria}
+                    />
                 </ModalGenerico>
             }
             </>

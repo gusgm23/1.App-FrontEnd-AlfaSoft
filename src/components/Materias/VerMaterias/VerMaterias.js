@@ -24,7 +24,7 @@ export const VerMaterias = () => {
                 <hr/>
                 {
                     state ?
-                    <Materia data={data} />
+                    <Materia data={data} setListaMateria={setListaMateria} />
                     : <Spinner/>
                 }
             </div>
