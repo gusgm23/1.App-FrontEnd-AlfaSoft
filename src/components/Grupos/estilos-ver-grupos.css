@@ -1,0 +1,106 @@
+/* Estilos tabla  */
+.contenedor-lista-grupos {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.td-btns {
+    width: 100px;
+}
+
+.editar-grupo {
+    width: 80%;
+    color: #fff;
+}
+
+.col-grupo {
+    width: 100px;
+}
+
+.col-id {
+    width: 70px;
+}
+
+/* Estilos cabecera seccion ver grupos */
+.contenedor-titulo-componente-tabla {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-crear-grupo {
+    background-color: rgba(25, 135, 84, .9);
+    color: #fff;
+    width: 60%;
+    box-shadow: 5px 5px 12px #c8c8c8;
+    border: solid 1px silver;
+    transition: .5s;
+}
+
+.btn-crear-grupo:hover {
+    background-color: rgba(25, 135, 84, .6);
+}
+
+/* Estilos-form-crear-grupo */
+.contenedor-flex-registrar-grupo {
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+}
+
+.input-crear-grupo {
+    width: 100%;
+    border: 1px solid #c8c8c8;
+    background: #e3e6ec;
+    box-shadow: 5px 5px 12px #d1d9e6,
+    -5px -5px 12px #ffffff;
+    margin-top: 20px;
+}
+
+.input-error-crear-grupo {
+    width: 100%;
+    border: 1px solid #c8c8c8;
+    background: #e3e6ec;
+    box-shadow: 5px 5px 12px #d1d9e6,
+    -5px -5px 12px #ffffff;
+    margin-top: 20px;
+    outline-color: red;
+}
+
+.btn-form-crear-grupo {
+    width: 30%;
+}
+
+.contenedor-input-crear-grupo {
+    width: 100%;
+}
+
+.contenedor-btns-tabla-grupos {
+    display: flex;
+}
+
+.btn-volver-grupo {
+    background-color: #4fa8fb;
+    color: #fff;
+    width: 100px;
+    box-shadow: 5px 5px 12px #c8c8c8;
+    border: solid 1px silver;
+    transition: .5s;
+    margin-left: 10px;
+}
+
+.btn-volver-grupo:hover {
+    background-color: rgba(79, 168, 251, .7);
+    color: #fff;
+}
+
+a:hover{
+    color: #fff;
+}
+
+/* Estilos para combo-box */
+
+.contenedor-flex-grupo {
+    display: flex;
+    flex-direction: column;
+}

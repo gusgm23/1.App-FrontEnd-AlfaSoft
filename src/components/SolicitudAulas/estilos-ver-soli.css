@@ -1,3 +1,20 @@
+.Titulo-Soli {
+    width: 100%;
+    font-size: 50px;
+    text-align: center;
+}
+
+.titulo-ver-aulas {
+    width: 100%;
+    font-size: 50px;
+    text-align: center;
+}
+
+.titulos-soli {
+    font-size: 20px;
+    text-align: center;
+}
+
 .caja-grupo {
     width: 10%;
 }
@@ -9,20 +26,17 @@
 .caja-materia {
     width: 30%;
     height: 60%;
-    
-    
     overflow: auto;
 }
 
 .caja-btns {
     width: 90%;
-
     display: flex;
     justify-content: space-evenly;
 }
 
 .editar-mat {
-    width: 60%;
+    width: 100%;
     margin: 5px;
     color: #fff;
 }
@@ -36,7 +50,8 @@
     background-color: rgba(79, 168, 251, .5);
 }
 
-table tr th, table tr td {
+table tr th,
+table tr td {
     padding: 10px;
 }
 

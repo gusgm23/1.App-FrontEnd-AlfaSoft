@@ -13,7 +13,7 @@ export const VistaAulas = () => {
                 <hr/>
                 {
                     Aulas.map( (item) => (
-                        <Aula elem={item}/>
+                        <Aula elem={item} key={item.id}/>
                     ) )
                 }
             </div>
