@@ -23,7 +23,7 @@ export const createSolicitud = (  formValues , materia_id, materiaSolicitud, gru
     const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud} = formValues;
 
     
-    return axios.post(`http://127.0.0.1:8000/api/crearSolicitud`, 
+    return axios.post(`https://reserva-de-aulas-backend.herokuapp.com/api/crearSolicitud`, 
     
     {
         //id:                             `${data.id}`,
