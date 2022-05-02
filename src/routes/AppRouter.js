@@ -20,10 +20,11 @@ import { VerMaterias } from '../components/Materias/VerMaterias/VerMaterias';
 import { VerSolicitudes } from '../components/SolicitudAulas/VerSolicitudes';
 import { RegSolicitud } from '../components/SolicitudAulas/RegistroSol/RegSolicitud';
 import { VerGrupos } from '../components/Grupos/VerGrupos';
+import { Footer } from '../components/Footer/Footer';
 
 
 export const AppRouter = () => {
-    return ( 
+    return (
         <Router>
             <div>
 
@@ -45,6 +46,9 @@ export const AppRouter = () => {
 
                     <Route path='*'                         element={<Error404Screen/>}/>
                 </Routes>
+
+                <Footer/>
+
             </div>
         </Router>
     )

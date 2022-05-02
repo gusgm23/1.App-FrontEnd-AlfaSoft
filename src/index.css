@@ -1,3 +1,9 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+
 body {
     background-color: #ecf0f3;
+    margin: 0;
 }
