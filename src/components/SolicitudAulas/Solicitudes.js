@@ -40,16 +40,21 @@ export const Solicitudes = ({data=[]}) => {
         openModalEdicion();
     }
     
+    
     const guardarID  = (id) => {
         localStorage.setItem("id", id);
     }
+    
+    
+
 
     return (
             <>
-            <div className='contenedor-tabla'>
+            <div className='contenedor-tabla-soli'>
+                
                 <table>
                     <thead>
-                        <tr className='titulo-tabla'>
+                        <tr className='titulo-tabla-soli'>
                             <th>#</th>
                             <th>Nombre </th>
                             <th>Apellido Docente</th>
@@ -61,6 +66,7 @@ export const Solicitudes = ({data=[]}) => {
                             <th>Opciones</th>
                         </tr>
                     </thead>
+                   
                     <tbody>
                         {
                             data.map((item, i) => (
@@ -73,10 +79,10 @@ export const Solicitudes = ({data=[]}) => {
                                     <td> { item.fechaSolicitud } </td>
                                     <td> { item.horaInicioSolicitud } </td>
                                     <td> { item.estadoSolicitud } </td>
-                                    <td className='td-btns'>
-                                        <section className='caja-btns'>
+                                    <td className='td-btns-soli'>
+                                        <section className='caja-btns-soli'>
                                             <button 
-                                                className='btn-editar editar-mat'
+                                                className='btn-editar editar-soli'
                                                 onClick={ () => {actualizar(item)} }
                                             >
                                                 Detalles

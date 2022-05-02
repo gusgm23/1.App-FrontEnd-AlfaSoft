@@ -4,7 +4,7 @@
     text-align: center;
 }
 
-.titulo-ver-aulas {
+.titulo-ver-soli {
     width: 100%;
     font-size: 50px;
     text-align: center;
@@ -15,33 +15,33 @@
     text-align: center;
 }
 
-.caja-grupo {
+.caja-grupo-soli {
     width: 10%;
 }
 
-.caja-sis {
+.caja-sis-soli {
     width: 20%;
 }
 
-.caja-materia {
+.caja-materia-soli {
     width: 30%;
     height: 60%;
     overflow: auto;
 }
 
-.caja-btns {
+.caja-btns-soli {
     width: 90%;
     display: flex;
     justify-content: space-evenly;
 }
 
-.editar-mat {
+.editar-soli {
     width: 100%;
     margin: 5px;
     color: #fff;
 }
 
-.btn-ver-mat {
+.btn-ver-soli {
     background-color: #4fa8fb;
     transition: .6s;
 }
@@ -55,7 +55,7 @@ table tr td {
     padding: 10px;
 }
 
-.td-btns {
+.td-btns-soli {
     width: 180px;
 }
 
@@ -69,12 +69,12 @@ table tr:nth-child(odd) td {
     background-color: #ffffff;
 }
 
-.titulo-tabla {
+.titulo-tabla-soli {
     background-color: rgba(33, 37, 41, .9);
     color: #ffffff;
 }
 
-.contenedor-tabla {
+.contenedor-tabla-soli {
     display: flex;
     justify-content: center;
 }

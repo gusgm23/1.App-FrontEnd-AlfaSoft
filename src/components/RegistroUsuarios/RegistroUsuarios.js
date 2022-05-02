@@ -1,4 +1,5 @@
 import React from "react";
+import "./registroUsuarioEstilos.css";
 
 
 export const RegistroUsuarios = () => {
@@ -14,27 +15,27 @@ export const RegistroUsuarios = () => {
                     <div className="contenedor-elementos-registro-usuarios">
                         <div className="campos-registro-usuario">
                             <label className="labels"> Nombre: </label>
-                            <input className="inputs" type="text"></input>
+                            <input className="inputs-registro" type="text"></input>
                         </div>
                         <div className="campos-registro-usuario">
                             <label className="labels"> Cargo: </label>
-                            <input className="inputs" type="text"></input>
+                            <input className="inputs-registro" type="text"></input>
                         </div>
                         <div className="campos-registro-usuario">
                             <label className="labels"> Telefono: </label>
-                            <input className="inputs" type="number"></input>
+                            <input className="inputs-registro" type="number"></input>
                         </div>
                         <div className="campos-registro-usuario">
                             <label className="labels"> Direccion: </label>
-                            <input className="inputs" type="text"></input>
+                            <input className="inputs-registro" type="text"></input>
                         </div>
                         <div className="campos-registro-usuario">
                             <label className="labels"> Correo: </label>
-                            <input className="inputs" type="text"></input>
+                            <input className="inputs-registro" type="text"></input>
                         </div>
                         <div className="campos-registro-usuario">
                             <label className="labels"> Contraseña: </label>
-                            <input className="inputs"></input>
+                            <input className="inputs-registro"></input>
                         </div>
                     </div>
                     <div className="contenedor-botones-usuario">
