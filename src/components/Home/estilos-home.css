@@ -1,0 +1,23 @@
+.parrafo-home {
+    color: #212529;
+    width: 40%;
+}
+
+.contenido-home {
+    margin: 20px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+img {
+    width: 400px;
+}
+
+p {
+    font-size: 25px;
+}
+
+.titulo-home {
+    margin: 20px;
+}

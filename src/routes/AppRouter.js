@@ -8,7 +8,6 @@ import {
 
 import { NavBar } from '../components/NavBar/NavBar';
 import { AboutScreen } from '../components/AboutScreen';
-import { HomeScreen } from '../components/HomeScreen';
 import { LoginScreen } from '../components/LoginScreen';
 import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
 import { Error404Screen } from '../components/Page404/Error404Screen';
@@ -21,6 +20,7 @@ import { VerSolicitudes } from '../components/SolicitudAulas/VerSolicitudes';
 import { RegSolicitud } from '../components/SolicitudAulas/RegistroSol/RegSolicitud';
 import { VerGrupos } from '../components/Grupos/VerGrupos';
 import { Footer } from '../components/Footer/Footer';
+import { HomeScreen } from '../components/Home/HomeScreen';
 
 
 export const AppRouter = () => {

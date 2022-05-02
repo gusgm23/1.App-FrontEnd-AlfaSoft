@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 200px;
+    margin-top: 100px;
     bottom: 0;
 }
 
@@ -33,7 +33,7 @@
 
 .detalle-nombre-grupo {
     margin: 0px;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 p {
@@ -43,9 +43,10 @@ p {
 }
 
 .detalle-lugar {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .derechos {
     margin: 10px;
+    font-size: 15px;
 }
