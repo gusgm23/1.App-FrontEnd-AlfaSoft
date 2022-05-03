@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const getSolicitud = (setListaSolicitud) => {
-    return axios.get(`http://127.0.0.1:8000/api/obtenerSolicitud`)
+export const getSolicitud = async (setListaSolicitud) => {
+    await axios.get(`https://reserva-de-aulas-backend.herokuapp.com/api/obtenerSolicitud`)
         .then(response => {
             setListaSolicitud({
                 state: true,
@@ -15,7 +15,7 @@ export const getSolicitud = (setListaSolicitud) => {
 }
 
 export const getSolicitudId = (id) => {
-    return axios.get(`http://127.0.0.1:8000/api/obtenerSolicitudId/${id}`);
+    return axios.get(`https://reserva-de-aulas-backend.herokuapp.com/api/obtenerSolicitudId/${id}`);
 }
 
 export const createSolicitud = (  formValues , materia_id, materiaSolicitud, grupoSolicitud, pendiente='pendiente', openModalSuccess, openModalWarning) => {
@@ -50,7 +50,7 @@ export const createSolicitud = (  formValues , materia_id, materiaSolicitud, gru
 }
 
 export const updateSolicitudId = (data, id) => {
-    return axios.put(`http://127.0.0.1:8000/api/actualizarSolicitud/${id}`, {
+    return axios.put(`https://reserva-de-aulas-backend.herokuapp.com/api/actualizarSolicitud/${id}`, {
         id: `${data.id}`,
         nombreDocenteSolicitud: `${data.nombreDocenteSolicitud}`,
         apellidoDocenteSolicitud: `${data.apellidoDocenteSolicitud}`,
@@ -72,5 +72,5 @@ export const updateSolicitudId = (data, id) => {
 }
 
 export const deleteSolicitud = (id) => {
-    return axios.delete(`http://127.0.0.1:8000/api/eliminarSolicitud/${id}`);
+    return axios.delete(`https://reserva-de-aulas-backend.herokuapp.com/api/eliminarSolicitud/${id}`);
 }
