@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getMateria = async ( setListaMateria )  =>{
-    await axios.get('http://127.0.0.1:8000/api/obtenerMaterias')
+    await axios.get(`https://reserva-de-aulas-backend.herokuapp.com/api/obtenerMaterias`)
     .then( response => {
         setListaMateria({
             state: true,
@@ -14,11 +14,11 @@ export const getMateria = async ( setListaMateria )  =>{
 }
 
 export const getMateriaId = (id) =>{
-    return axios.get(`http://127.0.0.1:8000/api/obtenerMateriasId/${id}`);
+    return axios.get(`https://reserva-de-aulas-backend.herokuapp.com/api/obtenerMateriasId/${id}`);
 }
 
 export const createMateria = ({ codSis, materia }, user_id, estado,openModalSuccess, openModalWarning) =>{
-    return axios.post('http://127.0.0.1:8000/api/crearMateria',
+    return axios.post('https://reserva-de-aulas-backend.herokuapp.com/api/crearMateria',
     {
         codigoMateria:  `${codSis}`,
         nombreMateria:  `${materia}`,
@@ -38,7 +38,7 @@ export const createMateria = ({ codSis, materia }, user_id, estado,openModalSucc
 }
 
 export const updateMateriaId = ({ codSis, materia }, user_id, estado,openModalSuccess, openModalWarning, id) =>{
-    return axios.put(`http://127.0.0.1:8000/api/actualizarMateria/${id}`,
+    return axios.put(`https://reserva-de-aulas-backend.herokuapp.com/api/actualizarMateria/${id}`,
     {
         id:             `${id}`,
         codigoMateria:  `${codSis}`,
@@ -59,6 +59,6 @@ export const updateMateriaId = ({ codSis, materia }, user_id, estado,openModalSu
 }
 
 export const deleteMateriaId = (id) => {
-    return axios.delete(`http://127.0.0.1:8000/api/eliminarMateria/${id}`);
+    return axios.delete(`https://reserva-de-aulas-backend.herokuapp.com/api/eliminarMateria/${id}`);
 }
 
