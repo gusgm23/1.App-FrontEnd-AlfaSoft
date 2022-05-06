@@ -71,3 +71,12 @@ input {
     border: none;
     border-bottom: 1px solid #0F7ABC;
 }
+
+.error-login-inhabilitado{
+    display: none;
+}
+
+.error-login-activo {
+    color: red;
+    font-size: 12px;
+}

@@ -19,7 +19,7 @@ export const LoginScreen = () => {
                     <label className='label-login element-login'>Correo Institucional:</label>
                     <input 
                         type='email'
-                        placeholder='2020028394@fcyt.umss.edu.bo'
+                        placeholder='202002834@fcyt.umss.edu.bo'
                         className='element-login'
                     />
                     <label className='label-login element-login'>Contraseña:</label>
@@ -29,7 +29,10 @@ export const LoginScreen = () => {
                         className='element-login'
                         autoComplete='off'
                     />
-                    <Link to='/' className='link element-login'>¿No tienes cuenta? Registrate aqui</Link>
+                    <p className='error-login-inhabilitado'>
+                        El Correo o contraseña ingresado no es correcto, porfavor intenta otra vez
+                    </p>
+                    <Link to='/registrousuario' className='link element-login'>¿No tienes cuenta? Registrate aqui</Link>
                 </div>
                 <section>
                     <button 
