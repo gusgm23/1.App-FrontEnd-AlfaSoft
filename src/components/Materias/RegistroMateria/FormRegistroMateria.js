@@ -40,7 +40,7 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
     const [statePerition, setStatePetition] = useState(false);
 
     //!Hook para controlar estado de combobox
-    const [selects, setSelects] = useState('habilitado')
+    const [selects, setSelects] = useState('Habilitado')
 
     const [listaMaterias, setListaMaterias] = useState({
         state: false,

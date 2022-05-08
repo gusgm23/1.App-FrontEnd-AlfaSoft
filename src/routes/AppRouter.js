@@ -21,6 +21,7 @@ import { RegSolicitud } from '../components/SolicitudAulas/RegistroSol/RegSolici
 import { VerGrupos } from '../components/Grupos/VerGrupos';
 import { Footer } from '../components/Footer/Footer';
 import { HomeScreen } from '../components/Home/HomeScreen';
+import { RegistroRoles } from '../components/Roles/RegistroRoles';
 
 
 export const AppRouter = () => {
@@ -35,6 +36,7 @@ export const AppRouter = () => {
                     <Route exact path='/about'              element={<AboutScreen/>}/>
                     <Route exact path='/login'              element={<LoginScreen/>}/>
                     <Route exact path='/registroaula'       element={<RegistroAulasScreen/>}/>
+                    <Route exact path='registrorol'         element={<RegistroRoles/>}/>
                     <Route exact path='/registrousuario'    element={<RegistroUsuarios/>}/>
                     <Route exact path='/registromateria'    element={<RegistroMateria/>}/>
                     <Route exact path='/versolicitudes'     element={<VerSolicitudes/>}/>
