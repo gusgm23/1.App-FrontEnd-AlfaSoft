@@ -8,7 +8,6 @@ import {
 
 import { NavBar } from '../components/NavBar/NavBar';
 import { AboutScreen } from '../components/AboutScreen';
-import { LoginScreen } from '../components/LoginScreen';
 import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
 import { Error404Screen } from '../components/Page404/Error404Screen';
 import { VistaAulas } from '../components/Aulas/Ver Aulas/VistaAulas';
@@ -21,6 +20,7 @@ import { RegSolicitud } from '../components/SolicitudAulas/RegistroSol/RegSolici
 import { VerGrupos } from '../components/Grupos/VerGrupos';
 import { Footer } from '../components/Footer/Footer';
 import { HomeScreen } from '../components/Home/HomeScreen';
+import { LoginScreen } from '../components/Login/LoginScreen';
 import { RegistroRoles } from '../components/Roles/RegistroRoles';
 
 
