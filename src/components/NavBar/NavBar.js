@@ -26,7 +26,7 @@ export const NavBar = () => {
                         <NavLink
                             exact='true'
                             to='/registrorol'
-                            className={({ isActive }) => 'nav-item nav-link' + ( isActive ? 'active' : '' )}
+                            className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
                         >
                             Registrar Roles
                         </NavLink>
