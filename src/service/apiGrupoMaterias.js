@@ -65,5 +65,5 @@ export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_i
 }
 
 export const deleteGrupoMateriaId = (id) => {
-    return axios.delete(`http://127.0.0.1:8000/api/eliminarGrupos/${id}`);
+    return axios.delete(`https://reserva-de-aulas-backend.herokuapp.com/api/eliminarGrupos/${id}`);
 }

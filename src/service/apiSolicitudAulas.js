@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const getSolicitud = (setListaSolicitud) => {
-    return axios.get(`http://127.0.0.1:8000/api/obtenerSolicitud`)
+export const getSolicitud = async (setListaSolicitud) => {
+    await axios.get(`http://127.0.0.1:8000/api/obtenerSolicitud`)
         .then(response => {
             setListaSolicitud({
                 state: true,
@@ -72,5 +72,5 @@ export const updateSolicitudId = (data, id) => {
 }
 
 export const deleteSolicitud = (id) => {
-    return axios.delete(`http://127.0.0.1:8000/api/eliminarSolicitud/${id}`);
+    return axios.delete(`https://reserva-de-aulas-backend.herokuapp.com/api/eliminarSolicitud/${id}`);
 }

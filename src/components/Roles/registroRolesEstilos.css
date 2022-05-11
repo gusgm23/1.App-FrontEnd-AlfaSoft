@@ -1,9 +1,9 @@
 
-.titulo-registro-usuarios{
+.titulo-registro-roles{
     margin-top: 20px;
 }
 
-.contenedor-registro-usuarios{
+.contenedor-registro-roles{
     margin-top: 30px;
     display: flex;
     flex-direction: column;
@@ -11,54 +11,52 @@
     align-items: center;
 }
 
-.contenedor-usuarios{
+.contenedor-roles{
     width: 400px;
 }
 
-.contenedor-elementos-registro-usuarios{
-    padding-top: 5%;
-    height: 460px;
+.contenedor-elementos-registro-roles{
+    padding-top: 4%;
+    height: 150px;
     display: flex;
     flex-direction: column;
 }
 
-.campos-registro-usuario{
+.campos-registro-roles{
     display: flex;
     justify-content: space-between;
     margin: 5px;
-    width: 60%;
+    width: 50%;
 }
 
-.contenedor-inputs-usuario{
-    width: 20%;
-    
+.contenedor-inputs-roles{
+    width: 30%;
 }
 
-.labels-usuario{
-    font-size: 17px;
+.labels-roles{
+    font-size: 19px;
 }
 
-.inputsUsuario{
-    width: 230px;
+.inputsRoles{
+    width: 250px;
     border: 1px solid #c8c8c8;
     background: #e3e6ec;
     box-shadow: 5px 5px 12px #d1d9e6,
     -5px -5px 12px #ffffff;
 }
 
-/* Estilos para los botones */
-.contenedor-botones-usuario{
+.contenedor-botones-roles{
     display: flex;
     justify-content: space-evenly;
     margin-block-end: 100px;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
-.botonU{
+.botonR{
     width: 180px;
 }
 
-.boton-cancelar-usuario{
+.boton-cancelar-rol{
     width: 180px;
     color: black;
     background-color: #ffc107;
@@ -66,7 +64,7 @@
     padding: 6px;
 }
 
-.boton-aceptar-usuario{
+.boton-aceptar-rol{
     width: 180px;
     color: #ffffff;
     background-color: #0d6efd;
@@ -74,29 +72,7 @@
     padding: 6px;
 }
 
-
-/* estilos para el input de contraseña */
-.p-password input {
-    width: 12rem;
-    border: 1px solid #c8c8c8;
-    background: #e3e6ec;
-    box-shadow: 5px 5px 12px #d1d9e6,
-    -5px -5px 12px #ffffff;
-}
-
-.pi-eye:before {
-    content: "\e966";
-    padding: 8px;
-}
-
-.pi-eye-slash:before {
-    content: "\e965";
-    padding: 8px;
-}
-
-
-
-/* para las validaciones del formulario de usuario */
+/* para las validaciones del formulario de roles */
 
 .input-error{
     width: 250px;
