@@ -3,9 +3,11 @@ import { NavLink } from 'react-router-dom'
 import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
 import { RegSolicitud } from './RegistroSol/RegSolicitud';
+//modal rechazo
+import  ModalRechazo  from '../Modal/ModalRechazo';
 
 import './estilos-ver-soli.css'
-;
+
 
 export const Solicitudes = ({data=[]}) => {
 
@@ -24,6 +26,10 @@ export const Solicitudes = ({data=[]}) => {
 
     const { nombreDocenteSolicitud,apellidoDocenteSolicitud,numeroEstudiantesSolicitud,motivoSolicitud,fechaSolicitud,horaInicioSolicitud,periodoSolicitud,estadoSolicitud,materia_id} = values;
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
+    //modal rechazo
+    const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
+ 
+
 
     const actualizar = (item) => {
         setValues({
@@ -39,10 +45,16 @@ export const Solicitudes = ({data=[]}) => {
         });
         openModalEdicion();
     }
+
+    
+
     
     const guardarID  = (id) => {
         localStorage.setItem("id", id);
     }
+//Modal rechazar
+
+
 
     return (
             <>
@@ -81,6 +93,14 @@ export const Solicitudes = ({data=[]}) => {
                                             >
                                                 Detalles
                                             </button>
+                                            <button 
+                                                className='btn-editar rechazar-mat'
+                                                onClick={ ()=>{setOpenModalRechazo(true);
+                                                } }
+                                            >
+                                                    Rechazar
+                                            </button>
+                                            
                                         </section>
                                     </td>
                                 </tr>
@@ -104,6 +124,11 @@ export const Solicitudes = ({data=[]}) => {
                     titulo='Detalles' 
                     materia_id={materia_id} />
                 </ModalGenerico>
+            }
+            {openModalRechazo && 
+            <ModalGenerico  isOpen={openModalRechazo} closeModal={closeModalRechazo}>
+            <ModalRechazo closeModal={setOpenModalRechazo}/> 
+            </ModalGenerico>
             }
             </>
     )
