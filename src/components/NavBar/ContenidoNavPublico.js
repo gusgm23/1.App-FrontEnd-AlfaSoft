@@ -6,7 +6,7 @@ export const ContenidoNavPublico = () => {
     <>
             <div className="navbar-collapse">
                 <div className='navbar-nav'>
-                <NavLink 
+                    <NavLink 
                         exact='true'
                         to='/' 
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
