@@ -10,7 +10,7 @@ export const AdministradorScreen = () => {
     const { user } = useContext(AuthContext);
 
     return (
-        <div className='contenedor-home-admin'>
+        <div className='contenedor-home-admin animate__animated animate__fadeIn'>
             <h2>¡Hola, {user.name} {user.apellido}!</h2>
             <hr/>
             <div className='contenedor-info-admin'>

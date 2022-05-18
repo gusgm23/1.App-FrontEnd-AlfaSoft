@@ -7,10 +7,10 @@ import './estilos-home-docente.css';
 
 export const DocenteHome = () => {
     
-    const { user, dispatch } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     
     return (
-        <div className='contenedor-home-docente'>
+        <div className='contenedor-home-docente animate__animated animate__fadeIn'>
             <div className='contenedor-titulo-home-docente'>
                 <h2>
                     ¡Hola, {user.name} {user.apellido}!

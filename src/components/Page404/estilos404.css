@@ -12,4 +12,24 @@
 
 .parrafo-404 {
     font-size: 25px;
+    color: #000;
+}
+
+div > h2 {
+    font-size: 40px;
+    margin: 15px;
+}
+
+div > button {
+    margin-top: 20px;
+    width: 200px;
+    height: 40px;
+    border: none;
+    background-color: #0F7ABC;
+    color: #ffffff;
+    transition: .5s;
+}
+
+div > button:hover {
+    background-color: rgba(15, 122, 188, .8);
 }
