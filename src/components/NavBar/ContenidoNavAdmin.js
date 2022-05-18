@@ -82,7 +82,7 @@ export const ContenidoNavAdmin = () => {
                         className='nav-item nav-link btn'
                         onClick={ handleLogout }
                     >
-                        Logout
+                        Cerrar sesión
                     </button>
                 </ul>
             </div>

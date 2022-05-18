@@ -53,7 +53,7 @@ export const ContenidoNavDocente = () => {
                         className='nav-item nav-link btn'
                         onClick={ handleLogout }
                     >
-                        Logout
+                        Cerrar sesión
                     </button>
                 </ul>
             </div>
