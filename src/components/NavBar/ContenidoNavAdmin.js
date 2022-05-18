@@ -76,7 +76,7 @@ export const ContenidoNavAdmin = () => {
             <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav">
                     <span className='nav-item nav-link text-info'>
-                        { user.name }
+                        { user.name } - { user.rol }
                     </span>
                     <button
                         className='nav-item nav-link btn'

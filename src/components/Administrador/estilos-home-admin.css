@@ -1,0 +1,36 @@
+.contenedor-home-admin {
+    margin: 20px;
+}
+
+section > div > div > p {
+    color: #000;
+    font-size: 18px;
+}
+
+section {
+    max-width: 1000px;
+}
+
+section > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-info-admin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-img-home-admin{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-home-admin {
+    width: 100%;
+}
