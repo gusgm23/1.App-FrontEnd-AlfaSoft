@@ -6,7 +6,7 @@ export const arregloDatosSolicitud = ( item ) => {
         campo: 'Docente',
         valor: item.nombreDocenteSolicitud
     }, {
-        campo: 'Número de estudiantes',
+        campo: 'Nro estudiantes',
         valor: item.numeroEstudiantesSolicitud
     }, {
         campo: 'Motivo',
