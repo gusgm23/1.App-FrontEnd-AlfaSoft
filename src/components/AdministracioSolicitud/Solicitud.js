@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getAulas } from '../../service/apiAulas';
 import { DatosSolicitud } from './DatosSolicitud';
 
 import './estilos-solicitud.css';
+import { FilaTabla } from './FilaTabla';
 
 const item = {
     id: 1,
@@ -25,6 +27,13 @@ export const Solicitud = () => {
     })
 
     const { data } = dataAulas;
+
+    useEffect(() => {
+        
+        getAulas( setDataAulas );
+
+    }, []);
+    
     
     return (
         <div className='contenedor-solicitud animate__animated animate__fadeIn'>
@@ -40,18 +49,12 @@ export const Solicitud = () => {
                                 <th>#</th>
                                 <th>Aula</th>
                                 <th>Capacidad</th>
+                                <th>Estado</th>
                                 <th>Gestionar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>690C</td>
-                                <td>35</td>
-                                <td>
-                                    <button className='btn-reserva'> Reservar </button>
-                                </td>
-                            </tr>
+                            <FilaTabla data={data}/>
                         </tbody>
                     </table>
                 </section>

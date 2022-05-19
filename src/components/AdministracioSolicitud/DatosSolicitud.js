@@ -8,8 +8,8 @@ export const DatosSolicitud = ( {item} ) => {
     return (
         <>
             { 
-                data.map( (elemet)  => (
-                    <p className='parraf-datos-soli'><b>{elemet.campo}: </b>{elemet.valor}</p>
+                data.map( (elemet,i)  => (
+                    <p  key={i} className='parraf-datos-soli'><b>{elemet.campo}: </b>{elemet.valor}</p>
                 ) )
             }
         </>
