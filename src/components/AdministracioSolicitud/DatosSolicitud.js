@@ -9,7 +9,9 @@ export const DatosSolicitud = ( {item} ) => {
         <>
             { 
                 data.map( (elemet,i)  => (
-                    <p  key={i} className='parraf-datos-soli'><b>{elemet.campo}: </b>{elemet.valor}</p>
+                    <p  key={i} className='parraf-datos-soli'>
+                        <b>{elemet.campo}: </b>{elemet.valor}
+                    </p>
                 ) )
             }
         </>
