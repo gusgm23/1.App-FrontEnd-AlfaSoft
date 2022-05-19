@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { Solicitud } from '../components/AdministracioSolicitud/Solicitud'
 import { AdministradorScreen } from '../components/Administrador/AdministradorScreen'
 import { RegistroAulasScreen } from '../components/Aulas/RegistroAulas/RegistroAulasScreen'
 import { VistaAulas } from '../components/Aulas/Ver Aulas/VistaAulas'
@@ -27,6 +28,8 @@ export const AdminRoutes = () => {
                 <Route exact path='versolicitudes'      element={<VerSolicitudes/>}/>
                 <Route exact path='veraulas'            element={<VistaAulas/>}/>
                 <Route exact path='vermaterias'         element={<VerMaterias/>}/>
+
+                <Route exact path='administrarsolicitud'         element={<Solicitud/>}/>
 
                 <Route path='*'                         element={<Error404Screen/>}/>
             </Routes>

@@ -1,0 +1,47 @@
+.contenedor-solicitud {
+    margin: 40px;
+}
+
+.parraf-datos-soli {
+    color: #000;
+    font-size: 18px;
+}
+
+.contenedor-parrafos-soli {
+    
+    display: grid;
+    grid-template-columns: 
+        repeat(auto-fit, minmax(220px, 1fr));
+    grid-column-gap: 10px;
+}
+
+.contenedor-tabla-aulas-soli {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seccion-aulas-disponibles {
+    max-width: 1000px;
+    min-height: 240px;
+    justify-content: flex-start;
+}
+
+.tabla-aulas-soli {
+    width: 60%;
+}
+
+.btn-reserva {
+    background-color: #00AB66;
+    width: 80%;
+    border: none;
+    color: #ffffff;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 171, 102, .5);
+    transition: .6s;
+}
+
+.btn-reserva:hover {
+    color: rgba(0, 171, 102, .5);
+    background-color: #fff;
+}

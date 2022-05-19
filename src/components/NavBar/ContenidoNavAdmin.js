@@ -69,6 +69,13 @@ export const ContenidoNavAdmin = () => {
                     >
                             Materias
                     </NavLink>
+                    <NavLink 
+                        exact='true' 
+                        to='/admin/administrarsolicitud' 
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                    >
+                            admin soli
+                    </NavLink>
                     
                 </div>
             </div>
