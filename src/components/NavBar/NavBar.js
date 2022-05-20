@@ -32,10 +32,10 @@ export const NavBar = () => {
                         </NavLink>
                         <NavLink 
                             exact='true' 
-                            to='/registrousuario' 
+                            to='/verusarios' 
                             className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
                         >
-                            Registrarse
+                            Ver Usuarios
                         </NavLink>
                         <NavLink 
                             exact='true' 
@@ -86,6 +86,15 @@ export const NavBar = () => {
                         >
                             Acerca de
                         </NavLink>
+
+                        <NavLink 
+                            exact='true' 
+                            to='/listarlassolicitudes' 
+                            className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        >
+                            Ver Solicitudes
+                        </NavLink>
+
                     </div>
                 </div>
             </div>

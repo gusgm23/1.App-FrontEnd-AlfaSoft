@@ -2,6 +2,7 @@ import React, { useState }  from 'react'
 import { NavLink } from 'react-router-dom'
 import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
+//import {FormularioReservaAula} from '../ReservaAulas/FormularioReservaAula';
 import { RegSolicitud } from './RegistroSol/RegSolicitud';
 
 import './estilos-ver-soli.css'
@@ -45,8 +46,6 @@ export const Solicitudes = ({data=[]}) => {
         localStorage.setItem("id", id);
     }
     
-    
-
 
     return (
             <>
@@ -65,8 +64,7 @@ export const Solicitudes = ({data=[]}) => {
                             <th>Estado de Solicitud</th>
                             <th>Opciones</th>
                         </tr>
-                    </thead>
-                   
+                    </thead>               
                     <tbody>
                         {
                             data.map((item, i) => (
@@ -92,13 +90,14 @@ export const Solicitudes = ({data=[]}) => {
                                 </tr>
                             ))
                         }
-                    </tbody>
+                    </tbody>  
                 </table>
             </div>
             {
                 isOpen &&
                 <ModalGenerico isOpen={ isOpen } closeModal={closeModalEdicion}>
-                    <RegSolicitud nombre_doc ={nombreDocenteSolicitud} 
+                    <RegSolicitud 
+                    nombre_doc ={nombreDocenteSolicitud} 
                     ape_doc ={apellidoDocenteSolicitud} 
                     nro_est ={numeroEstudiantesSolicitud} 
                     motivo ={motivoSolicitud}

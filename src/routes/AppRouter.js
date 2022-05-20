@@ -8,7 +8,7 @@ import {
 
 import { NavBar } from '../components/NavBar/NavBar';
 import { AboutScreen } from '../components/AboutScreen';
-import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
+import { VerUsuarios } from '../components/RegistroUsuarios/VerUsuarios/VerUsuarios';
 import { Error404Screen } from '../components/Page404/Error404Screen';
 import { VistaAulas } from '../components/Aulas/Ver Aulas/VistaAulas';
 import { RegistroAulasScreen } from '../components/Aulas/RegistroAulas/RegistroAulasScreen';
@@ -24,6 +24,9 @@ import { LoginScreen } from '../components/Login/LoginScreen';
 import { RegistroRoles } from '../components/Roles/RegistroRoles';
 
 
+import { ListarSolicitudes } from '../components/ReservaAulas/ListarSolicitudes';
+
+
 export const AppRouter = () => {
     return (
         <Router>
@@ -37,7 +40,7 @@ export const AppRouter = () => {
                     <Route exact path='/login'              element={<LoginScreen/>}/>
                     <Route exact path='/registroaula'       element={<RegistroAulasScreen/>}/>
                     <Route exact path='registrorol'         element={<RegistroRoles/>}/>
-                    <Route exact path='/registrousuario'    element={<RegistroUsuarios/>}/>
+                    <Route exact path='/verusarios'         element={<VerUsuarios/>}/>
                     <Route exact path='/registromateria'    element={<RegistroMateria/>}/>
                     <Route exact path='/versolicitudes'     element={<VerSolicitudes/>}/>
                     <Route exact path='/regsolicitudes'     element={<RegSolicitud/>}/>
@@ -45,6 +48,8 @@ export const AppRouter = () => {
                     <Route exact path='/veraulas'           element={<VistaAulas/>}/>
                     <Route exact path='/vergrupos'          element={<VerGrupos/>}/>
                     <Route exact path='/vermaterias'        element={<VerMaterias/>}/>
+
+                    <Route exact path='/listarlassolicitudes'  element={<ListarSolicitudes/>}/>
 
                     <Route path='*'                         element={<Error404Screen/>}/>
                 </Routes>

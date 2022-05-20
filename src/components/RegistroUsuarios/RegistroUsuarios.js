@@ -5,29 +5,37 @@ import { Password } from 'primereact/password';
 import 'primeicons/primeicons.css';
 
 
-import { controlarCampoNombre, controlarCampoApellido, controlarCampoTelefono, controlarCampoDireccion, controlarCampoCorreo } from '../../helpers/validarRolUser';
+import { controlarCampoNombre, controlarCampoApellido, controlarCampoTelefono, controlarCampoDireccion, controlarCampoCorreo, controlarCampoContraseniaConf } from '../../helpers/validarRolUser';
 
+//Importar las APIs de obtener los roles
+import { getRolesHabilitados, createUsuario, updateUsuario,  } from '../../service/apiRoles';
+import { ObtenerRoles } from "./ObtenerRoles";
 
 export const RegistroUsuarios = ({
 
-    nom ='',
-    ape ='',
-    tel ='',
-    dir ='',
-    cor ='',
+    nom =   '',
+    ape =   '',
+    tel =   '',
+    dir =   '',
+    cor =   '',
+    con =   '',
+    conConf='',
 
-    closeModal = () => {}     
+    closeModal = () => {}, titulo='', idUsu='', 
 }) => {
 
     const [formValues, handleInputChange, reset] = useForm({
-        nombreUsuario:      nom,
-        apellidoUsuario:    ape,
-        telefonoUsuario:    tel,
-        direccionUsuario:   dir,
-        correoUsuario:      cor,
+        nombreUsuario:              nom,
+        apellidoUsuario:            ape,
+        telefonoUsuario:            tel,
+        direccionUsuario:           dir,
+        correoUsuario:              cor,
+        contraseñaUsuario:          con,
+        contraseñaUsuarioConf:      conConf,
+        
     })
 
-    const { nombreUsuario, apellidoUsuario, telefonoUsuario, direccionUsuario, correoUsuario } = formValues;
+    const { nombreUsuario, apellidoUsuario, telefonoUsuario, direccionUsuario, correoUsuario, contraseñaUsuario, contraseñaUsuarioConf } = formValues;
 
     //Hooks para controlar los contenidos de los campos
     const [StatusInputNombre, setStatusInputNombre] = useState(false);
@@ -35,6 +43,9 @@ export const RegistroUsuarios = ({
     const [StatusInputTelefono, setStatusInputTelefono] = useState(false);
     const [StatusInputDireccion, setStatusInputDireccion] = useState(false);
     const [StatusInputCorreo, setStatusInputCorreo] = useState(false);
+    const [StatusInputContrasenia, setStatusInputContrasenia] = useState(false);
+    const [StatusInputContraseniaConf, setStatusInputContraseniaConf] = useState(false);
+    
 
     //Hooks para mostrar el mensaje de error en los campos
     const [MsjErrorNombre, setMsjErrorNombre] = useState('');
@@ -42,10 +53,9 @@ export const RegistroUsuarios = ({
     const [MsjErrorTelefono, setMsjErrorTelefono] = useState('')
     const [MsjErrorDireccion, setMsjErrorDireccion] = useState('');
     const [MsjErrorCorreo, setMsjErrorCorreo] = useState('');
+    const [MsjErrorContrasenia, setMsjErrorContrasenia] = useState('');
+    const [MsjErrorContraseniaConf, setMsjErrorContraseniaConf] = useState('');
 
-    //Hook para la contraseña
-    const [contraseñaUsuario, setcontraseñaUsuario] = useState('');
-    const [contraseñaUsuarioConf, setcontraseñaUsuarioConf] = useState('');
 
     useEffect(() => {
         if( nombreUsuario === '' ) {
@@ -83,16 +93,46 @@ export const RegistroUsuarios = ({
         if( correoUsuario === '' ) {
             setStatusInputCorreo(false);
         }else {
-            controlarCampoCorreo( correoUsuario, setStatusInputCorreo ,setMsjErrorCorreo );
+            controlarCampoCorreo( correoUsuario, setStatusInputCorreo, setMsjErrorCorreo );
         }
     }, [correoUsuario])
+
+    useEffect(() => {
+        if( contraseñaUsuario === '') {
+            setStatusInputContrasenia(false);
+        }else if ( contraseñaUsuarioConf === '' ) {
+            setStatusInputContraseniaConf(false);
+        } else {controlarCampoContraseniaConf(
+                contraseñaUsuario, contraseñaUsuarioConf, setStatusInputContrasenia, setStatusInputContraseniaConf, setMsjErrorContrasenia, setMsjErrorContraseniaConf
+            ); 
+        }
+    }, [contraseñaUsuario, contraseñaUsuarioConf])
+
+
+
+
+
+    //Hook para obtener el select de obtener roles
+    const [ selectsRoles, setselectsRoles ] = useState('Registrar Cargo');
+
+    //Obtener los roles y listarlos
+    const [ListaRolesHabilitados, setListaRolesHabilitados ] = useState({
+        state: false,
+        data: []
+    });
+
+    const {state, data} = ListaRolesHabilitados;
+
+    useEffect(() => {
+        getRolesHabilitados(setListaRolesHabilitados);
+    }, [state]);
 
 
     return (
 
         <div className="contenedor-registro-usuarios">
-            <h1 className="titulo-registro-usuarios"> Registro de Nuevos Usuarios </h1>
-            <form>
+            <h1 className="titulo-registro-usuarios"> { titulo === ''? 'Registro de Nuevos Usuarios' : `${titulo} Usuarios       ` } </h1>
+            <form name="f1">
                 <div className="contenedor-usuarios">
                     <div className="contenedor-elementos-registro-usuarios">
                         <div className="campos-registro-usuario">
@@ -130,17 +170,7 @@ export const RegistroUsuarios = ({
                         <div className="campos-registro-usuario">
                             <label className="labels-usuario"> Cargo Del Usuario: </label>
                             <div className="contenedor-inputs-usuario">
-                                <select 
-                                    name="CargoUsuario"
-                                    className="inputsUsuario" 
-                                    
-                                    placeholder="Elegir Cargo"
-                                >
-                                    <option> Elegir Cargo </option>
-                                    
-                                    <option> Docente </option>
-                                    <option> Auxiliar </option>
-                                </select>
+                                <ObtenerRoles data={ data } selectsRoles={ selectsRoles } setselectsRoles={ setselectsRoles } />
                             </div>
                         </div>
                         <div className="campos-registro-usuario">
@@ -195,26 +225,34 @@ export const RegistroUsuarios = ({
                             <label className="labels-usuario"> Contraseña: </label>
                             <div className="contenedor-inputs-usuario">
                                 <Password 
+                                    
                                     name="contraseñaUsuario"
-                                    className="inputsUsuario"
+                                    className={ StatusInputContrasenia===true? "input-error" : "inputsUsuario" }
                                     placeholder="Ingresar Contraseña"
                                     value={contraseñaUsuario} 
-                                    onChange={(e) => setcontraseñaUsuario(e.target.value) } toggleMask
+                                    onChange={ handleInputChange } toggleMask
+                                    //onChange={(e) => setcontraseñaUsuario(e.target.value) } toggleMask
                                 />
-                               
+                                <p className={ StatusInputContrasenia===true? "mensaje-error" : "mensaje-error-oculto" }>
+                                    { MsjErrorContrasenia }
+                                </p>
                             </div>
                         </div>
                         <div className="campos-registro-usuario">
                             <label className="labels-usuario"> Confirmar Contraseña: </label>
                             <div className="contenedor-inputs-usuario">
                                 <Password 
+                                    
                                     name="contraseñaUsuarioConf"
-                                    className="inputsUsuario"
+                                    className={ StatusInputContraseniaConf===true? "input-error" : "inputsUsuario" }
                                     placeholder="Repetir Contraseña"
                                     value={contraseñaUsuarioConf} 
-                                    onChange={(e) => setcontraseñaUsuarioConf(e.target.value)} toggleMask
+                                    onChange={ handleInputChange } toggleMask
+                                    //onChange={(e) => setcontraseñaUsuarioConf(e.target.value)} toggleMask
                                 />
-
+                                <p className={ StatusInputContraseniaConf===true? "mensaje-error" : "mensaje-error-oculto" }>
+                                    { MsjErrorContraseniaConf }
+                                </p>
                             </div>
                         </div>
 

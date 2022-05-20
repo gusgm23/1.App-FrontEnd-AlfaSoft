@@ -97,3 +97,29 @@ export const controlarCampoCorreo = ( correoUsuario='', setStatusInputCorreo ,se
         setMsjErrorCorreo('');
     }
 }
+
+
+export const controlarCampoContraseniaConf = (contraseñaUsuario='', contraseñaUsuarioConf='', setStatusInputContrasenia, setStatusInputContraseniaConf, setMsjErrorContrasenia, setMsjErrorContraseniaConf) => {
+
+    let con = contraseñaUsuario.length;
+
+    if(con < 6){
+        setStatusInputContrasenia(true);
+        setMsjErrorContrasenia('La contraseña debe tener minimo 6 caracteres');
+    } else {
+        setStatusInputContrasenia(false);
+        setMsjErrorContrasenia('');
+    } if( contraseñaUsuario !== contraseñaUsuarioConf ){
+        setStatusInputContraseniaConf(true);
+        setMsjErrorContraseniaConf('Las contraseñas deben coincidir');
+    }else {
+        setStatusInputContraseniaConf(false);
+        setMsjErrorContraseniaConf('');
+    } 
+}
+
+
+
+
+
+
