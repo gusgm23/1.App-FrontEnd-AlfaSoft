@@ -20,7 +20,7 @@ export const getRoles = async ( setListaRoles ) => {
     .then( response => {
         setListaRoles({
             state: true,
-            data: response.data
+            dataRol: response.data
         });
     } )
     .catch( e => {
@@ -28,8 +28,17 @@ export const getRoles = async ( setListaRoles ) => {
     })
 }
 
-export const getRolesId = async (id) => {
-    await axios.get(`http://127.0.0.1:8000/api/obtenerRolesId/${id}`);
+export const getRolesId = async (id, setRespuesta) => {
+    await axios.get(`http://127.0.0.1:8000/api/obtenerRolesId/${id}`)
+        .then( (response) => {
+            setRespuesta({
+                state: true,
+                dataRol: response.data
+            });
+        } )
+        .catch( e => {
+            console.log(e);
+        } )
 }
 
 export const createRol = ( { data }, openModalSuccess, openModalWarning) => {

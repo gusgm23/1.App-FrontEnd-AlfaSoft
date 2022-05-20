@@ -1,6 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../auth/authContext'
+import { buscarRol } from '../../helpers/buscarRol'
+import { buscarUsuario } from '../../helpers/buscarUsuario'
 import { useForm } from '../../hooks/useForm'
+import { getRoles, getRolesId } from '../../service/apiRoles'
+import { getUsuarios } from '../../service/apiUsuarios'
+import { types } from '../../types/types'
 
 import './estilos-login.css'
 
@@ -11,11 +18,80 @@ export const LoginScreen = () => {
         pass: ''
     })
 
+    const [dataUsers, setDataUsers] = useState({
+        state: false,
+        data: []
+    })
+
+    const [errorLogin, setErrorLogin] = useState(false)
+    const [respuesta, setRespuesta] = useState({
+        state: false,
+        dataRol:[]
+    });
+
+    const { data } = dataUsers
     const { email, pass } = formValues;
+    const { dataRol } = respuesta;
+
+    //!login
+    const navigate = useNavigate();
+    const { dispatch } = useContext(AuthContext);
+
+    useEffect(() => {
+        
+        getUsuarios(setDataUsers); 
+        getRoles(setRespuesta);
+
+    }, [])
 
     const handleLogin = () => {
         
-        console.log('*se deberia logear*', formValues)
+        const validar = buscarUsuario(data, email, pass);
+        const {resp,userReg} = validar;
+    
+        const {rolEncontrado} = buscarRol(dataRol, userReg.rol_id);
+        
+        
+
+        if(validar.resp){
+
+            setErrorLogin(false);
+            redirigirUsr( userReg, rolEncontrado );
+            
+        }else {
+            setErrorLogin(true);
+        }
+
+    }
+
+    const redirigirUsr = (userReg, rolObtenido) => {
+
+        let ruta = '';
+
+        const action = {
+            type: types.login,
+            payload: {
+                name: userReg.name,
+                apellido: userReg.apellido,
+                rol: rolObtenido.rol
+            }
+        }
+
+        dispatch(action);
+
+        console.log(rolObtenido.rol, 'roool')
+
+        if(rolObtenido.rol === 'Administrador'){
+            ruta = '/admin/adminhome'
+        }else{
+            ruta = '/docente/home'
+        }
+
+        const lastPath = localStorage.getItem('lastPath') || ruta;
+
+        navigate(ruta, {
+            replace: true
+        })
 
     }
     
@@ -43,7 +119,7 @@ export const LoginScreen = () => {
                         value={ pass }
                         onChange={ handleInputChange }
                     />
-                    <p className='error-login-inhabilitado'>
+                    <p className={ errorLogin === true ? 'error-login-activo' : 'error-login-inhabilitado' }>
                         El Correo o contraseña ingresado no es correcto, porfavor intenta otra vez
                     </p>
                     <Link to='/registrousuario' className='link element-login'>¿No tienes cuenta? Registrate aqui</Link>
