@@ -35,7 +35,7 @@ export const Opciones = () => {
                         id='btn-opciones-soli-volver'
                         onClick={ volverAtras }
                     >
-                        <i class="bi bi-chevron-left"></i> Volver
+                        <i className="bi bi-chevron-left"></i> Volver
                     </button>
                 </div>
             </section>
