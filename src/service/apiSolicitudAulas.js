@@ -11,7 +11,6 @@ export const getSolicitud = async (setListaSolicitud) => {
         .catch(e => {
             console.log(e);
         })
-
 }
 
 export const getSolicitudId = (id) => {

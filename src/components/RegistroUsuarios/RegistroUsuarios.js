@@ -130,7 +130,7 @@ export const RegistroUsuarios = ({
 
     return (
 
-        <div className="contenedor-registro-usuarios">
+        <div className="contenedor-registro-usuarios animate__animated animate__fadeIn">
             <h1 className="titulo-registro-usuarios"> { titulo === ''? 'Registro de Nuevos Usuarios' : `${titulo} Usuarios       ` } </h1>
             <form name="f1">
                 <div className="contenedor-usuarios">

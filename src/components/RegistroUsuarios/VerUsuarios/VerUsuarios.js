@@ -32,14 +32,11 @@ export const VerUsuarios = () => {
             <div className="contendedor-elementos-verusuarios">
                 <div className="contenedor-titulo-boton">
                     <h2 className="titulo-ver-usuarios"> Usuarios Registrados: {data.length} </h2>
-                    <div className="contenedor-botones-listausuarios">
-                        <button
-                            className="boton-crear-usuarios"
-                            onClick={ openModalCreate }
-                        >
-                        <i class="bi bi-plus-circle-fill"></i>
-                        </button>
-                    </div>
+                    {/* <div className="contenedor-botones-listarusuarios"> */}
+                        {/* <button className="boton-crear-usuarios" onClick={ openModalCreate }> */}
+                        {/* <i class="bi bi-plus-circle-fill"></i> */}
+                        {/* </button> */}
+                    {/* </div> */}
                 </div>
                 <hr/>
                 {

@@ -27,12 +27,19 @@ export const ContenidoNavPublico = () => {
             <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav">
                 <NavLink 
-                        exact='true' 
-                        to='/login' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
-                    >
-                            Iniciar Sesión
-                    </NavLink>
+                    exact='true' 
+                    to='/login' 
+                    className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                >
+                        Iniciar Sesión
+                </NavLink>
+                <NavLink 
+                    exact='true' 
+                    to='/registrousuario' 
+                    className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                >
+                        Registrase
+                </NavLink>
                 </ul>
             </div>
         </>

@@ -18,6 +18,7 @@ import { DocenteRoutes } from './DocenteRoutes';
 import { PublicRoute } from './PublicRoute';
 import { NavBar } from '../components/NavBar/NavBar';
 import { ContenidoNavPublico } from '../components/NavBar/ContenidoNavPublico';
+import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
 
 
 import { ListarSolicitudes } from '../components/ReservaAulas/ListarSolicitudes';
@@ -48,6 +49,12 @@ export const AppRouter = () => {
                             </NavBar>
                             <HomeScreen/>
                         </>
+                    }/>
+
+                    <Route path='/registrousuario' element={
+                        <PublicRoute>
+                            <RegistroUsuarios />
+                        </PublicRoute>
                     }/>
 
                     <Route path='/login' element={
