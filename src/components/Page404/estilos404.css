@@ -15,12 +15,12 @@
     color: #000;
 }
 
-div > h2 {
+.titulo-404 {
     font-size: 40px;
     margin: 15px;
 }
 
-div > button {
+.bnt-volver-404 {
     margin-top: 20px;
     width: 200px;
     height: 40px;
@@ -30,6 +30,6 @@ div > button {
     transition: .5s;
 }
 
-div > button:hover {
+.bnt-volver-404:hover {
     background-color: rgba(15, 122, 188, .8);
 }
