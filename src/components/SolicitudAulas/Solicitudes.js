@@ -65,7 +65,7 @@ export const Solicitudes = ({data=[]}) => {
                             <th>Opciones</th>
                         </tr>
                     </thead>               
-                    <tbody>
+                    <tbody className='animate__animated animate__fadeIn'>
                         {
                             data.map((item, i) => (
                                 <tr key={item.id}>

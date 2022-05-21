@@ -22,7 +22,7 @@ export const VerSolicitudes = () => {
     }, [state]);
 
     return (
-        <div className='contenedor-gral'>
+        <div className='contenedor-gral animate__animated animate__fadeIn'>
             <div className='contenedor-elementos-lista'>
                 <h2 className='titulo-ver-soli' >Solicitudes Registradas </h2>
                 

@@ -9,6 +9,7 @@ import { DatosSolicitud } from './DatosSolicitud';
 
 import './estilos-solicitud.css';
 import { FilaTabla } from './FilaTabla';
+import { Opciones } from './OpcionesSolicitud/Opciones';
 
 const item = {
     id: 1,
@@ -99,6 +100,7 @@ export const Solicitud = () => {
                     }
                 </section>
             </div>
+            <Opciones/>
         </div>
     )
 }
