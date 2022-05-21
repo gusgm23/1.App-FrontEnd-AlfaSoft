@@ -20,7 +20,7 @@ export const listaAulas = [
         nombreAula: "690A",
         capacidadAula: "90",
         estadoAula: "Ocupado",
-        habilitacionAula: "Habilitado",
+        habilitacionAula: "Inhabilitado",
         solicitud_id: 2
     }
 ]

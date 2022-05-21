@@ -50,25 +50,31 @@ export const Solicitud = () => {
             <hr/>
             <div className='contenedor-tabla-aulas-soli'>
                 <section className='seccion-aulas-disponibles'>
-                    <table className='tabla-aulas-soli'>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Aula</th>
-                                <th>Capacidad</th>
-                                <th>Estado</th>
-                                <th>Gestionar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <FilaTabla 
-                                data={aulasLibres} 
-                                fecha={ item.fechaSolicitud } 
-                                hora={ item.horaInicioSolicitud }
-                                periodo={ item.periodoSolicitud }
-                            />
-                        </tbody>
-                    </table>
+                    {
+                        ( aulasLibres.length > 0 )
+                            ? (
+                                <table className='tabla-aulas-soli'>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Aula</th>
+                                            <th>Capacidad</th>
+                                            <th>Estado</th>
+                                            <th>Gestionar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <FilaTabla 
+                                            data={aulasLibres} 
+                                            fecha={ item.fechaSolicitud } 
+                                            hora={ item.horaInicioSolicitud }
+                                            periodo={ item.periodoSolicitud }
+                                        />
+                                    </tbody>
+                                </table>
+                            )
+                            : <p className='parrafo-info-soli'>No existen aulas disponibles para la solicitud. <b>Rechazar Solicitud</b></p>
+                    }
                 </section>
             </div>
         </div>
