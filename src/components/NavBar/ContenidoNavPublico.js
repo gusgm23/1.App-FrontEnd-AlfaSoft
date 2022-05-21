@@ -1,18 +1,17 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 export const ContenidoNavPublico = () => {
   return (
     <>
             <div className="navbar-collapse">
                 <div className='navbar-nav'>
-                    <NavLink 
-                        exact='true'
+                    <Link 
                         to='/' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className="navbar-brand"
                     >
-                        Página principal
-                    </NavLink>
+                        Reserva de Aulas
+                    </Link>
                     <NavLink 
                         exact='true'
                         to='/about' 

@@ -27,7 +27,7 @@ export const VerMaterias = () => {
     }
 
     return (
-        <div className='contenedor-gral'>
+        <div className='contenedor-gral animate__animated animate__fadeIn'>
             <div className='contenedor-elementos-lista'>
                 <div className='contenedor-titulo-ver-materias'>
                     <h2 className='titulo-ver-aulas'>Materias Registradas: {data.length}</h2>

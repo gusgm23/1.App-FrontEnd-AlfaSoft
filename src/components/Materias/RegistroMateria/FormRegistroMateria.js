@@ -153,7 +153,7 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
     }
 
     return (
-        <div className='contenedor-registro-aula form-registro-aula'>
+        <div className='contenedor-registro-aula form-registro-aula animate__animated animate__fadeIn'>
             <h2 className='titulo-registro-aula'>{ titulo === ''? 'Registrar materia': `${titulo} materia` }</h2>
             <form onSubmit={ handleSubmit }>
                 <div className='contenedor-general'>

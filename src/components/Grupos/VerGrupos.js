@@ -59,7 +59,7 @@ export const VerGrupos = () => {
 
     return (
         <>
-            <div className='contenedor-lista-grupos'>
+            <div className='contenedor-lista-grupos animate__animated animate__fadeIn'>
                 <div className='contenedor-elementos-lista'>
                     <div className='contenedor-titulo-componente-tabla'>
                         <h2>Grupos registrados para la materia: { dataLimpia.length }</h2>

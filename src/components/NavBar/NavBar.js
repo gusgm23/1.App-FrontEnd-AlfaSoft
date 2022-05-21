@@ -8,12 +8,6 @@ export const NavBar = ({ children }) => {
     return ( 
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark animate__animated animate__fadeIn">
             <img  src={umssLogo} alt='Logo umss'/>
-            <Link 
-                to='/' 
-                className="navbar-brand"
-            >
-                Reserva de Aulas
-            </Link>
             {children}
             
         </nav>
