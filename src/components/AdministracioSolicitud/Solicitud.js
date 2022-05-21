@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { listaAulas } from '../../data/ListaAulas';
+import { listaReservas } from '../../data/ListaReservas';
+import { generarAulasDisponibles } from '../../helpers/generarAulasDisponibles';
 import { getAulas } from '../../service/apiAulas';
 import { DatosSolicitud } from './DatosSolicitud';
 
@@ -11,7 +14,7 @@ const item = {
     apellidoDocenteSolicitud: "Salazar",
     numeroEstudiantesSolicitud: "40",
     motivoSolicitud: "Examen de primer parcial",
-    fechaSolicitud: "22/04/2022",
+    fechaSolicitud: "2022-05-04",
     horaInicioSolicitud: "12:45",
     horaFinSolicitud: "14:15",
     periodoSolicitud: "1 periodo",
@@ -28,9 +31,13 @@ export const Solicitud = () => {
 
     const { data } = dataAulas;
 
+    const [aulasLibres, setAulasLibres] = useState([]);
+
+
     useEffect(() => {
         
         getAulas( setDataAulas );
+        generarAulasDisponibles(listaReservas, listaAulas, item.horaInicioSolicitud, item.fechaSolicitud, setAulasLibres)
 
     }, []);
     
@@ -54,7 +61,12 @@ export const Solicitud = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <FilaTabla data={data}/>
+                            <FilaTabla 
+                                data={aulasLibres} 
+                                fecha={ item.fechaSolicitud } 
+                                hora={ item.horaInicioSolicitud }
+                                periodo={ item.periodoSolicitud }
+                            />
                         </tbody>
                     </table>
                 </section>

@@ -21,9 +21,9 @@ export const Error404Screen = () => {
                 alt='error 404'
                 className='img-404'
             />
-            <h2>Lo sentimos!</h2>
+            <h2 className='titulo-404'>Lo sentimos!</h2>
             <p className='parrafo-404'>No tienes permisos para acceder a esta sección.</p>
-            <button onClick={ volverAtras }>Volver</button>
+            <button className='bnt-volver-404' onClick={ volverAtras }>Volver</button>
         </div>
     )
 }
