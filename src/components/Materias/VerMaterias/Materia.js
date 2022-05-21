@@ -56,18 +56,18 @@ export const Materia = ({data=[], setListaMateria}) => {
                                     <td> { item.nombreMateria } </td>
                                     <td> { item.estadoMateria } </td>
                                     <td className='td-btns'>
-                                        <section className='caja-btns'>
+                                        <section className='caja-btns-materia'>
                                             <button 
-                                                className='btn-editar editar-mat'
+                                                className='editar-materia'
                                                 onClick={ () => {actualizar(item)} }
                                             >
-                                                Editar
+                                                <i className="bi bi-pencil-fill"></i>
                                             </button>
                                             <button 
                                                 className='btn-editar editar-mat btn-ver-mat'
                                                 onClick={() => (guardarID(item.id))}
                                                 >
-                                                    <NavLink exact='true' to='/vergrupos' >Detalles</NavLink>
+                                                    <NavLink exact='true' to='/admin/vergrupos' ><i class="bi bi-eye-fill"></i></NavLink>
                                             </button>
                                         </section>
                                     </td>

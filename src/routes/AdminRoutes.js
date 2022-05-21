@@ -12,6 +12,7 @@ import { Error404Screen } from '../components/Page404/Error404Screen'
 import { RegistroRoles } from '../components/Roles/RegistroRoles'
 import { VerSolicitudes } from '../components/SolicitudAulas/VerSolicitudes'
 import { VerUsuarios } from '../components/RegistroUsuarios/VerUsuarios/VerUsuarios';
+import { VerGrupos } from '../components/Grupos/VerGrupos'
 
 
 export const AdminRoutes = () => {
@@ -31,6 +32,7 @@ export const AdminRoutes = () => {
                 <Route exact path='versolicitudes'      element={<VerSolicitudes/>}/>
                 <Route exact path='veraulas'            element={<VistaAulas/>}/>
                 <Route exact path='vermaterias'         element={<VerMaterias/>}/>
+                <Route exact path='vergrupos'           element={<VerGrupos/>}/>
 
                 <Route exact path='administrarsolicitud'         element={<Solicitud/>}/>
 
