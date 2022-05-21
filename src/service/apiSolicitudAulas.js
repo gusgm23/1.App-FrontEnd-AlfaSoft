@@ -1,5 +1,19 @@
 import axios from "axios";
 
+//API para obtener las solicitudes pendientes
+export const getSolicitudPendiente = async ( setListaSolicitudPendiente ) => {
+    await axios.get(`http://127.0.0.1:8000/api/obtenerSolicitudPendiente`)
+    .then(response => {
+        setListaSolicitud({
+            state: true,
+            data: response.data
+        });
+    })
+    .catch(e => {
+        console.log(e);
+    })
+}
+
 export const getSolicitud = async (setListaSolicitud) => {
     await axios.get(`http://127.0.0.1:8000/api/obtenerSolicitud`)
         .then(response => {
