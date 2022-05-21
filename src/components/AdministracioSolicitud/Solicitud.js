@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { listaAulas } from '../../data/ListaAulas';
 import { listaReservas } from '../../data/ListaReservas';
+import { verificarCapacidad } from '../../helpers/capacidadAulasLibres';
 import { generarAulasDisponibles } from '../../helpers/generarAulasDisponibles';
 import { getAulas } from '../../service/apiAulas';
+import { getReserva } from '../../service/apiReservaAulas';
 import { DatosSolicitud } from './DatosSolicitud';
 
 import './estilos-solicitud.css';
@@ -29,7 +31,14 @@ export const Solicitud = () => {
         data: []
     })
 
-    const { data } = dataAulas;
+    const { data, state } = dataAulas;
+
+    const [dataReservas, setDataReservas] = useState({
+        stateReserva: false,
+        dataReserva: []
+    })
+
+    const { dataReserva, stateReserva } = dataReservas;
 
     const [aulasLibres, setAulasLibres] = useState([]);
 
@@ -37,9 +46,22 @@ export const Solicitud = () => {
     useEffect(() => {
         
         getAulas( setDataAulas );
-        generarAulasDisponibles(listaReservas, listaAulas, item.horaInicioSolicitud, item.fechaSolicitud, setAulasLibres)
-
+        getReserva( setDataReservas );
+        
     }, []);
+    
+    useEffect(() => {
+        
+        generarAulasDisponibles(dataReserva, data, item.horaInicioSolicitud, item.fechaSolicitud, setAulasLibres)
+        
+    }, [state, stateReserva])
+    
+    useEffect(() => {
+        
+        
+    }, [])
+    
+    
     
     
     return (

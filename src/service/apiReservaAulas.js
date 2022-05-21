@@ -5,8 +5,8 @@ export const getReserva = async ( setListaReserva ) => {
     await axios.get(`http://127.0.0.1:8000/api/obtenerAulasReservadas`)
     .then( response => {
         setListaReserva({
-            state: true,
-            data: response.data
+            stateReserva: true,
+            dataReserva: response.data
         });
     }) 
     .catch( e => {

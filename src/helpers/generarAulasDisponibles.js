@@ -1,10 +1,20 @@
+import { verificarCapacidad } from "./capacidadAulasLibres";
+
 export const generarAulasDisponibles = ( listaReservas=[], listaAulas, horaIniSoli, fechaSoli, setAulasLibres ) => {
-    
+
     let listaAulasOcupadas = obtenerAulasOcupadas( listaReservas, horaIniSoli, fechaSoli );
     
     let listaAulasLibres = obtenerAulasLibres( listaAulasOcupadas, listaAulas );
 
-    setAulasLibres(listaAulasLibres);
+    if( verificarCapacidad( listaAulasLibres, '40' ) ){
+        
+        setAulasLibres(listaAulasLibres);
+
+    }else{
+
+        setAulasLibres([])
+
+    }
 
 }
 
