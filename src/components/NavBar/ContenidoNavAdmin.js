@@ -50,13 +50,6 @@ export const ContenidoNavAdmin = () => {
                     </NavLink>
                     <NavLink 
                         exact='true' 
-                        to='/admin/registromateria' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
-                    >
-                            Registrar Materia
-                    </NavLink>
-                    <NavLink 
-                        exact='true' 
                         to='/admin/versolicitudes' 
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
                     >

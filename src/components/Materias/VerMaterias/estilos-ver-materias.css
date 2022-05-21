@@ -63,3 +63,15 @@ table tr:nth-child(odd) td {
     display: flex;
     justify-content: center;
 }
+
+.contenedor-titulo-ver-materias {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-crear-materia {
+    border: none;
+    font-size: 40px;
+    color: #00AB66;
+    padding: 0;
+}
