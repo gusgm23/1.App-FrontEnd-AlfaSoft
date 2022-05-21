@@ -76,7 +76,7 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
                                                 className="boton-editar-usuarios"
                                                 onClick={ () => { actualizarUsuario(campo) } }
                                             >
-                                            <i class="bi bi-pencil-fill"></i>
+                                            <i className="bi bi-pencil-fill"></i>
                                             </button>
                                         </section>
                                         <section className="caja-botones-usuario">
@@ -84,7 +84,7 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
                                                 className="boton-editar-usuarios"
                                                 //onClick={ () => { actualizarUsuario(campo) } }
                                             >
-                                            <i class="bi bi-trash-fill"></i>
+                                            <i className="bi bi-trash-fill"></i>
                                             </button>
                                         </section>
                                     </td>

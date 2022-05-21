@@ -67,13 +67,13 @@ export const VerGrupos = () => {
                             <button
                                 className='btn-volver-grupo'
                             >
-                                <NavLink exact='true' to='/admin/vermaterias' ><i class="bi bi-arrow-left-square-fill"></i></NavLink>
+                                <NavLink exact='true' to='/admin/vermaterias' ><i className="bi bi-arrow-left-square-fill"></i></NavLink>
                             </button>
                             <button
                                 className='btn-crear-grupo'
                                 onClick={ openModalCreate }
                             >
-                                <i class="bi bi-plus-square-fill"></i>
+                                <i className="bi bi-plus-square-fill"></i>
                             </button>
                         </div>
                     </div>

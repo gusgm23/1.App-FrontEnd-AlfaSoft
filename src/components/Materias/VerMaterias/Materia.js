@@ -30,10 +30,6 @@ export const Materia = ({data=[], setListaMateria}) => {
         localStorage.setItem("id", id);
     }
 
-    const editar = (item) => {
-
-    }
-
     return (
             <>
             <div className='contenedor-tabla'>
@@ -67,7 +63,7 @@ export const Materia = ({data=[], setListaMateria}) => {
                                                 className='btn-editar editar-mat btn-ver-mat'
                                                 onClick={() => (guardarID(item.id))}
                                                 >
-                                                    <NavLink exact='true' to='/admin/vergrupos' ><i class="bi bi-eye-fill"></i></NavLink>
+                                                    <NavLink exact='true' to='/admin/vergrupos' ><i className="bi bi-eye-fill"></i></NavLink>
                                             </button>
                                         </section>
                                     </td>
