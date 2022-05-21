@@ -4,7 +4,7 @@ import axios from "axios";
 export const getSolicitudPendiente = async ( setListaSolicitudPendiente ) => {
     await axios.get(`http://127.0.0.1:8000/api/obtenerSolicitudPendiente`)
     .then(response => {
-        setListaSolicitud({
+        setListaSolicitudPendiente({
             state: true,
             data: response.data
         });
