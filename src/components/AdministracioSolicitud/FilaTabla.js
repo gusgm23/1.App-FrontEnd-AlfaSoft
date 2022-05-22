@@ -3,8 +3,9 @@ import { listaAulas } from '../../data/ListaAulas';
 import { listaReservas } from '../../data/ListaReservas';
 import { generarAulasDisponibles } from '../../helpers/generarAulasDisponibles';
 import { getHoraFin } from '../../helpers/metodosGetionSolicitudes';
+import { setCapacidadSolicitud } from '../../helpers/setterCapacidadSolicitud';
 
-export const FilaTabla = ( {data=[], fecha, hora, periodo} ) => {
+export const FilaTabla = ( {data=[], fecha, hora, periodo, modificarCapacidad, capacidadSoli} ) => {
 
     const mostrarFecha = () => {
 
@@ -14,6 +15,12 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo} ) => {
         console.log(horaSeparada, minutosSeparados)
         let horaFin = getHoraFin(horaSeparada,minutosSeparados, periodoSeparado)
         console.log(horaFin, 'hora fin');
+    }
+
+    const reducirCapacidad = ( capacidadAula) => {
+
+        setCapacidadSolicitud( capacidadSoli, capacidadAula, modificarCapacidad );
+
     }
 
     return (
@@ -28,7 +35,7 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo} ) => {
                         <td>
                             <button 
                                 className='btn-reserva'
-                                onClick={ mostrarFecha }
+                                onClick={ () => ( reducirCapacidad(elem.capacidadAula) ) }
                             
                             >
                                 Reservar 

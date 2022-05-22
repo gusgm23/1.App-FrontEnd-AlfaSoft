@@ -41,6 +41,8 @@ export const Solicitud = () => {
 
     const { dataReserva, stateReserva } = dataReservas;
 
+    const [capacidadSolicitud, setCapacidadSolicitud] = useState(item.numeroEstudiantesSolicitud);
+
     const [aulasLibres, setAulasLibres] = useState([]);
 
 
@@ -57,18 +59,10 @@ export const Solicitud = () => {
         
     }, [state, stateReserva])
     
-    useEffect(() => {
-        
-        
-    }, [])
-    
-    
-    
-    
     return (
         <div className='contenedor-solicitud animate__animated animate__fadeIn'>
             <div className='contenedor-parrafos-soli'>
-                <DatosSolicitud item={ item }/>
+                <DatosSolicitud item={ item } capacidad={ capacidadSolicitud }/>
             </div>
             <hr/>
             <div className='contenedor-tabla-aulas-soli'>
@@ -92,6 +86,8 @@ export const Solicitud = () => {
                                             fecha={ item.fechaSolicitud } 
                                             hora={ item.horaInicioSolicitud }
                                             periodo={ item.periodoSolicitud }
+                                            modificarCapacidad={ setCapacidadSolicitud }
+                                            capacidadSoli={ capacidadSolicitud }
                                         />
                                     </tbody>
                                 </table>
@@ -100,7 +96,7 @@ export const Solicitud = () => {
                     }
                 </section>
             </div>
-            <Opciones/>
+            <Opciones capacidad={ capacidadSolicitud }/>
         </div>
     )
 }

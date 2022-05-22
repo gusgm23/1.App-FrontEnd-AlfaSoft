@@ -1,15 +1,28 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { aprobarSolicitud, rechazar } from '../../../helpers/metodosOpcionesSolicitud';
 
 import './estilos-opciones.css'
 
-export const Opciones = () => {
+export const Opciones = ( {capacidad} ) => {
     
     const navigate = useNavigate();
 
     const volverAtras = () => {
 
         navigate(-1);
+
+    }
+
+    const terminarProceso = () => {
+
+        aprobarSolicitud( capacidad );
+
+    }
+
+    const rechazarSolicitud = () => {
+
+        rechazar();
 
     }
 
@@ -20,12 +33,14 @@ export const Opciones = () => {
                     <button 
                         id='btn-opciones-soli'
                         className='btn-rechazar-soli'
+                        onClick={ rechazarSolicitud }
                     >
                         Rechazar
                     </button>
                     <button 
                         id='btn-opciones-soli'
                         className='btn-aprobar-soli'
+                        onClick={ terminarProceso }
                     >
                         Aprobar
                     </button>
