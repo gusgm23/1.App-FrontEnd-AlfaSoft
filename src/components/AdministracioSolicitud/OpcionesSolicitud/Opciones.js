@@ -4,19 +4,17 @@ import { aprobarSolicitud, rechazar } from '../../../helpers/metodosOpcionesSoli
 
 import './estilos-opciones.css'
 
-export const Opciones = ( {capacidad} ) => {
+export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
     
     const navigate = useNavigate();
 
     const volverAtras = () => {
 
-        navigate(-1);
-
-    }
-
-    const terminarProceso = () => {
-
-        aprobarSolicitud( capacidad );
+        if( capacidad > 0 ){
+            openModal();
+        }else{
+            navigate(-1);
+        }
 
     }
 
@@ -31,27 +29,24 @@ export const Opciones = ( {capacidad} ) => {
             <section id='seccion-opciones-soli'>
                 <div className='contenedor-btns-aprob'>
                     <button 
-                        id='btn-opciones-soli'
-                        className='btn-rechazar-soli'
-                        onClick={ rechazarSolicitud }
-                    >
-                        Rechazar
-                    </button>
-                    <button 
-                        id='btn-opciones-soli'
-                        className='btn-aprobar-soli'
-                        onClick={ terminarProceso }
-                    >
-                        Aprobar
-                    </button>
-                </div>
-                <div>
-                    <button 
                         id='btn-opciones-soli-volver'
                         onClick={ volverAtras }
                     >
-                        <i className="bi bi-chevron-left"></i> Volver
+                        <i className="bi bi-chevron-left"></i> Volver 
                     </button>
+                    {
+                        ( capacidad > 0 && capacidad == parseInt(capacidadOriginal) )
+                        ? (
+                            <button 
+                                id='btn-opciones-soli'
+                                className='btn-rechazar-soli'
+                                onClick={ rechazarSolicitud }
+                            >
+                                Rechazar 
+                            </button>
+                        )
+                        : ''
+                    }
                 </div>
             </section>
         </div>

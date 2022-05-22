@@ -33,13 +33,11 @@
 }
 
 #btn-opciones-soli-volver{
+    width: 40%;
+    height: 30px;
+    border-radius: 15px;
     border: none;
-    font-size: 18px;
-    color: #4fa8fb;
-    border-bottom: 1px solid #4fa8fb;
+    background-color: #4fa8fb;
+    color: #ffffff;
     transition: .4s ease-in;
-}
-
-#btn-opciones-soli-volver:hover {
-    font-size: 20px;
 }

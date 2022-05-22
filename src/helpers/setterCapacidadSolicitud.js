@@ -1,4 +1,4 @@
-export const setCapacidadSolicitud = ( capacidadSolicitud, capacidadAula, modificarCapacidad ) => {
+export const cambiarCapacidadSolicitud = ( capacidadSolicitud, capacidadAula, modificarCapacidad ) => {
 
     let resta = capacidadSolicitud - capacidadAula;
 

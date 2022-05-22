@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { listaAulas } from '../../data/ListaAulas';
-import { listaReservas } from '../../data/ListaReservas';
-import { generarAulasDisponibles } from '../../helpers/generarAulasDisponibles';
-import { getHoraFin } from '../../helpers/metodosGetionSolicitudes';
-import { setCapacidadSolicitud } from '../../helpers/setterCapacidadSolicitud';
+import React from 'react'
 
-export const FilaTabla = ( {data=[], fecha, hora, periodo, modificarCapacidad, capacidadSoli} ) => {
+import { getHoraFin } from '../../helpers/metodosGetionSolicitudes';
+
+export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacidadSoli, modalReserva, datosCapacidad=[]} ) => {
 
     const mostrarFecha = () => {
 
@@ -14,12 +11,28 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, modificarCapacidad, c
         let periodoSeparado = periodo[0]
         console.log(horaSeparada, minutosSeparados)
         let horaFin = getHoraFin(horaSeparada,minutosSeparados, periodoSeparado)
-        console.log(horaFin, 'hora fin');
+        
+        return horaFin
     }
 
-    const reducirCapacidad = ( capacidadAula) => {
+    const reducirCapacidad = ( capacidadAula, id ) => {
 
-        setCapacidadSolicitud( capacidadSoli, capacidadAula, modificarCapacidad );
+        const reserva = {
+            horaIni: hora,
+            horaFin: mostrarFecha(),
+            fechaReserv: fecha,
+            idAula: id
+        }
+
+        const lista = datosCapacidad.listaReservas;
+        lista.push(reserva);
+
+        guardarDatos({
+            capacidadSoliRescatado: capacidadSoli,
+            capacidadAulaRescatado: capacidadAula,
+            listaReservas: lista
+        })
+        modalReserva();
 
     }
 
@@ -35,7 +48,7 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, modificarCapacidad, c
                         <td>
                             <button 
                                 className='btn-reserva'
-                                onClick={ () => ( reducirCapacidad(elem.capacidadAula) ) }
+                                onClick={ () => ( reducirCapacidad(elem.capacidadAula, elem.id) ) }
                             
                             >
                                 Reservar 
