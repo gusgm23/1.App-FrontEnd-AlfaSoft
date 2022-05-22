@@ -54,7 +54,7 @@ export const createUsuario = ({ data }, rol_id, openModalSuccess, openModalWarni
 }
 
 export const updateUsuario = ({ data }, rol_id, openModalSuccess, openModalWarning, id) => {
-    return axios.post(`http://127.0.0.1:8000/api/actualizarUsuarios/${id}`,
+    return axios.put(`http://127.0.0.1:8000/api/actualizarUsuarios/${id}`,
     {
         id:                 `${id}`,
         name:               `${data.name}`,
@@ -73,4 +73,8 @@ export const updateUsuario = ({ data }, rol_id, openModalSuccess, openModalWarni
     ).catch(( error ) => {
         openModalWarning();
     });
+}
+
+export const deleteUsuario = (id) => {
+    return axios.delete(`http://127.0.0.1:8000/api/eliminarUsuarios/${id}`);
 }

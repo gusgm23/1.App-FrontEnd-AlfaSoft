@@ -72,6 +72,7 @@ export const LoginScreen = () => {
             type: types.login,
             payload: {
                 name: userReg.name,
+                apellido: userReg.apellido,
                 rol: rolObtenido.rol
             }
         }

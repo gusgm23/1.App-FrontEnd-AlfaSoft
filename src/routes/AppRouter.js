@@ -18,12 +18,16 @@ import { DocenteRoutes } from './DocenteRoutes';
 import { PublicRoute } from './PublicRoute';
 import { NavBar } from '../components/NavBar/NavBar';
 import { ContenidoNavPublico } from '../components/NavBar/ContenidoNavPublico';
+import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
+
+
+import { ListarSolicitudes } from '../components/ReservaAulas/ListarSolicitudes';
 
 
 export const AppRouter = () => {
     return (
         <BrowserRouter>
-            <div>
+            <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
 
                 {/* <NavBar/> */}
 
@@ -47,6 +51,12 @@ export const AppRouter = () => {
                         </>
                     }/>
 
+                    <Route path='/registrousuario' element={
+                        <PublicRoute>
+                            <RegistroUsuarios />
+                        </PublicRoute>
+                    }/>
+
                     <Route path='/login' element={
                         <PublicRoute>
                             <LoginScreen />
@@ -64,6 +74,8 @@ export const AppRouter = () => {
                             <DocenteRoutes/>
                         </PrivateRouteDoc>
                     }/>
+
+                    <Route exact path='/listarlassolicitudes'  element={<ListarSolicitudes/>}/>
 
                     <Route path='*'                         element={<Error404Screen/>}/>
                 </Routes>

@@ -1,8 +1,8 @@
 .contenedor-gral {
     margin-top: 40px;
     display: flex;
+    flex: 1;
     justify-content: center;
-    align-items: center;
 }
 
 .contenedor-elementos-lista {
@@ -53,4 +53,7 @@
 a {
     color: #ffffff;
     text-decoration: none;
+}
+.contenedor-tabla{
+    min-width: 700px;
 }

@@ -27,16 +27,9 @@ export const ContenidoNavDocente = () => {
                     >
                         Página principal
                     </NavLink>
-                    <NavLink 
-                        exact='true'
-                        to='/docente/reservaaulas' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
-                    >
-                        Registrar Solicitud
-                    </NavLink>
                     <NavLink
                         exact='true'
-                        to='/docente/verhistorial'
+                        to='/docente/listarlassolicitudes'
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
                     >
                         Ver solicitudes
@@ -47,13 +40,13 @@ export const ContenidoNavDocente = () => {
             <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav">
                     <span className='nav-item nav-link text-info'>
-                        { user.name }
+                        { user.name } - { user.rol }
                     </span>
                     <button
                         className='nav-item nav-link btn'
                         onClick={ handleLogout }
                     >
-                        Logout
+                        Cerrar sesión
                     </button>
                 </ul>
             </div>

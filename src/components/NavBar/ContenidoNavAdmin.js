@@ -29,6 +29,13 @@ export const ContenidoNavAdmin = () => {
                     </NavLink>
                     <NavLink 
                         exact='true'
+                        to='/admin/verusarios' 
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                    >
+                        Ver Usuarios
+                    </NavLink>
+                    <NavLink 
+                        exact='true'
                         to='/admin/registroaula' 
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
                     >
@@ -69,6 +76,13 @@ export const ContenidoNavAdmin = () => {
                     >
                             Materias
                     </NavLink>
+                    <NavLink 
+                        exact='true' 
+                        to='/admin/administrarsolicitud' 
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                    >
+                            admin soli
+                    </NavLink>
                     
                 </div>
             </div>
@@ -76,13 +90,13 @@ export const ContenidoNavAdmin = () => {
             <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav">
                     <span className='nav-item nav-link text-info'>
-                        { user.name }
+                        { user.name } - { user.rol }
                     </span>
                     <button
                         className='nav-item nav-link btn'
                         onClick={ handleLogout }
                     >
-                        Logout
+                        Cerrar sesión
                     </button>
                 </ul>
             </div>

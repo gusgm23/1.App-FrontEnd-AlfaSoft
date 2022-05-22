@@ -1,0 +1,75 @@
+
+/* Estilos para el titulo y el boton de crear */
+
+.contenedor-general-verusuarios{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.contenedor-titulo-boton{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.boton-crear-usuarios{
+    background-color: #c8c8c8(25, 135, 84, .9);
+    color: #fff;
+    width: 100%;
+    box-shadow: 5px 5px 12px #c8c8c8;
+    border: solid 1px silver;
+    transition: .5s;
+    border-radius: 5px;
+}
+
+.boton-editar-usuarios{
+    background-color: #c8c8c8(25, 135, 84, .9);
+    color: #fff;
+    width: 100%;
+    box-shadow: 5px 5px 12px #c8c8c8;
+    border: solid 1px silver;
+    transition: .5s;
+    border-radius: 5px;
+}
+
+.bi-plus-circle-fill{
+    font-size: 30px;
+    color: #0d6efd;
+}
+
+.bi-pencil-fill{
+    font-size: 20px;
+    color: #ffc107;
+}
+
+.bi-trash-fill {
+    font-size: 20px;
+    color: red;
+}
+
+
+.boton-crear-usuarios:hover{
+    background-color: white (25, 135, 84, .6);
+}
+
+
+/* Estilos para la tabla */
+table tr th{
+    padding: 10px;
+}
+
+.contenedor-tabla-usuarios{
+    display: flex;
+justify-content: center;
+}
+
+.titulo-tabla-usuarios{
+    background-color: rgba(33, 37, 41, .9);
+color: #ffffff;
+}
+
+.columna-botones-usuario{
+    display: flex;
+    justify-content: space-evenly;
+}
