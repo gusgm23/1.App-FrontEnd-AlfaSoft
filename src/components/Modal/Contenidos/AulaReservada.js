@@ -19,6 +19,7 @@ export const AulaReservada = ( {cerrarModal, funcOk} ) => {
                 <img
                     src={ okImg }
                     className='img-advertencia'
+                    alt='success img'
                 />
                 <p className='parrafo-aula-registrada'>
                     El aula ha sido reservado exitosamente.

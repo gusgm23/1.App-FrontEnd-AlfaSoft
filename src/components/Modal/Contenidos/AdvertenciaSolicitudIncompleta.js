@@ -11,6 +11,7 @@ export const AdvertenciaSolicitudIncompleta = ( {cerrarModal} ) => {
                 <img
                     src={ AdvertenciaImg }
                     className='img-advertencia'
+                    alt='advertencia img'
                 />
                 <p className='parrafo-advertencia-solicitud'>
                     No has terminado la asignación de aulas para la solicitud, debes asignar mas aulas a la solicitud!

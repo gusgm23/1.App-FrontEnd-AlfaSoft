@@ -20,6 +20,7 @@ export const ConfirmarReservaAula = ( {cerrarModal, funcOk} ) => {
                 <img
                     src={ confirmImg }
                     className='img-advertencia'
+                    alt='warnning img'
                 />
                 <p className='parrafo-advertencia-reserva'>
                     Esta seguro de reservar el aula?

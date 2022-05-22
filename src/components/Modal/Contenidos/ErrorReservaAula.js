@@ -11,6 +11,7 @@ export const ErrorReservaAula = ( {cerrarModal} ) => {
                 <img
                     src={ WarningImg }
                     className='img-advertencia'
+                    alt='fail img'
                 />
                 <p className='parrafo-advertencia'>
                     No se pudo reservar el aula, Porfavor intenta nuevamente.
