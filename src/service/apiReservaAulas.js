@@ -5,8 +5,8 @@ export const getReserva = async ( setListaReserva ) => {
     await axios.get(`http://127.0.0.1:8000/api/obtenerAulasReservadas`)
     .then( response => {
         setListaReserva({
-            state: true,
-            data: response.data
+            stateReserva: true,
+            dataReserva: response.data
         });
     }) 
     .catch( e => {
@@ -18,19 +18,21 @@ export const getReservaId = async (id) => {
     await axios.get(`http://127.0.0.1:8000/api/obtenerAulasReservadasId/${id}`);
 }
 
-export const createReserva = ({ data }, aula_id, openModalSuccess, openModalWarning ) => {
-    return axios.post(`http://127.0.0.1:8000/api/crearAulasReservadas`,
+export const createReserva = async ( data , openModalSuccess, openModalWarning ) => {
+    await axios.post(`http://127.0.0.1:8000/api/crearAulasReservadas`,
     {
-        fechaReserva:           `${data.fechaReserva}`,
-        horaInicioReserva:      `${data.horaInicioReserva}`,
-        horaFinalReserva:       `${data.horaFinalReserva}`,
-        aula_id:                `${aula_id}`  
+        fechaReserva:           `${data.fechaReserv}`,
+        horaInicioReserva:      `${data.horaIni}`,
+        horaFinalReserva:       `${data.horaFin}`,
+        aula_id:                `${data.idAula}`  
     })
     .then(( response ) => {
         openModalSuccess();
+        return true;
     })
     .catch(( error ) => {
         openModalWarning();
+        return false
     });
 }
 

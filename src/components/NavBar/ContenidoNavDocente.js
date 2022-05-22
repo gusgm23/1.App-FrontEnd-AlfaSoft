@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../auth/authContext'
 import { types } from '../../types/types';
 
@@ -20,13 +20,12 @@ export const ContenidoNavDocente = () => {
         <>
             <div className="navbar-collapse">
                 <div className='navbar-nav'>
-                <NavLink 
-                        exact='true'
+                    <Link 
                         to='/docente/home' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className="navbar-brand"
                     >
-                        Página principal
-                    </NavLink>
+                        Reserva de Aulas
+                    </Link>
                     <NavLink
                         exact='true'
                         to='/docente/listarlassolicitudes'

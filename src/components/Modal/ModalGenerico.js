@@ -10,7 +10,7 @@ export const ModalGenerico = ({children, isOpen, closeModal}) => {
     
     return (
         <article className={`modal ${isOpen && "is-open"}`} onClick={ closeModal }>
-            <div className='modal-container' onClick={ handleModalContainerClick }>
+            <div className='modal-container animate__animated animate__fadeIn' onClick={ handleModalContainerClick }>
                 <button className='modal-close' onClick={ closeModal }><img className='img-cerrar' src={imgCerrar}/></button>
                 {children}
             </div>

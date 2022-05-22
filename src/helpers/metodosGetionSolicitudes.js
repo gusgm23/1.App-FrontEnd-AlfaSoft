@@ -1,6 +1,6 @@
 export const getHoraFin = ( hora, minuto, periodo ) => {
 
-    let horaPeriodo = periodoXHora(2);
+    let horaPeriodo = periodoXHora(periodo);
     
     let horaFin = calcularHoraFin(hora,minuto, horaPeriodo[0], horaPeriodo[1])
     

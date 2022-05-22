@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    min-height: 320px;
 }
 
 .td-btns {
@@ -10,8 +11,12 @@
 }
 
 .editar-grupo {
-    width: 80%;
-    color: #fff;
+    border: none;
+    background-color: transparent;
+}
+
+.bi-pencil-fill{
+    font-size: 25px;
 }
 
 .col-grupo {
@@ -29,16 +34,12 @@
 }
 
 .btn-crear-grupo {
-    background-color: rgba(25, 135, 84, .9);
-    color: #fff;
-    width: 60%;
-    box-shadow: 5px 5px 12px #c8c8c8;
-    border: solid 1px silver;
-    transition: .5s;
+    border: none;
 }
 
-.btn-crear-grupo:hover {
-    background-color: rgba(25, 135, 84, .6);
+.bi-plus-square-fill {
+    color: #00AB66;
+    font-size: 35px;
 }
 
 /* Estilos-form-crear-grupo */
@@ -80,18 +81,12 @@
 }
 
 .btn-volver-grupo {
-    background-color: #4fa8fb;
-    color: #fff;
-    width: 100px;
-    box-shadow: 5px 5px 12px #c8c8c8;
-    border: solid 1px silver;
-    transition: .5s;
-    margin-left: 10px;
+    border: none;
 }
 
-.btn-volver-grupo:hover {
-    background-color: rgba(79, 168, 251, .7);
-    color: #fff;
+.bi-arrow-left-square-fill{
+    color: #4fa8fb;
+    font-size: 35px;
 }
 
 a:hover{
@@ -104,3 +99,4 @@ a:hover{
     display: flex;
     flex-direction: column;
 }
+

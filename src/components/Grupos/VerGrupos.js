@@ -59,24 +59,25 @@ export const VerGrupos = () => {
 
     return (
         <>
-            <div className='contenedor-lista-grupos'>
+            <div className='contenedor-lista-grupos animate__animated animate__fadeIn'>
                 <div className='contenedor-elementos-lista'>
                     <div className='contenedor-titulo-componente-tabla'>
-                        <h2>Grupos registrados para la materia: { ListaMaterias.length }</h2>
+                        <h2>Grupos registrados para la materia: { dataLimpia.length }</h2>
                         <div className='contenedor-btns-tabla-grupos'>
+                            <button
+                                className='btn-volver-grupo'
+                            >
+                                <NavLink exact='true' to='/admin/vermaterias' ><i className="bi bi-arrow-left-square-fill"></i></NavLink>
+                            </button>
                             <button
                                 className='btn-crear-grupo'
                                 onClick={ openModalCreate }
                             >
-                                Crear grupo
-                            </button>
-                            <button
-                                className='btn-volver-grupo'
-                            >
-                                <NavLink exact='true' to='/vermaterias' >Volver</NavLink>
+                                <i className="bi bi-plus-square-fill"></i>
                             </button>
                         </div>
                     </div>
+                    <hr/>
                     <div className='contenedor-tabla'>
                         <table>
                             <thead>
@@ -97,10 +98,10 @@ export const VerGrupos = () => {
                                             <td className='td-btns'>
                                                 <section className='caja-btns'>
                                                     <button 
-                                                        className='btn-editar editar-grupo'
+                                                        className='editar-grupo'
                                                         onClick={ () => ( editar(item.id, item.grupoMateria, item.estadoGrupoMateria) ) }
                                                     >
-                                                        Editar
+                                                        <i className="bi bi-pencil-fill"></i>
                                                     </button>
                                                 </section>
                                             </td>

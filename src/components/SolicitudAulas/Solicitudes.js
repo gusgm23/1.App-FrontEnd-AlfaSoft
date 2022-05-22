@@ -50,6 +50,7 @@ export const Solicitudes = ({data=[]}) => {
         localStorage.setItem("id", id);
     }
     
+
     function handleSort(){
         let sortedData=[];
         if(isSorted.dir==="asc"){
@@ -67,12 +68,6 @@ export const Solicitudes = ({data=[]}) => {
             // isSorted.dir="asc"
         }  
     }
-
-    // useEffect(() => {
-    //     setSolicitudes(solicitudes)
-      
-    // }, [solicitudes])
-    
     
 
     return (
@@ -93,7 +88,7 @@ export const Solicitudes = ({data=[]}) => {
                             <th>Opciones</th>
                         </tr>
                     </thead>               
-                    <tbody>
+                    <tbody className='animate__animated animate__fadeIn'>
                         {
                             isSorted.sortData.map((item, i) => (
                                 <tr key={item.id}>
