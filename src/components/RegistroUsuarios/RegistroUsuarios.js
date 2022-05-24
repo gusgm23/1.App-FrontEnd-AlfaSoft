@@ -16,8 +16,7 @@ import { AdvertenciaFormVacio } from "../Modal/Contenidos/AdvertenciaFormVacio";
 import { Confirmacion } from "../Modal/Contenidos/Confirmacion";
 import { ErrorGuardarDatos } from "../Modal/Contenidos/ErrorGuardarDatos";
 import { Hecho } from "../Modal/Contenidos/Hecho";
-
-import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 export const RegistroUsuarios = ({
 
@@ -70,7 +69,8 @@ export const RegistroUsuarios = ({
     const [ isOpenModalSuccess, openModalSuccess, closeModalSuccess ] = useModal(false);
     const [ isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio ] = useModal(false);
 
-
+    //!Hook para navegar
+    const navigate = useNavigate();
 
     useEffect(() => {
         if( nombreUsuario === '' ) {
@@ -368,7 +368,14 @@ export const RegistroUsuarios = ({
                                 Aceptar
                             </button>
                         </div>
-                        {/* <Link to='/' className='link element-login'>Volver</Link> */}
+                        <div className="contenedor-link-volver-reg-usr">
+                            <button 
+                                className="btn-volver-reg-usr"
+                                onClick={ () => navigate(-1) }
+                            >
+                                Volver
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>
