@@ -1,13 +1,28 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../auth/authContext';
 
 import './estilos-home-admin.css'
 
 import homeImg from '../../images/home.svg'
+import { getSolicitudPendiente } from '../../service/apiSolicitudAulas';
 
 export const AdministradorScreen = () => {
     
     const { user } = useContext(AuthContext);
+
+    const [solicitudesPendientes, setSolicitudesPendientes] = useState({
+        state: false,
+        data : []
+    })
+
+    const { data } = solicitudesPendientes;
+
+    useEffect(() => {
+        
+        getSolicitudPendiente(setSolicitudesPendientes);
+
+    }, [])
+    
 
     return (
         <div className='contenedor-home-admin animate__animated animate__fadeIn'>
@@ -17,7 +32,7 @@ export const AdministradorScreen = () => {
                 <section>
                     <div>
                         <div>
-                            <p>¡Atención! Tienes <b>20</b> solicitudes de reserva de aulas pendientes! Dirígete a la sección <b>Solicitudes</b> para poder atenderlas!</p>
+                            <p>¡Atención! Tienes <b>{data.length}</b> solicitudes de reserva de aulas pendientes! Dirígete a la sección <b>Solicitudes</b> para poder atenderlas!</p>
                             <hr/>
                             <p>Para poder ver las aulas disponibles en la plataforma, debes dirigirte a la sección <b>Aulas.</b></p>
                             <p>Si deseas ver las materias y sus respectivos grupos disponibles en la plataforma, debes dirigirte a la sección <b>Materias.</b></p>

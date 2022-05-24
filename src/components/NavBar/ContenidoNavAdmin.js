@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../auth/authContext';
 import { types } from '../../types/types';
 
@@ -20,12 +20,18 @@ export const ContenidoNavAdmin = () => {
         <>
             <div className="navbar-collapse">
                 <div className='navbar-nav'>
-                <NavLink 
-                        exact='true'
+                    <Link 
                         to='/admin/adminhome' 
+                        className="navbar-brand"
+                    >
+                        Reserva de Aulas
+                    </Link>
+                    <NavLink 
+                        exact='true'
+                        to='/admin/verusarios' 
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
                     >
-                        Página principal
+                        Ver Usuarios
                     </NavLink>
                     <NavLink 
                         exact='true'
@@ -47,13 +53,6 @@ export const ContenidoNavAdmin = () => {
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
                     >
                         Registrar Roles
-                    </NavLink>
-                    <NavLink 
-                        exact='true' 
-                        to='/admin/registromateria' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
-                    >
-                            Registrar Materia
                     </NavLink>
                     <NavLink 
                         exact='true' 

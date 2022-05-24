@@ -27,7 +27,7 @@ import { ListarSolicitudes } from '../components/ReservaAulas/ListarSolicitudes'
 export const AppRouter = () => {
     return (
         <BrowserRouter>
-            <div>
+            <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
 
                 {/* <NavBar/> */}
 

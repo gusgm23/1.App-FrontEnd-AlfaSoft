@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { controlarCampoAula, controlarCampoCapacidad, validarCamposLlenosAula, validarCamposVaciosAula } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm'
 import { useModal } from '../../../hooks/useModal';
+import { createAula } from '../../../service/apiAulas';
 import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio';
 import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
+import { ErrorGuardarDatos } from '../../Modal/Contenidos/ErrorGuardarDatos';
+import { Hecho } from '../../Modal/Contenidos/Hecho';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
 
 import './estilosRegistroAula.css';
@@ -20,9 +23,18 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
 
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
     const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
+    const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
+    const [isOpenModalWarning, openModalWarning, closeModalWarning] = useModal(false);
 
     const [statusInputCapacidad, setStatusInputCapacidad] = useState(false);
     const [statusInputAula, setStatusInputAula] = useState(false);
+
+    const [aulaData, setaulaData] = useState({
+      nombreAula: "",
+      capacidadAula: "",
+      estadoAula: "",
+      solicitud_id: "",
+    });
 
     useEffect(() => {
         if(capacidad === ''){
@@ -61,14 +73,32 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
         
         const seleccion = document.getElementById('estados');
         const itemSeleccionado = seleccion.options[seleccion.selectedIndex].value;
-        console.log('datos a guardar: ', formValues, itemSeleccionado);
+
+        const {aula,capacidad}=formValues;
+        const data = {
+          nombreAula: aula,
+          capacidadAula: capacidad,
+          estadoAula:  itemSeleccionado,
+          habilitacionAula:"Habilitado"
+        };
+
+        createAula({data},1, openModalSuccess,openModalWarning);
+
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        console.log("form values",e)
+        console.log("aula", e.target[0].value);
+        console.log("amount", e.target[1].value);
+        console.log("status", e.target[2].value);
 
     }
 
     return (
         <div className='contenedor-registro-aula form-registro-aula'>
             <h2 className='titulo-registro-aula'>Registro de Aulas</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className='contenedor-general'>
                     <div className='contenedor-elementos'>
                         <div className='contenedor-aula contenedor-flex'>
@@ -126,7 +156,7 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
                             Cancelar
                         </button>
                         <button 
-                            type='button' 
+                            // type='submit' 
                             className='btn btn-primary'
                             onClick={validarFormulario}
                         >
@@ -140,6 +170,13 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
             </ModalGenerico>
             <ModalGenerico isOpen={isOpenModalConfirm} closeModal={ closeModalConfirm }>
                 <Confirmacion cerrarModal={ closeModalConfirm } funcGuardar={ guardarDatos }/>
+            </ModalGenerico>
+
+            <ModalGenerico isOpen={ isOpenModalWarning } closeModal={ closeModalWarning }>
+                <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
+            </ModalGenerico>
+            <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
+                <Hecho cerrarModal={ closeModalSuccess }/>
             </ModalGenerico>
         </div>
     )
