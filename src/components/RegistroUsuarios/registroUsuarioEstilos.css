@@ -50,7 +50,7 @@
 .contenedor-botones-usuario{
     display: flex;
     justify-content: space-evenly;
-    margin-block-end: 100px;
+    margin-block-end: 20px;
     margin-top: 25px;
 }
 

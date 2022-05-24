@@ -1,4 +1,4 @@
-import React, { useState }  from 'react'
+import React, { useEffect, useState }  from 'react'
 import { NavLink } from 'react-router-dom'
 import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
@@ -9,6 +9,10 @@ import './estilos-ver-soli.css'
 ;
 
 export const Solicitudes = ({data=[]}) => {
+    const [isSorted, setIsSorted] = useState({
+        sortData:data,
+        dir:"asc",
+    });
 
     const [values, setValues] = useState({
         nombreDocenteSolicitud:'',
@@ -47,11 +51,30 @@ export const Solicitudes = ({data=[]}) => {
     }
     
 
+    function handleSort(){
+        let sortedData=[];
+        if(isSorted.dir==="asc"){
+            sortedData=isSorted.sortData.sort((a,b)=>{
+                return new Date(b.fechaSolicitud) - new Date(a.fechaSolicitud);
+            });
+            // isSorted.dir="desc"
+            setIsSorted({sortData:[...sortedData],dir:"desc"})
+        }else {
+            sortedData=isSorted.sortData.sort((a,b)=>{
+                return new Date(a.fechaSolicitud) - new Date(b.fechaSolicitud);
+            });
+            
+            setIsSorted({sortData:[...sortedData],dir:"asc"})
+            // isSorted.dir="asc"
+        }  
+    }
+    
+
     return (
             <>
             <div className='contenedor-tabla-soli'>
                 
-                <table>
+                <table className='table'>
                     <thead>
                         <tr className='titulo-tabla-soli'>
                             <th>#</th>
@@ -59,7 +82,7 @@ export const Solicitudes = ({data=[]}) => {
                             <th>Apellido Docente</th>
                             <th># de Estud.</th>
                             <th>Motivo</th>
-                            <th>Fecha de Solicitud</th>
+                            <th onClick={handleSort}>Fecha de Solicitud</th>
                             <th>Hora de Solicitud</th>
                             <th>Estado de Solicitud</th>
                             <th>Opciones</th>
@@ -67,7 +90,7 @@ export const Solicitudes = ({data=[]}) => {
                     </thead>               
                     <tbody className='animate__animated animate__fadeIn'>
                         {
-                            data.map((item, i) => (
+                            isSorted.sortData.map((item, i) => (
                                 <tr key={item.id}>
                                     <td> { i+1 } </td>
                                     <td> { item.nombreDocenteSolicitud } </td>

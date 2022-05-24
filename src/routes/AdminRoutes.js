@@ -36,6 +36,8 @@ export const AdminRoutes = () => {
 
                 <Route exact path='administrarsolicitud'         element={<Solicitud/>}/>
 
+                <Route exact path='administrarsolicitud'         element={<Solicitud/>}/>
+
                 <Route path='*'                         element={<Error404Screen/>}/>
             </Routes>
         </>

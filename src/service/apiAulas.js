@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const baseUrl="http://127.0.0.1:8000/api";
+
 //API para obtener las aulas Libres
 export const getAulasLibres = async ( setListaAulasLibres )  =>{
     await axios.get(`http://127.0.0.1:8000/api/obtenerAulaLibre`)
@@ -28,17 +30,32 @@ export const getAulas = async ( setListaAulas )  =>{
     } )
 }
 
+export const getEnableClassRoom=(setListaAulas)=>{
+    return axios.get(`${baseUrl}/obtenerAulaHabilitada`).then( response => {
+        setListaAulas({
+            state: true,
+            data: response.data
+        });
+    } );
+}
+
 export const getAulasId = (id) =>{
     return axios.get(`http://127.0.0.1:8000/api/obtenerAulaId/${id}`);
 }
+export const deleteClassRoom = (id) =>{
+    return axios.delete(`${baseUrl}/eliminarAula/${id}`);
+}
 
 export const createAula = ({ data }, solicitud_id, openModalSuccess, openModalWarning) => {
+
     return axios.post(`http://127.0.0.1:8000/api/crearAula`,
+    
     {
         nombreAula:         `${data.nombreAula}`,
         capacidadAula:      `${data.capacidadAula}`,
         estadoAula:         `${data.estadoAula}`,
-        solicitud_id:       `${solicitud_id}`
+        solicitud_id:       `${solicitud_id}`,
+        habilitacionAula:   `${data.habilitacionAula}`
     }
     ).then(( response ) => {
         openModalSuccess();
@@ -62,5 +79,15 @@ export const updateAula = ({ data }, solicitud_id, openModalSuccess, openModalWa
     }
     ).catch(( error ) => {
         openModalWarning();
+    });
+}
+
+export const updateClassRoom=(newClassRoom,id)=>{
+    return axios.put(`${baseUrl}/actualizarAula/${id}`,newClassRoom);
+}
+
+export const logicDelete=(id)=>{
+    return axios.put(`${baseUrl}/actualizarAula/${id}`,  {
+        habilitacionAula: "Inhabilitado"
     });
 }

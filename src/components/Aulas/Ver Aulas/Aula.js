@@ -31,7 +31,7 @@ export const Aula = ({elem}) => {
                             className='btn-editar'
                             onClick={openModalEdicion}
                             >
-                                Editar
+                                Editar 
                         </button>
                         {/* <ModalEjm 
                             isOpen={isOpenModal} 
