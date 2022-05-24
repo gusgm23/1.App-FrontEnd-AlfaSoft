@@ -29,49 +29,49 @@ export const ContenidoNavAdmin = () => {
                     <NavLink 
                         exact='true'
                         to='/admin/verusarios' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                         Ver Usuarios
                     </NavLink>
                     <NavLink 
                         exact='true'
                         to='/admin/registroaula' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                         Registrar Aula
                     </NavLink>
                     <NavLink
                         exact='true'
                         to='/admin/registrorol'
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                         Registrar Roles
                     </NavLink>
                     <NavLink 
                         exact='true' 
                         to='/admin/versolicitudes' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                             Solicitudes
                     </NavLink>
                     <NavLink 
                         exact='true' 
                         to='/admin/veraulas' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                             Aulas
                     </NavLink>
                     <NavLink 
                         exact='true' 
                         to='/admin/vermaterias' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                             Materias
                     </NavLink>
                     <NavLink 
                         exact='true' 
                         to='/admin/administrarsolicitud' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                             admin soli
                     </NavLink>

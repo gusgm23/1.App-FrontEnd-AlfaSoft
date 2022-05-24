@@ -15,7 +15,7 @@ export const ContenidoNavPublico = () => {
                     <NavLink 
                         exact='true'
                         to='/about' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                         Acerca de
                     </NavLink>
@@ -28,14 +28,14 @@ export const ContenidoNavPublico = () => {
                 <NavLink 
                     exact='true' 
                     to='/login' 
-                    className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                    className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                 >
                         Iniciar Sesión
                 </NavLink>
                 <NavLink 
                     exact='true' 
                     to='/registrousuario' 
-                    className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : '' )}
+                    className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                 >
                         Registrase
                 </NavLink>

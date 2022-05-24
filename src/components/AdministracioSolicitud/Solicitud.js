@@ -23,7 +23,7 @@ const item = {
     id: 1,
     nombreDocenteSolicitud: "Carla",
     apellidoDocenteSolicitud: "Salazar",
-    numeroEstudiantesSolicitud: "40",
+    numeroEstudiantesSolicitud: "200",
     motivoSolicitud: "Examen de primer parcial",
     fechaSolicitud: "2022-05-04",
     horaInicioSolicitud: "12:45",
