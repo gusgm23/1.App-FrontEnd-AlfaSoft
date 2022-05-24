@@ -17,21 +17,21 @@ export const VerUsuarios = () => {
 
 
     const [ ListaUsuariosHabilitados, setListaUsuariosHabilitados ] = useState({
-        state: false,
-        data: []
+        states: false,
+        datas: []
     });
 
-    const { state, data } = ListaUsuariosHabilitados;
+    const { states, datas } = ListaUsuariosHabilitados;
 
     useEffect(() => {
         getUsuariosHabilitados(setListaUsuariosHabilitados);
-    }, [state]);
+    }, [states]);
 
     return (
         <div className="contenedor-general-verusuarios">
             <div className="contendedor-elementos-verusuarios">
                 <div className="contenedor-titulo-boton">
-                    <h2 className="titulo-ver-usuarios"> Usuarios Registrados: {data.length} </h2>
+                    <h2 className="titulo-ver-usuarios"> Usuarios Registrados: {datas.length} </h2>
                     {/* <div className="contenedor-botones-listarusuarios"> */}
                         {/* <button className="boton-crear-usuarios" onClick={ openModalCreate }> */}
                         {/* <i class="bi bi-plus-circle-fill"></i> */}
@@ -40,19 +40,12 @@ export const VerUsuarios = () => {
                 </div>
                 <hr/>
                 {
-                    state ?
-                    <Usuarios data={ data } setListaUsuariosHabilitados={ setListaUsuariosHabilitados } />
+                    states ?
+                    <Usuarios data={ datas } setListaUsuariosHabilitados={ setListaUsuariosHabilitados } />
                     : <Spinner/>
                 }
             </div>
-            <ModalGenerico isOpen={ isOpenModalCreate } closeModal={ closeModalCreate }>
-                <RegistroUsuarios
-                    closeModalCreate={ closeModalCreate }
-                    titulo='Registro de Nuevos'
-                    datos={ datos }
-                    setDatos={ setDatos }
-                />
-            </ModalGenerico>
+
         </div>
     )
 

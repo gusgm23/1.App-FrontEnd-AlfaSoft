@@ -19,29 +19,29 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
         estUsuarios:        '',
         pasUsuario:         '',
         pasConfUsuario:     '',
+        carUsuario: '',
     });
 
-    const { id, nomUsuario, apeUsuario, telUsuario, dirUsuario, emailUsuario, estUsuarios, pasUsuario, pasConfUsuario } = valores;
+    const { id, nomUsuario, apeUsuario, telUsuario, dirUsuario, emailUsuario, estUsuarios, pasUsuario, pasConfUsuario, carUsuario } = valores;
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
 
-    const actualizarUsuario = ( campo ) => {
+    const actualizarUsuario = ( item ) => {
         setValores({
-            id:                 campo.id,
-            nomUsuario:         campo.name,
-            apeUsuario:         campo.apellido,
-            telUsuario:         campo.telefonoUsuario,
-            dirUsuario:         campo.direccionUsuario,
-            emailUsuario:       campo.email,
-            estUsuarios:        campo.estadoUsuario,
-            pasUsuario:         campo.password,
-            pasConfUsuario:     campo.repeatPassword,
+            id:                 item.id,
+            nomUsuario:         item.name,
+            apeUsuario:         item.apellido,
+            telUsuario:         item.telefonoUsuario,
+            dirUsuario:         item.direccionUsuario,
+            emailUsuario:       item.email,
+            estUsuarios:        item.estadoUsuario,
+            pasUsuario:         item.password,
+            pasConfUsuario:     item.repeatPassword,
+            carUsuario:         item.cargoUsuario,
         });
         openModalEdicion();
     }
 
-    const guardarIdUsuario = (id) => {
-        localStorage.setItem("id", id);
-    }
+    
 
     return (
         <div className="contenedor-tabla-general">
@@ -52,39 +52,39 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
                             <th>#</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
+                            <th>Cargo</th>
                             <th>Telefono</th>
                             <th>Direccion</th>
                             <th>Email</th>
-                            <th>Estado</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            data.map((campo, i) => (
-                                <tr key={campo.id}>
+                            data.map((item, i) => (
+                                <tr key={item.id}>
                                     <td> { i+1 } </td>
-                                    <td> { campo.name } </td>
-                                    <td> { campo.apellido } </td>
-                                    <td> { campo.telefonoUsuario } </td>
-                                    <td> { campo.direccionUsuario } </td>
-                                    <td> { campo.email } </td>
-                                    <td> { campo.estadoUsuario } </td>
+                                    <td> { item.name } </td>
+                                    <td> { item.apellido } </td>
+                                    <td> { item.cargoUsuario  } </td>
+                                    <td> { item.telefonoUsuario } </td>
+                                    <td> { item.direccionUsuario } </td>
+                                    <td> { item.email } </td>
                                     <td className="columna-botones-usuario">
                                         <section className="caja-botones-usuario">
                                             <button
                                                 className="boton-editar-usuarios"
-                                                onClick={ () => { actualizarUsuario(campo) } }
+                                                onClick={ () => { actualizarUsuario(item) } }
                                             >
-                                            <i class="bi bi-pencil-fill"></i>
+                                            <i className="bi bi-pencil-fill"></i>
                                             </button>
                                         </section>
                                         <section className="caja-botones-usuario">
                                             <button
                                                 className="boton-editar-usuarios"
-                                                //onClick={ () => { actualizarUsuario(campo) } }
+                                                //onClick={ () => { eliminarUsuario(item) } }
                                             >
-                                            <i class="bi bi-trash-fill"></i>
+                                            <i className="bi bi-trash-fill"></i>
                                             </button>
                                         </section>
                                     </td>
@@ -102,11 +102,13 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
                         idUsu={ id }
                         nom={ nomUsuario }
                         ape={ apeUsuario  }
+                        cargoUsuario={ carUsuario }
                         tel={ telUsuario  }
                         dir={ dirUsuario  }
                         cor={ emailUsuario }
                         con={ pasUsuario }
                         conConf={ pasConfUsuario }
+                        closeModal={ closeModalEdicion }
                         dataOptenida={ data }
                         setListaUsuariosHabilitados={ setListaUsuariosHabilitados }
                     />

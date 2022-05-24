@@ -4,12 +4,20 @@ import "./registroUsuarioEstilos.css";
 import { Password } from 'primereact/password';
 import 'primeicons/primeicons.css';
 
-
-import { controlarCampoNombre, controlarCampoApellido, controlarCampoTelefono, controlarCampoDireccion, controlarCampoCorreo, controlarCampoContraseniaConf } from '../../helpers/validarRolUser';
+import { controlarCampoNombre, controlarCampoApellido, controlarCampoTelefono, controlarCampoDireccion, controlarCampoCorreo, controlarCampoContraseniaConf, validarCamposVaciosUsuario, validaCamposLlenosUsuario } from '../../helpers/validarRolUser';
 
 //Importar las APIs de obtener los roles
-import { getRolesHabilitados, createUsuario, updateUsuario,  } from '../../service/apiRoles';
+import { getRolesHabilitados } from '../../service/apiRoles';
+import { getUsuariosHabilitados, createUsuario, updateUsuario, deleteUsuario } from '../../service/apiUsuarios';
 import { ObtenerRoles } from "./ObtenerRoles";
+import { useModal } from "../../hooks/useModal";
+import { ModalGenerico } from "../Modal/ModalGenerico";
+import { AdvertenciaFormVacio } from "../Modal/Contenidos/AdvertenciaFormVacio";
+import { Confirmacion } from "../Modal/Contenidos/Confirmacion";
+import { ErrorGuardarDatos } from "../Modal/Contenidos/ErrorGuardarDatos";
+import { Hecho } from "../Modal/Contenidos/Hecho";
+
+import { Link } from 'react-router-dom'
 
 export const RegistroUsuarios = ({
 
@@ -21,8 +29,7 @@ export const RegistroUsuarios = ({
     con =   '',
     conConf='',
 
-    closeModal = () => {}, titulo='', idUsu='', 
-}) => {
+    closeModal = () => {}, titulo='', idUsu='', setListaUsuariosHabilitados}) => {
 
     const [formValues, handleInputChange, reset] = useForm({
         nombreUsuario:              nom,
@@ -55,6 +62,14 @@ export const RegistroUsuarios = ({
     const [MsjErrorCorreo, setMsjErrorCorreo] = useState('');
     const [MsjErrorContrasenia, setMsjErrorContrasenia] = useState('');
     const [MsjErrorContraseniaConf, setMsjErrorContraseniaConf] = useState('');
+
+
+    //Hooks para controlar los modales
+    const [ isOpenModalConfirm, openModalConfirm, closeModalConfirm ] = useModal(false);
+    const [ isOpenModalWarning, openModalWarning, closeModalWarning ] = useModal(false);
+    const [ isOpenModalSuccess, openModalSuccess, closeModalSuccess ] = useModal(false);
+    const [ isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio ] = useModal(false);
+
 
 
     useEffect(() => {
@@ -108,8 +123,89 @@ export const RegistroUsuarios = ({
         }
     }, [contraseñaUsuario, contraseñaUsuarioConf])
 
+    //para validar el formulario vacio
+    const validarForm = () => {
+        if ( validarCamposVaciosUsuario(formValues) ) {
+            openModalFormVacio();
+        } else {
+            if ( validaCamposLlenosUsuario(formValues) ) {
+                openModalConfirm();
+            } else {
+                console.log(typeof(nombreUsuario));
+                console.log('logrado');
+            }
+        }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
+
+    //Hook para los estados de las peticiones del formulario usuario
+    const [ StatePetition, setStatePetition ] = useState(false);
 
 
+    const editarUsuario = (nombreUsuarioEditar, apellidoUsuarioEditar, telefonoUsuarioEditar, direccionUsuarioEditar, correoUsuarioEditar, contraseñaUsuarioEditar, contraseñaUsuarioConfEditar, selectRolesEditar, estadoUsu) => {
+                  
+        //console.log(nombreUsuarioEditar, apellidoUsuarioEditar, telefonoUsuarioEditar, direccionUsuarioEditar, correoUsuarioEditar, contraseñaUsuarioEditar, contraseñaUsuarioConfEditar, selectRolesEditar, estadoUsu, data)
+        
+        const arregloUsuario = datas;
+        let contador = 0;
+
+        arregloUsuario.map(( usuario ) => {
+            if( idUsu == usuario.id ) {
+                arregloUsuario[contador].name             = nombreUsuarioEditar;
+                arregloUsuario[contador].apellido         = apellidoUsuarioEditar; 
+                arregloUsuario[contador].telefonoUsuario  = telefonoUsuarioEditar; 
+                arregloUsuario[contador].direccionUsuario = direccionUsuarioEditar; 
+                arregloUsuario[contador].email            = correoUsuarioEditar; 
+                arregloUsuario[contador].password         = contraseñaUsuarioEditar; 
+                arregloUsuario[contador].repeatPassword   = contraseñaUsuarioConfEditar;
+                arregloUsuario[contador].cargoUsuario     = selectRolesEditar;
+                arregloUsuario[contador].estadoUsuario    = estadoUsu;
+            //console.log(nombreUsuarioEditar, apellidoUsuarioEditar, telefonoUsuarioEditar, direccionUsuarioEditar, correoUsuarioEditar, contraseñaUsuarioEditar, contraseñaUsuarioConfEditar, selectRolesEditar, estadoUsu, data)
+            }
+            contador++;
+        });
+        setListaUsuariosHabilitados({
+            states: true,
+            datas: arregloUsuario
+        });
+    }
+
+
+    //Hook para envio de datos del formulario
+    const guardarDatosFormularioUsuario = () => {
+        setStatePetition(true);
+
+        if ( idUsu === '' ) {
+            createUsuario( formValues, '2', selectsRoles, 'Habilitado', openModalSuccess, openModalWarning );
+        } else {
+            updateUsuario( formValues, '2', selectsRoles, 'Habilitado', openModalSuccess, openModalWarning, idUsu );
+            editarUsuario( nombreUsuario, 
+                apellidoUsuario, 
+                telefonoUsuario, 
+                direccionUsuario, 
+                correoUsuario, 
+                contraseñaUsuario, 
+                contraseñaUsuarioConf,
+                selectsRoles,
+                'Habilitado' );
+        }
+    }
+
+
+    //Hook para obtener los usuarios habilitados
+    const [ ListaUsuariosHabilitados, setListaUsuariosHabilitado ] = useState({
+        states: false,
+        datas: []
+    });
+
+    const { states, datas } = ListaUsuariosHabilitados;
+
+    useEffect(() => {
+        getUsuariosHabilitados( setListaUsuariosHabilitado );
+    }, [states]);
 
 
     //Hook para obtener el select de obtener roles
@@ -132,7 +228,7 @@ export const RegistroUsuarios = ({
 
         <div className="contenedor-registro-usuarios animate__animated animate__fadeIn">
             <h1 className="titulo-registro-usuarios"> { titulo === ''? 'Registro de Nuevos Usuarios' : `${titulo} Usuarios       ` } </h1>
-            <form name="f1">
+            <form name="f1" onSubmit={ handleSubmit }>
                 <div className="contenedor-usuarios">
                     <div className="contenedor-elementos-registro-usuarios">
                         <div className="campos-registro-usuario">
@@ -260,19 +356,37 @@ export const RegistroUsuarios = ({
                             <button 
                                 className="botonU boton-cancelar-usuario" 
                                 type="button"
+                                onClick={ nom === ''? reset : closeModal }
                             >
                                 Cancelar
                             </button>
                             <button 
                                 className="botonU boton-aceptar-usuario" 
                                 type="button"
+                                onClick={ validarForm }
                             >
                                 Aceptar
                             </button>
                         </div>
+                        {/* <Link to='/' className='link element-login'>Volver</Link> */}
                     </div>
                 </div>
             </form>
+            <ModalGenerico isOpen={ isOpenModalFormVacio } closeModal={ closeModalFormVacio }>
+                <AdvertenciaFormVacio cerrarModal={ closeModalFormVacio } />
+            </ModalGenerico>
+
+            <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
+                <Confirmacion cerrarModal={ closeModalConfirm } funcGuardar={ guardarDatosFormularioUsuario } />
+            </ModalGenerico>
+
+            <ModalGenerico isOpen={ isOpenModalWarning } closeModal={ closeModalWarning }>
+                <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
+            </ModalGenerico>
+
+            <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
+                <Hecho cerrarModal={ closeModalSuccess }/>
+            </ModalGenerico>
         </div>
 
     )
