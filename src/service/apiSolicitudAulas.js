@@ -44,7 +44,8 @@ export const createSolicitud = (
     const { nombreDocente, 
             apellidoDocente, 
             cantidadEstudiantes, 
-            motivoSolicitud, 
+            motivoSolicitud,
+            motivoRechazo, 
             fechaSolicitud, 
             horaSolicitud, 
             peridoSolicitud
