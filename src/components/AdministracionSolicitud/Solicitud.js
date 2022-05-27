@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { generarAulasDisponibles } from '../../helpers/generarAulasDisponibles';
+import { quitarAulaTabla } from '../../helpers/quitarAulaTabla';
 import { reservarAulas } from '../../helpers/reservarAulas';
 import { cambiarCapacidadSolicitud } from '../../helpers/setterCapacidadSolicitud';
 import { useModal } from '../../hooks/useModal';
@@ -81,7 +82,9 @@ export const Solicitud = () => {
     
     const reservar = () => {
 
-        reservarAulas(listaReservas, openModalSuccess, openModalFail)
+        const datosEliminarAula = [listaReservas[0].idAula, aulasLibres, setAulasLibres]
+
+        reservarAulas(listaReservas, openModalSuccess, openModalFail, datosEliminarAula);
 
     }
 
@@ -140,7 +143,7 @@ export const Solicitud = () => {
                 <AdvertenciaSolicitudIncompleta cerrarModal={ closeModalAlert }/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <AulaReservada cerrarModal={ closeModalSuccess } funcOk={ reducirCapacidad }/>
+                <AulaReservada cerrarModal={ closeModalSuccess } funcOk={ reducirCapacidad } />
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalFail } closeModal={ closeModalFail }>
                 <ErrorReservaAula cerrarModal={ closeModalFail }/>

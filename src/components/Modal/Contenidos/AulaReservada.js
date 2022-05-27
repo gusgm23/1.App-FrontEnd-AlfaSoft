@@ -4,7 +4,7 @@ import okImg from '../../../images/ok.svg'
 
 export const AulaReservada = ( {cerrarModal, funcOk} ) => {
     
-    setTimeout( cerrarModal, 8000 );
+    setTimeout( cerrarModal, 6000 );
 
     const btnEntendido = () => {
 
