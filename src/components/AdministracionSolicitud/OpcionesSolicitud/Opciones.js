@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { aprobarSolicitud, rechazar } from '../../../helpers/metodosOpcionesSolicitud';
+import { rechazar } from '../../../helpers/metodosOpcionesSolicitud';
 
 import './estilos-opciones.css'
 

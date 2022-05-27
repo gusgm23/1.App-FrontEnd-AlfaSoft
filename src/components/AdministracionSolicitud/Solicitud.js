@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { listaAulas } from '../../data/ListaAulas';
-import { listaReservas } from '../../data/ListaReservas';
-import { verificarCapacidad } from '../../helpers/capacidadAulasLibres';
+
 import { generarAulasDisponibles } from '../../helpers/generarAulasDisponibles';
 import { reservarAulas } from '../../helpers/reservarAulas';
 import { cambiarCapacidadSolicitud } from '../../helpers/setterCapacidadSolicitud';

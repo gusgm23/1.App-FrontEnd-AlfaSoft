@@ -79,12 +79,12 @@ export const Solicitudes = ({data=[]}) => {
                         <tr className='titulo-tabla-soli'>
                             <th>#</th>
                             <th>Nombre </th>
-                            <th>Apellido Docente</th>
-                            <th># de Estud.</th>
+                            <th>Apellido</th>
+                            <th>Cantidad</th>
                             <th>Motivo</th>
-                            <th onClick={handleSort}>Fecha de Solicitud</th>
-                            <th>Hora de Solicitud</th>
-                            <th>Estado de Solicitud</th>
+                            <th onClick={handleSort}>Fecha</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>               
