@@ -1,5 +1,4 @@
 import React from 'react'
-import { quitarAulaTabla } from '../../../helpers/quitarAulaTabla';
 
 import okImg from '../../../images/ok.svg'
 

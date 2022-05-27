@@ -35,7 +35,7 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                         <i className="bi bi-chevron-left"></i> Volver 
                     </button>
                     {
-                        ( capacidad > 0 && capacidad == parseInt(capacidadOriginal) )
+                        ( capacidad > 0 && capacidad === parseInt(capacidadOriginal) )
                         ? (
                             <button 
                                 id='btn-opciones-soli'
