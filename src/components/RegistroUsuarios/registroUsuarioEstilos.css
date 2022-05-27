@@ -50,7 +50,7 @@
 .contenedor-botones-usuario{
     display: flex;
     justify-content: space-evenly;
-    margin-block-end: 100px;
+    margin-block-end: 20px;
     margin-top: 25px;
 }
 
@@ -117,4 +117,21 @@
     color: red;
     display: flex;
     width: 250px;
+}
+
+.contenedor-link-volver-reg-usr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.btn-volver-reg-usr {
+    border: none;
+    color: #4fa8fb;
+    transition: .3s ease-in-out;
+}
+
+.btn-volver-reg-usr:hover {
+    font-size: 22px;
 }

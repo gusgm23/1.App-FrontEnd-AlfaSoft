@@ -181,6 +181,7 @@ export const FormularioReservaAula = ({
                                     placeholder='Ingresar Nombre'
                                     value={ nombreDocente }
                                     onChange={ handleInputChange }
+                                    
                                 ></input>
                                 <p className={ StatusInputNomDocente===true? "mensaje-error" : "mensaje-error-oculto" }>
                                     { MsjErrorNomDocente }
@@ -290,6 +291,7 @@ export const FormularioReservaAula = ({
                                     className='inputsSolicitud'
                                     type="date"
                                     min="2022-05-03"
+                                    // pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
                                     value={ fechaSolicitud }
                                     onChange={ handleInputChange }
                                 />

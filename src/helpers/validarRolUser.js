@@ -97,3 +97,98 @@ export const controlarCampoCorreo = ( correoUsuario='', setStatusInputCorreo ,se
         setMsjErrorCorreo('');
     }
 }
+
+
+export const controlarCampoContraseniaConf = (contraseñaUsuario='', contraseñaUsuarioConf='', setStatusInputContrasenia, setStatusInputContraseniaConf, setMsjErrorContrasenia, setMsjErrorContraseniaConf) => {
+
+    let con = contraseñaUsuario.length;
+
+    if(con < 6){
+        setStatusInputContrasenia(true);
+        setMsjErrorContrasenia('La contraseña debe tener minimo 6 caracteres');
+    } else {
+        setStatusInputContrasenia(false);
+        setMsjErrorContrasenia('');
+    } if( contraseñaUsuario !== contraseñaUsuarioConf ){
+        setStatusInputContraseniaConf(true);
+        setMsjErrorContraseniaConf('Las contraseñas deben coincidir');
+    }else {
+        setStatusInputContraseniaConf(false);
+        setMsjErrorContraseniaConf('');
+    } 
+}
+
+
+export const validarCamposVaciosUsuario = ( campos = {}) => {
+    const 
+    {
+        nombreUsuario, 
+        apellidoUsuario, 
+        telefonoUsuario, 
+        direccionUsuario, 
+        correoUsuario, 
+        contraseñaUsuario, 
+        contraseñaUsuarioConf
+    } = campos;
+
+    const telUsu = parseInt(telefonoUsuario);
+
+    if ( nombreUsuario.length === 0 &&
+        apellidoUsuario.length === 0 &&
+        telUsu === 0 &&
+        direccionUsuario.length === 0 && 
+        correoUsuario.length === 0 &&
+        contraseñaUsuario.length === 0 &&
+        contraseñaUsuarioConf.length === 0) {
+            return true;
+        } else if (  nombreUsuario.length === 0 ||
+            apellidoUsuario.length === 0 ||
+            telUsu === 0 ||
+            direccionUsuario.length === 0 || 
+            correoUsuario.length === 0 ||
+            contraseñaUsuario.length === 0 ||
+            contraseñaUsuarioConf.length === 0 ) {
+                return true;
+            } else {
+                return false;
+            }
+}
+
+export const validaCamposLlenosUsuario = ( campos = {} ) => {
+    const 
+    {
+        nombreUsuario, 
+        apellidoUsuario, 
+        telefonoUsuario, 
+        direccionUsuario, 
+        correoUsuario, 
+        contraseñaUsuario, 
+        contraseñaUsuarioConf
+    } = campos;
+
+    const telUsu = parseInt(telefonoUsuario);
+
+    if ( nombreUsuario.length >= 3 &&
+        apellidoUsuario.length >= 4 &&
+        telUsu >= 8 &&
+        direccionUsuario.length >= 5 &&
+        correoUsuario.length >= 6 &&
+        contraseñaUsuario.length >= 6 &&
+        contraseñaUsuarioConf.length >= 6 ) {
+            return true;
+        } else {
+            console.log(nombreUsuario.length,
+                apellidoUsuario.length,
+                telUsu,
+                direccionUsuario.length,
+                correoUsuario.length,
+                contraseñaUsuario.length,
+                contraseñaUsuarioConf.length);
+            return false;
+        }
+}
+
+
+
+
+

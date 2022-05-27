@@ -1,0 +1,35 @@
+/* Estilos para el titulo y el boton de crear */
+
+
+
+.contendedor-lista-solicitud{
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.card{
+    /* display: flex; */
+    justify-content: space-evenly;
+    background: #e6e6fa;
+}
+
+.contendeor-titulo-listasolicitudes{
+    display: flex;
+    justify-content: center;
+}
+
+.p-paginator{
+    display: flex;
+    justify-content: center;
+}
+
+/* .p-component  */
+/*  */
+/* .p-paginator-bottom */
+
+
+
+
+
+

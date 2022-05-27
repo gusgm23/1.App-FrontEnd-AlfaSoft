@@ -1,7 +1,8 @@
-import React, { useState,useEffect }  from 'react'
+import React, { useEffect, useState }  from 'react'
 import { NavLink } from 'react-router-dom'
 import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
+//import {FormularioReservaAula} from '../ReservaAulas/FormularioReservaAula';
 import { RegSolicitud } from './RegistroSol/RegSolicitud';
 //modal rechazo
 import  {ModalRechazo}  from '../Modal/ModalRechazo';
@@ -11,6 +12,10 @@ import './estilos-ver-soli.css'
 
 
 export const Solicitudes = ({data=[]}) => {
+    const [isSorted, setIsSorted] = useState({
+        sortData:data,
+        dir:"asc",
+    });
 
     const [values, setValues] = useState({
         nombreDocenteSolicitud:'',
@@ -71,49 +76,46 @@ export const Solicitudes = ({data=[]}) => {
 
     
 
-//     const [id,setId]=useState('');  
-//   const getData=()=>{
-//     return localStorage.getItem("id");
-
-//   }
-//   useEffect(()=>{
-//       setId(getData());
-//   }, []);
-    
-    // const guardarID  = (id) => {
-    //     localStorage.setItem("id", id);
-    //     // alert('ID Guardado'+ id);
-    //     // console.log(""+id);
-
-    // }
-
-    //modal rechazo
-
-   
+    function handleSort(){
+        let sortedData=[];
+        if(isSorted.dir==="asc"){
+            sortedData=isSorted.sortData.sort((a,b)=>{
+                return new Date(b.fechaSolicitud) - new Date(a.fechaSolicitud);
+            });
+            // isSorted.dir="desc"
+            setIsSorted({sortData:[...sortedData],dir:"desc"})
+        }else {
+            sortedData=isSorted.sortData.sort((a,b)=>{
+                return new Date(a.fechaSolicitud) - new Date(b.fechaSolicitud);
+            });
+            
+            setIsSorted({sortData:[...sortedData],dir:"asc"})
+            // isSorted.dir="asc"
+        }  
+    }
     
 
     return (
             <>
             <div className='contenedor-tabla-soli'>
                 
-                <table>
+                <table className='table'>
                     <thead>
                         <tr className='titulo-tabla-soli'>
                             <th>#</th>
                             <th>Nombre </th>
-                            <th>Apellido Docente</th>
-                            <th># de Estud.</th>
+                            <th>Apellido</th>
+                            <th>Cantidad</th>
                             <th>Motivo</th>
-                            <th>Fecha de Solicitud</th>
-                            <th>Hora de Solicitud</th>
-                            <th>Estado de Solicitud</th>
+                            <th onClick={handleSort}>Fecha</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
                             <th>Opciones</th>
                         </tr>
-                    </thead>
-                   
-                    <tbody>
+                    </thead>               
+                    <tbody className='animate__animated animate__fadeIn'>
                         {
-                            data.map((item, i) => (
+                            isSorted.sortData.map((item, i) => (
                                 <tr key={item.id}>
                                     <td> { i+1 } </td>
                                     <td> { item.nombreDocenteSolicitud } </td>
@@ -145,7 +147,7 @@ export const Solicitudes = ({data=[]}) => {
                                 </tr>
                             ))
                         }
-                    </tbody>
+                    </tbody>  
                 </table>
             </div>
             {

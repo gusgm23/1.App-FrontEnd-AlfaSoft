@@ -4,30 +4,44 @@ import "./registroUsuarioEstilos.css";
 import { Password } from 'primereact/password';
 import 'primeicons/primeicons.css';
 
+import { controlarCampoNombre, controlarCampoApellido, controlarCampoTelefono, controlarCampoDireccion, controlarCampoCorreo, controlarCampoContraseniaConf, validarCamposVaciosUsuario, validaCamposLlenosUsuario } from '../../helpers/validarRolUser';
 
-import { controlarCampoNombre, controlarCampoApellido, controlarCampoTelefono, controlarCampoDireccion, controlarCampoCorreo } from '../../helpers/validarRolUser';
-
+//Importar las APIs de obtener los roles
+import { getRolesHabilitados } from '../../service/apiRoles';
+import { getUsuariosHabilitados, createUsuario, updateUsuario, deleteUsuario } from '../../service/apiUsuarios';
+import { ObtenerRoles } from "./ObtenerRoles";
+import { useModal } from "../../hooks/useModal";
+import { ModalGenerico } from "../Modal/ModalGenerico";
+import { AdvertenciaFormVacio } from "../Modal/Contenidos/AdvertenciaFormVacio";
+import { Confirmacion } from "../Modal/Contenidos/Confirmacion";
+import { ErrorGuardarDatos } from "../Modal/Contenidos/ErrorGuardarDatos";
+import { Hecho } from "../Modal/Contenidos/Hecho";
+import { useNavigate } from "react-router-dom";
 
 export const RegistroUsuarios = ({
 
-    nom ='',
-    ape ='',
-    tel ='',
-    dir ='',
-    cor ='',
+    nom =   '',
+    ape =   '',
+    tel =   '',
+    dir =   '',
+    cor =   '',
+    con =   '',
+    conConf='',
 
-    closeModal = () => {}     
-}) => {
+    closeModal = () => {}, titulo='', idUsu='', setListaUsuariosHabilitados}) => {
 
     const [formValues, handleInputChange, reset] = useForm({
-        nombreUsuario:      nom,
-        apellidoUsuario:    ape,
-        telefonoUsuario:    tel,
-        direccionUsuario:   dir,
-        correoUsuario:      cor,
+        nombreUsuario:              nom,
+        apellidoUsuario:            ape,
+        telefonoUsuario:            tel,
+        direccionUsuario:           dir,
+        correoUsuario:              cor,
+        contraseñaUsuario:          con,
+        contraseñaUsuarioConf:      conConf,
+        
     })
 
-    const { nombreUsuario, apellidoUsuario, telefonoUsuario, direccionUsuario, correoUsuario } = formValues;
+    const { nombreUsuario, apellidoUsuario, telefonoUsuario, direccionUsuario, correoUsuario, contraseñaUsuario, contraseñaUsuarioConf } = formValues;
 
     //Hooks para controlar los contenidos de los campos
     const [StatusInputNombre, setStatusInputNombre] = useState(false);
@@ -35,6 +49,9 @@ export const RegistroUsuarios = ({
     const [StatusInputTelefono, setStatusInputTelefono] = useState(false);
     const [StatusInputDireccion, setStatusInputDireccion] = useState(false);
     const [StatusInputCorreo, setStatusInputCorreo] = useState(false);
+    const [StatusInputContrasenia, setStatusInputContrasenia] = useState(false);
+    const [StatusInputContraseniaConf, setStatusInputContraseniaConf] = useState(false);
+    
 
     //Hooks para mostrar el mensaje de error en los campos
     const [MsjErrorNombre, setMsjErrorNombre] = useState('');
@@ -42,10 +59,18 @@ export const RegistroUsuarios = ({
     const [MsjErrorTelefono, setMsjErrorTelefono] = useState('')
     const [MsjErrorDireccion, setMsjErrorDireccion] = useState('');
     const [MsjErrorCorreo, setMsjErrorCorreo] = useState('');
+    const [MsjErrorContrasenia, setMsjErrorContrasenia] = useState('');
+    const [MsjErrorContraseniaConf, setMsjErrorContraseniaConf] = useState('');
 
-    //Hook para la contraseña
-    const [contraseñaUsuario, setcontraseñaUsuario] = useState('');
-    const [contraseñaUsuarioConf, setcontraseñaUsuarioConf] = useState('');
+
+    //Hooks para controlar los modales
+    const [ isOpenModalConfirm, openModalConfirm, closeModalConfirm ] = useModal(false);
+    const [ isOpenModalWarning, openModalWarning, closeModalWarning ] = useModal(false);
+    const [ isOpenModalSuccess, openModalSuccess, closeModalSuccess ] = useModal(false);
+    const [ isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio ] = useModal(false);
+
+    //!Hook para navegar
+    const navigate = useNavigate();
 
     useEffect(() => {
         if( nombreUsuario === '' ) {
@@ -83,16 +108,127 @@ export const RegistroUsuarios = ({
         if( correoUsuario === '' ) {
             setStatusInputCorreo(false);
         }else {
-            controlarCampoCorreo( correoUsuario, setStatusInputCorreo ,setMsjErrorCorreo );
+            controlarCampoCorreo( correoUsuario, setStatusInputCorreo, setMsjErrorCorreo );
         }
     }, [correoUsuario])
+
+    useEffect(() => {
+        if( contraseñaUsuario === '') {
+            setStatusInputContrasenia(false);
+        }else if ( contraseñaUsuarioConf === '' ) {
+            setStatusInputContraseniaConf(false);
+        } else {controlarCampoContraseniaConf(
+                contraseñaUsuario, contraseñaUsuarioConf, setStatusInputContrasenia, setStatusInputContraseniaConf, setMsjErrorContrasenia, setMsjErrorContraseniaConf
+            ); 
+        }
+    }, [contraseñaUsuario, contraseñaUsuarioConf])
+
+    //para validar el formulario vacio
+    const validarForm = () => {
+        if ( validarCamposVaciosUsuario(formValues) ) {
+            openModalFormVacio();
+        } else {
+            if ( validaCamposLlenosUsuario(formValues) ) {
+                openModalConfirm();
+            } else {
+                console.log(typeof(nombreUsuario));
+                console.log('logrado');
+            }
+        }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
+
+    //Hook para los estados de las peticiones del formulario usuario
+    const [ StatePetition, setStatePetition ] = useState(false);
+
+
+    const editarUsuario = (nombreUsuarioEditar, apellidoUsuarioEditar, telefonoUsuarioEditar, direccionUsuarioEditar, correoUsuarioEditar, contraseñaUsuarioEditar, contraseñaUsuarioConfEditar, selectRolesEditar, estadoUsu) => {
+                  
+        //console.log(nombreUsuarioEditar, apellidoUsuarioEditar, telefonoUsuarioEditar, direccionUsuarioEditar, correoUsuarioEditar, contraseñaUsuarioEditar, contraseñaUsuarioConfEditar, selectRolesEditar, estadoUsu, data)
+        
+        const arregloUsuario = datas;
+        let contador = 0;
+
+        arregloUsuario.map(( usuario ) => {
+            if( idUsu == usuario.id ) {
+                arregloUsuario[contador].name             = nombreUsuarioEditar;
+                arregloUsuario[contador].apellido         = apellidoUsuarioEditar; 
+                arregloUsuario[contador].telefonoUsuario  = telefonoUsuarioEditar; 
+                arregloUsuario[contador].direccionUsuario = direccionUsuarioEditar; 
+                arregloUsuario[contador].email            = correoUsuarioEditar; 
+                arregloUsuario[contador].password         = contraseñaUsuarioEditar; 
+                arregloUsuario[contador].repeatPassword   = contraseñaUsuarioConfEditar;
+                arregloUsuario[contador].cargoUsuario     = selectRolesEditar;
+                arregloUsuario[contador].estadoUsuario    = estadoUsu;
+            //console.log(nombreUsuarioEditar, apellidoUsuarioEditar, telefonoUsuarioEditar, direccionUsuarioEditar, correoUsuarioEditar, contraseñaUsuarioEditar, contraseñaUsuarioConfEditar, selectRolesEditar, estadoUsu, data)
+            }
+            contador++;
+        });
+        setListaUsuariosHabilitados({
+            states: true,
+            datas: arregloUsuario
+        });
+    }
+
+
+    //Hook para envio de datos del formulario
+    const guardarDatosFormularioUsuario = () => {
+        setStatePetition(true);
+
+        if ( idUsu === '' ) {
+            createUsuario( formValues, '2', selectsRoles, 'Habilitado', openModalSuccess, openModalWarning );
+        } else {
+            updateUsuario( formValues, '2', selectsRoles, 'Habilitado', openModalSuccess, openModalWarning, idUsu );
+            editarUsuario( nombreUsuario, 
+                apellidoUsuario, 
+                telefonoUsuario, 
+                direccionUsuario, 
+                correoUsuario, 
+                contraseñaUsuario, 
+                contraseñaUsuarioConf,
+                selectsRoles,
+                'Habilitado' );
+        }
+    }
+
+
+    //Hook para obtener los usuarios habilitados
+    const [ ListaUsuariosHabilitados, setListaUsuariosHabilitado ] = useState({
+        states: false,
+        datas: []
+    });
+
+    const { states, datas } = ListaUsuariosHabilitados;
+
+    useEffect(() => {
+        getUsuariosHabilitados( setListaUsuariosHabilitado );
+    }, [states]);
+
+
+    //Hook para obtener el select de obtener roles
+    const [ selectsRoles, setselectsRoles ] = useState('Registrar Cargo');
+
+    //Obtener los roles y listarlos
+    const [ListaRolesHabilitados, setListaRolesHabilitados ] = useState({
+        state: false,
+        data: []
+    });
+
+    const {state, data} = ListaRolesHabilitados;
+
+    useEffect(() => {
+        getRolesHabilitados(setListaRolesHabilitados);
+    }, [state]);
 
 
     return (
 
-        <div className="contenedor-registro-usuarios">
-            <h1 className="titulo-registro-usuarios"> Registro de Nuevos Usuarios </h1>
-            <form>
+        <div className="contenedor-registro-usuarios animate__animated animate__fadeIn">
+            <h1 className="titulo-registro-usuarios"> { titulo === ''? 'Registro de Nuevos Usuarios' : `${titulo} Usuarios       ` } </h1>
+            <form name="f1" onSubmit={ handleSubmit }>
                 <div className="contenedor-usuarios">
                     <div className="contenedor-elementos-registro-usuarios">
                         <div className="campos-registro-usuario">
@@ -130,17 +266,7 @@ export const RegistroUsuarios = ({
                         <div className="campos-registro-usuario">
                             <label className="labels-usuario"> Cargo Del Usuario: </label>
                             <div className="contenedor-inputs-usuario">
-                                <select 
-                                    name="CargoUsuario"
-                                    className="inputsUsuario" 
-                                    
-                                    placeholder="Elegir Cargo"
-                                >
-                                    <option> Elegir Cargo </option>
-                                    
-                                    <option> Docente </option>
-                                    <option> Auxiliar </option>
-                                </select>
+                                <ObtenerRoles data={ data } selectsRoles={ selectsRoles } setselectsRoles={ setselectsRoles } />
                             </div>
                         </div>
                         <div className="campos-registro-usuario">
@@ -195,26 +321,34 @@ export const RegistroUsuarios = ({
                             <label className="labels-usuario"> Contraseña: </label>
                             <div className="contenedor-inputs-usuario">
                                 <Password 
+                                    
                                     name="contraseñaUsuario"
-                                    className="inputsUsuario"
+                                    className={ StatusInputContrasenia===true? "input-error" : "inputsUsuario" }
                                     placeholder="Ingresar Contraseña"
                                     value={contraseñaUsuario} 
-                                    onChange={(e) => setcontraseñaUsuario(e.target.value) } toggleMask
+                                    onChange={ handleInputChange } toggleMask
+                                    //onChange={(e) => setcontraseñaUsuario(e.target.value) } toggleMask
                                 />
-                               
+                                <p className={ StatusInputContrasenia===true? "mensaje-error" : "mensaje-error-oculto" }>
+                                    { MsjErrorContrasenia }
+                                </p>
                             </div>
                         </div>
                         <div className="campos-registro-usuario">
                             <label className="labels-usuario"> Confirmar Contraseña: </label>
                             <div className="contenedor-inputs-usuario">
                                 <Password 
+                                    
                                     name="contraseñaUsuarioConf"
-                                    className="inputsUsuario"
+                                    className={ StatusInputContraseniaConf===true? "input-error" : "inputsUsuario" }
                                     placeholder="Repetir Contraseña"
                                     value={contraseñaUsuarioConf} 
-                                    onChange={(e) => setcontraseñaUsuarioConf(e.target.value)} toggleMask
+                                    onChange={ handleInputChange } toggleMask
+                                    //onChange={(e) => setcontraseñaUsuarioConf(e.target.value)} toggleMask
                                 />
-
+                                <p className={ StatusInputContraseniaConf===true? "mensaje-error" : "mensaje-error-oculto" }>
+                                    { MsjErrorContraseniaConf }
+                                </p>
                             </div>
                         </div>
 
@@ -222,19 +356,44 @@ export const RegistroUsuarios = ({
                             <button 
                                 className="botonU boton-cancelar-usuario" 
                                 type="button"
+                                onClick={ nom === ''? reset : closeModal }
                             >
                                 Cancelar
                             </button>
                             <button 
                                 className="botonU boton-aceptar-usuario" 
                                 type="button"
+                                onClick={ validarForm }
                             >
                                 Aceptar
+                            </button>
+                        </div>
+                        <div className="contenedor-link-volver-reg-usr">
+                            <button 
+                                className="btn-volver-reg-usr"
+                                onClick={ () => navigate(-1) }
+                            >
+                                Volver
                             </button>
                         </div>
                     </div>
                 </div>
             </form>
+            <ModalGenerico isOpen={ isOpenModalFormVacio } closeModal={ closeModalFormVacio }>
+                <AdvertenciaFormVacio cerrarModal={ closeModalFormVacio } />
+            </ModalGenerico>
+
+            <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
+                <Confirmacion cerrarModal={ closeModalConfirm } funcGuardar={ guardarDatosFormularioUsuario } />
+            </ModalGenerico>
+
+            <ModalGenerico isOpen={ isOpenModalWarning } closeModal={ closeModalWarning }>
+                <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
+            </ModalGenerico>
+
+            <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
+                <Hecho cerrarModal={ closeModalSuccess }/>
+            </ModalGenerico>
         </div>
 
     )

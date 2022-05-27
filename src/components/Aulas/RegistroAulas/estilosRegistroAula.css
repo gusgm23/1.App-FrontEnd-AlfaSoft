@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    flex-grow: 1;
 }
 
 .contenedor-elementos {
@@ -37,6 +37,7 @@
 
 .contenedor-general {
     width: 500px;
+   
 }
 
 .btn {
