@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const getSolicitud = (setListaSolicitud) => {
-    return axios.get(`http://127.0.0.1:8000/api/obtenerSolicitud`)
+export const getSolicitud = async (setListaSolicitud) => {
+    await axios.get(`http://127.0.0.1:8000/api/obtenerSolicitud`)
         .then(response => {
             setListaSolicitud({
                 state: true,
@@ -18,7 +18,7 @@ export const getSolicitudId = (id) => {
     return axios.get(`http://127.0.0.1:8000/api/obtenerSolicitudId/${id}`);
 }
 
-export const createSolicitud = (  formValues , materia_id, materiaSolicitud, grupoSolicitud, pendiente='pendiente', openModalSuccess, openModalWarning) => {
+export const createSolicitud = (  formValues , materia_id, materiaSolicitud, grupoSolicitud, pendiente='pendiente', motivoRechazo='ninguno', openModalSuccess, openModalWarning) => {
     
     const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud} = formValues;
 
@@ -31,6 +31,9 @@ export const createSolicitud = (  formValues , materia_id, materiaSolicitud, gru
         apellidoDocenteSolicitud:       `${apellidoDocente}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
         motivoSolicitud:                `${motivoSolicitud}`,
+        //Nuevo atributo de tabla
+        motivoRechazo:                  `${motivoRechazo}`,
+        //---
         fechaSolicitud:                 `${fechaSolicitud}`,
         horaInicioSolicitud:            `${horaSolicitud}`,
         //horaFinSolicitud:               `${}`,
@@ -56,9 +59,11 @@ export const updateSolicitudId = (data, id) => {
         apellidoDocenteSolicitud: `${data.apellidoDocenteSolicitud}`,
         numeroEstudiantesSolicitud: `${data.numeroEstudiantesSolicitud}`,
         motivoSolicitud: `${data.motivoSolicitud}`,
+        //Motivo de rechazo
+        motivoRechazo: `${data.motivoRechazo}`,
         fechaSolicitud: `${data.fechaSolicitud}`,
         horaInicioSolicitud: `${data.horaInicioSolicitud}`,
-        horaFinSolicitud: `${data.horaFinSolicitud}`,
+        // horaFinSolicitud: `${data.horaFinSolicitud}`,
         periodoSolicitud: `${data.periodoSolicitud}`,
         estadoSolicitud: `${data.estadoSolicitud}`,
         materia_id: `${data.materia_id}`
@@ -72,5 +77,5 @@ export const updateSolicitudId = (data, id) => {
 }
 
 export const deleteSolicitud = (id) => {
-    return axios.delete(`http://127.0.0.1:8000/api/eliminarSolicitud/${id}`);
+    return axios.delete(`https://reserva-de-aulas-backend.herokuapp.com/api/eliminarSolicitud/${id}`);
 }

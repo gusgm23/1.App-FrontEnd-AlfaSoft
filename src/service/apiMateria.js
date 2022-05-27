@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getMateria = async ( setListaMateria )  =>{
-    await axios.get('http://127.0.0.1:8000/api/obtenerMaterias')
+    await axios.get(`http://127.0.0.1:8000/api/obtenerMaterias`)
     .then( response => {
         setListaMateria({
             state: true,
@@ -59,6 +59,6 @@ export const updateMateriaId = ({ codSis, materia }, user_id, estado,openModalSu
 }
 
 export const deleteMateriaId = (id) => {
-    return axios.delete(`http://127.0.0.1:8000/api/eliminarMateria/${id}`);
+    return axios.delete(`https://reserva-de-aulas-backend.herokuapp.com/api/eliminarMateria/${id}`);
 }
 

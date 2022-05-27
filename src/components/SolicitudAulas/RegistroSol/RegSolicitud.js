@@ -105,15 +105,6 @@ export const RegSolicitud = ({
             controlarCampoPeriodo( periodoSol, setStatusInputPeriodo, setMsjErrorPeriodo );
         }
     }, [periodoSol])
-/*
-    useEffect(() => {
-        if( estSol === ''){
-            setStatusInputEstado(false);
-        }else {
-            controlarCampoEstado( estSol, setStatusInputEstado, setMsjErrorEstado );
-        }
-    }, [estSol])
-*/
 
     const validarForm = () => {
         if( validarCamposVaciosSolicitud(formValues) ){
@@ -146,120 +137,122 @@ export const RegSolicitud = ({
     }
 
     return (
-        <div className='contenedor-registro-aula'>
+        <div className='contenedor-registro-soli'>
 
-                <div className='titulo-registro-aula'>
+                <div className='titulo-registro-soli'>
                     Registro de Solicitud
                     </div>
 
             <form>
-                <div className='contenedor-general'>
-                    <div className='contenedor-elementos'>
-                        <div className='contenedor-aula contenedor-flex'>
-                            <label className='labels'>Nombre del Docente:</label>
+                <div className='contenedor-general-soli'>
+                    <div className='contenedor-elementos-soli'>
+                        <div className='contenedor-soli contenedor-flex-soli'>
+                            <label className='labels-soli'>Nombre del Docente:</label>
                             <input 
                                 name='nomDocente'
-                                className='inputs' 
+                                className='inputs-soli' 
                                 type='text'
                                 placeholder='Escalera Fernandez David'
                                 value={ nomDocente }
                                 onChange={ handleInputChange }
+                                disabled
                             />
                         </div>
-                        <div className='contenedor-aula contenedor-flex'>
-                            <label className='labels'>Apellido del Docente:</label>
+                        <div className='contenedor-soli contenedor-flex-soli'>
+                            <label className='labels-soli'>Apellido del Docente:</label>
                             <input 
                                 name='apeDocente'
-                                className='inputs' 
+                                className='inputs-soli' 
                                 type='text'
                                 placeholder='-----'
                                 value={ apeDocente }
                                 onChange={ handleInputChange }
+                                disabled
                             />
                         </div>
-                        <div className='contenedor-flex'>
-                            <label className='labels'>Numero de estudiantes:</label>
+                        <div className='contenedor-flex-soli'>
+                            <label className='labels-soli'>Numero de estudiantes:</label>
                             <input 
                                 name='nroEst'
-                                className='inputs' 
+                                className='inputs-soli' 
                                 type='number'
                                 placeholder='---------'
                                 value={ nroEst}
                                 onChange={ handleInputChange }
+                                disabled
                             />
                         </div>
-                        <div className='contenedor-flex'>
-                            <label className='labels'>Motivo de la Reserva:</label>
+                        <div className='contenedor-flex-soli'>
+                            <label className='labels-soli'>Motivo de la Reserva:</label>
                             <input 
                                 name='motivoSol'
-                                className='inputs' 
+                                className='inputs-soli' 
                                 type='text'
                                 placeholder='-------'
                                 value={ motivoSol }
                                 onChange={ handleInputChange }
+                                disabled
                             />
                         </div>
-                        <div className='contenedor-flex'>
-                            <label className='labels'>Fecha de la Reserva:</label>
+                        <div className='contenedor-flex-soli'>
+                            <label className='labels-soli'>Fecha de la Reserva:</label>
                             <input 
                                 name='fechaSol'
-                                className='inputs' 
+                                className='inputs-soli' 
                                 type='text'
                                 placeholder='----'
                                 value={ fechaSol }
                                 onChange={ handleInputChange }
+                                disabled
                             />
                         </div>
-                        <div className='contenedor-flex'>
-                            <label className='labels'>Hora de la Reserva:</label>
+                        <div className='contenedor-flex-soli'>
+                            <label className='labels-soli'>Hora de la Reserva:</label>
                             <input 
                                 name='horaSol'
-                                className='inputs' 
+                                className='inputs-soli' 
                                 type='text'
                                 placeholder='------'
                                 value={ horaSol }
                                 onChange={ handleInputChange }
+                                disabled
                             />
                         </div>
-                        <div className='contenedor-flex'>
-                            <label className='labels'>Periodo:</label>
+                        <div className='contenedor-flex-soli'>
+                            <label className='labels-soli'>Periodo:</label>
                             <input 
                                 name='periodoSol'
-                                className='inputs' 
+                                className='inputs-soli' 
                                 type='text'
                                 placeholder='------'
                                 value={ periodoSol }
                                 onChange={ handleInputChange }
+                                disabled
                             />
                         </div>
-                        <div className='contenedor-flex'>
-                            <label className='labels'>Estado:</label>
+                        <div className='contenedor-flex-soli'>
+                            <label className='labels-soli'>Estado:</label>
                             <input 
                                 name='estSol'
-                                className='inputs' 
+                                className='inputs-soli' 
                                 type='text'
                                 placeholder='-------'
                                 value={ estSol }
                                 onChange={ handleInputChange }
+                                disabled
                             />
                         </div>
                         
                     </div>
-                    <div className='contenedor-botones'>
+                    <div className='contenedor-botones-soli'>
                         <button 
-                            type='button' 
-                            className='btn btn-warning'
-                            onClick={ nomDocente === ''? reset : closeModal}
+                            type='button-soli' 
+                            className='btn-soli btn-warning'
+                            inClick={ nomDocente === ''? reset : closeModal}
                         >
-                            Cancelar
+                            Cerrar
                         </button>
-                        <button 
-                            type='button' 
-                            className='btn btn-primary'
-                            onClick={validarForm}
-                        >
-                            Confirmar
-                        </button>
+
                     </div>
                 </div>
             </form>

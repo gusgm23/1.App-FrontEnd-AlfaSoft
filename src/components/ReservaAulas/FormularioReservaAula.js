@@ -136,7 +136,7 @@ export const FormularioReservaAula = ({
         setStatePetition(true);
 
         if( idsolicitud === '' ) {
-            createSolicitud( formValues, '1', selects, selectsGrupos, 'pendiente', openModalSuccess, openModalWarning ); 
+            createSolicitud( formValues, '1', selects, selectsGrupos, 'pendiente','ninguno', openModalSuccess, openModalWarning ); 
         }
     }
     
@@ -151,17 +151,6 @@ export const FormularioReservaAula = ({
     useEffect(() => {
         getMateria(setListaMateria);
     }, [state]);
-
-
-    const datos =[{
-    
-        id:1,
-        nombreMateria: 'calculo',
-    } ,
-    {
-        id:2,
-        nombreMateria: 'progra',
-    }]
 
     //Obtener los grupos de materias y listarlas
     const [listaGrupos, setStateData] = useState({
