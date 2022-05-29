@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom';
 import { DocenteHome } from '../components/Docente/DocenteHome';
 import { HistorialSolicitudes } from '../components/Docente/HistorialSolicitudes';
-import { ListarSolicitudes } from '../components/ReservaAulas/ListarSolicitudes';
+import { VerSolicitudesDoc } from '../components/ReservaAulas/VerSolicitudes/VerSolicitudesDoc';
 
 import { ContenidoNavDocente } from '../components/NavBar/ContenidoNavDocente';
 import { NavBar } from '../components/NavBar/NavBar';
@@ -17,7 +17,7 @@ export const DocenteRoutes = () => {
             </NavBar>
             <Routes>
                 <Route exact path='home'                        element={<DocenteHome/>}/>
-                <Route exact path='listarlassolicitudes'        element={<ListarSolicitudes/>}/>
+                <Route exact path='listarlassolicitudes'        element={<VerSolicitudesDoc/>}/>
                 <Route exact path='verhistorial'                element={<HistorialSolicitudes/>}/>
 
                 <Route path='*'                         element={<Error404Screen/>}/>

@@ -1,19 +1,17 @@
-
 /* Estilos para el titulo y el boton de crear */
 
-.contenedor-general-verusuarios{
+.contenedor-general-versolicitudes{
     display: flex;
     justify-content: center;
     margin-top: 40px;
 }
 
-.contenedor-titulo-boton{
+.contenedor-titulo-botonSolicitud{
     display: flex;
     justify-content: space-evenly;
 }
 
-
-.boton-crear-usuarios{
+.boton-crear-solicitudes{
     background-color: #c8c8c8(25, 135, 84, .9);
     color: #fff;
     width: 100%;
@@ -23,7 +21,11 @@
     border-radius: 5px;
 }
 
-.boton-editar-usuarios{
+.boton-crear-solicitudes:hover{
+    background-color: white (25, 135, 84, .6);;
+}
+
+.boton-editar-solicitudes{
     background-color: #c8c8c8(25, 135, 84, .9);
     color: #fff;
     width: 100%;
@@ -33,39 +35,44 @@
     border-radius: 5px;
 }
 
-
-.bi-pencil-fill{
-    font-size: 20px;
-    color: #ffc107;
+.bi-plus-circle-fill{
+    font-size: 30px;
+    color: #0d6efd;
 }
 
-.bi-trash-fill {
-    font-size: 25px;
-    color: red;
-}
-
-
-.boton-crear-usuarios:hover{
-    background-color: white (25, 135, 84, .6);
-}
-
-
-/* Estilos para la tabla */
+/* Estilos para la tabla*/
 table tr th{
     padding: 10px;
 }
 
-.contenedor-tabla-usuarios{
+.contenedor-tabla-solicitudes{
     display: flex;
-justify-content: center;
+    justify-content: center;
 }
 
-.titulo-tabla-usuarios{
+.titulo-tabla-solicitudes{
     background-color: rgba(33, 37, 41, .9);
     color: #ffffff;
 }
 
-.columna-botones-usuario{
+.columna-botones-solicitud{
     display: flex;
     justify-content: space-evenly;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

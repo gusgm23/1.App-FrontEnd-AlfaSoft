@@ -19,9 +19,10 @@ import { PublicRoute } from './PublicRoute';
 import { NavBar } from '../components/NavBar/NavBar';
 import { ContenidoNavPublico } from '../components/NavBar/ContenidoNavPublico';
 import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
+import { VerSolicitudesDoc } from '../components/ReservaAulas/VerSolicitudes/VerSolicitudesDoc';
+//import { VerSolicitudes } from '../components/SolicitudAulas/VerSolicitudes'
 
 
-import { ListarSolicitudes } from '../components/ReservaAulas/ListarSolicitudes';
 
 
 export const AppRouter = () => {
@@ -75,7 +76,7 @@ export const AppRouter = () => {
                         </PrivateRouteDoc>
                     }/>
 
-                    <Route exact path='/listarlassolicitudes'  element={<ListarSolicitudes/>}/>
+                    <Route exact path='/listarlassolicitudes'  element={<VerSolicitudesDoc/>}/>
 
                     <Route path='*'                         element={<Error404Screen/>}/>
                 </Routes>
