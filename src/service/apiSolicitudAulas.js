@@ -45,7 +45,8 @@ export const createSolicitud = (
     const { nombreDocente, 
             apellidoDocente, 
             cantidadEstudiantes, 
-            motivoSolicitud, 
+            motivoSolicitud,
+            motivoRechazo, 
             fechaSolicitud, 
             horaSolicitud, 
             peridoSolicitud
@@ -58,6 +59,9 @@ export const createSolicitud = (
         apellidoDocenteSolicitud:       `${apellidoDocente}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
         motivoSolicitud:                `${motivoSolicitud}`,
+        //Nuevo atributo de tabla
+        motivoRechazo:                  `${motivoRechazo}`,
+        //---
         fechaSolicitud:                 `${fechaSolicitud}`,
         horaInicioSolicitud:            `${horaSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,

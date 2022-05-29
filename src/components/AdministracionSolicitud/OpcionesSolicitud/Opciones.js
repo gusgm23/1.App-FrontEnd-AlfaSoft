@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { aprobarSolicitud, rechazar } from '../../../helpers/metodosOpcionesSolicitud';
+import { rechazar } from '../../../helpers/metodosOpcionesSolicitud';
 
 import './estilos-opciones.css'
 
@@ -35,7 +35,7 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                         <i className="bi bi-chevron-left"></i> Volver 
                     </button>
                     {
-                        ( capacidad > 0 && capacidad == parseInt(capacidadOriginal) )
+                        ( capacidad > 0 && capacidad === parseInt(capacidadOriginal) )
                         ? (
                             <button 
                                 id='btn-opciones-soli'

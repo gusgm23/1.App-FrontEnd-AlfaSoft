@@ -40,6 +40,12 @@
     margin: 5px;
     color: #fff;
 }
+.rechazar-mat{
+    width: 100%;
+    margin: 5px;
+    color: #fff;
+    background-color: red;
+}
 
 .btn-ver-soli {
     background-color: #4fa8fb;

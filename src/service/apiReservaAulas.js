@@ -1,5 +1,6 @@
 import axios from "axios";
 import { baseUrl } from "./apiAulas";
+import { quitarAulaTabla } from "../helpers/quitarAulaTabla";
 
 //API para obtener las reservas de las aulas
 export const getReserva = async ( setListaReserva ) => {
@@ -19,7 +20,7 @@ export const getReservaId = async (id) => {
     await axios.get(`${baseUrl}/obtenerAulasReservadasId/${id}`);
 }
 
-export const createReserva = async ( data , openModalSuccess, openModalWarning ) => {
+export const createReserva = async ( data , openModalSuccess, openModalWarning, arreglo ) => {
     await axios.post(`${baseUrl}/crearAulasReservadas`,
     {
         fechaReserva:           `${data.fechaReserv}`,
@@ -29,6 +30,7 @@ export const createReserva = async ( data , openModalSuccess, openModalWarning )
     })
     .then(( response ) => {
         openModalSuccess();
+        quitarAulaTabla(arreglo[0], arreglo[1], arreglo[2]);
         return true;
     })
     .catch(( error ) => {

@@ -1,0 +1,82 @@
+
+.modalrechazo-container {
+    margin: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  } 
+  
+  .modalrechazo {
+    width: 500px;
+    height: 300px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+  }
+  
+  .modalrechazo-titulo {
+    display: inline-block;
+    text-align: left;
+    margin-top: 10px;
+  }
+  
+  .titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .titleCloseBtn button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+  }
+  
+  .modalrechazo-body {
+    flex: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    text-align: center;
+  }
+  .text-motivorechazo{
+      width: 400px;
+      height: 100px;
+      max-height: 100px;
+      min-height: 100px;
+      border-radius:10px;
+      font-size: large;
+  }
+  
+  .btn-modalrechazo {
+    flex: 20%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  .btn-aceptar{
+    width: 30%;
+    margin: 5px;
+    color: #fff;
+    /* background-color: green; */
+
+  }
+  .btn-cancelar{
+    width: 30%;
+    margin: 5px;
+    color: #fff;
+    background-color: red;
+
+  }
+  .btn-cancelar:hover{
+    background-color: rgb(238, 62, 62);
+    transition: 0.5;
+  }
+
+  
+  

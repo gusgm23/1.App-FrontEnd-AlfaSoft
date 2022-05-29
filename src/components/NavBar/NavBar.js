@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 
 import umssLogo from '../../images/UMSS_logo.png'
 import './estilos-navBar.css'

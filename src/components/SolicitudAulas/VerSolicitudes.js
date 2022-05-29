@@ -9,17 +9,17 @@ import './estilos-ver-soli.css'
 
 export const VerSolicitudes = () => {
     const [ListaSolicitud, setListaSolicitud, sort] = useSortTable(useState({
-        state: false,
-        data: []
+        stateS: false,
+        dataS: []
     }),
     'fechaSolicitud'
     )
 
-    const {state, data} = ListaSolicitud;
+    const {stateS, dataS} = ListaSolicitud;
 
     useEffect(() => {
         getSolicitud(setListaSolicitud);
-    }, [state]);
+    }, [stateS]);
 
     return (
         <div className='contenedor-gral animate__animated animate__fadeIn'>
@@ -29,8 +29,8 @@ export const VerSolicitudes = () => {
 
                 <hr/>
                 {
-                    state ?
-                    <Solicitudes data={data} />
+                    stateS ?
+                    <Solicitudes data={dataS} />
                     : <Spinner/>
                 }
             </div>
