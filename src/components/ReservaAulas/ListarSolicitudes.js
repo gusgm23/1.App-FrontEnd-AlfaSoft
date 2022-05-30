@@ -14,8 +14,7 @@ import 'primeicons/primeicons.css';
 import { ModalGenerico } from '../Modal/ModalGenerico';
 
 
-export const ListarSolicitudes = ({  }) => {
-
+export const ListarSolicitudes = () => {
     const [Valores, setValores] = useState({
         id:                     '',
         nombreSoli:             '',

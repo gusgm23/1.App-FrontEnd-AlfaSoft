@@ -35,17 +35,13 @@
     justify-content: space-evenly;
 }
 
+
 .editar-soli {
     width: 100%;
     margin: 5px;
     color: #fff;
 }
-.rechazar-mat{
-    width: 100%;
-    margin: 5px;
-    color: #fff;
-    background-color: red;
-}
+
 
 .btn-ver-soli {
     background-color: #4fa8fb;
@@ -83,4 +79,10 @@ table tr:nth-child(odd) td {
 .contenedor-tabla-soli {
     display: flex;
     justify-content: center;
+}
+
+.editar-solii{
+  background-color: rgb(10, 248, 62);
+  margin: 5%;
+  padding: 1px6px;
 }

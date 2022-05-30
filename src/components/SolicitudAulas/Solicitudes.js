@@ -1,15 +1,11 @@
-import React, { useEffect, useState }  from 'react'
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
 //import {FormularioReservaAula} from '../ReservaAulas/FormularioReservaAula';
 import { RegSolicitud } from './RegistroSol/RegSolicitud';
-//modal rechazo
-import  {ModalRechazo}  from '../Modal/ModalRechazo';
 
-
-import './estilos-ver-soli.css'
-
+import './estilos-ver-soli.css';
 
 export const Solicitudes = ({data=[]}) => {
     const [isSorted, setIsSorted] = useState({
@@ -30,32 +26,10 @@ export const Solicitudes = ({data=[]}) => {
 
     });
 
-    const { nombreDocenteSolicitud,apellidoDocenteSolicitud,
-        numeroEstudiantesSolicitud,motivoSolicitud,fechaSolicitud,
-        horaInicioSolicitud,periodoSolicitud,estadoSolicitud,materia_id,materiaSolicitud,soliID} = values;
+    const { nombreDocenteSolicitud,apellidoDocenteSolicitud,numeroEstudiantesSolicitud,motivoSolicitud,fechaSolicitud,horaInicioSolicitud,periodoSolicitud,estadoSolicitud,materia_id} = values;
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
-    //modal rechazo
-    const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
- 
-
 
     const actualizar = (item) => {
-        setValues({
-            nombreDocenteSolicitud: item.id,
-            apellidoDocenteSolicitud: item.apellidoDocenteSolicitud,
-            numeroEstudiantesSolicitud: item.numeroEstudiantesSolicitud,
-            motivoSolicitud: item.motivoSolicitud,
-            fechaSolicitud: item.fechaSolicitud,
-            horaInicioSolicitud: item.horaInicioSolicitud,
-            periodoSolicitud: item.periodoSolicitud,
-            estadoDolicitud: item.estadoSolicitud,
-            materia_id: item.materia_id,
-            grupoSolicitud:item.grupoSolicitud,
-            soliID:item.id
-        });
-        openModalEdicion();
-    }
-    const enviarModalRechazo=(item)=>{
         setValues({
             nombreDocenteSolicitud: item.nombreDocenteSolicitud,
             apellidoDocenteSolicitud: item.apellidoDocenteSolicitud,
@@ -63,19 +37,17 @@ export const Solicitudes = ({data=[]}) => {
             motivoSolicitud: item.motivoSolicitud,
             fechaSolicitud: item.fechaSolicitud,
             horaInicioSolicitud: item.horaInicioSolicitud,
-            // horaFinSolicitud: item.horaFinSolicitud,
-
             periodoSolicitud: item.periodoSolicitud,
-            estadoSolicitud: item.estadoSolicitud,
-            materia_id: item.materia_id,
-            materiaSolicitud:item.materiaSolicitud,
-            soliID:item.id
-
+            estadoDolicitud: item.estadoSolicitud,
+            materia_id: item.materia_id
         });
-        setOpenModalRechazo(true);
-
+        openModalEdicion();
     }
-
+    
+    
+    const guardarID  = (id) => {
+        localStorage.setItem("id", id);
+    }
     
 
     function handleSort(){
@@ -97,6 +69,19 @@ export const Solicitudes = ({data=[]}) => {
     }
     
 
+
+    //creado por vivi para unificar el boton admin solicitudes con el boton solicitudes
+   const navigate=useNavigate();
+
+
+
+
+
+    function handleNavigate(solicitud) {
+        console.log(solicitud);
+        navigate("/admin/administrarsolicitud",{ state:solicitud })
+    }
+
     return (
             <>
             <div className='contenedor-tabla-soli'>
@@ -106,12 +91,12 @@ export const Solicitudes = ({data=[]}) => {
                         <tr className='titulo-tabla-soli'>
                             <th>#</th>
                             <th>Nombre </th>
-                            <th>Apellido</th>
-                            <th>Cantidad</th>
+                            <th>Apellido Docente</th>
+                            <th># de Estud.</th>
                             <th>Motivo</th>
-                            <th onClick={handleSort}>Fecha</th>
-                            <th>Hora</th>
-                            <th>Estado</th>
+                            <th onClick={handleSort}>Fecha de Solicitud</th>
+                            <th>Hora de Solicitud</th>
+                            <th>Estado de Solicitud</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>               
@@ -129,22 +114,26 @@ export const Solicitudes = ({data=[]}) => {
                                     <td> { item.estadoSolicitud } </td>
                                     <td className='td-btns-soli'>
                                         <section className='caja-btns-soli'>
+
+                                            
                                             <button 
                                                 className='btn-editar editar-soli'
                                                 onClick={ () => {actualizar(item)} }
                                             >
                                                 Detalles
                                             </button>
+                                           
+                                            
+
+                                            
                                             <button 
-                                                className='btn-editar rechazar-mat'
-                                                // onClick={ ()=>{ 
-                                                //     console.log(data)
-                                                //     // enviarModalRechazo(item)
-                                                // } }
+                                                className='btn-editar editar-solii'
+                                                onClick={()=>{handleNavigate(item)}}
                                             >
-                                                    Atender
+                                                Reservas
                                             </button>
                                             
+
                                         </section>
                                     </td>
                                 </tr>
@@ -167,30 +156,8 @@ export const Solicitudes = ({data=[]}) => {
                     estado ={estadoSolicitud}
                     closeModal={closeModalEdicion} 
                     titulo='Detalles' 
-                    materia_id={materia_id}
-                    
-                    />
+                    materia_id={materia_id} />
                 </ModalGenerico>
-            }
-            {openModalRechazo && 
-            <ModalGenerico  isOpen={openModalRechazo} closeModal={closeModalRechazo}>
-              <ModalRechazo 
-              nombre_doc ={nombreDocenteSolicitud} 
-              ape_doc ={apellidoDocenteSolicitud} 
-              motivoRechazo=""
-              nro_est ={numeroEstudiantesSolicitud} 
-              motivo ={motivoSolicitud}
-              fecha_res ={fechaSolicitud}
-              hora_res ={horaInicioSolicitud}
-
-              periodo ={periodoSolicitud}
-              estado ="Solicitud Rechazada"
-              materiaId={materia_id}
-              materiaSolicitud={materiaSolicitud}
-              solicitudId={soliID}
-              
-              closeModal={setOpenModalRechazo}/> 
-            </ModalGenerico>
             }
             </>
     )

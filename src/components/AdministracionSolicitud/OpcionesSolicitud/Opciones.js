@@ -1,12 +1,16 @@
-import React from 'react'
+import React, {useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { rechazar } from '../../../helpers/metodosOpcionesSolicitud';
+import  {ModalRechazo}  from '../Modal/ModalRechazo';
+import { ModalGenerico } from '../Modal/ModalGenerico';
 
 import './estilos-opciones.css'
 
 export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
     
     const navigate = useNavigate();
+    const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
+
 
     const volverAtras = () => {
 
@@ -25,6 +29,7 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
     }
 
     return (
+        <>
         <div className='contenedor-opciones-solicitud animate__animated animate__fadeIn'>
             <section id='seccion-opciones-soli'>
                 <div className='contenedor-btns-aprob'>
@@ -40,9 +45,9 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                             <button 
                                 id='btn-opciones-soli'
                                 className='btn-rechazar-soli'
-                                onClick={ rechazarSolicitud }
+                                onClick={ setOpenModalRechazo(true)}
                             >
-                                Rechazar 
+                                Rechazar
                             </button>
                         )
                         : ''
@@ -50,5 +55,27 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                 </div>
             </section>
         </div>
+        {openModalRechazo && 
+            <ModalGenerico  isOpen={openModalRechazo} closeModal={closeModalRechazo}>
+              <ModalRechazo 
+            //   nombre_doc ={nombreDocenteSolicitud} 
+            //   ape_doc ={apellidoDocenteSolicitud} 
+            //   motivoRechazo=""
+            //   nro_est ={numeroEstudiantesSolicitud} 
+            //   motivo ={motivoSolicitud}
+            //   fecha_res ={fechaSolicitud}
+            //   hora_res ={horaInicioSolicitud}
+    
+            //   periodo ={periodoSolicitud}
+            //   estado ="Solicitud Rechazada"
+            //   materiaId={materia_id}
+            //   materiaSolicitud={materiaSolicitud}
+            //   solicitudId={soliID}
+              
+              closeModal={setOpenModalRechazo}/> 
+            </ModalGenerico>
+            }
+            </>
     )
+    
 }
