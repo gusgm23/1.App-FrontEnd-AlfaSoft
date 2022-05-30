@@ -16,6 +16,7 @@ import { EditClassRoom } from "../Editar Aula/EditClassRoom";
 import { Confirmacion } from "../../Modal/Contenidos/Confirmacion";
 import { ModalEjm } from "../../Modal/ModalEjm";
 import { ConfirmModal } from "../../Modal/Contenidos/ConfirmModal";
+import { useNavigate } from "react-router-dom";
 
 export const VistaAulas = () => {
   const [isOpen, openModalEdicion, closeModalEdicion] = useModal(false);
@@ -140,6 +141,16 @@ export const VistaAulas = () => {
     }, 3000);
   }
 
+
+
+
+
+  const navigate = useNavigate();
+
+
+
+
+
   return (
     <>
      {showToast.status && (
@@ -176,6 +187,13 @@ export const VistaAulas = () => {
             {/* </form> */}
           </div>
           <h2 className="titulo-ver-aulas">Aulas Registradas: </h2>
+          <button 
+                        className='btn-crear-materia'
+                        onClick={ ()=>{navigate('/admin/registroAula')} }
+                    >
+                        <i className="biribanban bi-plus-square-fill"></i>
+                    </button>
+
           <hr />
           {/* {true && (
            

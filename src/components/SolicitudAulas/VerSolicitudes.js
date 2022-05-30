@@ -24,7 +24,7 @@ export const VerSolicitudes = () => {
     return (
         <div className='contenedor-gral animate__animated animate__fadeIn'>
             <div className='contenedor-elementos-lista'>
-                <h2 className='titulo-ver-soli' >Solicitudes Registradas </h2>
+                <h2 className='titulo-ver-soli' >Solicitudes Registradas</h2>
                 
 
                 <hr/>

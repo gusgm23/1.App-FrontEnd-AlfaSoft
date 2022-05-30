@@ -1,10 +1,10 @@
 export const arregloDatosSolicitud = ( item ) => {
     return [{
         campo: 'Materia',
-        valor: item.materiaSolicitud
+        valor: 'Algebra II'
     }, {
         campo: 'Docente',
-        valor: `${item.nombreDocenteSolicitud} ${item.apellidoDocenteSolicitud}`
+        valor: item.nombreDocenteSolicitud
     }, {
         campo: 'Nro estudiantes',
         valor: item.numeroEstudiantesSolicitud

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from "react-router-dom";
-import { listaAulas } from '../../data/ListaAulas';
-import { listaReservas } from '../../data/ListaReservas';
-import { verificarCapacidad } from '../../helpers/capacidadAulasLibres';
+
 import { generarAulasDisponibles } from '../../helpers/generarAulasDisponibles';
+import { quitarAulaTabla } from '../../helpers/quitarAulaTabla';
 import { reservarAulas } from '../../helpers/reservarAulas';
 import { cambiarCapacidadSolicitud } from '../../helpers/setterCapacidadSolicitud';
 import { useModal } from '../../hooks/useModal';
@@ -20,10 +18,21 @@ import './estilos-solicitud.css';
 import { FilaTabla } from './FilaTabla';
 import { Opciones } from './OpcionesSolicitud/Opciones';
 
+const item = {
+    id: 1,
+    nombreDocenteSolicitud: "Carla",
+    apellidoDocenteSolicitud: "Salazar",
+    numeroEstudiantesSolicitud: "200",
+    motivoSolicitud: "Examen de primer parcial",
+    fechaSolicitud: "2022-05-04",
+    horaInicioSolicitud: "12:45",
+    horaFinSolicitud: "14:15",
+    periodoSolicitud: "1 periodo",
+    estadoSolicitud: "pendiente",
+    materia_id: 1
+}
 
 export const Solicitud = () => {
-
-    const {state:solicitud} = useLocation();
     
     const [dataAulas, setDataAulas] = useState({
         state: false,
@@ -47,7 +56,7 @@ export const Solicitud = () => {
     })
     const { capacidadSoliRescatado, capacidadAulaRescatado, listaReservas } = datosCapacidad;
 
-    const [capacidadSolicitud, setCapacidadSolicitud] = useState(solicitud.numeroEstudiantesSolicitud);
+    const [capacidadSolicitud, setCapacidadSolicitud] = useState(item.numeroEstudiantesSolicitud);
 
     const [aulasLibres, setAulasLibres] = useState([]);
 
@@ -67,13 +76,15 @@ export const Solicitud = () => {
     
     useEffect(() => {
         
-        generarAulasDisponibles(dataReserva, data, solicitud.horaInicioSolicitud, solicitud.fechaSolicitud, setAulasLibres)
+        generarAulasDisponibles(dataReserva, data, item.horaInicioSolicitud, item.fechaSolicitud, setAulasLibres)
         
     }, [state, stateReserva])
     
     const reservar = () => {
 
-        reservarAulas(listaReservas, openModalSuccess, openModalFail)
+        const datosEliminarAula = [listaReservas[0].idAula, aulasLibres, setAulasLibres]
+
+        reservarAulas(listaReservas, openModalSuccess, openModalFail, datosEliminarAula);
 
     }
 
@@ -86,7 +97,7 @@ export const Solicitud = () => {
     return (
         <div className='contenedor-solicitud animate__animated animate__fadeIn'>
             <div className='contenedor-parrafos-soli'>
-                <DatosSolicitud item={ solicitud } capacidad={ capacidadSolicitud }/>
+                <DatosSolicitud item={ item } capacidad={ capacidadSolicitud }/>
             </div>
             <hr/>
             <div className='contenedor-tabla-aulas-soli'>
@@ -107,9 +118,9 @@ export const Solicitud = () => {
                                     <tbody>
                                         <FilaTabla 
                                             data={aulasLibres} 
-                                            fecha={ solicitud.fechaSolicitud } 
-                                            hora={ solicitud.horaInicioSolicitud }
-                                            periodo={ solicitud.periodoSolicitud }
+                                            fecha={ item.fechaSolicitud } 
+                                            hora={ item.horaInicioSolicitud }
+                                            periodo={ item.periodoSolicitud }
                                             guardarDatos={ setdatosCapacidad }
                                             capacidadSoli={ capacidadSolicitud }
                                             modalReserva={ opelModalReserva }
@@ -124,7 +135,7 @@ export const Solicitud = () => {
                     }
                 </section>
             </div>
-            <Opciones capacidad={ capacidadSolicitud } openModal={ openModalAlert } capacidadOriginal={ solicitud.numeroEstudiantesSolicitud } />
+            <Opciones capacidad={ capacidadSolicitud } openModal={ openModalAlert } capacidadOriginal={ item.numeroEstudiantesSolicitud } />
             <ModalGenerico isOpen={ isOpenModalConfirmReserva } closeModal={ closeModalReserva }>
                 <ConfirmarReservaAula cerrarModal={ closeModalReserva } funcOk={ reservar }/>
             </ModalGenerico>
@@ -132,7 +143,7 @@ export const Solicitud = () => {
                 <AdvertenciaSolicitudIncompleta cerrarModal={ closeModalAlert }/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <AulaReservada cerrarModal={ closeModalSuccess } funcOk={ reducirCapacidad }/>
+                <AulaReservada cerrarModal={ closeModalSuccess } funcOk={ reducirCapacidad } />
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalFail } closeModal={ closeModalFail }>
                 <ErrorReservaAula cerrarModal={ closeModalFail }/>

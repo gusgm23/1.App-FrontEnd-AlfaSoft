@@ -33,13 +33,15 @@ export const ContenidoNavAdmin = () => {
                     >
                         Ver Usuarios
                     </NavLink>
-                    <NavLink 
+                     {/*<NavLink 
                         exact='true'
                         to='/admin/registroaula' 
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                         Registrar Aula
-                    </NavLink>
+                    </NavLink>*/}
+
+
                     <NavLink 
                         exact='true' 
                         to='/admin/versolicitudes' 
@@ -61,13 +63,13 @@ export const ContenidoNavAdmin = () => {
                     >
                             Materias
                     </NavLink>
-                    <NavLink 
+                   {/* <NavLink 
                         exact='true' 
                         to='/admin/administrarsolicitud' 
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                             admin soli
-                    </NavLink>
+                </NavLink> */}
                     
                 </div>
             </div>

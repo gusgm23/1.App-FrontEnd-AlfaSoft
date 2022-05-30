@@ -1,12 +1,11 @@
-import React, { useEffect, useState }  from 'react'
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
 //import {FormularioReservaAula} from '../ReservaAulas/FormularioReservaAula';
 import { RegSolicitud } from './RegistroSol/RegSolicitud';
 
-import './estilos-ver-soli.css'
-;
+import './estilos-ver-soli.css';
 
 export const Solicitudes = ({data=[]}) => {
     const [isSorted, setIsSorted] = useState({
@@ -70,6 +69,19 @@ export const Solicitudes = ({data=[]}) => {
     }
     
 
+
+    //creado por vivi para unificar el boton admin solicitudes con el boton solicitudes
+   const navigate=useNavigate();
+
+
+
+
+
+    function handleNavigate(solicitud) {
+        console.log(solicitud);
+        navigate("/admin/administrarsolicitud",{ state:solicitud })
+    }
+
     return (
             <>
             <div className='contenedor-tabla-soli'>
@@ -102,12 +114,26 @@ export const Solicitudes = ({data=[]}) => {
                                     <td> { item.estadoSolicitud } </td>
                                     <td className='td-btns-soli'>
                                         <section className='caja-btns-soli'>
+
+                                            
                                             <button 
                                                 className='btn-editar editar-soli'
                                                 onClick={ () => {actualizar(item)} }
                                             >
                                                 Detalles
                                             </button>
+                                           
+                                            
+
+                                            
+                                            <button 
+                                                className='btn-editar editar-solii'
+                                                onClick={()=>{handleNavigate(item)}}
+                                            >
+                                                Reservas
+                                            </button>
+                                            
+
                                         </section>
                                     </td>
                                 </tr>
