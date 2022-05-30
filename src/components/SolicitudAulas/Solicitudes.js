@@ -32,7 +32,7 @@ export const Solicitudes = ({data=[]}) => {
 
     const { nombreDocenteSolicitud,apellidoDocenteSolicitud,
         numeroEstudiantesSolicitud,motivoSolicitud,fechaSolicitud,
-        horaInicioSolicitud,periodoSolicitud,estadoSolicitud,materia_id,soliID} = values;
+        horaInicioSolicitud,periodoSolicitud,estadoSolicitud,materia_id,materiaSolicitud,soliID} = values;
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
     //modal rechazo
     const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
@@ -50,6 +50,7 @@ export const Solicitudes = ({data=[]}) => {
             periodoSolicitud: item.periodoSolicitud,
             estadoDolicitud: item.estadoSolicitud,
             materia_id: item.materia_id,
+            grupoSolicitud:item.grupoSolicitud,
             soliID:item.id
         });
         openModalEdicion();
@@ -67,6 +68,7 @@ export const Solicitudes = ({data=[]}) => {
             periodoSolicitud: item.periodoSolicitud,
             estadoSolicitud: item.estadoSolicitud,
             materia_id: item.materia_id,
+            materiaSolicitud:item.materiaSolicitud,
             soliID:item.id
 
         });
@@ -135,11 +137,12 @@ export const Solicitudes = ({data=[]}) => {
                                             </button>
                                             <button 
                                                 className='btn-editar rechazar-mat'
-                                                onClick={ ()=>{ 
-                                                    enviarModalRechazo(item)
-                                                } }
-                                            ><i class="bi bi-trash3-fill"></i>
-                                                    Rechazar
+                                                // onClick={ ()=>{ 
+                                                //     console.log(data)
+                                                //     // enviarModalRechazo(item)
+                                                // } }
+                                            >
+                                                    Atender
                                             </button>
                                             
                                         </section>
@@ -183,6 +186,7 @@ export const Solicitudes = ({data=[]}) => {
               periodo ={periodoSolicitud}
               estado ="Solicitud Rechazada"
               materiaId={materia_id}
+              materiaSolicitud={materiaSolicitud}
               solicitudId={soliID}
               
               closeModal={setOpenModalRechazo}/> 

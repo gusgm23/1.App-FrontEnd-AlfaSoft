@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getSolicitud } from '../../service/apiSolicitudAulas'
+import { getSolicitud,getSolicitudPendiente } from '../../service/apiSolicitudAulas'
 import Spinner from '../Spinner/Spinner'
 import { Solicitudes } from './Solicitudes'
 import { useSortTable } from '../../hooks/usesort'

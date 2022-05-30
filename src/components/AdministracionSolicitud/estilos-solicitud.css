@@ -40,6 +40,22 @@
     border: 1px solid rgba(0, 171, 102, .5);
     transition: .6s;
 }
+.btn-rechazo{
+    background-color: red;
+    margin-top: 5px;
+    width: 80%;
+    border: none;
+    color: #ffffff;
+    border-radius: 15px;
+    border: 1px solid rgba(171, 0, 0, 0.5);
+    transition: .6s;
+
+}
+.btn-rechazo:hover{
+    color: rgba(171, 0, 0, 0.5);
+    background-color: #fff;
+
+}
 
 .btn-reserva:hover {
     color: rgba(0, 171, 102, .5);
