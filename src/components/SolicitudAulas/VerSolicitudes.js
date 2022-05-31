@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getSolicitud } from '../../service/apiSolicitudAulas'
+import { getSolicitud,getSolicitudPendiente } from '../../service/apiSolicitudAulas'
 import Spinner from '../Spinner/Spinner'
 import { Solicitudes } from './Solicitudes'
 import { useSortTable } from '../../hooks/usesort'
@@ -24,7 +24,7 @@ export const VerSolicitudes = () => {
     return (
         <div className='contenedor-gral animate__animated animate__fadeIn'>
             <div className='contenedor-elementos-lista'>
-                <h2 className='titulo-ver-soli' >Solicitudes Registradas </h2>
+                <h2 className='titulo-ver-soli' >Solicitudes Registradas</h2>
                 
 
                 <hr/>

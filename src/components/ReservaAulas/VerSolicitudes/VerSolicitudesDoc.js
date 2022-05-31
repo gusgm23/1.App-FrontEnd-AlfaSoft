@@ -42,7 +42,7 @@ export const VerSolicitudesDoc = () => {
                             className="boton-crear-solicitudes"
                             onClick={openModalCreate}
                         >
-                            <i class="bi bi-plus-square-fill"></i>
+                            <i className="bi bi-plus-square-fill"></i>
                         </button>
                     </div>
                 </div>

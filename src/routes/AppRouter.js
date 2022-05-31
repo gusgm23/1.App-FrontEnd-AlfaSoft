@@ -19,10 +19,9 @@ import { PublicRoute } from './PublicRoute';
 import { NavBar } from '../components/NavBar/NavBar';
 import { ContenidoNavPublico } from '../components/NavBar/ContenidoNavPublico';
 import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
+
+
 import { VerSolicitudesDoc } from '../components/ReservaAulas/VerSolicitudes/VerSolicitudesDoc';
-//import { VerSolicitudes } from '../components/SolicitudAulas/VerSolicitudes'
-
-
 
 
 export const AppRouter = () => {

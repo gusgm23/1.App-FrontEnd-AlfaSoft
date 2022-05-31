@@ -31,12 +31,14 @@ export const VerMaterias = () => {
             <div className='contenedor-elementos-lista'>
                 <div className='contenedor-titulo-ver-materias'>
                     <h2 className='titulo-ver-aulas'>Materias Registradas: {data.length}</h2>
-                    <button 
-                        className='btn-crear-materia'
-                        onClick={ navegarRegistroMateria }
+                        
+                        <button 
+                            className='btn-crear-materia'
+                            onClick={ navegarRegistroMateria }
                     >
-                        <i className="bi bi-plus-square-fill"></i>
-                    </button>
+                            <i className="bi bi-plus-square-fill"></i>
+                        </button>
+                    
                 </div>
                 <hr/>
                 {

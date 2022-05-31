@@ -63,7 +63,7 @@ export const ModalRechazo = ({
 
   // const { motRechazo,id} = formValues;
   const enviarMotivo=(item)=>{
-    updateSolicitudId(item,item.solicitudID);
+    updateSolicitudId(datos,materiaId,);
   }
   const eliminar=(item)=>{
     // idSoli:{data.id};

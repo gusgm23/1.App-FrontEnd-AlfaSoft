@@ -1,8 +1,7 @@
 import axios from "axios";
-import { baseUrl } from "./apiAulas";
 
 export const getGrupoMateria = async ( setStateData ) => {
-    await axios.get(`${baseUrl}/obtenerGrupos`)
+    await axios.get('http://127.0.0.1:8000/api/obtenerGrupos')
     .then( response => {
         setStateData({
             states: true,
@@ -15,7 +14,7 @@ export const getGrupoMateria = async ( setStateData ) => {
 }
 
 export const getGrupoMateriaId = (id, setStateData) => {
-    axios.get(`${baseUrl}/obtenerGruposId/${id}`)
+    axios.get(`http://127.0.0.1:8000/api/obtenerGruposId/${id}`)
     .then( response => {
         setStateData({
             state: true,
@@ -28,7 +27,7 @@ export const getGrupoMateriaId = (id, setStateData) => {
 }
 
 export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning) => {
-    return axios.post(`${baseUrl}/crearGrupos`,
+    return axios.post(`http://127.0.0.1:8000/api/crearGrupos`,
     {
         grupoMateria:        `${grupoMateria}`,
         estadoGrupoMateria:  `${estadoGrupoMateria}`,
@@ -46,7 +45,7 @@ export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id
 }
 
 export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning, id) => {
-    return axios.put(`${baseUrl}/actualizarGrupos/${id}`,
+    return axios.put(`http://127.0.0.1:8000/api/actualizarGrupos/${id}`,
     {
         id:                  `${id}`,
         grupoMateria:        `${grupoMateria}`,
@@ -66,5 +65,5 @@ export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_i
 }
 
 export const deleteGrupoMateriaId = (id) => {
-    return axios.delete(`${baseUrl}/eliminarGrupos/${id}`);
+    return axios.delete(`https://reserva-de-aulas-backend.herokuapp.com/api/eliminarGrupos/${id}`);
 }

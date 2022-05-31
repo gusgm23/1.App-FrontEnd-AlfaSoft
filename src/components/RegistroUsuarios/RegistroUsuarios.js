@@ -227,7 +227,7 @@ export const RegistroUsuarios = ({
     return (
 
         <div className="contenedor-registro-usuarios animate__animated animate__fadeIn">
-            <h1 className="titulo-registro-usuarios"> { titulo === ''? 'Registro de Nuevos Usuarios' : `${titulo} Usuarios` } </h1>
+            <h1 className="titulo-registro-usuarios"> { titulo === ''? 'Registro de Nuevos Usuarios' : `${titulo} Usuarios       ` } </h1>
             <form name="f1" onSubmit={ handleSubmit }>
                 <div className="contenedor-usuarios">
                     <div className="contenedor-elementos-registro-usuarios">

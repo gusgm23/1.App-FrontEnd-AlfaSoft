@@ -248,7 +248,7 @@ export const RegSolicitud = ({
                         <button 
                             type='button-soli' 
                             className='btn-soli btn-warning'
-                            onClick={ nomDocente === ''? reset : closeModal}
+                            inClick={ nomDocente === ''? reset : closeModal}
                         >
                             Cerrar
                         </button>
