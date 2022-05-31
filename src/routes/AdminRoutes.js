@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Solicitud } from '../components/AdministracioSolicitud/Solicitud'
+
 import { AdministradorScreen } from '../components/Administrador/AdministradorScreen'
 import { RegistroAulasScreen } from '../components/Aulas/RegistroAulas/RegistroAulasScreen'
 import { VistaAulas } from '../components/Aulas/Ver Aulas/VistaAulas'
@@ -13,6 +13,7 @@ import { RegistroRoles } from '../components/Roles/RegistroRoles'
 import { VerSolicitudes } from '../components/SolicitudAulas/VerSolicitudes'
 import { VerUsuarios } from '../components/RegistroUsuarios/VerUsuarios/VerUsuarios';
 import { VerGrupos } from '../components/Grupos/VerGrupos'
+import { Solicitud } from '../components/AdministracionSolicitud/Solicitud'
 
 
 export const AdminRoutes = () => {
@@ -36,7 +37,7 @@ export const AdminRoutes = () => {
 
                 <Route exact path='administrarsolicitud'         element={<Solicitud/>}/>
 
-                <Route exact path='administrarsolicitud'         element={<Solicitud/>}/>
+                
 
                 <Route path='*'                         element={<Error404Screen/>}/>
             </Routes>

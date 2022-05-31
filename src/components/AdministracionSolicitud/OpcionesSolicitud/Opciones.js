@@ -1,8 +1,10 @@
 import React, {useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { rechazar } from '../../../helpers/metodosOpcionesSolicitud';
-import  {ModalRechazo}  from '../Modal/ModalRechazo';
-import { ModalGenerico } from '../Modal/ModalGenerico';
+import { ModalGenerico } from '../../Modal/ModalGenerico';
+import { ModalRechazo } from '../../Modal/ModalRechazo';
+
+
 
 import './estilos-opciones.css'
 
