@@ -111,7 +111,7 @@ export const Solicitudes = ({data=[]}) => {
                                     <td> { item.motivoSolicitud } </td>
                                     <td> { item.fechaSolicitud } </td>
                                     <td> { item.horaInicioSolicitud } </td>
-                                    <td> { item.estadoSolicitud } </td>
+                                    <td> { item.estadoSolicitud[0].toUpperCase() +  item.estadoSolicitud.substring(1)} </td>
                                     <td className='td-btns-soli'>
                                         <section className='caja-btns-soli'>
 

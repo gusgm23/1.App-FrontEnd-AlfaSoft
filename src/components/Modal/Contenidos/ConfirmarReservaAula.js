@@ -27,7 +27,7 @@ export const ConfirmarReservaAula = ( {cerrarModal, funcOk} ) => {
                 </p>
                 <div className='contenedor-btns-confirmacion'>
                     <button
-                        className='btn-cancelar btn-confirmacion'
+                        className='btn-cancelar-reserva btn-confirmacion'
                         onClick={cerrarModal}
                     >
                         Cancelar
