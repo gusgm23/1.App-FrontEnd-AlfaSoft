@@ -10,13 +10,15 @@ import './estilos-opciones.css'
 
 export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
     
+    const capOrig = parseInt(capacidad);
+
     const navigate = useNavigate();
     const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
 
 
     const volverAtras = () => {
 
-        if( capacidad > 0 ){
+        if( capOrig > 0 && capacidad !== capacidadOriginal ){
             openModal();
         }else{
             navigate(-1);
@@ -37,17 +39,17 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                 <div className='contenedor-btns-aprob'>
                     <button 
                         id='btn-opciones-soli-volver'
-                        onClick={ volverAtras }
+                        onClick={ () => volverAtras() }
                     >
                         <i className="bi bi-chevron-left"></i> Volver 
                     </button>
                     {
-                        ( capacidad > 0 && capacidad === parseInt(capacidadOriginal) )
+                        ( capacidad > 0 && capOrig === parseInt(capacidadOriginal) )
                         ? (
                             <button 
                                 id='btn-opciones-soli'
                                 className='btn-rechazar-soli'
-                                onClick={ setOpenModalRechazo(true)}
+                                onClick={ () => setOpenModalRechazo(true)}
                             >
                                 Rechazar
                             </button>

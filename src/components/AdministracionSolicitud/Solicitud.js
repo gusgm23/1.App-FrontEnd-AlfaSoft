@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { generarAulasDisponibles } from '../../helpers/generarAulasDisponibles';
-import { quitarAulaTabla } from '../../helpers/quitarAulaTabla';
 import { reservarAulas } from '../../helpers/reservarAulas';
 import { cambiarCapacidadSolicitud } from '../../helpers/setterCapacidadSolicitud';
 import { useModal } from '../../hooks/useModal';
@@ -33,6 +33,9 @@ const item = {
 }
 
 export const Solicitud = () => {
+
+    const {state:solicitud} = useLocation();
+    const capOriginal = solicitud.numeroEstudiantesSolicitud;
     
     const [dataAulas, setDataAulas] = useState({
         state: false,
@@ -56,7 +59,7 @@ export const Solicitud = () => {
     })
     const { capacidadSoliRescatado, capacidadAulaRescatado, listaReservas } = datosCapacidad;
 
-    const [capacidadSolicitud, setCapacidadSolicitud] = useState(item.numeroEstudiantesSolicitud);
+    const [capacidadSolicitud, setCapacidadSolicitud] = useState('0');
 
     const [aulasLibres, setAulasLibres] = useState([]);
 
@@ -72,11 +75,13 @@ export const Solicitud = () => {
         getAulas( setDataAulas );
         getReserva( setDataReservas );
         
+        setCapacidadSolicitud(solicitud.numeroEstudiantesSolicitud);
+
     }, []);
     
     useEffect(() => {
         
-        generarAulasDisponibles(dataReserva, data, item.horaInicioSolicitud, item.fechaSolicitud, setAulasLibres)
+        generarAulasDisponibles(dataReserva, data, solicitud.horaInicioSolicitud, solicitud.fechaSolicitud, setAulasLibres)
         
     }, [state, stateReserva])
     
@@ -97,7 +102,7 @@ export const Solicitud = () => {
     return (
         <div className='contenedor-solicitud animate__animated animate__fadeIn'>
             <div className='contenedor-parrafos-soli'>
-                <DatosSolicitud item={ item } capacidad={ capacidadSolicitud }/>
+                <DatosSolicitud item={ solicitud } capacidad={ capacidadSolicitud }/>
             </div>
             <hr/>
             <div className='contenedor-tabla-aulas-soli'>
@@ -118,9 +123,9 @@ export const Solicitud = () => {
                                     <tbody>
                                         <FilaTabla 
                                             data={aulasLibres} 
-                                            fecha={ item.fechaSolicitud } 
-                                            hora={ item.horaInicioSolicitud }
-                                            periodo={ item.periodoSolicitud }
+                                            fecha={ solicitud.fechaSolicitud } 
+                                            hora={ solicitud.horaInicioSolicitud }
+                                            periodo={ solicitud.periodoSolicitud }
                                             guardarDatos={ setdatosCapacidad }
                                             capacidadSoli={ capacidadSolicitud }
                                             modalReserva={ opelModalReserva }
@@ -135,7 +140,7 @@ export const Solicitud = () => {
                     }
                 </section>
             </div>
-            <Opciones capacidad={ capacidadSolicitud } openModal={ openModalAlert } capacidadOriginal={ item.numeroEstudiantesSolicitud } />
+            <Opciones capacidad={ capacidadSolicitud } openModal={ openModalAlert } capacidadOriginal={ capOriginal } />
             <ModalGenerico isOpen={ isOpenModalConfirmReserva } closeModal={ closeModalReserva }>
                 <ConfirmarReservaAula cerrarModal={ closeModalReserva } funcOk={ reservar }/>
             </ModalGenerico>
