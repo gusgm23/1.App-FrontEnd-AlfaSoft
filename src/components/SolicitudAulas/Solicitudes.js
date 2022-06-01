@@ -68,17 +68,11 @@ export const Solicitudes = ({data=[]}) => {
         }  
     }
     
-
-
     //creado por vivi para unificar el boton admin solicitudes con el boton solicitudes
    const navigate=useNavigate();
 
-
-
-
-
     function handleNavigate(solicitud) {
-        console.log(solicitud);
+        
         navigate("/admin/administrarsolicitud",{ state:solicitud })
     }
 
@@ -113,27 +107,19 @@ export const Solicitudes = ({data=[]}) => {
                                     <td> { item.horaInicioSolicitud } </td>
                                     <td> { item.estadoSolicitud[0].toUpperCase() +  item.estadoSolicitud.substring(1)} </td>
                                     <td className='td-btns-soli'>
-                                        <section className='caja-btns-soli'>
-
-                                            
+                                        <section className='caja-btns-soli-admin'>
                                             <button 
-                                                className='btn-editar editar-soli'
+                                                className='btn-ver-soli btns-solicitudes'
                                                 onClick={ () => {actualizar(item)} }
                                             >
-                                                Detalles
+                                                <i className="bi bi-eye-fill"></i>
                                             </button>
-                                           
-                                            
-
-                                            
                                             <button 
-                                                className='btn-editar editar-solii'
+                                                className='btns-solicitudes'
                                                 onClick={()=>{handleNavigate(item)}}
                                             >
-                                                Reservas
+                                                <i className="bi bi-clipboard2-plus-fill"></i>
                                             </button>
-                                            
-
                                         </section>
                                     </td>
                                 </tr>
