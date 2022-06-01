@@ -76,7 +76,7 @@ export const Solicitud = () => {
         getReserva( setDataReservas );
         
         setCapacidadSolicitud(solicitud.numeroEstudiantesSolicitud);
-
+        
     }, []);
     
     useEffect(() => {
@@ -84,7 +84,7 @@ export const Solicitud = () => {
         generarAulasDisponibles(dataReserva, data, solicitud.horaInicioSolicitud, solicitud.fechaSolicitud, setAulasLibres)
         
     }, [state, stateReserva])
-    
+
     const reservar = () => {
 
         const datosEliminarAula = [listaReservas[0].idAula, aulasLibres, setAulasLibres]
@@ -95,7 +95,7 @@ export const Solicitud = () => {
 
     const reducirCapacidad = () => {
 
-        cambiarCapacidadSolicitud( capacidadSoliRescatado, capacidadAulaRescatado, setCapacidadSolicitud);
+        cambiarCapacidadSolicitud( capacidadSoliRescatado, capacidadAulaRescatado, setCapacidadSolicitud, solicitud);
 
     }
 

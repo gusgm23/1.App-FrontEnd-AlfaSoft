@@ -72,7 +72,7 @@ export const createSolicitud = (
     });
 }
 
-export const updateSolicitudId = (
+export const updateSolicitudId = async (
     
     formValues,
     materia_id,
@@ -93,7 +93,7 @@ export const updateSolicitudId = (
             peridoSolicitud
         } = formValues;
 
-    return axios.put(`http://127.0.0.1:8000/api/actualizarSolicitud/${id}`, 
+    return await axios.put(`http://127.0.0.1:8000/api/actualizarSolicitud/${id}`, 
     {
         id:                             `${id}`,
         nombreDocenteSolicitud:         `${nombreDocente}`,
@@ -115,6 +115,48 @@ export const updateSolicitudId = (
     ).catch( (error) => {
         openModalWarning();
     });
+}
+
+//!Endpoint para actualizar estado de una solicitud sin necesidad de mostrar algún modal
+export const updateSolicitud = async (solicitud) => {
+
+    const { 
+        id, 
+        nombreDocenteSolicitud, 
+        apellidoDocenteSolicitud, 
+        numeroEstudiantesSolicitud, 
+        motivoSolicitud, 
+        fechaSolicitud, 
+        horaInicioSolicitud, 
+        periodoSolicitud, 
+        estadoSolicitud, 
+        materiaSolicitud, 
+        grupoSolicitud, 
+        materia_id } = solicitud;
+
+    await axios.put(`http://127.0.0.1:8000/api/actualizarSolicitud/${id}`, 
+        {
+            id:                             `${id}`,
+            nombreDocenteSolicitud:         `${nombreDocenteSolicitud}`,
+            apellidoDocenteSolicitud:       `${apellidoDocenteSolicitud}`,
+            numeroEstudiantesSolicitud:     `${numeroEstudiantesSolicitud}`,
+            motivoSolicitud:                `${motivoSolicitud}`,
+            fechaSolicitud:                 `${fechaSolicitud}`,
+            horaInicioSolicitud:            `${horaInicioSolicitud}`,
+            periodoSolicitud:               `${periodoSolicitud}`,
+            estadoSolicitud:                `${estadoSolicitud}`,
+            materiaSolicitud:               `${materiaSolicitud}`,
+            grupoSolicitud:                 `${grupoSolicitud}`,
+            materia_id:                     `${materia_id}`
+
+        }
+        ).then( (response) => {
+            console.log('ok actualizado');
+        }
+        ).catch( (error) => {
+            console.log('error actualizado');
+        });
+
 }
 
 export const deleteSolicitud = (id) => {
