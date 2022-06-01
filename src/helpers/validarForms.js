@@ -236,7 +236,7 @@ export const controlarCampoNomDocente = ( nombreDocente='', setStatusInputNomDoc
     if( tamanioNomDocente < 3 ){
         setStatusInputNomDocente(true);
         setMsjErrorNomDocente('El nombre del docente es demasiado corto.');
-    }else if( tamanioNomDocente > 10 ){
+    }else if( tamanioNomDocente > 30 ){
         setStatusInputNomDocente(true);
         setMsjErrorNomDocente('El nombre del docente es demasiado largo.');
     }else {

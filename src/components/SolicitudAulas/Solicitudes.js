@@ -1,13 +1,17 @@
-import React, { useState }  from 'react'
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
+//import {FormularioReservaAula} from '../ReservaAulas/FormularioReservaAula';
 import { RegSolicitud } from './RegistroSol/RegSolicitud';
 
-import './estilos-ver-soli.css'
-;
+import './estilos-ver-soli.css';
 
 export const Solicitudes = ({data=[]}) => {
+    const [isSorted, setIsSorted] = useState({
+        sortData:data,
+        dir:"asc",
+    });
 
     const [values, setValues] = useState({
         nombreDocenteSolicitud:'',
@@ -45,31 +49,60 @@ export const Solicitudes = ({data=[]}) => {
         localStorage.setItem("id", id);
     }
     
+
+    function handleSort(){
+        let sortedData=[];
+        if(isSorted.dir==="asc"){
+            sortedData=isSorted.sortData.sort((a,b)=>{
+                return new Date(b.fechaSolicitud) - new Date(a.fechaSolicitud);
+            });
+            // isSorted.dir="desc"
+            setIsSorted({sortData:[...sortedData],dir:"desc"})
+        }else {
+            sortedData=isSorted.sortData.sort((a,b)=>{
+                return new Date(a.fechaSolicitud) - new Date(b.fechaSolicitud);
+            });
+            
+            setIsSorted({sortData:[...sortedData],dir:"asc"})
+            // isSorted.dir="asc"
+        }  
+    }
     
 
+
+    //creado por vivi para unificar el boton admin solicitudes con el boton solicitudes
+   const navigate=useNavigate();
+
+
+
+
+
+    function handleNavigate(solicitud) {
+        console.log(solicitud);
+        navigate("/admin/administrarsolicitud",{ state:solicitud })
+    }
 
     return (
             <>
             <div className='contenedor-tabla-soli'>
                 
-                <table>
+                <table className='table'>
                     <thead>
                         <tr className='titulo-tabla-soli'>
                             <th>#</th>
                             <th>Nombre </th>
-                            <th>Apellido Docente</th>
-                            <th># de Estud.</th>
+                            <th>Apellido</th>
+                            <th>Cantidad</th>
                             <th>Motivo</th>
-                            <th>Fecha de Solicitud</th>
-                            <th>Hora de Solicitud</th>
-                            <th>Estado de Solicitud</th>
+                            <th onClick={handleSort}>Fecha</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
                             <th>Opciones</th>
                         </tr>
-                    </thead>
-                   
-                    <tbody>
+                    </thead>               
+                    <tbody className='animate__animated animate__fadeIn'>
                         {
-                            data.map((item, i) => (
+                            isSorted.sortData.map((item, i) => (
                                 <tr key={item.id}>
                                     <td> { i+1 } </td>
                                     <td> { item.nombreDocenteSolicitud } </td>
@@ -81,24 +114,39 @@ export const Solicitudes = ({data=[]}) => {
                                     <td> { item.estadoSolicitud } </td>
                                     <td className='td-btns-soli'>
                                         <section className='caja-btns-soli'>
+
+                                            
                                             <button 
                                                 className='btn-editar editar-soli'
                                                 onClick={ () => {actualizar(item)} }
                                             >
                                                 Detalles
                                             </button>
+                                           
+                                            
+
+                                            
+                                            <button 
+                                                className='btn-editar editar-solii'
+                                                onClick={()=>{handleNavigate(item)}}
+                                            >
+                                                Reservas
+                                            </button>
+                                            
+
                                         </section>
                                     </td>
                                 </tr>
                             ))
                         }
-                    </tbody>
+                    </tbody>  
                 </table>
             </div>
             {
                 isOpen &&
                 <ModalGenerico isOpen={ isOpen } closeModal={closeModalEdicion}>
-                    <RegSolicitud nombre_doc ={nombreDocenteSolicitud} 
+                    <RegSolicitud 
+                    nombre_doc ={nombreDocenteSolicitud} 
                     ape_doc ={apellidoDocenteSolicitud} 
                     nro_est ={numeroEstudiantesSolicitud} 
                     motivo ={motivoSolicitud}

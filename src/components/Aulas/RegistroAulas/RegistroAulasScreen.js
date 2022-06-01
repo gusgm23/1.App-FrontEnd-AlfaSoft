@@ -6,10 +6,8 @@ import './estilosRegistroAula.css'
 
 export const RegistroAulasScreen = () => {
     
-    return(
-        <div className='componente'>
+    return(   
             <FormRegistroAula/>
-        </div>
     )
 
 }

@@ -11,6 +11,7 @@ import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
 import { getMateria, getMateriaId, createMateria, updateMateriaId, deleteMateriaId } from '../../../service/apiMateria';
 import { ErrorGuardarDatos } from '../../Modal/Contenidos/ErrorGuardarDatos';
 import { Hecho } from '../../Modal/Contenidos/Hecho';
+import { useNavigate } from 'react-router-dom';
 
 export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModal = () => {}, titulo='' , idMat='', dataOptenida, setListaMateria}) => {
     
@@ -40,7 +41,10 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
     const [statePerition, setStatePetition] = useState(false);
 
     //!Hook para controlar estado de combobox
-    const [selects, setSelects] = useState('habilitado')
+    const [selects, setSelects] = useState('Habilitado')
+
+    //! hook para navegar
+    const navigate = useNavigate();
 
     const [listaMaterias, setListaMaterias] = useState({
         state: false,
@@ -140,11 +144,16 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
             updateMateriaId( formValues, '1', selects, openModalSuccess, openModalWarning, idMat );
             editarMateria(codSis, materia, selects);
         }
+    }
+
+    const volverAtras = () => {
+        
+        navigate(-1);
 
     }
 
     return (
-        <div className='contenedor-registro-aula form-registro-aula'>
+        <div className='contenedor-registro-aula form-registro-aula animate__animated animate__fadeIn'>
             <h2 className='titulo-registro-aula'>{ titulo === ''? 'Registrar materia': `${titulo} materia` }</h2>
             <form onSubmit={ handleSubmit }>
                 <div className='contenedor-general'>
@@ -203,7 +212,7 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                             type='button' 
                             className='btn btn-warning'
                             onClick={ 
-                                codiSis === '' ? reset : closeModal
+                                codiSis === '' ? volverAtras : closeModal
                             }
                         >
                             Cancelar

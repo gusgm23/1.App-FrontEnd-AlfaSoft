@@ -30,10 +30,6 @@ export const Materia = ({data=[], setListaMateria}) => {
         localStorage.setItem("id", id);
     }
 
-    const editar = (item) => {
-
-    }
-
     return (
             <>
             <div className='contenedor-tabla'>
@@ -47,7 +43,7 @@ export const Materia = ({data=[], setListaMateria}) => {
                             <th>Opciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='animate__animated animate__fadeIn'>
                         {
                             data.map((item, i) => (
                                 <tr key={item.id}>
@@ -56,18 +52,18 @@ export const Materia = ({data=[], setListaMateria}) => {
                                     <td> { item.nombreMateria } </td>
                                     <td> { item.estadoMateria } </td>
                                     <td className='td-btns'>
-                                        <section className='caja-btns'>
+                                        <section className='caja-btns-materia'>
                                             <button 
-                                                className='btn-editar editar-mat'
+                                                className='editar-materia'
                                                 onClick={ () => {actualizar(item)} }
                                             >
-                                                Editar
+                                                <i className="bi bi-pencil-fill"></i>
                                             </button>
                                             <button 
                                                 className='btn-editar editar-mat btn-ver-mat'
                                                 onClick={() => (guardarID(item.id))}
                                                 >
-                                                    <NavLink exact='true' to='/vergrupos' >Detalles</NavLink>
+                                                    <NavLink exact='true' to='/admin/vergrupos' ><i className="bi bi-eye-fill"></i></NavLink>
                                             </button>
                                         </section>
                                     </td>

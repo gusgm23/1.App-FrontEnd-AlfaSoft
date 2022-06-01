@@ -1,0 +1,78 @@
+/* Estilos para el titulo y el boton de crear */
+
+.contenedor-general-versolicitudes{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.contenedor-titulo-botonSolicitud{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.boton-crear-solicitudes{
+    background-color: white (25, 135, 84, .6);
+    color: #00AB66;
+    width: 100%;
+    
+    border: none;
+    transition: .5s;
+    border-radius: 5px;
+}
+
+.boton-crear-solicitudes:hover{
+    background-color: white (25, 135, 84, .6);
+}
+
+.boton-editar-solicitudes{
+    background-color: #c8c8c8(25, 135, 84, .9);
+    color: #fff;
+    width: 100%;
+    
+    border: none;
+    transition: .5s;
+    border-radius: 5px;
+}
+
+.bi-plus-circle-fill{
+    font-size: 35px;
+    color: #00AB66;
+}
+
+/* Estilos para la tabla*/
+table tr th{
+    padding: 10px;
+}
+
+.contenedor-tabla-solicitudes{
+    display: flex;
+    justify-content: center;
+}
+
+.titulo-tabla-solicitudes{
+    background-color: rgba(33, 37, 41, .9);
+    color: #ffffff;
+}
+
+.columna-botones-solicitud{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+.contenedor-home-docente{
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.parrafo-home-docente {
+    color: #000;
+}
+
+section {
+    max-width: 1000px;
+}
+
+.contenido-home-docente {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section > div > img {
+    width: 400px;
+    margin: 20px;
+}
+
+section > div > div > p {
+    margin-bottom: 20px;
+}
+
+section > div > div {
+    margin-right: 40px;
+}
+
+.contenedor-titulo-home-docente{
+    width: 100%;
+}

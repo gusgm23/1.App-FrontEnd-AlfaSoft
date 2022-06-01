@@ -20,6 +20,7 @@ import { getSolicitud, getSolicitudId, createSolicitud, updateSolicitudId, delet
 
 
 export const FormularioReservaAula = ({
+        
         nomDocente          ='', 
         apeDocente          ='', 
         cantEstudiantes     ='', 
@@ -28,10 +29,11 @@ export const FormularioReservaAula = ({
         horSolicitud        ='',
         perSolicitud        ='',
 
-        closeModal = () => {}, idsolicitud=''
+        closeModal = () => {}, titulo='', idsolicitud='', setListaSolicitud
     }) => {
 
     const [formValues, handleInputChange, reset] = useForm({
+       
         nombreDocente:          nomDocente,
         apellidoDocente:        apeDocente,
         cantidadEstudiantes:    cantEstudiantes,
@@ -131,14 +133,57 @@ export const FormularioReservaAula = ({
     }
 
 
+    //Para editar la solicitud y actualizar la tabla
+    const editarSolicitud = (nomS, apeS, canS, motS, fecS, horS, perS, matS, gruS) => {
+        const arregloSolicitud = dataS;
+
+        let contador = 0;
+
+        arregloSolicitud.map((solicitud) => {
+            if( idsolicitud == solicitud.id ){
+                arregloSolicitud[contador].nombreDocenteSolicitud       = nomS;
+                arregloSolicitud[contador].apellidoDocenteSolicitud     = apeS;
+                arregloSolicitud[contador].numeroEstudiantesSolicitud   = canS;
+                arregloSolicitud[contador].motivoSolicitud              = motS;
+                arregloSolicitud[contador].fechaSolicitud               = fecS;
+                arregloSolicitud[contador].horaInicioSolicitud          = horS;
+                arregloSolicitud[contador].periodoSolicitud             = perS;
+                arregloSolicitud[contador].materiaSolicitud             = matS;
+                arregloSolicitud[contador].grupoSolicitud               = gruS;
+            }
+            contador++;
+        });
+        setListaSolicitud({
+            stateS: true,
+            dataS: arregloSolicitud
+        });
+    }
+
+
     //Para enviar los datos del formulario 
     const guardarDatosFormulario = () => {
         setStatePetition(true);
 
         if( idsolicitud === '' ) {
             createSolicitud( formValues, '1', selects, selectsGrupos, 'pendiente', openModalSuccess, openModalWarning ); 
+        }else {
+            updateSolicitudId(formValues, '1', selects, selectsGrupos, 'pendiente', openModalSuccess, openModalWarning, idsolicitud);
+            editarSolicitud(nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud, selects, selectsGrupos)
         }
     }
+
+    //Hook para obtener las solicitudes
+    const [ListaSolicitud, setListaSolicitudes] = useState({
+        stateS: false,
+        dataS: []
+    });
+
+    const {stateS, dataS} = ListaSolicitud;
+
+    useEffect(() => {
+        getSolicitud(setListaSolicitudes);
+    }, [stateS]);
+
     
     //Lista Materias
     const [listaMateria, setListaMateria] = useState({
@@ -153,15 +198,6 @@ export const FormularioReservaAula = ({
     }, [state]);
 
 
-    const datos =[{
-    
-        id:1,
-        nombreMateria: 'calculo',
-    } ,
-    {
-        id:2,
-        nombreMateria: 'progra',
-    }]
 
     //Obtener los grupos de materias y listarlas
     const [listaGrupos, setStateData] = useState({
@@ -178,7 +214,7 @@ export const FormularioReservaAula = ({
 
     return (
         <div className='contenedor-reserva-aulas'>
-            <h1 className="titulo-reserva-aulas"> Reservar Aula </h1>
+            <h1 className="titulo-reserva-aulas">{titulo === ''? 'Reservar Aula' : `${titulo} Aula` }</h1>
             <form onSubmit={ handleSubmit } >
                 <div className="contenedor-reserva">
                     <div className="contenedor-elementos-reserva-aulas">
@@ -192,6 +228,7 @@ export const FormularioReservaAula = ({
                                     placeholder='Ingresar Nombre'
                                     value={ nombreDocente }
                                     onChange={ handleInputChange }
+                                    
                                 ></input>
                                 <p className={ StatusInputNomDocente===true? "mensaje-error" : "mensaje-error-oculto" }>
                                     { MsjErrorNomDocente }
@@ -300,7 +337,8 @@ export const FormularioReservaAula = ({
                                     name='fechaSolicitud'
                                     className='inputsSolicitud'
                                     type="date"
-                                    min="2022-05-03"
+                                    min="2022-06-07"
+                                    // pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
                                     value={ fechaSolicitud }
                                     onChange={ handleInputChange }
                                 />
