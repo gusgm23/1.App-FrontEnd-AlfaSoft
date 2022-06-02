@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const HistorialSolicitudes = () => {
+export const SolicitudesAprobadas = () => {
     return (
         <div>HistorialSolicitudes</div>
     )

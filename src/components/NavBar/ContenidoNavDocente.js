@@ -28,10 +28,17 @@ export const ContenidoNavDocente = () => {
                     </Link>
                     <NavLink
                         exact='true'
-                        to='/docente/listarlassolicitudes'
+                        to='/docente/listarsolicitudes'
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
-                        Ver solicitudes
+                        Solicitudes pendientes
+                    </NavLink>
+                    <NavLink
+                        exact='true'
+                        to='/docente/veraprobados'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                    >
+                        Solicitudes aprobadas
                     </NavLink>
                 </div>
             </div>
