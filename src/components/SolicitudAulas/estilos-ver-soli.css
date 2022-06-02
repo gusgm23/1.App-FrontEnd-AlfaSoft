@@ -86,3 +86,21 @@ table tr:nth-child(odd) td {
   margin: 5%;
   padding: 1px6px;
 }
+
+/* modificacion de estilos de iconos */
+.btns-solicitudes {
+    background: transparent;
+    border: none;
+    font-size: 25px;
+    width: 40%;
+}
+
+.caja-btns-soli-admin {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+}
+
+.bi-clipboard2-plus-fill {
+    color: #00AB66;
+}

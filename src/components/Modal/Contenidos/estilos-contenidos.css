@@ -4,3 +4,8 @@
     color: #000;
     margin: 15px;
 }
+
+
+.btn-cancelar-reserva {
+    background: rgb(238, 62, 62);
+}

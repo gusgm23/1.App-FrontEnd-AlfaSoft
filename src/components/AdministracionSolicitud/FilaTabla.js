@@ -50,15 +50,16 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
                         <td>{ i+1 }</td>
                         <td>{ elem.nombreAula }</td>
                         <td>{ elem.capacidadAula }</td>
-                        <td>{ elem.estadoAula }</td>
                         <td>
-                            <button 
-                                className='btn-reserva'
-                                onClick={ () => ( reducirCapacidad(elem.capacidadAula, elem.id) ) }
-                            
-                            >
-                                Reservar
-                            </button>
+                            <section>
+                                <button 
+                                    className='btn-reserva'
+                                    onClick={ () => ( reducirCapacidad(elem.capacidadAula, elem.id) ) }
+                                
+                                >
+                                    <i className="bi bi-plus-circle-fill icono-reserva"></i>
+                                </button>
+                            </section>
                         </td>
                     </tr>
                 ))

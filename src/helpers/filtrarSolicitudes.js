@@ -10,3 +10,15 @@ export const filtrarSolicitudes = (ListaSolicitudes=[], idMat, setdataSolicitud)
     });
     setdataSolicitud(Limpia);
 }
+
+export const getSolicitudesPendientes = (ListaSolicitudes=[], setdataSolicitud) => {
+
+    const Limpia = [];
+
+    ListaSolicitudes.forEach(element => {
+        if(element.estadoSolicitud == "pendiente"){
+            Limpia.push(element);
+        }
+    });
+    setdataSolicitud(Limpia);
+}

@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    min-height: 320px;
 }
 
 .contenedor-titulo-botonSolicitud{
@@ -60,9 +61,13 @@ table tr th{
     justify-content: space-evenly;
 }
 
+.parraf-solicitudes-vacias {
+    color: #000;
+}
 
-
-
+.mrg-der-titulo {
+    margin-right: 20px;
+}
 
 
 
