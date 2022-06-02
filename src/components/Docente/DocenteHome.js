@@ -24,7 +24,7 @@ export const DocenteHome = () => {
                             Recuerda que puedes registrar tu solicitud para poder reservar un aula en la sección: <b>Registrar Solicitud.</b>
                         </p>
                         <p className='parrafo-home-docente'>
-                            También puedes ver el historial de todas las solicitudes que registrasde dentro del sistema en la sección: <b>Ver Solicitudes.</b>
+                            También puedes ver el historial de todas las solicitudes que registraste dentro del sistema en la sección: <b>Ver Solicitudes.</b>
                         </p>
                     </div>
                     <img src={homeImg} alt='image-home'/>
