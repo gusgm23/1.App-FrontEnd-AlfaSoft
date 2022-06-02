@@ -7,3 +7,15 @@ export const getSolicitudesDeUsuario = (listaSolicitudes, nombreUsuario, apellid
     return dataSolicitud;
 
 }
+
+//!Metodo encargado de devolver solicitudes aprobadas pertenecientes a un 
+//!usuario que haya iniciado sesión
+
+export const getSolicitudesAprobadasDeUsuario = (listaSolicitudes, nombreUsuario, apellidoUsuario) => {
+
+    const dataSolicitud = listaSolicitudes.filter(
+        solicitud => solicitud.nombreDocenteSolicitud === nombreUsuario && solicitud.apellidoDocenteSolicitud === apellidoUsuario && solicitud.estadoSolicitud === 'Aprobado'
+    );
+    return dataSolicitud;
+
+}
