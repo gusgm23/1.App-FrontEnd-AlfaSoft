@@ -45,7 +45,7 @@ export const SolicitudesAprobadas = () => {
     return (
         <div className='cont-gral-soli-aprob'>
             <section className='section-soli-aprob'>
-                <div className='cont-titulo-soli-aprob'>
+                <div className='cont-titulo-soli-aprob animate__animated animate__fadeIn'>
                     <h2>Solicitudes aprobadas: {dataAprob.length}</h2>
                     <hr/>
                 </div>
@@ -54,7 +54,7 @@ export const SolicitudesAprobadas = () => {
                         stateAprob ?
                             dataAprob.length > 0 ?
                             (
-                                <table>
+                                <table className='animate__animated animate__fadeIn'>
                                     <ColumnasTabla columnas={ columnas }/>
                                     <FilaTabla listaSoliAprob={ dataAprob }/>
                                 </table>
