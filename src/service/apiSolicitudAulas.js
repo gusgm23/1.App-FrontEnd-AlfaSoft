@@ -36,7 +36,8 @@ export const createSolicitud = (
     materia_id, 
     materiaSolicitud, 
     grupoSolicitud, 
-    pendiente='pendiente', 
+    pendiente='pendiente',
+    motivo='ninguno', 
     openModalSuccess, 
     openModalWarning 
     ) => {
@@ -45,6 +46,7 @@ export const createSolicitud = (
             apellidoDocente, 
             cantidadEstudiantes, 
             motivoSolicitud, 
+            // motivoRechazo,
             fechaSolicitud, 
             horaSolicitud, 
             peridoSolicitud
@@ -57,6 +59,8 @@ export const createSolicitud = (
         apellidoDocenteSolicitud:       `${apellidoDocente}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
         motivoSolicitud:                `${motivoSolicitud}`,
+        //nuevo atributo
+        motivoRechazo:                  `${motivo}`,
         fechaSolicitud:                 `${fechaSolicitud}`,
         horaInicioSolicitud:            `${horaSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
@@ -79,6 +83,7 @@ export const updateSolicitudId = async (
     materiaSolicitud,
     grupoSolicitud,
     pendiente='pendiente',
+    //motivo,
     openModalSuccess,
     openModalWarning, 
     id 
@@ -87,7 +92,8 @@ export const updateSolicitudId = async (
             nombreDocente, 
             apellidoDocente, 
             cantidadEstudiantes,
-            motivoSolicitud, 
+            motivoSolicitud,
+            motivoRechazo, 
             fechaSolicitud, 
             horaSolicitud, 
             peridoSolicitud
@@ -100,6 +106,8 @@ export const updateSolicitudId = async (
         apellidoDocenteSolicitud:       `${apellidoDocente}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
         motivoSolicitud:                `${motivoSolicitud}`,
+        motivoRechazo:                  `${motivoRechazo}`,
+
         fechaSolicitud:                 `${fechaSolicitud}`,
         horaInicioSolicitud:            `${horaSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
@@ -125,7 +133,8 @@ export const updateSolicitud = async (solicitud) => {
         nombreDocenteSolicitud, 
         apellidoDocenteSolicitud, 
         numeroEstudiantesSolicitud, 
-        motivoSolicitud, 
+        motivoSolicitud,
+        motivoRechazo, 
         fechaSolicitud, 
         horaInicioSolicitud, 
         periodoSolicitud, 
@@ -141,6 +150,7 @@ export const updateSolicitud = async (solicitud) => {
             apellidoDocenteSolicitud:       `${apellidoDocenteSolicitud}`,
             numeroEstudiantesSolicitud:     `${numeroEstudiantesSolicitud}`,
             motivoSolicitud:                `${motivoSolicitud}`,
+            motivoRechazo:                   `${motivoRechazo}`,
             fechaSolicitud:                 `${fechaSolicitud}`,
             horaInicioSolicitud:            `${horaInicioSolicitud}`,
             periodoSolicitud:               `${periodoSolicitud}`,
