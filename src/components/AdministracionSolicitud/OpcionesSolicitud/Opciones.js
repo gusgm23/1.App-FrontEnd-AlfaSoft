@@ -1,5 +1,6 @@
 import React, {useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 import { rechazar } from '../../../helpers/metodosOpcionesSolicitud';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
 import { ModalRechazo } from '../../Modal/ModalRechazo';
@@ -8,8 +9,9 @@ import { ModalRechazo } from '../../Modal/ModalRechazo';
 
 import './estilos-opciones.css'
 
-export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
-    
+export const Opciones = ( {soli},{capacidad, openModal, capacidadOriginal} ) => {
+
+    const {state:solicitud} = useLocation();    
     const capOrig = parseInt(capacidad);
 
     const navigate = useNavigate();
@@ -28,7 +30,8 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
 
     const rechazarSolicitud = () => {
 
-        rechazar();
+        //rechazar();
+        console.log(solicitud)
 
     }
 
@@ -43,39 +46,39 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                     >
                         <i className="bi bi-chevron-left"></i> Volver 
                     </button>
-                    {
+
+                            <button 
+                                id='btn-opciones-soli'
+                                className='btn-rechazar-soli'
+                                onClick={ () => 
+                                    // rechazarSolicitud()
+                                     setOpenModalRechazo(true)
+                                }
+                            >
+                             <i className="bi bi-x-lg"></i> Rechazar
+                            </button>
+                    {/* {
                         ( capacidad > 0 && capOrig === parseInt(capacidadOriginal) )
                         ? (
                             <button 
                                 id='btn-opciones-soli'
                                 className='btn-rechazar-soli'
-                                onClick={ () => setOpenModalRechazo(true)}
+                                onClick={ () => 
+                                    rechazarSolicitud()
+                                    // setOpenModalRechazo(true)
+                                }
                             >
                                 Rechazar
                             </button>
                         )
                         : ''
-                    }
+                    } */}
                 </div>
             </section>
         </div>
         {openModalRechazo && 
             <ModalGenerico  isOpen={openModalRechazo} closeModal={closeModalRechazo}>
               <ModalRechazo 
-            //   nombre_doc ={nombreDocenteSolicitud} 
-            //   ape_doc ={apellidoDocenteSolicitud} 
-            //   motivoRechazo=""
-            //   nro_est ={numeroEstudiantesSolicitud} 
-            //   motivo ={motivoSolicitud}
-            //   fecha_res ={fechaSolicitud}
-            //   hora_res ={horaInicioSolicitud}
-    
-            //   periodo ={periodoSolicitud}
-            //   estado ="Solicitud Rechazada"
-            //   materiaId={materia_id}
-            //   materiaSolicitud={materiaSolicitud}
-            //   solicitudId={soliID}
-              
               closeModal={setOpenModalRechazo}/> 
             </ModalGenerico>
             }

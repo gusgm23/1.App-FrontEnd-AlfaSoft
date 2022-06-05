@@ -25,6 +25,7 @@ export const FormularioReservaAula = ({
         apeDocente          ='', 
         cantEstudiantes     ='', 
         motSolicitud        ='',
+        // motRechazo          ='',
         fecSolicitud        ='', 
         horSolicitud        ='',
         perSolicitud        ='',
@@ -38,6 +39,7 @@ export const FormularioReservaAula = ({
         apellidoDocente:        apeDocente,
         cantidadEstudiantes:    cantEstudiantes,
         motivoSolicitud:        motSolicitud,
+        // motvioRechazo:          motRechazo,
         fechaSolicitud:         fecSolicitud,
         peridoSolicitud:        perSolicitud,
         horaSolicitud:          horSolicitud,
@@ -134,7 +136,7 @@ export const FormularioReservaAula = ({
 
 
     //Para editar la solicitud y actualizar la tabla
-    const editarSolicitud = (nomS, apeS, canS, motS, fecS, horS, perS, matS, gruS) => {
+    const editarSolicitud = (nomS, apeS, canS, motS,motR, fecS, horS, perS, matS, gruS) => {
         const arregloSolicitud = dataS;
 
         let contador = 0;
@@ -145,6 +147,7 @@ export const FormularioReservaAula = ({
                 arregloSolicitud[contador].apellidoDocenteSolicitud     = apeS;
                 arregloSolicitud[contador].numeroEstudiantesSolicitud   = canS;
                 arregloSolicitud[contador].motivoSolicitud              = motS;
+                arregloSolicitud[contador].motivoRechazo                = motR;
                 arregloSolicitud[contador].fechaSolicitud               = fecS;
                 arregloSolicitud[contador].horaInicioSolicitud          = horS;
                 arregloSolicitud[contador].periodoSolicitud             = perS;
@@ -165,9 +168,9 @@ export const FormularioReservaAula = ({
         setStatePetition(true);
 
         if( idsolicitud === '' ) {
-            createSolicitud( formValues, '1', selects, selectsGrupos, 'pendiente', openModalSuccess, openModalWarning ); 
+            createSolicitud( formValues, '1', selects, selectsGrupos, 'pendiente','ninguno', openModalSuccess, openModalWarning ); 
         }else {
-            updateSolicitudId(formValues, '1', selects, selectsGrupos, 'pendiente', openModalSuccess, openModalWarning, idsolicitud);
+            updateSolicitudId(formValues, '1', selects, selectsGrupos, 'pendiente','ninguno', openModalSuccess, openModalWarning, idsolicitud);
             editarSolicitud(nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud, selects, selectsGrupos)
         }
     }

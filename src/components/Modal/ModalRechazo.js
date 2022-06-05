@@ -1,116 +1,119 @@
 import React, { useEffect, useState } from 'react'
 import "./modalrechazo.css";
-import { useForm } from '../../hooks/useForm';
-import { updateSolicitudId, deleteSolicitud } from '../../service/apiSolicitudAulas';
+import { useLocation } from 'react-router-dom';
+import { useModal } from '../../hooks/useModal';
+import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
+
+
+import { updateSolicitud } from '../../service/apiSolicitudAulas';
 
 
 export const ModalRechazo = ({
-  nombre_doc      ='',
-  ape_doc         ='',
-  nro_est         ='',
-  motivo          ='',
-  fecha_res       ='',
-  hora_res        ='',
-  // hora_fin        ='',
-  periodo         ='',
-  estado          ='',
-  materiaId       ='',
-  solicitudId         ='', 
-   
-  closeModal })=> {
 
-  const [datos,setDatos,setMotivo] = useState ({
-         nombreDocenteSolicitud:nombre_doc,
-         apellidoDocenteSolicitud:    ape_doc,
-         numeroEstudiantesSolicitud:   nro_est ,
-         motivoSolicitud:    motivo,
-         motivoRechazo:'',
-         fechaSolicitud:    fecha_res,
-         horaInicioSolicitud:    hora_res,
-        //  horaFinSolicitud: hora_fin,
-         periodoSolicitud:    periodo,
-         estadoSolicitud: estado,
-         materia_id: materiaId,
-         solicitudID: solicitudId
-         
-  });
-//   const [formValues, reset] = useForm({
-//     nombreDocenteSolicitud:     nombre_doc,
-//     apellidoDocenteSolicitud:    ape_doc,
-//     numeroEstudiantesSolicitud:   nro_est ,
-//     motivoSolicitud:    motivo,
-//     fechaSolicitud:    fecha_res,
-//     hora:    hora_res, 
-//     periodoSolicitud:    periodo,
-//     estadoSolicitud: estado   
-    
-// })
+	motivoRechazo='',
+	closeModal })=> {
 
- 
-  const { nombreDocenteSolicitud, apellidoDocenteSolicitud, 
-    numeroEstudiantesSolicitud,motivoSolicitud,motRechazo, 
-    fechaSolicitud, horaInicioSolicitud,horaFinSolicitud, 
-    periodoSolicitud,estadoSolicitud,materia_id,solicitudID} = datos;
-   
-  // const [id,setId]=useState('');  
-  // const getData=()=>{
-  //   return localStorage.getItem("id");
+		const {state:solicitud} = useLocation();    
 
-  // }
-  // useEffect(()=>{
-  //     setId(getData());
-  // }, []);
+	const [formValues,setDatos] = useState ({
+				id:solicitud.id, 
+				nombreDocenteSolicitud:solicitud.nombreDocenteSolicitud, 
+				apellidoDocenteSolicitud:solicitud.apellidoDocenteSolicitud, 
+				numeroEstudiantesSolicitud:solicitud.numeroEstudiantesSolicitud, 
+				motivoSolicitud:solicitud.motivoSolicitud,
+				//motivoRechazo:, 
+				fechaSolicitud:solicitud.fechaSolicitud, 
+				horaInicioSolicitud:solicitud.horaInicioSolicitud, 
+				periodoSolicitud:'1', 
+				estadoSolicitud:'Solicitud Rechazada', 
+				materiaSolicitud:solicitud.materiaSolicitud, 
+				grupoSolicitud:solicitud.grupoSolicitud, 
+				materia_id:solicitud.materia_id 
+				 
+	});
 
-  // const { motRechazo,id} = formValues;
-  const enviarMotivo=(item)=>{
-    updateSolicitudId(datos,materiaId,);
-  }
-  const eliminar=(item)=>{
-    // idSoli:{data.id};
-    deleteSolicitud(item.solicitudID);
-  }
+	const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
+	const [isOpenModalWarning, openModalWarning, closeModalWarning] = useModal(false);
+	const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
 
-  const handleInputChange=(event)=>{
-    //  console.log(event.target.value)
-    setDatos ({
-      ...datos,
-      [event.target.name] : event.target.value,
+	const navigate=useNavigate();
+	function handleNavigate() {
+        
+        navigate("/admin/verSolicitudes")
+    }
 
-    })  
-  }
-  const enviarDatos=(event)=>{
-    event.preventDefault(); 
-  }
+    const Alerta=()=>{
+		swal({
+			title:"Solicitud Rechazada",
+			icon:"success",
+			button:"Ok"
+		}).then(respuesta=>{
+			if(respuesta){
+               handleNavigate();
+			}
+		})
+	}
+	const Alertamotivovacio=()=>{
+		swal({
+			title:"Debe ingresar el motivo",
+			icon:"error"
+		})
+	}
+	const enviarMotivo=(item)=>{
 
-  return (
-      <form className="modalrechazo-container" onSubmit={enviarDatos} >
-       <div className="modalrechazo">
-        <h1 className="modalrechazo-titulo">Motivo de rechazo:</h1>
-        <div className="modalrechazo-body">
-        <textarea 
-            className="text-motivorechazo"
-            name='motivoRechazo'
-            // className={ StatusInputMotivo===true? "input-error" : "inputsSolicitud" }
-            type="text"
-            placeholder='Motivo de Rechazo'
-            onChange= { handleInputChange }
-            ></textarea>
-        </div>
-        <div className="btn-modalrechazo">
-            <button className="btn-editar btn-aceptar" 
+		if(item.motivoRechazo===undefined){
+			Alertamotivovacio();
+		}
+		else{
+		updateSolicitud(item)
+		Alerta();
+		closeModal(false);
+		}
 
-            onClick={()=>
-              enviarMotivo(datos)
-              //  console.log({datos}) 
-          }
-            >Aceptar</button>
-            <button className="btn-editar btn-cancelar"
-                
-            onClick={()=> closeModal(false) }>Cancelar</button>
+	}
+	const handleInputChange=(event)=>{
+		//  console.log(event.target.value)
+		setDatos ({
+			...formValues,
+			[event.target.name] : event.target.value,
 
-        </div>
-    </div>
-    </form>
-    
-  );
+		})  
+	}
+	const enviarDatos=(event)=>{
+		event.preventDefault(); 
+	}
+
+	return (
+		<>
+			<form className="modalrechazo-container" onSubmit={enviarDatos} >
+			 <div className="modalrechazo">
+				<h1 className="modalrechazo-titulo">Motivo de rechazo:</h1>
+				<div className="modalrechazo-body">
+				<textarea 
+						className="text-motivorechazo"
+						name='motivoRechazo'
+						type="text"
+						placeholder='Motivo de Rechazo'
+						onChange= { handleInputChange }
+						></textarea>
+				</div>
+				<div className="btn-modalrechazo">
+						<button className="btn-editar btn-aceptar" 
+
+						onClick={()=>
+							enviarMotivo(formValues)
+					}
+						>Aceptar</button>
+						<button className="btn-editar btn-cancelar"
+								
+						onClick={()=> closeModal(false) }>Cancelar</button>
+
+				</div>
+		</div>
+	</form>
+						</>
+					);
+						
+						
 }
