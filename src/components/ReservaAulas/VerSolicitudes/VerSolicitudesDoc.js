@@ -50,6 +50,7 @@ export const VerSolicitudesDoc = () => {
 
     }, [stateS]);
 
+    console.log(dataSolicitudesUsuario, "asdada");
     return (
         <div className="contenedor-general-versolicitudes">
             <div className="contenedor-elementos-versolicitudes">
@@ -68,7 +69,7 @@ export const VerSolicitudesDoc = () => {
                 {
                     stateSolcitudesUsuario
                     ? dataSolicitudesUsuario.length > 0
-                        ? <Solicitudes data={dataS} setListaSolicitud={setListaSolicitud} />
+                        ? <Solicitudes data={dataSolicitudesUsuario} setListaSolicitud={setListaSolicitud} />
                         : <p className="parraf-solicitudes-vacias">No existen solicitudes pendientes.</p>
                     : <Spinner/>
                 }
@@ -77,7 +78,7 @@ export const VerSolicitudesDoc = () => {
                 <FormularioReservaAula
                     closeModalCreate={closeModalCreate}
                     titulo='Registrar'
-                    dataSolicitud={dataS}
+                    dataSolicitud={dataSolicitudesUsuario}
                     setdataSolicitud={setListaSolicitud}
                 />
             </ModalGenerico>
