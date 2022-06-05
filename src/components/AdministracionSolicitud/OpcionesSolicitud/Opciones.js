@@ -30,7 +30,7 @@ export const Opciones = ( {soli},{capacidad, openModal, capacidadOriginal} ) => 
 
     const rechazarSolicitud = () => {
 
-        //rechazar();
+        rechazar();
         console.log(solicitud)
 
     }
@@ -47,17 +47,7 @@ export const Opciones = ( {soli},{capacidad, openModal, capacidadOriginal} ) => 
                         <i className="bi bi-chevron-left"></i> Volver 
                     </button>
 
-                            <button 
-                                id='btn-opciones-soli'
-                                className='btn-rechazar-soli'
-                                onClick={ () => 
-                                    // rechazarSolicitud()
-                                     setOpenModalRechazo(true)
-                                }
-                            >
-                             <i className="bi bi-x-lg"></i> Rechazar
-                            </button>
-                    {/* {
+                    {
                         ( capacidad > 0 && capOrig === parseInt(capacidadOriginal) )
                         ? (
                             <button 
@@ -72,7 +62,7 @@ export const Opciones = ( {soli},{capacidad, openModal, capacidadOriginal} ) => 
                             </button>
                         )
                         : ''
-                    } */}
+                    } 
                 </div>
             </section>
         </div>
