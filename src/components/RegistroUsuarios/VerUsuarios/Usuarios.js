@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useModal } from "../../../hooks/useModal";
+import { eliminarUsuarios, getUsuariosHabilitados, getUsuariosHabilitadoss, ModificarUsuario } from "../../../service/apiUsuarios";
+import { Confirmacion } from "../../Modal/Contenidos/Confirmacion";
+import { ConfirmModal } from "../../Modal/Contenidos/ConfirmModal";
 import { ModalGenerico } from "../../Modal/ModalGenerico";
 import { RegistroUsuarios } from "../RegistroUsuarios";
+import CamposTabla from "./CamposTabla";
+import { ActualizarTablaUsuario } from './ActualizarTablaUsuario';
 
 import './verUsuarios.css';
+import { ModalEliminar } from "../../Modal/Contenidos/ModalEliminar";
+import { UsuarioEliminado } from "../../Modal/Contenidos/UsuarioEliminado";
 
 
 
-export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
+
+export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
+
+    const [usuariosTabla, setUsuariosTabla] = useState(data);
 
     const [ valores, setValores ] = useState({
         id:                 '',
@@ -16,14 +26,27 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
         telUsuario:         '',
         dirUsuario:         '',
         emailUsuario:       '',
-        estUsuarios:        '',
         pasUsuario:         '',
         pasConfUsuario:     '',
-        carUsuario: '',
+        carUsuario:         '',
+
     });
 
-    const { id, nomUsuario, apeUsuario, telUsuario, dirUsuario, emailUsuario, estUsuarios, pasUsuario, pasConfUsuario, carUsuario } = valores;
+    const { id, nomUsuario, apeUsuario, telUsuario, dirUsuario, emailUsuario, pasUsuario, pasConfUsuario, carUsuario } = valores;
+    
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
+    const [ isOpenModalConfirm, openModalConfirm, closeModalConfirm ] = useModal(false); 
+    const [isOpenModalSuccess, OpenModalSuccess, CloseModalSuccess] = useModal(false)
+
+    //Hook para eliminar usuarios
+    const [ eliminarUsu, seteliminarUsu ] = useState({});
+    const [ datas, setdata ] = useState([]);
+    const [ mostrarMensaje, setmostrarMensaje] = useState({
+        title: "",
+        message: "",
+        status: false,
+    });
+
 
     const actualizarUsuario = ( item ) => {
         setValores({
@@ -33,35 +56,43 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
             telUsuario:         item.telefonoUsuario,
             dirUsuario:         item.direccionUsuario,
             emailUsuario:       item.email,
-            estUsuarios:        item.estadoUsuario,
             pasUsuario:         item.password,
             pasConfUsuario:     item.repeatPassword,
             carUsuario:         item.cargoUsuario,
         });
         openModalEdicion();
     }
+ 
+
+    const [eliminarUsuarios, seteliminarUsuario] = useState('');
+    
+    const eliminarUsuario = (item) => {
+
+        const eliminar = {
+            ...item,
+            estadoUsuario: 'Inhabilitado'
+        }  
+        console.log(item);
+        seteliminarUsuario(eliminar);
+        openModalConfirm();
+    }
+
+    const eliminar = () => {
+        ModificarUsuario(eliminarUsuarios, OpenModalSuccess);
+        closeModalConfirm();
+    }
 
     
 
     return (
+        <>
         <div className="contenedor-tabla-general">
             <div className="contenedor-tabla-usuarios">
                 <table>
-                    <thead>
-                        <tr className="titulo-tabla-usuarios">
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Cargo</th>
-                            <th>Telefono</th>
-                            <th>Direccion</th>
-                            <th>Email</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
+                    <CamposTabla/>
                     <tbody>
                         {
-                            data.map((item, i) => (
+                            usuariosTabla.map((item, i) => (
                                 <tr key={item.id}>
                                     <td> { i+1 } </td>
                                     <td> { item.name } </td>
@@ -82,10 +113,18 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
                                         <section className="caja-botones-usuario">
                                             <button
                                                 className="boton-editar-usuarios"
-                                                //onClick={ () => { eliminarUsuario(item) } }
+                                                // onClick={ () => {
+                                                    // openModalConfirm(); 
+                                                    // seteliminarUsu(item);  
+                                                // }}
+                                                // onClick={() => { 
+                                                    // openModalConfirm();
+                                                    // eliminarUsuario(item);}} 
+                                                    onClick={() => {eliminarUsuario(item)}}
                                             >
                                             <i className="bi bi-trash-fill"></i>
                                             </button>
+                                            
                                         </section>
                                     </td>
                                 </tr>
@@ -94,27 +133,51 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados }) => {
                     </tbody>
                 </table>
             </div>
-            {
-                isOpen && 
-                <ModalGenerico isOpen={ isOpen } closeModal={ closeModalEdicion }>
-                    <RegistroUsuarios
-                        titulo='Editar Campos de'
-                        idUsu={ id }
-                        nom={ nomUsuario }
-                        ape={ apeUsuario  }
-                        cargoUsuario={ carUsuario }
-                        tel={ telUsuario  }
-                        dir={ dirUsuario  }
-                        cor={ emailUsuario }
-                        con={ pasUsuario }
-                        conConf={ pasConfUsuario }
-                        closeModal={ closeModalEdicion }
-                        dataOptenida={ data }
-                        setListaUsuariosHabilitados={ setListaUsuariosHabilitados }
-                    />
-                </ModalGenerico>
-            }
+                {
+                    isOpen && 
+                    <ModalGenerico isOpen={ isOpen } closeModal={ closeModalEdicion }>
+                        <RegistroUsuarios
+                            titulo='Editar Campos de'
+                            idUsu={ id }
+                            nom={ nomUsuario }
+                            ape={ apeUsuario  }
+                            cargoUsuario={ carUsuario }
+                            tel={ telUsuario  }
+                            dir={ dirUsuario  }
+                            cor={ emailUsuario }
+                            con={ pasUsuario }
+                            conConf={ pasConfUsuario }
+                            closeModal={ closeModalEdicion }
+                            dataOptenida={ data }
+                            setListaUsuariosHabilitados={ setListaUsuariosHabilitados }
+                        />
+                    </ModalGenerico>
+                }
+                {
+                    isOpenModalConfirm && 
+                    <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
+                        <ModalEliminar cerrarModal={closeModalConfirm} eliminarUsuario={eliminar}/>
+                    </ModalGenerico>
+                } 
+                <ModalGenerico isOpen={isOpenModalSuccess} closeModal={CloseModalSuccess}>
+                    <UsuarioEliminado cerrarModal={CloseModalSuccess} idUsuario={eliminarUsuarios.id} listaUsuarios={usuariosTabla} setter={setUsuariosTabla}/>
+                </ModalGenerico> 
         </div>
-    )
-
-}
+        
+        {/* <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm } > */}
+            {/* <Confirmacion  */}
+                {/* // // title={'¿Esta seguro de eliminar?'} */}
+                {/* // // cancel={() => { */}
+                    {/* // closeModalConfirm(); */}
+                {/* // }} */}
+                {/* // confirm={() => { */}
+                    {/* // eliminacionDeUsuarios(); */}
+                {/* // }} */}
+                
+                
+            {/* /> */}
+        {/* </ModalGenerico> */}
+        
+        </>
+    );
+};

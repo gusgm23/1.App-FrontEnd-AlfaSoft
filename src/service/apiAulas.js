@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const baseUrl="http://alfa.tis.cs.umss.edu.bo/api";
+//export const baseUrl="http://alfa.tis.cs.umss.edu.bo/api";
+export const baseUrl="http://127.0.0.1:8000/api";
 
 //API para obtener las aulas Libres
 export const getAulasLibres = async ( setListaAulasLibres )  =>{
