@@ -9,10 +9,14 @@ import { ModalRechazo } from '../../Modal/ModalRechazo';
 
 import './estilos-opciones.css'
 
-export const Opciones = ( {soli},{capacidad, openModal, capacidadOriginal} ) => {
+export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
 
     const {state:solicitud} = useLocation();    
     const capOrig = parseInt(capacidad);
+
+    console.log(capacidad, 'capacidad')
+    console.log(capOrig, 'capOrig')
+    console.log(capacidadOriginal, 'capacidad original')
 
     const navigate = useNavigate();
     const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);

@@ -27,8 +27,6 @@ export const Solicitud = () => {
     
     //!Obteniendo la solicitud desde la bd
     const [solicitudRecuperada, setSolicitudRecuperada] = useState([]);
-    const capOriginal = solicitudRecuperada.numeroEstudiantesSolicitud;
-
     const [dataAulas, setDataAulas] = useState({
         state: false,
         data: []
@@ -40,7 +38,7 @@ export const Solicitud = () => {
         stateReserva: false,
         dataReserva: []
     })
-
+    
     const { dataReserva, stateReserva } = dataReservas;
 
     //!hook para cambiar capacidad en la interfaz
@@ -55,6 +53,8 @@ export const Solicitud = () => {
 
     const [aulasLibres, setAulasLibres] = useState([]);
 
+    const [capOrignal, setCapOrignal] = useState(0);
+
     //! Hooks para modales
     const [isOpenModalConfirmReserva, opelModalReserva, closeModalReserva] = useModal(false);
     const [isOpenModalAlert, openModalAlert, closeModalAlert] = useModal(false);
@@ -65,16 +65,17 @@ export const Solicitud = () => {
     useEffect(() => {
         
         getSolicitudId(solicitud.id, setSolicitudRecuperada);
-
+        
         getAulas( setDataAulas );
         getReserva( setDataReservas );
         
         
     }, []);
-    
+
     useEffect(() => {
         
         setCapacidadSolicitud(solicitudRecuperada.numeroEstudiantesSolicitud);
+        setCapOrignal(solicitudRecuperada.numeroEstudiantesSolicitud);
     }, [solicitudRecuperada]);
     
     
@@ -83,7 +84,7 @@ export const Solicitud = () => {
         generarAulasDisponibles(dataReserva, data, solicitud.horaInicioSolicitud, solicitud.fechaSolicitud, setAulasLibres)
         
     }, [state, stateReserva])
-
+    
     const reservar = () => {
 
         const datosEliminarAula = [listaReservas[0].idAula, aulasLibres, setAulasLibres]
@@ -141,8 +142,14 @@ export const Solicitud = () => {
                                 : <p className='parrafo-info-soli'>No existen aulas disponibles para la solicitud, debes rechazar la solicitud.</p>
                     }
                 </section>
+
+                {console.log(capOrignal, 'capacidadOrg')}
             </div>
-            <Opciones capacidad={ capacidadSolicitud } openModal={ openModalAlert } capacidadOriginal={ capOriginal } />
+            {
+                solicitudRecuperada != []
+                ? <Opciones capacidad={ capacidadSolicitud } openModal={ openModalAlert } capacidadOriginal={ capOrignal } />
+                : ''
+            }
             <ModalGenerico isOpen={ isOpenModalConfirmReserva } closeModal={ closeModalReserva }>
                 <ConfirmarReservaAula cerrarModal={ closeModalReserva } funcOk={ reservar }/>
             </ModalGenerico>
