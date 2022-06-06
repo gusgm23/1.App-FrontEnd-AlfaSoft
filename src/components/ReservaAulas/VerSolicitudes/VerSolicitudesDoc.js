@@ -9,6 +9,7 @@ import { FormularioReservaAula } from "../FormularioReservaAula";
 import { filtrarSolicitudes } from "../../../helpers/filtrarSolicitudes";
 import { AuthContext } from "../../../auth/authContext";
 import { getSolicitudesDeUsuario } from "../../../helpers/obtenerSolicitudesDeUsuario";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -51,6 +52,13 @@ export const VerSolicitudesDoc = () => {
     }, [stateS]);
 
     console.log(dataSolicitudesUsuario, "asdada");
+
+    const navegar = useNavigate();
+
+    const navegarRegistroSolicitud = () => {
+        navegar('/docente/registrarsolicitud')
+    }
+
     return (
         <div className="contenedor-general-versolicitudes">
             <div className="contenedor-elementos-versolicitudes">
@@ -59,7 +67,7 @@ export const VerSolicitudesDoc = () => {
                     <div className="contenedor-botones-solicitud">
                         <button 
                             className="boton-crear-solicitudes"
-                            onClick={openModalCreate}
+                            onClick={navegarRegistroSolicitud}
                         >
                             <i className="bi bi-plus-square-fill"></i>
                         </button>
@@ -74,14 +82,9 @@ export const VerSolicitudesDoc = () => {
                     : <Spinner/>
                 }
             </div>
-            <ModalGenerico isOpen={isOpenModalCreate} closeModal={closeModalCreate}>
-                <FormularioReservaAula
-                    closeModalCreate={closeModalCreate}
-                    titulo='Registrar'
-                    dataSolicitud={dataSolicitudesUsuario}
-                    setdataSolicitud={setListaSolicitud}
-                />
-            </ModalGenerico>
+            {/* <ModalGenerico isOpen={isOpenModalCreate} closeModal={closeModalCreate}> */}
+                {/* <FormularioReservaAula closeModalCreate={closeModalCreate} titulo='Registrar'/> */}
+            {/* </ModalGenerico> */}
         </div>
     )
 }
