@@ -36,6 +36,8 @@ export const AdminRoutes = () => {
                 <Route exact path='vergrupos'           element={<VerGrupos/>}/>
 
                 <Route exact path='administrarsolicitud'         element={<Solicitud/>}/>
+                <Route exact path='verSolicitudes'           element={<VerSolicitudes/>}/>
+
 
                 
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import { controlarCampoAula, controlarCampoCapacidad, validarCamposLlenosAula, validarCamposVaciosAula } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm'
@@ -36,6 +37,7 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
       solicitud_id: "",
     });
 
+    const navigate = useNavigate();
     useEffect(() => {
         if(capacidad === ''){
             setStatusInputCapacidad(false)
@@ -81,9 +83,8 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
           estadoAula:  itemSeleccionado,
           habilitacionAula:"Habilitado"
         };
-
         createAula({data},1, openModalSuccess,openModalWarning);
-
+        
     }
 
     function handleSubmit(e){
@@ -150,7 +151,14 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
                             type='button' 
                             className='btn btn-warning'
                             onClick={
-                                aulaEdi === '' ? reset : closeModal
+                                 ()=>{
+                                    if(aulaEdi === ''){
+                                        reset();
+                                    }else{
+                                        closeModal()
+                                    } 
+                                    navigate('/admin/veraulas');
+                                }
                             }
                         >
                             Cancelar
@@ -176,7 +184,7 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
                 <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <Hecho cerrarModal={ closeModalSuccess }/>
+            <Hecho cerrarModal={ ()=>{closeModalSuccess();  navigate('/admin/veraulas');} }/>
             </ModalGenerico>
         </div>
     )

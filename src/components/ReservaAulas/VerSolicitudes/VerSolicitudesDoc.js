@@ -9,6 +9,7 @@ import { FormularioReservaAula } from "../FormularioReservaAula";
 import { filtrarSolicitudes } from "../../../helpers/filtrarSolicitudes";
 import { AuthContext } from "../../../auth/authContext";
 import { getSolicitudesDeUsuario } from "../../../helpers/obtenerSolicitudesDeUsuario";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -50,6 +51,14 @@ export const VerSolicitudesDoc = () => {
 
     }, [stateS]);
 
+    console.log(dataSolicitudesUsuario, "asdada");
+
+    const navegar = useNavigate();
+
+    const navegarRegistroSolicitud = () => {
+        navegar('/docente/registrarsolicitud')
+    }
+
     return (
         <div className="contenedor-general-versolicitudes">
             <div className="contenedor-elementos-versolicitudes">
@@ -58,7 +67,7 @@ export const VerSolicitudesDoc = () => {
                     <div className="contenedor-botones-solicitud">
                         <button 
                             className="boton-crear-solicitudes"
-                            onClick={openModalCreate}
+                            onClick={navegarRegistroSolicitud}
                         >
                             <i className="bi bi-plus-square-fill"></i>
                         </button>
@@ -68,19 +77,14 @@ export const VerSolicitudesDoc = () => {
                 {
                     stateSolcitudesUsuario
                     ? dataSolicitudesUsuario.length > 0
-                        ? <Solicitudes data={dataS} setListaSolicitud={setListaSolicitud} />
+                        ? <Solicitudes data={dataSolicitudesUsuario} setListaSolicitud={setListaSolicitud} />
                         : <p className="parraf-solicitudes-vacias">No existen solicitudes pendientes.</p>
                     : <Spinner/>
                 }
             </div>
-            <ModalGenerico isOpen={isOpenModalCreate} closeModal={closeModalCreate}>
-                <FormularioReservaAula
-                    closeModalCreate={closeModalCreate}
-                    titulo='Registrar'
-                    dataSolicitud={dataS}
-                    setdataSolicitud={setListaSolicitud}
-                />
-            </ModalGenerico>
+            {/* <ModalGenerico isOpen={isOpenModalCreate} closeModal={closeModalCreate}> */}
+                {/* <FormularioReservaAula closeModalCreate={closeModalCreate} titulo='Registrar'/> */}
+            {/* </ModalGenerico> */}
         </div>
     )
 }

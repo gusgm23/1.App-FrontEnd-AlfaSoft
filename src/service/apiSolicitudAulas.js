@@ -1,8 +1,9 @@
 import axios from "axios";
+import { baseUrl } from "./apiAulas";
 
 //API para obtener las solicitudes pendientes
 export const getSolicitudPendiente = async ( setListaSolicitudPendiente ) => {
-    await axios.get(`http://127.0.0.1:8000/api/obtenerSolicitudPendiente`)
+    await axios.get(`${baseUrl}/obtenerSolicitudPendiente`)
     .then(response => {
         setListaSolicitudPendiente({
             state: true,
@@ -15,7 +16,7 @@ export const getSolicitudPendiente = async ( setListaSolicitudPendiente ) => {
 }
 
 export const getSolicitud = async (setListaSolicitud) => {
-    await axios.get(`http://127.0.0.1:8000/api/obtenerSolicitud`)
+    await axios.get(`${baseUrl}/obtenerSolicitud`)
         .then(response => {
             setListaSolicitud({
                 stateS: true,
@@ -27,8 +28,14 @@ export const getSolicitud = async (setListaSolicitud) => {
         })
 }
 
-export const getSolicitudId = (id) => {
-    return axios.get(`http://127.0.0.1:8000/api/obtenerSolicitudId/${id}`);
+export const getSolicitudId = async (id, setter) => {
+    await axios.get(`${baseUrl}/obtenerSolicitudId/${id}`)
+        .then(response => {
+            setter(response.data);
+        })
+        .catch(e => {
+            console.log(e);
+        })
 }
 
 export const createSolicitud = (  
@@ -36,7 +43,8 @@ export const createSolicitud = (
     materia_id, 
     materiaSolicitud, 
     grupoSolicitud, 
-    pendiente='pendiente', 
+    pendiente='pendiente',
+    motivo='ninguno', 
     openModalSuccess, 
     openModalWarning 
     ) => {
@@ -45,18 +53,21 @@ export const createSolicitud = (
             apellidoDocente, 
             cantidadEstudiantes, 
             motivoSolicitud, 
+            // motivoRechazo,
             fechaSolicitud, 
             horaSolicitud, 
             peridoSolicitud
         } = formValues;
 
-    return axios.post(`http://127.0.0.1:8000/api/crearSolicitud`, 
+    return axios.post(`${baseUrl}/crearSolicitud`, 
     {
         //id:                             `${data.id}`,
         nombreDocenteSolicitud:         `${nombreDocente}`,
         apellidoDocenteSolicitud:       `${apellidoDocente}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
         motivoSolicitud:                `${motivoSolicitud}`,
+        //nuevo atributo
+        motivoRechazo:                  `${motivo}`,
         fechaSolicitud:                 `${fechaSolicitud}`,
         horaInicioSolicitud:            `${horaSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
@@ -79,6 +90,7 @@ export const updateSolicitudId = async (
     materiaSolicitud,
     grupoSolicitud,
     pendiente='pendiente',
+    motivo='ninguno',
     openModalSuccess,
     openModalWarning, 
     id 
@@ -93,13 +105,15 @@ export const updateSolicitudId = async (
             peridoSolicitud
         } = formValues;
 
-    return await axios.put(`http://127.0.0.1:8000/api/actualizarSolicitud/${id}`, 
+    return await axios.put(`${baseUrl}/actualizarSolicitud/${id}`, 
     {
         id:                             `${id}`,
         nombreDocenteSolicitud:         `${nombreDocente}`,
         apellidoDocenteSolicitud:       `${apellidoDocente}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
         motivoSolicitud:                `${motivoSolicitud}`,
+        motivoRechazo:                  `${motivo}`,
+
         fechaSolicitud:                 `${fechaSolicitud}`,
         horaInicioSolicitud:            `${horaSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
@@ -125,7 +139,8 @@ export const updateSolicitud = async (solicitud) => {
         nombreDocenteSolicitud, 
         apellidoDocenteSolicitud, 
         numeroEstudiantesSolicitud, 
-        motivoSolicitud, 
+        motivoSolicitud,
+        motivoRechazo, 
         fechaSolicitud, 
         horaInicioSolicitud, 
         periodoSolicitud, 
@@ -134,13 +149,14 @@ export const updateSolicitud = async (solicitud) => {
         grupoSolicitud, 
         materia_id } = solicitud;
 
-    await axios.put(`http://127.0.0.1:8000/api/actualizarSolicitud/${id}`, 
+    await axios.put(`${baseUrl}/actualizarSolicitud/${id}`, 
         {
             id:                             `${id}`,
             nombreDocenteSolicitud:         `${nombreDocenteSolicitud}`,
             apellidoDocenteSolicitud:       `${apellidoDocenteSolicitud}`,
             numeroEstudiantesSolicitud:     `${numeroEstudiantesSolicitud}`,
             motivoSolicitud:                `${motivoSolicitud}`,
+            motivoRechazo:                   `${motivoRechazo}`,
             fechaSolicitud:                 `${fechaSolicitud}`,
             horaInicioSolicitud:            `${horaInicioSolicitud}`,
             periodoSolicitud:               `${periodoSolicitud}`,
@@ -160,5 +176,5 @@ export const updateSolicitud = async (solicitud) => {
 }
 
 export const deleteSolicitud = (id) => {
-    return axios.delete(`https://reserva-de-aulas-backend.herokuapp.com/api/eliminarSolicitud/${id}`);
+    return axios.delete(`${baseUrl}/eliminarSolicitud/${id}`);
 }

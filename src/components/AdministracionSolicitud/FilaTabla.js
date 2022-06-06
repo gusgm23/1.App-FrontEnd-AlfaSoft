@@ -27,7 +27,7 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
             idAula: id
         }
 
-        const lista = datosCapacidad.listaReservas;
+        const lista = [];
         lista.push(reserva);
 
         guardarDatos({
