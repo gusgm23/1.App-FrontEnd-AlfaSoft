@@ -84,7 +84,7 @@ export const updateSolicitudId = async (
     materiaSolicitud,
     grupoSolicitud,
     pendiente='pendiente',
-    //motivo,
+    motivo='ninguno',
     openModalSuccess,
     openModalWarning, 
     id 
@@ -93,8 +93,7 @@ export const updateSolicitudId = async (
             nombreDocente, 
             apellidoDocente, 
             cantidadEstudiantes,
-            motivoSolicitud,
-            motivoRechazo, 
+            motivoSolicitud, 
             fechaSolicitud, 
             horaSolicitud, 
             peridoSolicitud
@@ -107,7 +106,7 @@ export const updateSolicitudId = async (
         apellidoDocenteSolicitud:       `${apellidoDocente}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
         motivoSolicitud:                `${motivoSolicitud}`,
-        motivoRechazo:                  `${motivoRechazo}`,
+        motivoRechazo:                  `${motivo}`,
 
         fechaSolicitud:                 `${fechaSolicitud}`,
         horaInicioSolicitud:            `${horaSolicitud}`,

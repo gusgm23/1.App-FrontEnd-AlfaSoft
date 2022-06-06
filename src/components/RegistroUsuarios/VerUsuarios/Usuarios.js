@@ -164,20 +164,6 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
                 </ModalGenerico> 
         </div>
         
-        {/* <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm } > */}
-            {/* <Confirmacion  */}
-                {/* // // title={'¿Esta seguro de eliminar?'} */}
-                {/* // // cancel={() => { */}
-                    {/* // closeModalConfirm(); */}
-                {/* // }} */}
-                {/* // confirm={() => { */}
-                    {/* // eliminacionDeUsuarios(); */}
-                {/* // }} */}
-                
-                
-            {/* /> */}
-        {/* </ModalGenerico> */}
-        
         </>
     );
 };

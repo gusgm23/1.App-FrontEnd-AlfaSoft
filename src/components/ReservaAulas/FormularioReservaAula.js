@@ -16,6 +16,7 @@ import { getGrupoMateria } from '../../service/apiGrupoMaterias';
 
 //Importacion de las APIs para la solicitud
 import { getSolicitud, getSolicitudId, createSolicitud, updateSolicitudId, deleteSolicitud } from '../../service/apiSolicitudAulas';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -215,9 +216,15 @@ export const FormularioReservaAula = ({
     }, [states]);
 
 
+    const navegar = useNavigate();
+
+    const volverAtrasSolicitud = () => {
+        navegar(-1);
+    }
+
     return (
         <div className='contenedor-reserva-aulas'>
-            <h1 className="titulo-reserva-aulas">{titulo === ''? 'Reservar Aula' : `${titulo} Aula` }</h1>
+            <h1 className="titulo-reserva-aulas">{titulo === ''? 'Solicitud de Reserva de Aula' : `${titulo} Solicitud de Reserva` }</h1>
             <form onSubmit={ handleSubmit } >
                 <div className="contenedor-reserva">
                     <div className="contenedor-elementos-reserva-aulas">
@@ -362,7 +369,7 @@ export const FormularioReservaAula = ({
                             <button 
                                 className="btn boton-cancelar" 
                                 type="button"
-                                onClick={ nomDocente === ''? reset : closeModal}
+                                onClick={ nomDocente === ''? volverAtrasSolicitud : closeModal}
                             >
                                 Cancelar
                             </button>

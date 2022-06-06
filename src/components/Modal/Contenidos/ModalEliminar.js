@@ -1,7 +1,7 @@
 import React from 'react';
 import confirmacionImg from "../../../images/preg.svg";
 import { ModificarUsuario } from '../../../service/apiUsuarios';
-//import './modalEliminar.css';
+import './modalEliminar.css';
 
 export const ModalEliminar = ({cerrarModal, eliminarUsuario}) => {
 
@@ -10,7 +10,9 @@ export const ModalEliminar = ({cerrarModal, eliminarUsuario}) => {
   return (
     <div className='modalEliminarUusarios'>
       <div className='modalContenedorUsuario'>
-    
+        <div className='AdvertenciaEliminarUsuario'>
+          <h1>¡Advertencia!</h1>
+        </div>
         <div className='tituloEliminarUsuario'>
             <h2>¿Estas seguro de eliminar el usuario?</h2>
         </div>
@@ -18,8 +20,8 @@ export const ModalEliminar = ({cerrarModal, eliminarUsuario}) => {
             <img src={confirmacionImg} className="img-advertencia" alt="alert" />
         </div>
         <div className='botonesEliminarUsuario'>
-            <button onClick={cerrarModal} id="BotonCancelar">Cancelar</button>
-            <button onClick={() => {eliminarUsuario()}}>Si</button>
+            <button className='btnModalCancelar' onClick={cerrarModal}>Cancelar</button>
+            <button className='btnModalAceptar' onClick={() => {eliminarUsuario()}}>Si</button>
         </div>
       </div>
     </div>
