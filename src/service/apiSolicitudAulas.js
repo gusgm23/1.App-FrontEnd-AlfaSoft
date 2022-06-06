@@ -28,8 +28,14 @@ export const getSolicitud = async (setListaSolicitud) => {
         })
 }
 
-export const getSolicitudId = (id) => {
-    return axios.get(`${baseUrl}/obtenerSolicitudId/${id}`);
+export const getSolicitudId = async (id, setter) => {
+    await axios.get(`${baseUrl}/obtenerSolicitudId/${id}`)
+        .then(response => {
+            setter(response.data);
+        })
+        .catch(e => {
+            console.log(e);
+        })
 }
 
 export const createSolicitud = (  
