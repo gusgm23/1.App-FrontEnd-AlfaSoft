@@ -104,3 +104,7 @@ table tr:nth-child(odd) td {
 .bi-clipboard2-plus-fill {
     color: #00AB66;
 }
+
+.parraf-solicitudes-vacio {
+    color: #000;
+}
