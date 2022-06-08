@@ -44,7 +44,7 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
         } = Valores;
 
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
-    //const[isOpenModalEdition, openModalEdition, closeModalEdition] = useModal(false);
+    const[isOpenModalEdition, openModalEdition, closeModalEdition] = useModal(false);
     const [ isOpenModalConfirm, openModalConfirm, closeModalConfirm ] = useModal(false); 
 
     const [dataSolicitud, setdataSolicitud] = useState([]);
@@ -84,6 +84,7 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
                                 <tr key={item.id}>
                                     <td>{ i+1}</td>
                                     <td>{ item.nombreDocenteSolicitud}</td>
+                                    <td>{ item.apellidoDocenteSolicitud}</td>
                                     <td>{ item.numeroEstudiantesSolicitud}</td>
                                     <td>{ item.motivoSolicitud}</td>
                                     <td>{ item.fechaSolicitud}</td>
@@ -97,13 +98,11 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
                                                 <i className="bi bi-pencil-fill"></i>
                                             </button>
                                         </section>
-                                        <section className='caja-botones-solicitudes'>
-                                            <button
-                                                className='boton-editar-solicitudes'
-                                            >
-                                                <i className="bi bi-trash-fill"></i>
-                                            </button>
-                                        </section>
+                                        {/* <section className='caja-botones-solicitudes'> */}
+                                            {/* <button className='boton-editar-solicitudes'> */}
+                                                {/* <i className="bi bi-trash-fill"></i> */}
+                                            {/* </button> */}
+                                        {/* </section> */}
                                     </td>
                                 </tr>
                             ))
@@ -115,7 +114,7 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
                 isOpen &&
                 <ModalGenerico isOpen={ isOpen } closeModal={ closeModalEdicion } >
                     <FormularioReservaAula
-                        titulo='Editar Reserva de'  
+                        titulo='Editar'  
                         idsolicitud    ={id}
                         nomDocente     ={nombreSoli  }
                         apeDocente     ={apellidoSoli}
@@ -128,7 +127,7 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
                         selectsGrupos  ={grupoSoli   }
                         closeModal={ closeModalEdicion }
                         setListaSolicitud={ setListaSolicitud }
-                        dataSolicitud={data}
+                        dataOptenida={data}
                     />
                 </ModalGenerico>
             }

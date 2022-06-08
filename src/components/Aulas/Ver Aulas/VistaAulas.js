@@ -186,13 +186,16 @@ export const VistaAulas = () => {
 
             {/* </form> */}
           </div>
+          <div style={{display:"flex",justifyContent:"space-between"}}>
           <h2 className="titulo-ver-aulas">Aulas Registradas: </h2>
           <button 
                         className='btn-crear-materia'
                         onClick={ ()=>{navigate('/admin/registroAula')} }
                     >
-                        <i className="biribanban bi-plus-square-fill"></i>
+                        <i className="bi-plus-square-fill"></i>
                     </button>
+
+          </div>
 
           <hr />
           {/* {true && (
@@ -224,8 +227,9 @@ export const VistaAulas = () => {
                           handleEdit(item);
                         }}
                       >
-                        <i class="bi bi-pencil-fill"></i>
+                        <i className="bi bi-pencil-fill"></i>
                       </button>
+
                       <button
                         className="btn boton-editar-usuarios btn btn-light btn-sm w-auto ms-1"
                         onClick={() => {
@@ -233,7 +237,7 @@ export const VistaAulas = () => {
                           setClassRoomToDelete(item);
                         }}
                       >
-                        <i class="bi bi-trash-fill"></i>
+                        <i className="bi bi-trash-fill"></i>
                       </button>
                     </td>
                   </tr>

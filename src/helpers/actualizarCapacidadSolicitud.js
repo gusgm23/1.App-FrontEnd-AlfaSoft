@@ -2,7 +2,6 @@ import { updateSolicitud } from "../service/apiSolicitudAulas"
 
 //!Metodo encargado de reducir la capacidad de una solicitud en la bd
 export const reducirCapacidadSolicitud = (solicitud, nuevaCantidad) => {
-
     if( nuevaCantidad > 0){
         
         const nuevaSolicitud = {
@@ -22,6 +21,5 @@ export const reducirCapacidadSolicitud = (solicitud, nuevaCantidad) => {
     
         updateSolicitud(nuevaSolicitud);
     }
-
 
 }

@@ -34,8 +34,7 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
 
     const rechazarSolicitud = () => {
 
-        rechazar();
-        console.log(solicitud)
+        setOpenModalRechazo(true)
 
     }
 
@@ -61,8 +60,7 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                                     rechazarSolicitud()
                                     // setOpenModalRechazo(true)
                                 }
-                            >
-                                Rechazar
+                            ><i class="bi bi-x-lg"></i> Rechazar
                             </button>
                         )
                         : ''

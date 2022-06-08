@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import "./modalrechazo.css";
 import { useLocation } from 'react-router-dom';
-import { useModal } from '../../hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 
@@ -32,11 +31,6 @@ export const ModalRechazo = ({
 				materia_id:solicitud.materia_id 
 				 
 	});
-
-	const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
-	const [isOpenModalWarning, openModalWarning, closeModalWarning] = useModal(false);
-	const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
-
 	const navigate=useNavigate();
 	function handleNavigate() {
         

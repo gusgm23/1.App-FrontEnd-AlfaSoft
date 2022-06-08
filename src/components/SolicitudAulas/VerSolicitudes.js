@@ -38,10 +38,10 @@ export const VerSolicitudes = () => {
                 <hr/>
                 {
                     stateS  ?
-                        (listaSolicitudesPendientes.length > 0)
-                        ? <Solicitudes data={listaSolicitudesPendientes} />
-                        : <p className='parraf-solicitudes-vacio'> No existen solicitudes pendientes.</p>
-                    
+                    (listaSolicitudesPendientes.length > 0)
+                    ? <Solicitudes data={listaSolicitudesPendientes} />
+                    : <p className='parraf-solicitudes-vacio'> No existen solicitudes pendientes.</p>
+                
                     : <Spinner/>
                 }
             </div>
