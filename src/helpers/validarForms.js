@@ -13,10 +13,10 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 
 }
 
-export const validaCamposVaciosGrupo = ( valores = {} ) => {
+export const validaCamposVaciosGrupo = ( valores = {}, docente ) => {
     const { grupo } = valores;
 
-    if( grupo.length == 0){
+    if( grupo.length == 0 || docente === 'Vacio' ){
         return true;
     }else {
         return false;
@@ -192,43 +192,6 @@ export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExis
 
 }
 
-//Métodos para formulario Grupo
-export const verificarExistenciaGrupo = (data=[], formValues, setExisteGrupo, setSePuedeGuardar, grupoEdit) => {
-
-    const idMat = localStorage.getItem('id');
-
-    const { grupo } = formValues;
-
-    let existeGrupo = false
-
-    data.forEach(element => {
-        if( grupoEdit === '' ){
-            if(element.materia_id == idMat){
-                if( element.grupoMateria === grupo && !existeGrupo ){
-            
-                    setExisteGrupo(true);
-                    existeGrupo = true;
-                    
-                }else if(element.grupoMateria != grupo &&!existeGrupo ){
-                    setExisteGrupo(false);
-                    setSePuedeGuardar(true);
-                }
-            }
-        }else{
-            if( element.grupoMateria === grupo && !existeGrupo && element.grupoMateria != grupoEdit){
-            
-                setExisteGrupo(true);
-                existeGrupo = true;
-                
-            }else if(element.grupoMateria != grupo &&!existeGrupo && element.grupoMateria != grupoEdit){
-                setExisteGrupo(false);
-                setSePuedeGuardar(true);
-            }
-        }
-    });
-
-}
-
 //Para controlar los campos del formulario de solicitud de aulas
 export const controlarCampoNomDocente = ( nombreDocente='', setStatusInputNomDocente, setMsjErrorNomDocente) => {
     const tamanioNomDocente = nombreDocente.length;
@@ -356,4 +319,16 @@ export const validarCamposLlenosSolicitud = (valores = {}) => {
                     peridoSolicitud);
                 return false;
             }
+}
+
+export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc) => {
+    let existeGrupo = false;
+
+    listaGrupos.forEach(element => {
+        if(element.grupoMateria === grupo && element.idDocente === idDoc && !existeGrupo) {
+            existeGrupo = true
+        }
+    })
+
+    return existeGrupo
 }

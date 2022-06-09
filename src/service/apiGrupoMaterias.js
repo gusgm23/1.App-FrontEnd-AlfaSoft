@@ -4,10 +4,13 @@ import { baseUrl } from "./apiAulas";
 export const getGrupoMateria = async ( setStateData ) => {
     await axios.get(`${baseUrl}/obtenerGrupos`)
     .then( response => {
-        setStateData({
-            states: true,
-            datas: response.data
-        });
+
+        const data = {
+            state: true,
+            data: response.data
+        }
+
+        setStateData(data);
     } )
     .catch( e => {
         console.log(e);
@@ -27,10 +30,12 @@ export const getGrupoMateriaId = (id, setStateData) => {
     } )
 }
 
-export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning) => {
-    return axios.post(`${baseUrl}/crearGrupos`,
+export const createGrupoMateria = async ( grupoMateria, estadoGrupoMateria, materia_id, idDocente, openModalSuccess, openModalWarning) => {
+    
+    await axios.post(`${baseUrl}/crearGrupos`,
     {
         grupoMateria:        `${grupoMateria}`,
+        idDocente:           `${idDocente}`,
         estadoGrupoMateria:  `${estadoGrupoMateria}`,
         materia_id:          `${materia_id}`
     }
@@ -45,11 +50,12 @@ export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id
     });
 }
 
-export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning, id) => {
+export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_id, idDocente,openModalSuccess, openModalWarning, id) => {
     return axios.put(`${baseUrl}/actualizarGrupos/${id}`,
     {
         id:                  `${id}`,
         grupoMateria:        `${grupoMateria}`,
+        idDocente:           `${idDocente}`,
         estadoGrupoMateria:  `${estadoGrupoMateria}`,
         materia_id:          `${materia_id}`
     }

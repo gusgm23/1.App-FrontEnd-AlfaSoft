@@ -23,14 +23,14 @@ export const Confirmacion = ({cerrarModal, funcGuardar}) => {
                 </p>
                 <div className='contenedor-btns-confirmacion'>
                     <button
-                        className='btn-cancelar btn-confirmacion'
+                        className='btn-cancelar-guardado btn-confirmacion'
                         onClick={cerrarModal}
                     >
                         Cancelar
                     </button>
                     <button
                         className='btn-guardar btn-confirmacion'
-                        onClick={btnGuardar}
+                        onClick={() => btnGuardar()}
                     >
                         Guardar
                     </button>

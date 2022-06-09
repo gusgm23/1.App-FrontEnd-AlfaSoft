@@ -16,7 +16,7 @@ export const VerMaterias = () => {
 
     useEffect(() => {
         getMateria(setListaMateria);
-    }, [state]);
+    }, []);
 
     const navigate = useNavigate();
 

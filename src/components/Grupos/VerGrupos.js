@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
+
 import { NavLink } from 'react-router-dom'
 
-import ListaMaterias from '../../data/ListaMaterias'
 import { filtrarGrupos } from '../../helpers/filtrarGrupos'
+import { obtenerUsuariosPorId } from '../../helpers/obtenerUsuarioPorID'
 import { useModal } from '../../hooks/useModal'
 import { getGrupoMateria } from '../../service/apiGrupoMaterias'
+import { getUsuarios } from '../../service/apiUsuarios'
 import { ModalGenerico } from '../Modal/ModalGenerico'
+import Spinner from '../Spinner/Spinner'
 
 import './estilos-ver-grupos.css'
 import { FormRegistroGrupo } from './RegistrarGrupo/FormRegistroGrupo'
@@ -15,14 +18,16 @@ export const VerGrupos = () => {
     const [isOpenModalCreate, openModalCreate, closeModalCreate] = useModal(false);
     const[isOpenModalEdition, openModalEdition, closeModalEdition] = useModal(false);
 
-    const [listaMat, setListaMat] = useState({
-        state: false,
-        data: []
-    });
+    const [listaMat, setListaMat] = useState({});
 
     const [datos, setDatos] = useState({
         id: '',
         grupo: ''
+    })
+
+    const [listaUsuarios, setListaUsuarios] = useState({
+        state: false,
+        data: []
     })
 
     const [grupoEditar, setGrupoEditar] = useState({
@@ -34,18 +39,19 @@ export const VerGrupos = () => {
     const [dataLimpia, setDataLimpia] = useState([]);
 
     const materiaID = localStorage.getItem("id");
-
-    const { states, datas } = listaMat;
     const { id, grupo } = datos;
     const { idGrupo, nombreGrupo, estadoGrupo } = grupoEditar;
 
     useEffect(() => {
-
-        if( datas != [] ){
-            getGrupoMateria(setListaMat);
-            filtrarGrupos(datas,materiaID, setDataLimpia);
-        }
-    }, [states]);
+        getGrupoMateria(setListaMat);
+        getUsuarios(setListaUsuarios);
+    }, []);
+    
+    useEffect(() => {
+        filtrarGrupos(listaMat.data,materiaID, setDataLimpia);
+        
+    }, [listaMat])
+    
 
     const editar = (idEditar, nombreGrupoEditar, estadoGrupoEditar) => {
         setGrupoEditar({
@@ -79,37 +85,46 @@ export const VerGrupos = () => {
                     </div>
                     <hr/>
                     <div className='contenedor-tabla'>
-                        <table>
-                            <thead>
-                                <tr className='titulo-tabla'>
-                                    <th>#</th>
-                                    <th>Grupo</th>
-                                    <th>Estado</th>
-                                    <th>Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    dataLimpia.map( (item, i) => (
-                                        <tr key={ item.id }>
-                                            <td className='col-id'>{i+1}</td>
-                                            <td className='col-grupo'>{ item.grupoMateria }</td>
-                                            <td> { item.estadoGrupoMateria } </td>
-                                            <td className='td-btns'>
-                                                <section className='caja-btns'>
-                                                    <button 
-                                                        className='editar-grupo'
-                                                        onClick={ () => ( editar(item.id, item.grupoMateria, item.estadoGrupoMateria) ) }
-                                                    >
-                                                        <i className="bi bi-pencil-fill"></i>
-                                                    </button>
-                                                </section>
-                                            </td>
+                        {
+                            listaUsuarios.state 
+                            ?
+                                <table>
+                                    <thead>
+                                        <tr className='titulo-tabla'>
+                                            <th>#</th>
+                                            <th>Grupo</th>
+                                            <th>Estado</th>
+                                            <th>Docente asignado</th>
+                                            <th>Opciones</th>
                                         </tr>
-                                    ))
-                                }
-                            </tbody>
-                        </table>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            
+                                            dataLimpia.map( (item, i) => (
+                                                <tr key={ item.id }>
+                                                    <td className='col-id'>{i+1}</td>
+                                                    <td className='col-grupo'>{ item.grupoMateria }</td>
+                                                    <td> { item.estadoGrupoMateria } </td>
+                                                    <td>{ obtenerUsuariosPorId(listaUsuarios.data, item.idDocente) }</td>
+                                                    <td className='td-btns'>
+                                                        <section className='caja-btns'>
+                                                            <button 
+                                                                className='editar-grupo'
+                                                                onClick={ () => ( editar(item.id, item.grupoMateria, item.estadoGrupoMateria) ) }
+                                                            >
+                                                                <i className="bi bi-pencil-fill"></i>
+                                                            </button>
+                                                        </section>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                            
+                                        }
+                                    </tbody>
+                                </table>
+                            : <Spinner />
+                        }
                     </div>
                     
                 </div>
