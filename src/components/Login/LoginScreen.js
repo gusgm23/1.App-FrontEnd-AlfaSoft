@@ -79,8 +79,6 @@ export const LoginScreen = () => {
 
         dispatch(action);
 
-        console.log(rolObtenido.rol, 'roool')
-
         if(rolObtenido.rol === 'Administrador'){
             ruta = '/admin/adminhome'
         }else{
