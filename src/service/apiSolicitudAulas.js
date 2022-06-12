@@ -45,6 +45,7 @@ export const createSolicitud = (
     grupoSolicitud, 
     pendiente='pendiente',
     motivo='ninguno', 
+    cantidadAsignada='0',
     openModalSuccess, 
     openModalWarning 
     ) => {
@@ -65,6 +66,7 @@ export const createSolicitud = (
         nombreDocenteSolicitud:         `${nombreDocente}`,
         apellidoDocenteSolicitud:       `${apellidoDocente}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
+        cantidadEstudiantesAsignada:    `${cantidadAsignada}`,
         motivoSolicitud:                `${motivoSolicitud}`,
         //nuevo atributo
         motivoRechazo:                  `${motivo}`,
@@ -91,6 +93,7 @@ export const updateSolicitudId = async (
     grupoSolicitud,
     pendiente='pendiente',
     motivo='ninguno',
+    cantidadAsignada='0',
     openModalSuccess,
     openModalWarning, 
     id 
@@ -111,6 +114,7 @@ export const updateSolicitudId = async (
         nombreDocenteSolicitud:         `${nombreDocente}`,
         apellidoDocenteSolicitud:       `${apellidoDocente}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
+        cantidadEstudiantesAsignada:    `${cantidadAsignada}`,
         motivoSolicitud:                `${motivoSolicitud}`,
         motivoRechazo:                  `${motivo}`,
 

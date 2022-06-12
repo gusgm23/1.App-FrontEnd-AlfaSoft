@@ -15,8 +15,10 @@ import { GruposDocente } from './GruposDocente';
 import { getGrupoMateria } from '../../service/apiGrupoMaterias';
 
 //Importacion de las APIs para la solicitud
-import { getSolicitud, getSolicitudId, createSolicitud, updateSolicitudId, deleteSolicitud } from '../../service/apiSolicitudAulas';
+import { getSolicitud, createSolicitud, updateSolicitudId } from '../../service/apiSolicitudAulas';
 import { useNavigate } from 'react-router-dom';
+import { Calendar } from 'primereact/calendar';
+import { addLocale } from 'primereact/api';
 
 
 
@@ -34,20 +36,20 @@ export const FormularioReservaAula = ({
         closeModal = () => {}, titulo='', idsolicitud='', setListaSolicitud
     }) => {
 
-    const [formValues, handleInputChange, reset] = useForm({
+    const [formValues, handleInputChange] = useForm({
        
         nombreDocente:          nomDocente,
         apellidoDocente:        apeDocente,
         cantidadEstudiantes:    cantEstudiantes,
         motivoSolicitud:        motSolicitud,
         // motvioRechazo:          motRechazo,
-        fechaSolicitud:         fecSolicitud,
+        //fechaSolicitud:         fecSolicitud,
         peridoSolicitud:        perSolicitud,
         horaSolicitud:          horSolicitud,
         
     })
 
-    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud} = formValues;
+    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, horaSolicitud, peridoSolicitud} = formValues;
 
     //hooks para controlar contenidos de campos
     const [StatusInputNomDocente, setStatusInputNomDocente] = useState(false);
@@ -143,7 +145,7 @@ export const FormularioReservaAula = ({
         let contador = 0;
 
         arregloSolicitud.map((solicitud) => {
-            if( idsolicitud == solicitud.id ){
+            if( idsolicitud === solicitud.id ){
                 arregloSolicitud[contador].nombreDocenteSolicitud       = nomS;
                 arregloSolicitud[contador].apellidoDocenteSolicitud     = apeS;
                 arregloSolicitud[contador].numeroEstudiantesSolicitud   = canS;
@@ -169,9 +171,9 @@ export const FormularioReservaAula = ({
         setStatePetition(true);
 
         if( idsolicitud === '' ) {
-            createSolicitud( formValues, '1', selects, selectsGrupos, 'pendiente','ninguno', openModalSuccess, openModalWarning ); 
+            createSolicitud( formValues, '1', selects, selectsGrupos, 'pendiente','ninguno', '0', openModalSuccess, openModalWarning ); 
         }else {
-            updateSolicitudId(formValues, '1', selects, selectsGrupos, 'pendiente','ninguno', openModalSuccess, openModalWarning, idsolicitud);
+            updateSolicitudId(formValues, '1', selects, selectsGrupos, 'pendiente','ninguno', '0', openModalSuccess, openModalWarning, idsolicitud);
             editarSolicitud(nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud, selects, selectsGrupos)
         }
     }
@@ -222,6 +224,35 @@ export const FormularioReservaAula = ({
         navegar(-1);
     }
 
+    //Invalidar dias del calendario
+    const [ fechaSolicitud, setfechaSolicitud ] = useState(null);
+
+        
+        let today = new Date();
+        let month = today.getMonth();
+        let year = today.getFullYear();
+        let prevMonth = (month === 0) ? 11 : month - 0;
+        let prevYear = (prevMonth === 11) ? year - 1 : year;
+
+        let minDate = new Date();
+        minDate.setMonth(prevMonth);
+        minDate.setFullYear(prevYear);
+
+
+        let invalidDates = [today];
+
+        addLocale('en', {
+            firstDayOfWeek: 1,
+            dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+            dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+            today: 'Hoy',
+            clear: 'Limpiar'
+        });
+
+
     return (
         <div className='contenedor-reserva-aulas'>
             <h1 className="titulo-reserva-aulas">{titulo === ''? 'Solicitud de Reserva de Aula' : `${titulo} Solicitud de Reserva` }</h1>
@@ -260,7 +291,6 @@ export const FormularioReservaAula = ({
                                 <p className={ StatusInputApeDocente===true? "mensaje-error" : "mensaje-error-oculto" }>
                                     { MsjErrorApeDocente }
                                 </p>
-                                {/* <input value={apellidoDocenteSolicitud} onChange={event => setapellidoDocenteSolicitud(event.target.value)}></input> */}
                             </div>
                         </div>
                         <div className="campos-reserva-aulas">
@@ -296,30 +326,42 @@ export const FormularioReservaAula = ({
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Motivo de solicitud:</label>
                             <div className='contenedor-inputs'>
-                                <textarea 
-                                    name='motivoSolicitud'
-                                    className={ StatusInputMotivo===true? "input-error" : "inputsSolicitud" }
-                                    type="text"
-                                    placeholder='Ingresar Motivo Solicitud'
-                                    value={ motivoSolicitud }
+                                {/* <textarea name='motivoSolicitud' className={ StatusInputMotivo===true? "input-error" : "inputsSolicitud" } type="text"placeholder='Ingresar Motivo Solicitud' value={ motivoSolicitud } onChange= { handleInputChange } > */}
+                                {/* </textarea> */}
+                                {/* <p className={ StatusInputMotivo===true? "mensaje-error" : "mensaje-error-oculto" }> */}
+                                    {/* { MsjErrorMotivo } */}
+                                {/* </p> */}
+                                <select 
+                                    name='motivoSolicitud' 
+                                    className='inputsSolicitud'
+                                    placeholder="Seleccionar motivo." 
+                                    value={ motivoSolicitud } 
                                     onChange= { handleInputChange }
-                                ></textarea>
-                                <p className={ StatusInputMotivo===true? "mensaje-error" : "mensaje-error-oculto" }>
-                                    { MsjErrorMotivo }
-                                </p>
+                                > 
+                                    <option> Examen Primer Parcial </option>
+                                    <option> Examen Segundo Parcial </option>
+                                    <option> Examen Final </option>
+                                    <option> Examen Segunda Instancia </option>
+                                    <option> Examen de Mesa 1ra Opción </option>
+                                    <option> Examen de Mesa 2ra Opción </option>
+                                </select>
                             </div>
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Fecha de Examen: </label>
                             <div className='contenedor-inputs'>
-                                <input
+                                {/* <input name='fechaSolicitud' className='inputsSolicitud' type="date" min={disableDates} value={ fechaSolicitud } onChange={ handleInputChange } /> */}
+                                <Calendar 
+                                id="disableddays"
                                     name='fechaSolicitud'
                                     className='inputsSolicitud'
-                                    type="date"
-                                    min="2022-06-07"
-                                    // pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
                                     value={ fechaSolicitud }
-                                    onChange={ handleInputChange }
+                                    onChange={ (e) => setfechaSolicitud(e.value) }
+                                    disabledDates={invalidDates} 
+                                    disabledDays={[0]}
+                                    minDate={minDate}
+                                    showIcon 
+                                    readOnlyInput 
                                 />
                             </div>
                         </div>
@@ -349,19 +391,6 @@ export const FormularioReservaAula = ({
                                     value={ horaSolicitud }
                                     onChange={ handleInputChange }
                                 ></input>
-                            </div>
-                        </div>
-                        <div className="campos-reserva-aulas-estado">
-                            <label className="labels"> Estado Solicitud: </label>
-                            <div className='contenedor-inputs'>
-                                <select 
-                                    name='estadoSolicitud'
-                                    id='estados'
-                                    className="inputsSolicitud"  
-                                                                   
-                                >
-                                    <option > Pendiente </option>
-                                </select>
                             </div>
                         </div>
 

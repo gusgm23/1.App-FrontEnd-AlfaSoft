@@ -3,9 +3,9 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 
     const Sis = parseInt(codSis);
 
-    if(Sis === 0 && materia.length == 0){
+    if(Sis === 0 && materia.length === 0){
         return true;
-    }else if(Sis === 0 || materia.length == 0){
+    }else if(Sis === 0 || materia.length === 0){
         return true;
     }else {
         return false;
@@ -16,7 +16,7 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 export const validaCamposVaciosGrupo = ( valores = {} ) => {
     const { grupo } = valores;
 
-    if( grupo.length == 0){
+    if( grupo.length === 0){
         return true;
     }else {
         return false;
@@ -54,10 +54,10 @@ export const validarCamposVaciosAula = ( valores = {}, estado = '' ) => {
 
     const { aula, capacidad } = valores;
 
-    if( aula.length == 0 && capacidad == 0 && estado ===  'estado'){
+    if( aula.length === 0 && capacidad === 0 && estado ===  'estado'){
         console.log('campos vacios');
         return true;
-    }else if( aula.length == 0 || capacidad == 0 || estado ===  'estado' ){
+    }else if( aula.length === 0 || capacidad === 0 || estado ===  'estado' ){
         console.log('existen campos vacios')
         return true;
     }else {
@@ -171,8 +171,8 @@ export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExis
             }
         }else{
             
-            if(element.codigoMateria === codSis && element.codigoMateria != codiSis){
-                if(element.nombreMateria === materia && element.nombreMateria != materi){
+            if(element.codigoMateria === codSis && element.codigoMateria !== codiSis){
+                if(element.nombreMateria === materia && element.nombreMateria !== materi){
                     setCodExiste(true);
                     setMateriaExiste(true);
                     setSePuedeGuardar(false);
@@ -180,7 +180,7 @@ export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExis
                     setCodExiste(true);
                     setSePuedeGuardar(false);
                 }
-            }else if(element.nombreMateria === materia && element.nombreMateria != materi){
+            }else if(element.nombreMateria === materia && element.nombreMateria !== materi){
                 setMateriaExiste(true);
                 setSePuedeGuardar(false);
             }else{
@@ -203,24 +203,24 @@ export const verificarExistenciaGrupo = (data=[], formValues, setExisteGrupo, se
 
     data.forEach(element => {
         if( grupoEdit === '' ){
-            if(element.materia_id == idMat){
+            if(element.materia_id === idMat){
                 if( element.grupoMateria === grupo && !existeGrupo ){
             
                     setExisteGrupo(true);
                     existeGrupo = true;
                     
-                }else if(element.grupoMateria != grupo &&!existeGrupo ){
+                }else if(element.grupoMateria !== grupo &&!existeGrupo ){
                     setExisteGrupo(false);
                     setSePuedeGuardar(true);
                 }
             }
         }else{
-            if( element.grupoMateria === grupo && !existeGrupo && element.grupoMateria != grupoEdit){
+            if( element.grupoMateria === grupo && !existeGrupo && element.grupoMateria !== grupoEdit){
             
                 setExisteGrupo(true);
                 existeGrupo = true;
                 
-            }else if(element.grupoMateria != grupo &&!existeGrupo && element.grupoMateria != grupoEdit){
+            }else if(element.grupoMateria !== grupo &&!existeGrupo && element.grupoMateria !== grupoEdit){
                 setExisteGrupo(false);
                 setSePuedeGuardar(true);
             }
@@ -263,12 +263,12 @@ export const controlarCampoApeDocente = ( apellidoDocente='', setStatusInputApeD
 export const controlarCampoCantidad = ( cantidadEstudiantes, setStatusInputCantidad, setMsjErrorCantidad) => {
     const cantidadE = parseInt(cantidadEstudiantes);
 
-    if( cantidadE >= 5 && cantidadE <= 100){
+    if( cantidadE >= 5 && cantidadE <= 350){
         setStatusInputCantidad(false);
         setMsjErrorCantidad('');
     }else {
         setStatusInputCantidad(true);
-        setMsjErrorCantidad('Debe ingresar una cantidad entre 5 y 100.');
+        setMsjErrorCantidad('Debe ingresar una cantidad entre 5 y 350.');
     }
 }
 
@@ -290,12 +290,12 @@ export const controlarCampoMotivo = ( motivoSolicitud, setStatusInputMotivo, set
 export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, setMsjErrorPeriodo ) => {
     const tamanioPeriodo = parseInt(peridoSolicitud);
 
-    if( tamanioPeriodo >= 1 && tamanioPeriodo <= 5 ){
+    if( tamanioPeriodo >= 1 && tamanioPeriodo <= 3 ){
         setStatusInputPeriodo(false);
         setMsjErrorPeriodo('');
     }else {
         setStatusInputPeriodo(true);
-        setMsjErrorPeriodo('Debe ingresar un numero entre 1 y 5.');
+        setMsjErrorPeriodo('Debe ingresar periodos entre 1 y 3.');
     }
 }
 
