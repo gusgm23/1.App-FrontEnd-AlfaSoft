@@ -23,8 +23,8 @@ export const MateriasDocente = ({ data = [], selects, setSelects  }) => {
       > 
       <option>Seleccionar materia.</option>
       {
-       data.map((mat) => (       
-          <option key={mat.id} value={mat.nombreMateria}>{ mat.nombreMateria}</option> ))}
+       data.map((mat, index) => (       
+          <option key={index} value={mat}>{ mat}</option> ))}
       </select>
       
     )

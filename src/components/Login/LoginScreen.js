@@ -73,13 +73,12 @@ export const LoginScreen = () => {
             payload: {
                 name: userReg.name,
                 apellido: userReg.apellido,
-                rol: rolObtenido.rol
+                rol: rolObtenido.rol, 
+                idDocente: userReg.id,
             }
         }
 
         dispatch(action);
-
-        console.log(rolObtenido.rol, 'roool')
 
         if(rolObtenido.rol === 'Administrador'){
             ruta = '/admin/adminhome'

@@ -1,11 +1,21 @@
 .parrafo-advertencia-reserva,
 .parrafo-advertencia-solicitud,
-.parrafo-aula-registrada {
+.parrafo-aula-registrada,
+.parrafo-advertencia {
     color: #000;
     margin: 15px;
 }
 
 
 .btn-cancelar-reserva {
+    background: rgb(238, 62, 62);
+}
+
+/* estilos modal confirmacion */
+.btn-cancelar-guardado {
+    width: 40%;
+    margin: 10px;
+    border: none;
+    color: #ffffff;
     background: rgb(238, 62, 62);
 }

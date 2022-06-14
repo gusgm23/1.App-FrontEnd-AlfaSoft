@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { filtrarGrupos } from '../../../helpers/filtrarGrupos';
 import { controlarCampoGrupo, validaCamposVaciosGrupo, validarCamposLlenosGrupo, verificarExistenciaGrupo } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
 import { createGrupoMateria, getGrupoMateria, updateGrupoMateriaId } from '../../../service/apiGrupoMaterias';
+import { getUsuariosHabilitados } from '../../../service/apiUsuarios';
 import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio';
 import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
 import { ErrorGuardarDatos } from '../../Modal/Contenidos/ErrorGuardarDatos';
+import { GrupoExiste } from '../../Modal/Contenidos/GrupoExiste';
 import { Hecho } from '../../Modal/Contenidos/Hecho';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
+import { ListaDocentes } from './ListaDocentes';
 
 export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeModal = () => {}, closeModalCreate = () => {}, dataLimpia, setDataLimpia }) => {
 
@@ -18,24 +20,30 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
         id: idEdit,
         grupo: grupoEdit
     });
-
-    const [listaABuscar, setListaABuscar] = useState({
-        state: false,
-        data: []
-    })
-
     const { id, grupo } = formValues;
-    const { state, data } = listaABuscar;
+
+    const [listaGrupos, setListaABuscar] = useState({})
+
+    const [usuarios, setUsuarios] = useState({
+        states: false,
+        datas: []
+    })
+    const { states, datas } = usuarios;
+
 
     //Hooks par controlar Modales
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
     const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
     const [isOpenModalWarning, openModalWarning, closeModalWarning] = useModal(false);
     const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
+    const [isOpenModalGroupExist, openModalGroupExist, closeModalGroupExist] = useModal(false);
 
     //Hooks para controlar contenido de campo grupo
     const [StatusInputGrupo, setStatusInputGrupo] = useState(false);
     const [existeGrupo, setExisteGrupo] = useState(false);
+
+    //!Hook para controlar campo Docente
+    const [StatusInputDocente, setStatusInputDocente] = useState(false);
 
     //Hooks para mostrar mensajes de errores en los campos respectivos
     const [MsjErrorGroup, setMsjErrorGroup] = useState('');
@@ -43,11 +51,18 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     //Hook para controlar estado de peticion
     const [statePetition, setStatePetition] = useState(false);
 
-    //Hook para controlar que el campo grupo no tenga errores para posteriormente crear o editar un grupo
-    const [sePuedeGuardar, setSePuedeGuardar] = useState(false);
-
-    //!Hook para controlar estado de Combobox
+    //!Hook para controlar estado de Combobox de estado de grupo
     const [selects, setSelects] = useState('Habilitado');
+
+    //!Hook para controlar estado de Combobox de docentes
+    const [selectDocente, setSelectDocente] = useState('Vacio');
+
+    useEffect(() => {
+        
+        getUsuariosHabilitados(setUsuarios);
+        getGrupoMateria(setListaABuscar);
+
+    }, [])
 
     useEffect(() => {
         if( grupo === '' ){
@@ -57,24 +72,18 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
         }
 
     }, [grupo])
-    
+
     useEffect(() => {
-        
-        if(data != []){
-            getGrupoMateria(setListaABuscar);
+        if(selectDocente === 'Vacio'){
+            setStatusInputDocente(true);
+        }else{
+            setStatusInputDocente(false);
         }
-
-    }, [state]);
-
-    useEffect(() => {
-        
-        verificarExistenciaGrupo(data, formValues, setExisteGrupo, setSePuedeGuardar, grupoEdit);
-
-    }, [grupo])
+    }, [selectDocente])
 
     const validarForm = () => {
 
-        if( validaCamposVaciosGrupo(formValues) ){
+        if( validaCamposVaciosGrupo(formValues, selectDocente) ){
             openModalFormVacio();
         }else{
 
@@ -112,14 +121,13 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
             
             if(id == materia.id){
                 arreglo[contador].grupoMateria = nuevoGrupo;
+                arreglo[contador].idDocente = selectDocente;
                 arreglo[contador].estadoGrupoMateria = nuevoEstado;
-                console.log('sss')
             }
             contador++;
         });
 
         setDataLimpia(arreglo);
-
     }
 
     const guardarDatos = () => {
@@ -127,16 +135,20 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
 
         const idMat = localStorage.getItem('id');
 
-        if(titulo === 'Registrar'){
+        if( !verificarExistenciaGrupo(dataLimpia, grupo, selectDocente) && selectDocente !== 'Vacio' ){
+            if(titulo === 'Registrar'){
             
-            createGrupoMateria(grupo, selects, idMat, openModalSuccess, openModalWarning);    
-            nuevoGrupo(dataLimpia.length+10, grupo, selects, idMat);
-
+                createGrupoMateria(grupo, selects, idMat, selectDocente, openModalSuccess, openModalWarning);    
+                nuevoGrupo(dataLimpia.length+10, grupo, selects, idMat);
+    
+            }else{
+    
+                updateGrupoMateriaId(grupo, selects, idMat, selectDocente, openModalSuccess, openModalWarning, idEdit);
+                editarMateria(idEdit, grupo, selects);
+    
+            }
         }else{
-
-            updateGrupoMateriaId(grupo, selects, idMat, openModalSuccess, openModalWarning, idEdit);
-            editarMateria(idEdit, grupo, selects);
-
+            openModalGroupExist();
         }
 
     }
@@ -164,6 +176,13 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
                                 </p>
                                 <p className={ existeGrupo===true? "msj-error": "msj-error-oculto" }>
                                     { 'El Grupo que deseas crear ya existe.' }
+                                </p>
+                            </div>
+                            <div className='contenedor-flex-grupo'>
+                                <label className='labels'>Docente:</label>
+                                <ListaDocentes listaDocentes={ datas } selects={ selectDocente } setSelects={ setSelectDocente }/>
+                                <p className={ StatusInputDocente ? 'msj-error' : 'msj-error-oculto' }>
+                                    Debes asignar un docente.
                                 </p>
                             </div>
                             <div className='contenedor-flex-grupo'>
@@ -204,6 +223,9 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
                 <Hecho cerrarModal={ closeModalSuccess }/>
+            </ModalGenerico>
+            <ModalGenerico isOpen={ isOpenModalGroupExist } closeModal={ closeModalGroupExist }>
+                <GrupoExiste cerrarModal={ closeModalGroupExist }/>
             </ModalGenerico>
         </div>
     )

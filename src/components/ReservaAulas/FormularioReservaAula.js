@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './estilosFormularioReserva.css'
 
-import { controlarCampoNomDocente, controlarCampoApeDocente, controlarCampoCantidad, controlarCampoMotivo, controlarCampoPeriodo, validarCamposVaciosSolicitud, validarCamposLlenosSolicitud } from '../../helpers/validarForms';
+import { controlarCampoNomDocente, controlarCampoApeDocente, controlarCampoCantidad, controlarCampoPeriodo, validarCamposVaciosSolicitud, validarCamposLlenosSolicitud } from '../../helpers/validarForms';
 import { useForm } from '../../hooks/useForm';
 import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
@@ -19,6 +19,9 @@ import { getSolicitud, createSolicitud, updateSolicitudId } from '../../service/
 import { useNavigate } from 'react-router-dom';
 import { Calendar } from 'primereact/calendar';
 import { addLocale } from 'primereact/api';
+import { AuthContext } from '../../auth/authContext';
+import { obtenerGrupos, obtenerMaterias } from '../../helpers/metodosDeFormularioReserva';
+
 
 
 
@@ -27,9 +30,7 @@ export const FormularioReservaAula = ({
         nomDocente          ='', 
         apeDocente          ='', 
         cantEstudiantes     ='', 
-        motSolicitud        ='',
-        // motRechazo          ='',
-        fecSolicitud        ='', 
+        // motRechazo          ='', 
         horSolicitud        ='',
         perSolicitud        ='',
 
@@ -41,15 +42,15 @@ export const FormularioReservaAula = ({
         nombreDocente:          nomDocente,
         apellidoDocente:        apeDocente,
         cantidadEstudiantes:    cantEstudiantes,
-        motivoSolicitud:        motSolicitud,
         // motvioRechazo:          motRechazo,
-        //fechaSolicitud:         fecSolicitud,
         peridoSolicitud:        perSolicitud,
         horaSolicitud:          horSolicitud,
         
     })
 
-    const { nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, horaSolicitud, peridoSolicitud} = formValues;
+    const { cantidadEstudiantes, horaSolicitud, peridoSolicitud} = formValues;
+
+    const { user } = useContext(AuthContext);
 
     //hooks para controlar contenidos de campos
     const [StatusInputNomDocente, setStatusInputNomDocente] = useState(false);
@@ -77,23 +78,9 @@ export const FormularioReservaAula = ({
     //controlar estados de select
     const [selects, setSelects] = useState('Registrar materia');
     const [selectsGrupos, setSelectsGrupos] = useState('Registrar grupo');
-    //const [apellidoDocenteSolicitud, setapellidoDocenteSolicitud] = useState('');
+    const [selectMotivo, setSelectMotivo] = useState('Vacio');
 
-    useEffect(() => {
-        if( nombreDocente === ''){
-            setStatusInputNomDocente(false);
-        }else{
-            controlarCampoNomDocente( nombreDocente, setStatusInputNomDocente, setMsjErrorNomDocente);
-        }
-    }, [nombreDocente])
 
-    useEffect(() => {
-        if( apellidoDocente === ''){
-            setStatusInputApeDocente(false);
-        }else{
-            controlarCampoApeDocente( apellidoDocente, setStatusInputApeDocente, setMsjErrorApeDocente);
-        }
-    }, [apellidoDocente])
 
     useEffect(() => {
         if( cantidadEstudiantes === '' ){
@@ -104,12 +91,12 @@ export const FormularioReservaAula = ({
     }, [cantidadEstudiantes])
 
     useEffect(() => {
-        if( motivoSolicitud === '' ){
-            setStatusInputMotivo(false);
+        if( selectMotivo === 'Vacio' ){
+            setStatusInputMotivo(true);
         }else{
-            controlarCampoMotivo( motivoSolicitud, setStatusInputMotivo, setMsjErrorMotivo );
+            setStatusInputMotivo(false);
         }
-    }, [motivoSolicitud])
+    }, [selectMotivo])
 
     useEffect(() => {
         if( peridoSolicitud === ''){
@@ -121,7 +108,7 @@ export const FormularioReservaAula = ({
 
 
     const validarForm = () => {
-        if( validarCamposVaciosSolicitud(formValues) ){
+        if( validarCamposVaciosSolicitud(formValues, selectMotivo) ){
             openModalFormVacio();
         }else {
             if( validarCamposLlenosSolicitud(formValues) ){
@@ -139,7 +126,7 @@ export const FormularioReservaAula = ({
 
 
     //Para editar la solicitud y actualizar la tabla
-    const editarSolicitud = (nomS, apeS, canS, motS,motR, fecS, horS, perS, matS, gruS) => {
+    const editarSolicitud = (nomS, apeS, canS,motR, fecS, horS, perS, matS, gruS) => {
         const arregloSolicitud = dataS;
 
         let contador = 0;
@@ -149,7 +136,7 @@ export const FormularioReservaAula = ({
                 arregloSolicitud[contador].nombreDocenteSolicitud       = nomS;
                 arregloSolicitud[contador].apellidoDocenteSolicitud     = apeS;
                 arregloSolicitud[contador].numeroEstudiantesSolicitud   = canS;
-                arregloSolicitud[contador].motivoSolicitud              = motS;
+                arregloSolicitud[contador].motivoSolicitud              = selectMotivo;
                 arregloSolicitud[contador].motivoRechazo                = motR;
                 arregloSolicitud[contador].fechaSolicitud               = fecS;
                 arregloSolicitud[contador].horaInicioSolicitud          = horS;
@@ -171,10 +158,10 @@ export const FormularioReservaAula = ({
         setStatePetition(true);
 
         if( idsolicitud === '' ) {
-            createSolicitud( formValues, '1', selects, selectsGrupos, 'pendiente','ninguno', '0', openModalSuccess, openModalWarning ); 
+            createSolicitud( formValues, '1', selects, selectsGrupos, selectMotivo, JSON.stringify(fechaSolicitud).substring(1,11), 'pendiente','ninguno', '0', user.name, user.apellido, openModalSuccess, openModalWarning ); 
         }else {
-            updateSolicitudId(formValues, '1', selects, selectsGrupos, 'pendiente','ninguno', '0', openModalSuccess, openModalWarning, idsolicitud);
-            editarSolicitud(nombreDocente, apellidoDocente, cantidadEstudiantes, motivoSolicitud, fechaSolicitud, horaSolicitud, peridoSolicitud, selects, selectsGrupos)
+            updateSolicitudId(formValues, '1', selects, selectsGrupos, selectMotivo, JSON.stringify(fechaSolicitud).substring(1,11), 'pendiente','ninguno', '0', user.name, user.apellido, openModalSuccess, openModalWarning, idsolicitud);
+            editarSolicitud(user.name, user.apellido, cantidadEstudiantes, fechaSolicitud, horaSolicitud, peridoSolicitud, selects, selectsGrupos)
         }
     }
 
@@ -199,23 +186,26 @@ export const FormularioReservaAula = ({
 
     const {state, data} = listaMateria;
 
+    //Obtener los grupos de materias y listarlas
+    const [listaGrupos, setStateData] = useState([]);
+
+    const [listaMateriasDocente, setListaMateriasDocente] = useState([]);
+
+    const [listaGruposDocente, setListaGruposDocente] = useState([]);
+
     useEffect(() => {
         getMateria(setListaMateria);
-    }, [state]);
-
-
-
-    //Obtener los grupos de materias y listarlas
-    const [listaGrupos, setStateData] = useState({
-        states: false,
-        datas: []
-    });
-
-    const {states, datas} = listaGrupos;
+        getGrupoMateria(setStateData);
+    }, []);
 
     useEffect(() => {
-        getGrupoMateria(setStateData);
-    }, [states]);
+        setListaMateriasDocente(obtenerMaterias(data, listaGrupos.data, user.idDocente))  
+    },[data, listaGrupos.data])
+
+    useEffect(() => {
+        setListaGruposDocente(obtenerGrupos(listaGrupos.data, data, selects, user.idDocente))
+        console.log(user.idDocente, 'iddocente');
+    }, [selects])
 
 
     const navegar = useNavigate();
@@ -226,6 +216,10 @@ export const FormularioReservaAula = ({
 
     //Invalidar dias del calendario
     const [ fechaSolicitud, setfechaSolicitud ] = useState(null);
+
+    useEffect(() => {
+        console.log(JSON.stringify(fechaSolicitud).substring(1,11));
+    }, [fechaSolicitud]);
 
         
         let today = new Date();
@@ -256,47 +250,16 @@ export const FormularioReservaAula = ({
     return (
         <div className='contenedor-reserva-aulas'>
             <h1 className="titulo-reserva-aulas">{titulo === ''? 'Solicitud de Reserva de Aula' : `${titulo} Solicitud de Reserva` }</h1>
+            {
+                listaMateriasDocente.length > 0 ? 
+            
             <form onSubmit={ handleSubmit } >
                 <div className="contenedor-reserva">
                     <div className="contenedor-elementos-reserva-aulas">
                         <div className="campos-reserva-aulas">
-                            <label className="labels"> Nombre Docente:</label>
-                            <div className='contenedor-inputs'>
-                                <input 
-                                    name='nombreDocente'
-                                    className={ StatusInputNomDocente===true? "input-error" : "inputsSolicitud"} 
-                                    type="text"
-                                    placeholder='Ingresar Nombre'
-                                    value={ nombreDocente }
-                                    onChange={ handleInputChange }
-                                    
-                                ></input>
-                                <p className={ StatusInputNomDocente===true? "mensaje-error" : "mensaje-error-oculto" }>
-                                    { MsjErrorNomDocente }
-                                </p>
-                            </div>
-                        </div>
-                        <div className="campos-reserva-aulas">
-                            <label className="labels"> Apellido Docente:</label>
-                            <div className='contenedor-inputs'>
-                                <input
-                                    name='apellidoDocente' 
-                                    className={ StatusInputApeDocente===true? "input-error" : "inputsSolicitud" }
-                                    type="text"
-                                    placeholder='Ingresar Apellido'
-                                    value={ apellidoDocente }
-                                    onChange={ handleInputChange }
-                                >      
-                                </input>
-                                <p className={ StatusInputApeDocente===true? "mensaje-error" : "mensaje-error-oculto" }>
-                                    { MsjErrorApeDocente }
-                                </p>
-                            </div>
-                        </div>
-                        <div className="campos-reserva-aulas">
                             <label className="labels"> Materia: </label>
                             <div className='contenedor-inputs'>
-                                <MateriasDocente data={data} selects={ selects } setSelects={ setSelects } />
+                                <MateriasDocente data={listaMateriasDocente} selects={ selects } setSelects={ setSelects } />
                             </div>
                         </div>
                         <div>
@@ -304,7 +267,7 @@ export const FormularioReservaAula = ({
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Grupo(s): </label>
                             <div className='contenedor-inputs'>
-                                <GruposDocente datas={datas} selectsGrupos={ selectsGrupos } setSelectsGrupos={ setSelectsGrupos } />
+                                <GruposDocente datas={listaGruposDocente} selectsGrupos={ selectsGrupos } setSelectsGrupos={ setSelectsGrupos } />
                             </div>
                         </div>
                         <div className="campos-reserva-aulas">
@@ -333,28 +296,35 @@ export const FormularioReservaAula = ({
                                 {/* </p> */}
                                 <select 
                                     name='motivoSolicitud' 
-                                    className='inputsSolicitud'
-                                    placeholder="Seleccionar motivo." 
-                                    value={ motivoSolicitud } 
-                                    onChange= { handleInputChange }
+                                    className='inputsSolicitud' 
+                                    value={selectMotivo}
+                                    onChange={e => setSelectMotivo(e.target.value)}
+                                    selectMotivo={ selectMotivo }
+                                    setSelectMotivo={ setSelectMotivo }
                                 > 
-                                    <option> Examen Primer Parcial </option>
-                                    <option> Examen Segundo Parcial </option>
-                                    <option> Examen Final </option>
-                                    <option> Examen Segunda Instancia </option>
-                                    <option> Examen de Mesa 1ra Opción </option>
-                                    <option> Examen de Mesa 2ra Opción </option>
+                                    <option value='Vacio'> Seleccionar motivo.</option>
+                                    <option > Examen Primer Parcial </option>
+                                    <option > Examen Segundo Parcial </option>
+                                    <option > Examen Final </option>
+                                    <option > Examen Segunda Instancia </option>
+                                    <option > Examen de Mesa 1ra Opción </option>
+                                    <option > Examen de Mesa 2ra Opción </option>
                                 </select>
+                                <p className={ StatusInputMotivo ? "mensaje-error" : "mensaje-error-oculto"}>
+                                    Debe seleccionar un motivo.
+                                </p>
                             </div>
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Fecha de Examen: </label>
-                            <div className='contenedor-inputs'>
+                            <div className='contenedor-inputsFecha'>
                                 {/* <input name='fechaSolicitud' className='inputsSolicitud' type="date" min={disableDates} value={ fechaSolicitud } onChange={ handleInputChange } /> */}
                                 <Calendar 
-                                id="disableddays"
+                                    id="disableddays"
                                     name='fechaSolicitud'
-                                    className='inputsSolicitud'
+                                    className="inputsSolicitud"
+                                    placeholder='Seleccionar fecha.'
+                                    dateFormat="dd/mm/yy"
                                     value={ fechaSolicitud }
                                     onChange={ (e) => setfechaSolicitud(e.value) }
                                     disabledDates={invalidDates} 
@@ -384,13 +354,27 @@ export const FormularioReservaAula = ({
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Hora de Inicio: </label>
                             <div className='contenedor-inputs'>
-                                <input 
+                                <select 
                                     name='horaSolicitud'
                                     className="inputsSolicitud"
-                                    type="time"
+                                    //type="time"
+                                    //min="06:45:00 a.m."
+                                    //max="08:15:00 p.m."
                                     value={ horaSolicitud }
                                     onChange={ handleInputChange }
-                                ></input>
+                                >
+                                    <option> Seleccionar hora. </option>
+                                    <option> 06:45:00 </option>
+                                    <option> 08:15:00 </option>
+                                    <option> 09:45:00 </option>
+                                    <option> 11:15:00 </option>
+                                    <option> 12:45:00 </option>
+                                    <option> 14:15:00 </option>
+                                    <option> 15:45:00 </option>
+                                    <option> 17:15:00 </option>
+                                    <option> 18:45:00 </option>
+                                    <option> 20:15:00 </option>
+                                </select>
                             </div>
                         </div>
 
@@ -413,6 +397,9 @@ export const FormularioReservaAula = ({
                     </div>
                 </div>
             </form>
+            : <p className='parrafoMateriasDocenteVacio'> No tienes materias asignadas para hacer una solicitud. Debes esperar que el administrador te asigne una materia. </p>
+            }
+
             <ModalGenerico isOpen={ isOpenModalFormVacio } closeModal={ closeModalFormVacio } >
                 <AdvertenciaFormVacio cerrarModal={ closeModalFormVacio } />
             </ModalGenerico>

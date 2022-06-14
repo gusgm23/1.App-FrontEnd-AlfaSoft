@@ -123,7 +123,6 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                 arreglo[contador].codigoMateria = codigoSisEditar;
                 arreglo[contador].nombreMateria = materiaEditar;
                 arreglo[contador].estadoMateria = eleccion;
-            console.log('sss')
             }
             contador++;
         } );

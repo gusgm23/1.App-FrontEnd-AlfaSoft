@@ -28,16 +28,16 @@ export const ContenidoNavPublico = () => {
                 <NavLink 
                     exact='true' 
                     to='/login' 
-                    className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                    className={({ isActive }) => 'nav-item nav-link icon-home ' + ( isActive ? 'active' : 'no-active' )}
                 >
-                        Iniciar Sesión
+                        <i className="bi bi-box-arrow-in-right icon-login"></i>
                 </NavLink>
                 <NavLink 
                     exact='true' 
                     to='/registrousuario' 
-                    className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                    className={({ isActive }) => 'nav-item nav-link icon-home ' + ( isActive ? 'active' : 'no-active' )}
                 >
-                        Registrase
+                        <i className="bi bi-person-plus icon-register"></i>
                 </NavLink>
                 </ul>
             </div>

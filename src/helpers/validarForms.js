@@ -13,10 +13,10 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 
 }
 
-export const validaCamposVaciosGrupo = ( valores = {} ) => {
+export const validaCamposVaciosGrupo = ( valores = {}, docente ) => {
     const { grupo } = valores;
 
-    if( grupo.length === 0){
+    if( grupo.length == 0 || docente === 'Vacio' ){
         return true;
     }else {
         return false;
@@ -192,43 +192,6 @@ export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExis
 
 }
 
-//Métodos para formulario Grupo
-export const verificarExistenciaGrupo = (data=[], formValues, setExisteGrupo, setSePuedeGuardar, grupoEdit) => {
-
-    const idMat = localStorage.getItem('id');
-
-    const { grupo } = formValues;
-
-    let existeGrupo = false
-
-    data.forEach(element => {
-        if( grupoEdit === '' ){
-            if(element.materia_id === idMat){
-                if( element.grupoMateria === grupo && !existeGrupo ){
-            
-                    setExisteGrupo(true);
-                    existeGrupo = true;
-                    
-                }else if(element.grupoMateria !== grupo &&!existeGrupo ){
-                    setExisteGrupo(false);
-                    setSePuedeGuardar(true);
-                }
-            }
-        }else{
-            if( element.grupoMateria === grupo && !existeGrupo && element.grupoMateria !== grupoEdit){
-            
-                setExisteGrupo(true);
-                existeGrupo = true;
-                
-            }else if(element.grupoMateria !== grupo &&!existeGrupo && element.grupoMateria !== grupoEdit){
-                setExisteGrupo(false);
-                setSePuedeGuardar(true);
-            }
-        }
-    });
-
-}
-
 //Para controlar los campos del formulario de solicitud de aulas
 export const controlarCampoNomDocente = ( nombreDocente='', setStatusInputNomDocente, setMsjErrorNomDocente) => {
     const tamanioNomDocente = nombreDocente.length;
@@ -272,20 +235,20 @@ export const controlarCampoCantidad = ( cantidadEstudiantes, setStatusInputCanti
     }
 }
 
-export const controlarCampoMotivo = ( motivoSolicitud, setStatusInputMotivo, setMsjErrorMotivo ) => {
-    const tamanioMotivo = motivoSolicitud.length
+// export const controlarCampoMotivo = ( motivoSolicitud, setStatusInputMotivo, setMsjErrorMotivo ) => {
+    // const tamanioMotivo = motivoSolicitud.length
 
-    if( tamanioMotivo < 10 ) {
-        setStatusInputMotivo(true);
-        setMsjErrorMotivo('Texto muy corto. Ej: Reserva para examen de primer parcial.');
-    }else if( tamanioMotivo > 100 ) {
-        setStatusInputMotivo(true);
-        setMsjErrorMotivo('Mensaje muy largo.');
-    }else {
-        setStatusInputMotivo(false);
-        setMsjErrorMotivo('');
-    }
-}
+    // if( tamanioMotivo < 10 ) {
+        // setStatusInputMotivo(true);
+        // setMsjErrorMotivo('Texto muy corto. Ej: Reserva para examen de primer parcial.');
+    // }else if( tamanioMotivo > 100 ) {
+        // setStatusInputMotivo(true);
+        // setMsjErrorMotivo('Mensaje muy largo.');
+    // }else {
+        // setStatusInputMotivo(false);
+        // setMsjErrorMotivo('');
+    // }
+// }
 
 export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, setMsjErrorPeriodo ) => {
     const tamanioPeriodo = parseInt(peridoSolicitud);
@@ -300,10 +263,7 @@ export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, s
 }
 
 export const validarCamposVaciosSolicitud = (valores = {}) => {
-    const { nombreDocente,      
-            apellidoDocente,    
-            cantidadEstudiantes,
-            motivoSolicitud,    
+    const { cantidadEstudiantes,    
             fechaSolicitud,     
             peridoSolicitud,    
             horaSolicitud } = valores;
@@ -311,19 +271,13 @@ export const validarCamposVaciosSolicitud = (valores = {}) => {
     const cantEst = parseInt(cantidadEstudiantes);
     const perSol = parseInt(peridoSolicitud);
 
-    if(nombreDocente.length === 0 && 
-        apellidoDocente.length === 0 &&
-        cantEst === 0 && 
-        motivoSolicitud.length === 0 &&
-        fechaSolicitud.length === 0 &&
+    if( cantEst === 0 && 
+        
         perSol === 0 &&
         horaSolicitud.length === 0) {
             return true;
-        }else if(nombreDocente.length === 0 || 
-                apellidoDocente.length === 0 || 
-                cantEst === 0 || 
-                motivoSolicitud.length === 0 || 
-                fechaSolicitud.length === 0 || 
+        }else if(cantEst === 0 || 
+                
                 perSol === 0 || 
                 horaSolicitud.length === 0) {
                     return true;
@@ -333,27 +287,33 @@ export const validarCamposVaciosSolicitud = (valores = {}) => {
 }
 
 export const validarCamposLlenosSolicitud = (valores = {}) => {
-    const {nombreDocente,
-        apellidoDocente,
-        cantidadEstudiantes,
-        motivoSolicitud,
+    const {cantidadEstudiantes,
         peridoSolicitud} = valores;
 
         const cantEst = parseInt(cantidadEstudiantes);
         const perSol = parseInt(peridoSolicitud);
 
-        if(nombreDocente.length >= 3 &&
-            apellidoDocente.length >= 3 && 
-            cantEst >= 5 && 
-            motivoSolicitud.length >= 10 && 
+        if(cantEst >= 5 && 
+            //motivoSolicitud.length >= 10 && 
             perSol >= 1) {
                 return true;
             }else {
-                console.log(nombreDocente.length, 
-                    apellidoDocente.length,
+                console.log(
                     cantidadEstudiantes.length,
-                    motivoSolicitud.length,
+                    //motivoSolicitud.length,
                     peridoSolicitud);
                 return false;
             }
+}
+
+export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc) => {
+    let existeGrupo = false;
+
+    listaGrupos.forEach(element => {
+        if(element.grupoMateria === grupo && element.idDocente === idDoc && !existeGrupo) {
+            existeGrupo = true
+        }
+    })
+
+    return existeGrupo
 }

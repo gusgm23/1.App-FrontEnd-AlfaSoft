@@ -43,19 +43,21 @@ export const createSolicitud = (
     materia_id, 
     materiaSolicitud, 
     grupoSolicitud, 
+    motivoSolicitud,
+    fechaSolicitud,
     pendiente='pendiente',
     motivo='ninguno', 
     cantidadAsignada='0',
+    nombre,
+    apellido,
     openModalSuccess, 
     openModalWarning 
     ) => {
     
-    const { nombreDocente, 
-            apellidoDocente, 
-            cantidadEstudiantes, 
-            motivoSolicitud, 
-            // motivoRechazo,
-            fechaSolicitud, 
+    const { 
+             
+            cantidadEstudiantes,  
+            // motivoRechazo, 
             horaSolicitud, 
             peridoSolicitud
         } = formValues;
@@ -63,8 +65,8 @@ export const createSolicitud = (
     return axios.post(`${baseUrl}/crearSolicitud`, 
     {
         //id:                             `${data.id}`,
-        nombreDocenteSolicitud:         `${nombreDocente}`,
-        apellidoDocenteSolicitud:       `${apellidoDocente}`,
+        nombreDocenteSolicitud:         `${nombre}`,
+        apellidoDocenteSolicitud:       `${apellido}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
         cantidadEstudiantesAsignada:    `${cantidadAsignada}`,
         motivoSolicitud:                `${motivoSolicitud}`,
@@ -74,8 +76,8 @@ export const createSolicitud = (
         horaInicioSolicitud:            `${horaSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
         estadoSolicitud:                `${pendiente}`,
-        materiaSolicitud:               `${materiaSolicitud}`,
-        grupoSolicitud:                 `${grupoSolicitud}`,
+        materiaSolicitud:               `${'materiaSolicitud'}`,
+        grupoSolicitud:                 `${'grupoSolicitud'}`,
         materia_id:                     `${materia_id}`
     }
     ).then( (response) => {
@@ -91,19 +93,21 @@ export const updateSolicitudId = async (
     materia_id,
     materiaSolicitud,
     grupoSolicitud,
+    motivoSolicitud,
+    fechaSolicitud,
     pendiente='pendiente',
     motivo='ninguno',
     cantidadAsignada='0',
+    nombre,
+    apellido,
     openModalSuccess,
     openModalWarning, 
     id 
     ) => {
         const {
-            nombreDocente, 
-            apellidoDocente, 
-            cantidadEstudiantes,
-            motivoSolicitud, 
-            fechaSolicitud, 
+            
+             
+            cantidadEstudiantes,  
             horaSolicitud, 
             peridoSolicitud
         } = formValues;
@@ -111,13 +115,12 @@ export const updateSolicitudId = async (
     return await axios.put(`${baseUrl}/actualizarSolicitud/${id}`, 
     {
         id:                             `${id}`,
-        nombreDocenteSolicitud:         `${nombreDocente}`,
-        apellidoDocenteSolicitud:       `${apellidoDocente}`,
+        nombreDocenteSolicitud:         `${nombre}`,
+        apellidoDocenteSolicitud:       `${apellido}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
         cantidadEstudiantesAsignada:    `${cantidadAsignada}`,
         motivoSolicitud:                `${motivoSolicitud}`,
         motivoRechazo:                  `${motivo}`,
-
         fechaSolicitud:                 `${fechaSolicitud}`,
         horaInicioSolicitud:            `${horaSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
