@@ -140,6 +140,7 @@ input{
     display: none;
 }
 
+/* Para mostrar el mensaje cuando no tiene materias asigandas */
 .parrafoMateriasDocenteVacio{
     color: #000;
 }
