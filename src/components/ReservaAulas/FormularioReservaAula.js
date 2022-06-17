@@ -16,7 +16,7 @@ import { getGrupoMateria } from '../../service/apiGrupoMaterias';
 
 //Importacion de las APIs para la solicitud
 import { getSolicitud, getSolicitudId, createSolicitud, updateSolicitudId, deleteSolicitud } from '../../service/apiSolicitudAulas';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 
 
