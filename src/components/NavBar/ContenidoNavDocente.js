@@ -40,6 +40,13 @@ export const ContenidoNavDocente = () => {
                     >
                         Solicitudes aprobadas
                     </NavLink>
+                    <NavLink
+                        exact='true'
+                        to='/docente/perfildocente'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                    >
+                        Mi Perfil
+                    </NavLink>
                 </div>
             </div>
                                 
@@ -54,6 +61,8 @@ export const ContenidoNavDocente = () => {
                     >
                         <i className="bi bi-box-arrow-right icon-logout"></i>
                     </button>
+
+                    
                 </ul>
             </div>
         </>

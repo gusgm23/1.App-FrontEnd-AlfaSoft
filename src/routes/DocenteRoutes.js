@@ -9,7 +9,7 @@ import { NavBar } from '../components/NavBar/NavBar';
 import { Error404Screen } from '../components/Page404/Error404Screen';
 import { SolicitudesAprobadas } from '../components/Docente/SolicitudesAprobadas/SolicitudesAprobadas';
 import { FormularioReservaAula } from '../components/ReservaAulas/FormularioReservaAula';
-
+import {EditarPerfil} from '../components/Docente/PerfilDocente/EditarPerfil';
 
 export const DocenteRoutes = () => {
     return (
@@ -22,6 +22,8 @@ export const DocenteRoutes = () => {
                 <Route exact path='listarsolicitudes'           element={<VerSolicitudesDoc/>}/>
                 <Route exact path='veraprobados'                element={<SolicitudesAprobadas/>}/>
                 <Route exact path='registrarsolicitud'          element={<FormularioReservaAula/>} />
+                <Route exact path='perfildocente'                element={<EditarPerfil/>} />
+
 
                 <Route path='*'                                 element={<Error404Screen/>}/>
             </Routes>
