@@ -71,10 +71,10 @@ export const Solicitud = () => {
         
         
     }, []);
-
+    
     useEffect(() => {
         
-        setCapacidadSolicitud(solicitudRecuperada.numeroEstudiantesSolicitud);
+        setCapacidadSolicitud(solicitudRecuperada.cantidadEstudiantesAsignada);
         setCapOrignal(solicitudRecuperada.numeroEstudiantesSolicitud);
     }, [solicitudRecuperada]);
     
@@ -87,9 +87,14 @@ export const Solicitud = () => {
     
     const reservar = () => {
 
+        const datosReserva = {
+            ...listaReservas[0],
+            idSolicitud: solicitud.id,
+        }
+
         const datosEliminarAula = [listaReservas[0].idAula, aulasLibres, setAulasLibres]
 
-        reservarAulas(listaReservas, openModalSuccess, openModalFail, datosEliminarAula);
+        reservarAulas(datosReserva, openModalSuccess, openModalFail, datosEliminarAula);
 
     }
 
@@ -99,7 +104,7 @@ export const Solicitud = () => {
         quitarAulaTabla(listaReservas[0].idAula, aulasLibres, setAulasLibres);
 
         //!Actualizando capacidad de peticion en solicitud
-        reducirCapacidadSolicitud(solicitud, parseInt(capacidadSolicitud) - parseInt(capacidadAulaRescatado));
+        reducirCapacidadSolicitud(solicitud, parseInt(solicitud.cantidadEstudiantesAsignada) + parseInt(capacidadAulaRescatado));
         
     }
 
@@ -112,7 +117,7 @@ export const Solicitud = () => {
             <div className='contenedor-tabla-aulas-soli'>
                 <section className='seccion-aulas-disponibles'>
                     {
-                        ( aulasLibres.length > 0 && capacidadSolicitud > 0 )
+                        ( aulasLibres.length > 0 && capacidadSolicitud < solicitud.numeroEstudiantesSolicitud )
                             ? (
                                 <table className='tabla-aulas-soli'>
                                     <thead>
@@ -137,13 +142,13 @@ export const Solicitud = () => {
                                     </tbody>
                                 </table>
                             )
-                            : ( capacidadSolicitud == 0 )
+                            : ( capacidadSolicitud >= solicitud.numeroEstudiantesSolicitud )
                                 ? <p className='parrafo-info-soli'>La solicitud ha sido atendida con éxito, puedes volver a la sección de solicitudes. </p>
                                 : <p className='parrafo-info-soli'>No existen aulas disponibles para la solicitud, debes rechazar la solicitud.</p>
                     }
                 </section>
 
-                {console.log(capOrignal, 'capacidadOrg')}
+                
             </div>
             {
                 solicitudRecuperada != []

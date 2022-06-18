@@ -2,17 +2,17 @@ import { cambiarEstadoSolicitud } from "./cambiarEstadoSolicitud";
 
 export const cambiarCapacidadSolicitud = ( capacidadSolicitud, capacidadAula, modificarCapacidad, solicitud ) => {
 
-    let resta = capacidadSolicitud - capacidadAula;
+    let suma = parseInt(capacidadSolicitud) + parseInt(capacidadAula);
 
-    if( resta < 0 ){
+    if( suma >= solicitud.numeroEstudiantesSolicitud ){
 
-        modificarCapacidad( 0 );
+        modificarCapacidad( suma );
         
         //!llamada a metodo encargado de cambiar el estado de una solicitud a "APROBADA"
         cambiarEstadoSolicitud(solicitud);
 
     }else{
-        modificarCapacidad( resta );
+        modificarCapacidad( suma );
     }
 
 }
