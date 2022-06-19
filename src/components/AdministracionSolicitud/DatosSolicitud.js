@@ -10,7 +10,7 @@ export const DatosSolicitud = ( {item, capacidad} ) => {
             { 
                 data.map( (elemet,i)  => (
                     <p  key={i} className='parraf-datos-soli'>
-                        <b>{elemet.campo}: </b>{ (elemet.campo === 'Nro estudiantes') ?  capacidad  : elemet.valor}
+                        <b>{elemet.campo}: </b>{ (elemet.campo === 'Cant asignada') ?  capacidad  : elemet.valor}
                     </p>
                 ) )
             }
