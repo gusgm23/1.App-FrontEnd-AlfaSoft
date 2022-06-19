@@ -253,12 +253,12 @@ export const controlarCampoCantidad = ( cantidadEstudiantes, setStatusInputCanti
 export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, setMsjErrorPeriodo ) => {
     const tamanioPeriodo = parseInt(peridoSolicitud);
 
-    if( tamanioPeriodo >= 1 && tamanioPeriodo <= 3 ){
+    if( tamanioPeriodo >= 1 && tamanioPeriodo <= 2 ){
         setStatusInputPeriodo(false);
         setMsjErrorPeriodo('');
     }else {
         setStatusInputPeriodo(true);
-        setMsjErrorPeriodo('Debe ingresar periodos entre 1 y 3.');
+        setMsjErrorPeriodo('Debe ingresar periodos entre 1 y 2.');
     }
 }
 
@@ -271,15 +271,11 @@ export const validarCamposVaciosSolicitud = (valores = {}) => {
     const cantEst = parseInt(cantidadEstudiantes);
     const perSol = parseInt(peridoSolicitud);
 
-    if( cantEst === 0 && 
-        
-        perSol === 0 &&
-        horaSolicitud.length === 0) {
+    if( cantEst === 0 &&   
+        perSol === 0 ) {
             return true;
-        }else if(cantEst === 0 || 
-                
-                perSol === 0 || 
-                horaSolicitud.length === 0) {
+        }else if(cantEst === 0 ||              
+                perSol === 0 ) {
                     return true;
                 }else {
                     return false;

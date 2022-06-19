@@ -45,6 +45,7 @@ export const createSolicitud = (
     grupoSolicitud, 
     motivoSolicitud,
     fechaSolicitud,
+    horaInicioSolicitud,
     pendiente='pendiente',
     motivo='ninguno', 
     cantidadAsignada='0',
@@ -54,11 +55,8 @@ export const createSolicitud = (
     openModalWarning 
     ) => {
     
-    const { 
-             
-            cantidadEstudiantes,  
+    const { cantidadEstudiantes,  
             // motivoRechazo, 
-            horaSolicitud, 
             peridoSolicitud
         } = formValues;
 
@@ -73,11 +71,11 @@ export const createSolicitud = (
         //nuevo atributo
         motivoRechazo:                  `${motivo}`,
         fechaSolicitud:                 `${fechaSolicitud}`,
-        horaInicioSolicitud:            `${horaSolicitud}`,
+        horaInicioSolicitud:            `${horaInicioSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
         estadoSolicitud:                `${pendiente}`,
-        materiaSolicitud:               `${'materiaSolicitud'}`,
-        grupoSolicitud:                 `${'grupoSolicitud'}`,
+        materiaSolicitud:               `${materiaSolicitud}`,
+        grupoSolicitud:                 `${grupoSolicitud}`,
         materia_id:                     `${materia_id}`
     }
     ).then( (response) => {
@@ -95,6 +93,7 @@ export const updateSolicitudId = async (
     grupoSolicitud,
     motivoSolicitud,
     fechaSolicitud,
+    horaInicioSolicitud,
     pendiente='pendiente',
     motivo='ninguno',
     cantidadAsignada='0',
@@ -104,12 +103,8 @@ export const updateSolicitudId = async (
     openModalWarning, 
     id 
     ) => {
-        const {
-            
-             
-            cantidadEstudiantes,  
-            horaSolicitud, 
-            peridoSolicitud
+        const { cantidadEstudiantes,   
+                peridoSolicitud
         } = formValues;
 
     return await axios.put(`${baseUrl}/actualizarSolicitud/${id}`, 
@@ -122,7 +117,7 @@ export const updateSolicitudId = async (
         motivoSolicitud:                `${motivoSolicitud}`,
         motivoRechazo:                  `${motivo}`,
         fechaSolicitud:                 `${fechaSolicitud}`,
-        horaInicioSolicitud:            `${horaSolicitud}`,
+        horaInicioSolicitud:            `${horaInicioSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
         estadoSolicitud:                `${pendiente}`,
         materiaSolicitud:               `${materiaSolicitud}`,

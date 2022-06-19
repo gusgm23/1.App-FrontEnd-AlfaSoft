@@ -44,26 +44,21 @@ export const FormularioReservaAula = ({
         cantidadEstudiantes:    cantEstudiantes,
         // motvioRechazo:          motRechazo,
         peridoSolicitud:        perSolicitud,
-        horaSolicitud:          horSolicitud,
         
     })
 
-    const { cantidadEstudiantes, horaSolicitud, peridoSolicitud} = formValues;
+    const { cantidadEstudiantes, peridoSolicitud} = formValues;
 
     const { user } = useContext(AuthContext);
 
     //hooks para controlar contenidos de campos
-    const [StatusInputNomDocente, setStatusInputNomDocente] = useState(false);
-    const [StatusInputApeDocente, setStatusInputApeDocente] = useState(false);
     const [StatusInputCantidad, setStatusInputCantidad] = useState(false);
     const [StatusInputMotivo, setStatusInputMotivo] = useState(false);
+    const [StatusInputHora, setStatusInputHora] = useState(false);
     const [StatusInputPeriodo, setStatusInputPeriodo] = useState(false);
 
     //Hooks para mostrar el mensaje de error en los campos
-    const [MsjErrorNomDocente, setMsjErrorNomDocente] = useState('');
-    const [MsjErrorApeDocente, setMsjErrorApeDocente] = useState('');
     const [MsjErrorCantidad, setMsjErrorCantidad] = useState('');
-    const [MsjErrorMotivo, setMsjErrorMotivo] = useState('');
     const [MsjErrorPeriodo, setMsjErrorPeriodo] = useState('');
 
     //Hooks para el estado de las peticiones de la solicitud
@@ -79,7 +74,7 @@ export const FormularioReservaAula = ({
     const [selects, setSelects] = useState('Registrar materia');
     const [selectsGrupos, setSelectsGrupos] = useState('Registrar grupo');
     const [selectMotivo, setSelectMotivo] = useState('Vacio');
-
+    const [selectHora, setSelectHora] = useState('HoraVacia');
 
 
     useEffect(() => {
@@ -99,6 +94,14 @@ export const FormularioReservaAula = ({
     }, [selectMotivo])
 
     useEffect(() => {
+        if( selectHora === 'HoraVacia' ){
+            setStatusInputHora(true);
+        }else{
+            setStatusInputHora(false);
+        }
+    }, [selectHora])
+
+    useEffect(() => {
         if( peridoSolicitud === ''){
             setStatusInputPeriodo(false);
         }else {
@@ -108,14 +111,13 @@ export const FormularioReservaAula = ({
 
 
     const validarForm = () => {
-        if( validarCamposVaciosSolicitud(formValues, selectMotivo) ){
+        if( validarCamposVaciosSolicitud(formValues, selectMotivo, selectHora) ){
             openModalFormVacio();
         }else {
-            if( validarCamposLlenosSolicitud(formValues) ){
+            if( validarCamposLlenosSolicitud(formValues, selectMotivo ,selectHora) ){
                 openModalConfirm();
             }else {
                 console.log(typeof(nombreDocente));
-                console.log('logrado');
             }
         }
     }
@@ -126,7 +128,7 @@ export const FormularioReservaAula = ({
 
 
     //Para editar la solicitud y actualizar la tabla
-    const editarSolicitud = (nomS, apeS, canS,motR, fecS, horS, perS, matS, gruS) => {
+    const editarSolicitud = (nomS, apeS, canS,motR, fecS, perS, matS, gruS) => {
         const arregloSolicitud = dataS;
 
         let contador = 0;
@@ -139,7 +141,7 @@ export const FormularioReservaAula = ({
                 arregloSolicitud[contador].motivoSolicitud              = selectMotivo;
                 arregloSolicitud[contador].motivoRechazo                = motR;
                 arregloSolicitud[contador].fechaSolicitud               = fecS;
-                arregloSolicitud[contador].horaInicioSolicitud          = horS;
+                arregloSolicitud[contador].horaInicioSolicitud          = selectHora;
                 arregloSolicitud[contador].periodoSolicitud             = perS;
                 arregloSolicitud[contador].materiaSolicitud             = matS;
                 arregloSolicitud[contador].grupoSolicitud               = gruS;
@@ -158,10 +160,10 @@ export const FormularioReservaAula = ({
         setStatePetition(true);
 
         if( idsolicitud === '' ) {
-            createSolicitud( formValues, '1', selects, selectsGrupos, selectMotivo, JSON.stringify(fechaSolicitud).substring(1,11), 'pendiente','ninguno', '0', user.name, user.apellido, openModalSuccess, openModalWarning ); 
+            createSolicitud( formValues, '1', selects, selectsGrupos, selectMotivo, JSON.stringify(fechaSolicitud).substring(1,11), selectHora, 'pendiente','ninguno', '0', user.name, user.apellido, openModalSuccess, openModalWarning ); 
         }else {
-            updateSolicitudId(formValues, '1', selects, selectsGrupos, selectMotivo, JSON.stringify(fechaSolicitud).substring(1,11), 'pendiente','ninguno', '0', user.name, user.apellido, openModalSuccess, openModalWarning, idsolicitud);
-            editarSolicitud(user.name, user.apellido, cantidadEstudiantes, fechaSolicitud, horaSolicitud, peridoSolicitud, selects, selectsGrupos)
+            updateSolicitudId(formValues, '1', selects, selectsGrupos, selectMotivo, JSON.stringify(fechaSolicitud).substring(1,11), selectHora, 'pendiente','ninguno', '0', user.name, user.apellido, openModalSuccess, openModalWarning, idsolicitud);
+            editarSolicitud(user.name, user.apellido, cantidadEstudiantes, selectMotivo, fechaSolicitud, selectHora, peridoSolicitud, selects, selectsGrupos)
         }
     }
 
@@ -288,12 +290,7 @@ export const FormularioReservaAula = ({
                         </div>
                         <div className="campos-reserva-aulas">
                             <label className="labels"> Motivo de solicitud:</label>
-                            <div className='contenedor-inputs'>
-                                {/* <textarea name='motivoSolicitud' className={ StatusInputMotivo===true? "input-error" : "inputsSolicitud" } type="text"placeholder='Ingresar Motivo Solicitud' value={ motivoSolicitud } onChange= { handleInputChange } > */}
-                                {/* </textarea> */}
-                                {/* <p className={ StatusInputMotivo===true? "mensaje-error" : "mensaje-error-oculto" }> */}
-                                    {/* { MsjErrorMotivo } */}
-                                {/* </p> */}
+                            <div className='contenedor-inputs'>                                                                             
                                 <select 
                                     name='motivoSolicitud' 
                                     className='inputsSolicitud' 
@@ -336,7 +333,35 @@ export const FormularioReservaAula = ({
                             </div>
                         </div>
                         <div className="campos-reserva-aulas">
-                            <label className="labels"> Periodos:</label>
+                        <label className="labels"> Hora de Inicio: </label>
+                            <div className='contenedor-inputs'>
+                                <select 
+                                    name='horaSolicitud'
+                                    className="inputsSolicitud"
+                                    value={ selectHora }
+                                    onChange={ e => setSelectHora(e.target.value) }
+                                    selectHora={ selectHora }
+                                    setSelectHora={ setSelectHora }
+                                >
+                                    <option value='HoraVacia'> Seleccionar hora. </option>
+                                    <option> 06:45:00 </option>
+                                    <option> 08:15:00 </option>
+                                    <option> 09:45:00 </option>
+                                    <option> 11:15:00 </option>
+                                    <option> 12:45:00 </option>
+                                    <option> 14:15:00 </option>
+                                    <option> 15:45:00 </option>
+                                    <option> 17:15:00 </option>
+                                    <option> 18:45:00 </option>
+                                    <option> 20:15:00 </option>
+                                </select>
+                                <p className={ StatusInputHora ? "mensaje-error" : "mensaje-error-oculto"}>
+                                    Debe seleccionar una hora.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="campos-reserva-aulas">
+                        <label className="labels"> Periodos:</label>
                             <div className='contenedor-inputs'>
                                 <input 
                                     name='peridoSolicitud'
@@ -349,32 +374,6 @@ export const FormularioReservaAula = ({
                                 <p className={ StatusInputPeriodo===true? "mensaje-error" : "mensaje-error-oculto" }>
                                     { MsjErrorPeriodo }
                                 </p>
-                            </div>
-                        </div>
-                        <div className="campos-reserva-aulas">
-                            <label className="labels"> Hora de Inicio: </label>
-                            <div className='contenedor-inputs'>
-                                <select 
-                                    name='horaSolicitud'
-                                    className="inputsSolicitud"
-                                    //type="time"
-                                    //min="06:45:00 a.m."
-                                    //max="08:15:00 p.m."
-                                    value={ horaSolicitud }
-                                    onChange={ handleInputChange }
-                                >
-                                    <option> Seleccionar hora. </option>
-                                    <option> 06:45:00 </option>
-                                    <option> 08:15:00 </option>
-                                    <option> 09:45:00 </option>
-                                    <option> 11:15:00 </option>
-                                    <option> 12:45:00 </option>
-                                    <option> 14:15:00 </option>
-                                    <option> 15:45:00 </option>
-                                    <option> 17:15:00 </option>
-                                    <option> 18:45:00 </option>
-                                    <option> 20:15:00 </option>
-                                </select>
                             </div>
                         </div>
 
