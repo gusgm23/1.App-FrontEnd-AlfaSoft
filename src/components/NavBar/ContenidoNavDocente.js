@@ -43,7 +43,19 @@ export const ContenidoNavDocente = () => {
                         >
                         Solicitudes aprobadas
                     </NavLink>
-                    </div>
+                    
+
+                    
+                    <NavLink
+                        exact='true'
+                        to='/docente/verrechazados'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                    >
+                        Solicitudes Rechazadas
+                    </NavLink>
+
+
+
                     <NavLink
                         exact='true'
                         to='/docente/perfildocente'
@@ -51,6 +63,8 @@ export const ContenidoNavDocente = () => {
                     >
                         Mi Perfil
                     </NavLink>
+
+                    </div>
                 </div>
             </div>
             

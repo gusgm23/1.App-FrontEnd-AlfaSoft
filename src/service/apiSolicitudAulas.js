@@ -28,6 +28,10 @@ export const getSolicitud = async (setListaSolicitud) => {
         })
 }
 
+export const getSolicitudByDocent = (params) => {
+    return axios.get(`${baseUrl}/getSolicitudAulaByDocent`,{params})
+ }
+
 export const getSolicitudId = async (id, setter) => {
     await axios.get(`${baseUrl}/obtenerSolicitudId/${id}`)
         .then(response => {

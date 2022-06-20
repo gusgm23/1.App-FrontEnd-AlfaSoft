@@ -21,14 +21,8 @@ export const DocenteHome = () => {
                 <div className='contenido-home-docente'>
                     <div>
                         <p className='parrafo-home-docente'>
-                            Recuerda que puedes ver el historial de todas las solicitudes que registraste dentro del sistema, crear una nueva solicitud y editar aquellas solicitudes en la seccion de <b>solicitudes pendientes</b>.
+                            Recuerda que puedes ver el historial de todas las solicitudes que registraste dentro del sistema, crear una nueva solicitud y editar aquellas solicitudes que fueron rechazadas en la sección: <b>Ver Solicitudes.</b>
                         </p>
-                           <p>
-                             Tambien puedes ver las solicitudes que fueron rechazadas en la sección: <b>Solicitudes Rechazadas.</b>
-                            </p>
-                           <p>
-                             Tambien puedes ver las solicitudes que fueron Aceptadas en la sección: <b>Solicitudes Aceptadas.</b>
-                            </p>
                     </div>
                     <img src={homeImg} alt='image-home'/>
                 </div>
