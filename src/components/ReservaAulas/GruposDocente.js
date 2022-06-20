@@ -22,8 +22,8 @@ export const GruposDocente = ({ datas = [], selectsGrupos, setSelectsGrupos  }) 
       > 
       <option>Seleccionar grupo.</option>
       {
-       datas.map((grupo) => (       
-          <option key={grupo.id} value={grupo.grupoMateria}>{ grupo.grupoMateria}</option> ))}
+       datas.map((grupo, index) => (       
+          <option key={index} value={grupo.grupoMateria}>{ grupo.grupoMateria}</option> ))}
       </select>
       
     )

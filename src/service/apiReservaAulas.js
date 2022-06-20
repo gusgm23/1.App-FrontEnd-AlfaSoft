@@ -25,6 +25,7 @@ export const createReserva = async ( data , openModalSuccess, openModalWarning )
         fechaReserva:           `${data.fechaReserv}`,
         horaInicioReserva:      `${data.horaIni}`,
         horaFinalReserva:       `${data.horaFin}`,
+        idSolicitud:            `${data.idSolicitud}`,
         aula_id:                `${data.idAula}`  
     })
     .then(( response ) => {
@@ -43,6 +44,7 @@ export const updateReserva = ({ data }, aula_id, openModalSuccess, openModalWarn
         fechaReserva:           `${data.fechaReserva}`,
         horaInicioReserva:      `${data.horaInicioReserva}`,
         horaFinalReserva:       `${data.horaFinalReserva}`,
+        idSolicitud:            `${data.idSolicitud}`,
         aula_id:                `${aula_id}`  
     })
     .then(( response ) => {

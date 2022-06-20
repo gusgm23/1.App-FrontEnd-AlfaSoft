@@ -73,7 +73,8 @@ export const LoginScreen = () => {
             payload: {
                 name: userReg.name,
                 apellido: userReg.apellido,
-                rol: rolObtenido.rol
+                rol: rolObtenido.rol, 
+                idDocente: userReg.id,
             }
         }
 

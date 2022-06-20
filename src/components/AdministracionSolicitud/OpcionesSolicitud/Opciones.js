@@ -12,19 +12,18 @@ import './estilos-opciones.css'
 export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
 
     const {state:solicitud} = useLocation();    
-    const capOrig = parseInt(capacidad);
-
-    console.log(capacidad, 'capacidad')
-    console.log(capOrig, 'capOrig')
-    console.log(capacidadOriginal, 'capacidad original')
+    const capacidadAsignada = parseInt(capacidad);
+    
 
     const navigate = useNavigate();
     const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
 
 
+
+    
     const volverAtras = () => {
 
-        if( capOrig > 0 && capacidad !== capacidadOriginal ){
+        if( capacidadAsignada < parseInt(capacidadOriginal) && capacidadAsignada > 0 ){
             openModal();
         }else{
             navigate(-1);
@@ -51,16 +50,16 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                     </button>
 
                     {
-                        ( capacidad > 0 && capOrig === parseInt(capacidadOriginal) )
+                        ( capacidadAsignada == 0 )
                         ? (
                             <button 
-                                id='btn-opciones-soli'
+                                id='btn-opciones-solicitud'
                                 className='btn-rechazar-soli'
                                 onClick={ () => 
                                     rechazarSolicitud()
                                     // setOpenModalRechazo(true)
                                 }
-                            ><i class="bi bi-x-lg"></i> Rechazar
+                            ><i className="bi bi-x-lg"></i> Rechazar
                             </button>
                         )
                         : ''
