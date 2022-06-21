@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext,useEffect,useState }from 'react'
 import { Route, Routes } from 'react-router-dom';
 import { DocenteHome } from '../components/Docente/DocenteHome';
 
@@ -10,8 +10,24 @@ import { Error404Screen } from '../components/Page404/Error404Screen';
 import { SolicitudesAprobadas } from '../components/Docente/SolicitudesAprobadas/SolicitudesAprobadas';
 import { FormularioReservaAula } from '../components/ReservaAulas/FormularioReservaAula';
 import {EditarPerfil} from '../components/Docente/PerfilDocente/EditarPerfil';
+//Para editar el perfil
+import { getUsuarioId } from '../service/apiUsuarios'
+import { AuthContext } from '../auth/authContext';
 
 export const DocenteRoutes = () => {
+    const{user}= useContext (AuthContext);
+//
+const [usuario, setUsuario ] = useState({
+  state: false,
+  data: []
+});
+
+const {state, data} = usuario;
+
+useEffect(() => {
+  getUsuarioId(setUsuario,user.idDocente);
+}, [state]);
+    
     return (
         <>
             <NavBar>
@@ -22,11 +38,12 @@ export const DocenteRoutes = () => {
                 <Route exact path='listarsolicitudes'           element={<VerSolicitudesDoc/>}/>
                 <Route exact path='veraprobados'                element={<SolicitudesAprobadas/>}/>
                 <Route exact path='registrarsolicitud'          element={<FormularioReservaAula/>} />
-                <Route exact path='perfildocente'                element={<EditarPerfil/>} />
+                <Route exact path='perfildocente'                element={<EditarPerfil nom={data.name} ape={data.apellido} tel={data.telefonoUsuario} dir={data.direccionUsuario} cor={data.email} con={data.password} conf={data.repeatPassword} />}/>
 
 
                 <Route path='*'                                 element={<Error404Screen/>}/>
             </Routes>
         </>
+        
     )
 }
