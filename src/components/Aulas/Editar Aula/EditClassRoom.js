@@ -60,7 +60,7 @@ export const EditClassRoom = ({ closeModal, classRoomValues ,handleUpdate }) => 
 
   
   return (
-    <div>
+    <>
       <div>
         <div className="modal-header">
           <h5 className="modal-title">Editar Aula</h5>
@@ -129,12 +129,10 @@ export const EditClassRoom = ({ closeModal, classRoomValues ,handleUpdate }) => 
         </form>
       </div>
 
-      <ModalGenerico isOpen={isOpenModalConfirm} closeModal={closeModalConfirm}>
-        <Confirmacion
-          cerrarModal={closeModalConfirm}
-          funcGuardar={()=>{handleUpdate(formData, formData.id); closeModal();}}
-        />
-      </ModalGenerico>
-    </div>
+      <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
+                <Confirmacion cerrarModal={closeModalConfirm} funcGuardar={()=>{handleUpdate(formData, formData.id); closeModal();}}/>
+        </ModalGenerico>
+      
+    </>
   );
 };

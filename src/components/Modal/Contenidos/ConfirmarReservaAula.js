@@ -33,7 +33,7 @@ export const ConfirmarReservaAula = ( {cerrarModal, funcOk} ) => {
                         Cancelar
                     </button>
                     <button
-                        className='btn-guardar btn-confirmacion'
+                        className='btn-guardar-aula btn-confirmacion-aula'
                         onClick={reservarAula}
                     >
                         Reservar

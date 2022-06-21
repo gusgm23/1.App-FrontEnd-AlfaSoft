@@ -1,8 +1,8 @@
-.contenedor-home-docente{
+.solicitud-aceptada-content{
     margin: 50px;
     display: flex;
+    flex: 1;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
@@ -35,4 +35,19 @@ section > div > div {
 
 .contenedor-titulo-home-docente{
     width: 100%;
+}
+.title-modal{
+    font-size: 14pt;
+    font-weight: 500;
+}
+.separator{
+    background-color:gray;
+    margin:5px 0 ;
+    height: 1px;
+    width: 100%;
+}
+.modal-contend-reserva-aula{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
