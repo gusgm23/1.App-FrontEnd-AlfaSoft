@@ -19,3 +19,14 @@
     color: #ffffff;
     background: rgb(238, 62, 62);
 }
+
+.btn-confirmacion-aula {
+    width: 40%;
+    margin: 10px;
+    border: none;
+    color: #ffffff;
+}
+
+.btn-guardar-aula {
+    background-color: #4fa8fb;
+}

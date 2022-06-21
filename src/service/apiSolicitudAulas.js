@@ -28,6 +28,10 @@ export const getSolicitud = async (setListaSolicitud) => {
         })
 }
 
+export const getSolicitudByDocent = (params) => {
+    return axios.get(`${baseUrl}/getSolicitudAulaByDocent`,{params})
+ }
+
 export const getSolicitudId = async (id, setter) => {
     await axios.get(`${baseUrl}/obtenerSolicitudId/${id}`)
         .then(response => {
@@ -145,7 +149,8 @@ export const updateSolicitud = async (solicitud) => {
         id, 
         nombreDocenteSolicitud, 
         apellidoDocenteSolicitud, 
-        numeroEstudiantesSolicitud, 
+        numeroEstudiantesSolicitud,
+        cantidadEstudiantesAsignada, 
         motivoSolicitud,
         motivoRechazo, 
         fechaSolicitud, 
@@ -162,6 +167,7 @@ export const updateSolicitud = async (solicitud) => {
             nombreDocenteSolicitud:         `${nombreDocenteSolicitud}`,
             apellidoDocenteSolicitud:       `${apellidoDocenteSolicitud}`,
             numeroEstudiantesSolicitud:     `${numeroEstudiantesSolicitud}`,
+            cantidadEstudiantesAsignada:    `${cantidadEstudiantesAsignada}`,
             motivoSolicitud:                `${motivoSolicitud}`,
             motivoRechazo:                   `${motivoRechazo}`,
             fechaSolicitud:                 `${fechaSolicitud}`,

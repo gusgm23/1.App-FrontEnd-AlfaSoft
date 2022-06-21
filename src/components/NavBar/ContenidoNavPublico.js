@@ -10,7 +10,7 @@ export const ContenidoNavPublico = () => {
                         to='/' 
                         className="navbar-brand"
                     >
-                        Reserva de Aulas
+                       Sistema Reserva de Aulas
                     </Link>
                     <NavLink 
                         exact='true'

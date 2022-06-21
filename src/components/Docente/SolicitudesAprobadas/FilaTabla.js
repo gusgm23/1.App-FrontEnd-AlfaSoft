@@ -1,10 +1,6 @@
 import React from 'react'
 
-export const FilaTabla = ({listaSoliAprob=[]}) => {
-    
-    const mostrarAulasReservadas = () => {
-        console.log('*Se deberia mostrar un modal que contenga las aulas reservadas para la solicitud.*')
-    }
+export const FilaTabla = ({showReservedClassroom,listaSoliAprob=[]}) => {
     
     return (
         <tbody>
@@ -20,7 +16,7 @@ export const FilaTabla = ({listaSoliAprob=[]}) => {
                         <td>
                             <button
                                 className='btn-ver-aulas-reservadas'
-                                onClick={ mostrarAulasReservadas }
+                                onClick={()=>{ showReservedClassroom(item)} }
                             >
                                 <i className="bi bi-eye-fill icon-ver-aulas-reserv"></i>
                             </button>
