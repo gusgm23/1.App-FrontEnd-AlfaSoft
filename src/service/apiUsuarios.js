@@ -34,6 +34,22 @@ export const getUsuarios = async ( setListaUsuarios )  =>{
 export const getUsuariosId = (id) => {
     return axios.get(`${baseUrl}/obtenerUsuariosId/${id}`);
 }
+export const getUsuarioId = async (setUser,id) => {
+    await axios.get(`${baseUrl}/obtenerUsuariosId/${id}`)
+    .then(response =>{
+        setUser({
+            state: true,
+            data: response.data
+          
+        });
+    })
+    .catch( e=>{
+        console.log(e);
+    })
+    
+    
+    // return axios.get(`${baseUrl}/obtenerUsuariosId/${id}`);
+}
 
 export const createUsuario = ( 
     formValues, 
