@@ -1,0 +1,8 @@
+
+.solicitudes-container{
+    display: flex;
+    margin-top: 50px;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+}

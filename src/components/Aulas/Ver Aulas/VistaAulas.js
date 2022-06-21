@@ -44,6 +44,14 @@ export const VistaAulas = () => {
   }, []);
 
   function handleSearch(e) {
+    const {value}=e.target
+    if(value.trim()===""){
+      setSearch(e.target.value);
+    }
+    const reg = new RegExp('^[0-9a-zA-Z]+$');
+    if(reg.test(value)===false){
+      return;
+    }
     setSearch(e.target.value);
   }
 
@@ -56,7 +64,6 @@ export const VistaAulas = () => {
       const searchArr = [];
 
       dataAulas.data.forEach((data) => {
-        console.log(data.nombreAula);
         if (data.nombreAula.startsWith(search)) {
           searchArr.push(data);
         }
@@ -67,8 +74,6 @@ export const VistaAulas = () => {
   }, [search]);
 
   function handleEdit(data) {
-    console.log("edit", data);
-
     openModalEdicion();
     setClassRoomToUpdate({ ...data });
   }
@@ -163,9 +168,6 @@ export const VistaAulas = () => {
       <div className="contenedor-gral">
         <div>
           <div>
-            {/* <h2 className="titulo-ver-aulas">Buscar Aulas: </h2> */}
-            {/* <hr /> */}
-            {/* <form onSubmit={handleFormSearch}> */}
             <div className="input-group mb-3">
               <input
                 type="text"
@@ -182,9 +184,7 @@ export const VistaAulas = () => {
                 Buscar
               </button>
             </div>
-            {/* <hr></hr> */}
-
-            {/* </form> */}
+            
           </div>
           <div style={{display:"flex",justifyContent:"space-between"}}>
           <h2 className="titulo-ver-aulas">Aulas Registradas: </h2>
