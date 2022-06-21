@@ -147,12 +147,11 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
                             cor={ emailUsuario }
                             con={ pasUsuario }
                             conConf={ pasConfUsuario }
-                            closeModal={ closeModalEdicion }
-                            dataOptenida={ data }
-                            setListaUsuariosHabilitados={ setListaUsuariosHabilitados }
+                            closeModal={ closeModalEdicion }                                            
                         />
                     </ModalGenerico>
                 }
+
                 {
                     isOpenModalConfirm && 
                     <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>

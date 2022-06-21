@@ -30,3 +30,9 @@
 .btn-guardar-aula {
     background-color: #4fa8fb;
 }
+
+.btn-guardar-solicitud{
+    width: 40%;
+    margin: 10px;
+    background-color: #4fa8fb;
+}

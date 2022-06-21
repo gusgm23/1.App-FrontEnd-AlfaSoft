@@ -16,7 +16,7 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 export const validaCamposVaciosGrupo = ( valores = {}, docente ) => {
     const { grupo } = valores;
 
-    if( grupo.length == 0 || docente === 'Vacio' ){
+    if( grupo.length === 0 || docente === 'Vacio' ){
         return true;
     }else {
         return false;
@@ -256,7 +256,7 @@ export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, s
     if( tamanioPeriodo >= 1 && tamanioPeriodo <= 2 ){
         setStatusInputPeriodo(false);
         setMsjErrorPeriodo('');
-    }else {
+    }else{
         setStatusInputPeriodo(true);
         setMsjErrorPeriodo('Debe ingresar periodos entre 1 y 2.');
     }
@@ -264,9 +264,8 @@ export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, s
 
 export const validarCamposVaciosSolicitud = (valores = {}) => {
     const { cantidadEstudiantes,    
-            fechaSolicitud,     
-            peridoSolicitud,    
-            horaSolicitud } = valores;
+            peridoSolicitud,
+        } = valores;
 
     const cantEst = parseInt(cantidadEstudiantes);
     const perSol = parseInt(peridoSolicitud);

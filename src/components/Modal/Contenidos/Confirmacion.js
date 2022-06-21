@@ -29,7 +29,7 @@ export const Confirmacion = ({cerrarModal, funcGuardar}) => {
                         Cancelar
                     </button>
                     <button
-                        className='btn-guardar btn-confirmacion'
+                        className='btn-guardar-solicitud btn-confirmacion'
                         onClick={() => btnGuardar()}
                     >
                         Guardar

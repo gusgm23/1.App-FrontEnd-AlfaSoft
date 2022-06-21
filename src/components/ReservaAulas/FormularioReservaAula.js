@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './estilosFormularioReserva.css'
 
-import { controlarCampoNomDocente, controlarCampoApeDocente, controlarCampoCantidad, controlarCampoPeriodo, validarCamposVaciosSolicitud, validarCamposLlenosSolicitud } from '../../helpers/validarForms';
+import { controlarCampoCantidad, controlarCampoPeriodo, validarCamposVaciosSolicitud, validarCamposLlenosSolicitud } from '../../helpers/validarForms';
 import { useForm } from '../../hooks/useForm';
 import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
@@ -34,8 +34,7 @@ export const FormularioReservaAula = ({
         horSolicitud        ='',
         perSolicitud        ='',
 
-        closeModal = () => {}, titulo='', idsolicitud='', setListaSolicitud
-    }) => {
+        closeModal = () => {}, titulo='', idsolicitud='', dataOptenida, setListaSolicitud }) => {
 
     const [formValues, handleInputChange] = useForm({
        
@@ -44,14 +43,16 @@ export const FormularioReservaAula = ({
         cantidadEstudiantes:    cantEstudiantes,
         // motvioRechazo:          motRechazo,
         peridoSolicitud:        perSolicitud,
-        
+        selectHora:             horSolicitud,
     })
 
-    const { cantidadEstudiantes, peridoSolicitud} = formValues;
+    const { cantidadEstudiantes, peridoSolicitud } = formValues;
 
     const { user } = useContext(AuthContext);
 
     //hooks para controlar contenidos de campos
+    const [StatusInputMateria, setStatusInputMateria] = useState(false);
+    const [StatusInputGrupo, setStatusInputGrupo] = useState(false);
     const [StatusInputCantidad, setStatusInputCantidad] = useState(false);
     const [StatusInputMotivo, setStatusInputMotivo] = useState(false);
     const [StatusInputHora, setStatusInputHora] = useState(false);
@@ -71,11 +72,26 @@ export const FormularioReservaAula = ({
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
 
     //controlar estados de select
-    const [selects, setSelects] = useState('Registrar materia');
-    const [selectsGrupos, setSelectsGrupos] = useState('Registrar grupo');
+    const [selects, setSelects] = useState('MateriaVacia');
+    const [selectsGrupos, setSelectsGrupos] = useState('GrupoVacio');
     const [selectMotivo, setSelectMotivo] = useState('Vacio');
     const [selectHora, setSelectHora] = useState('HoraVacia');
 
+    useEffect(() => {
+        if(selects === 'MateriaVacia'){
+            setStatusInputMateria(true);
+        }else{
+            setStatusInputMateria(false);
+        }
+    }, [selects])
+
+    useEffect(() => {
+        if(selectsGrupos === 'GrupoVacio'){
+            setStatusInputGrupo(true);
+        }else{
+            setStatusInputGrupo(false);
+        }
+    }, [selectsGrupos])
 
     useEffect(() => {
         if( cantidadEstudiantes === '' ){
@@ -248,6 +264,9 @@ export const FormularioReservaAula = ({
             clear: 'Limpiar'
         });
 
+        // const horaSolicitud = document.getElementById('horaInicio');
+        // const opcionHora = horaSolicitud.options[horaSolicitud.selectedIndex].value;
+        // alert(opcionHora);
 
     return (
         <div className='contenedor-reserva-aulas'>
@@ -262,6 +281,9 @@ export const FormularioReservaAula = ({
                             <label className="labels"> Materia: </label>
                             <div className='contenedor-inputs'>
                                 <MateriasDocente data={listaMateriasDocente} selects={ selects } setSelects={ setSelects } />
+                                <p className={ StatusInputMateria ? "mensaje-error" : "mensaje-error-oculto" }>
+                                    Debe seleccionar una materia.
+                                </p>
                             </div>
                         </div>
                         <div>
@@ -270,6 +292,9 @@ export const FormularioReservaAula = ({
                             <label className="labels"> Grupo(s): </label>
                             <div className='contenedor-inputs'>
                                 <GruposDocente datas={listaGruposDocente} selectsGrupos={ selectsGrupos } setSelectsGrupos={ setSelectsGrupos } />
+                                <p className={ StatusInputGrupo ? "mensaje-error" : "mensaje-error-oculto" }>
+                                    Debe seleccionar primero una materia y luego el grupo.
+                                </p>
                             </div>
                         </div>
                         <div className="campos-reserva-aulas">
@@ -300,12 +325,12 @@ export const FormularioReservaAula = ({
                                     setSelectMotivo={ setSelectMotivo }
                                 > 
                                     <option value='Vacio'> Seleccionar motivo.</option>
-                                    <option > Examen Primer Parcial </option>
-                                    <option > Examen Segundo Parcial </option>
-                                    <option > Examen Final </option>
-                                    <option > Examen Segunda Instancia </option>
-                                    <option > Examen de Mesa 1ra Opción </option>
-                                    <option > Examen de Mesa 2ra Opción </option>
+                                    <option value='Examen Primer Parcial'> Examen Primer Parcial </option>
+                                    <option value='Examen Segundo Parcial'> Examen Segundo Parcial </option>
+                                    <option value='Examen Final'> Examen Final </option>
+                                    <option value='Examen Segunda Instancia'> Examen Segunda Instancia </option>
+                                    <option value='Examen de Mesa 1ra Opción'> Examen de Mesa 1ra Opción </option>
+                                    <option value='Examen de Mesa 2ra Opción'> Examen de Mesa 2ra Opción </option>
                                 </select>
                                 <p className={ StatusInputMotivo ? "mensaje-error" : "mensaje-error-oculto"}>
                                     Debe seleccionar un motivo.
@@ -336,6 +361,7 @@ export const FormularioReservaAula = ({
                         <label className="labels"> Hora de Inicio: </label>
                             <div className='contenedor-inputs'>
                                 <select 
+                                    id='horaInicio'
                                     name='horaSolicitud'
                                     className="inputsSolicitud"
                                     value={ selectHora }
@@ -344,16 +370,16 @@ export const FormularioReservaAula = ({
                                     setSelectHora={ setSelectHora }
                                 >
                                     <option value='HoraVacia'> Seleccionar hora. </option>
-                                    <option> 06:45:00 </option>
-                                    <option> 08:15:00 </option>
-                                    <option> 09:45:00 </option>
-                                    <option> 11:15:00 </option>
-                                    <option> 12:45:00 </option>
-                                    <option> 14:15:00 </option>
-                                    <option> 15:45:00 </option>
-                                    <option> 17:15:00 </option>
-                                    <option> 18:45:00 </option>
-                                    <option> 20:15:00 </option>
+                                    <option value='06:45:00'> 06:45:00 </option>
+                                    <option value='08:15:00'> 08:15:00 </option>
+                                    <option value='09:45:00'> 09:45:00 </option>
+                                    <option value='11:15:00'> 11:15:00 </option>
+                                    <option value='12:45:00'> 12:45:00 </option>
+                                    <option value='14:15:00'> 14:15:00 </option>
+                                    <option value='15:45:00'> 15:45:00 </option>
+                                    <option value='17:15:00'> 17:15:00 </option>
+                                    <option value='18:45:00'> 18:45:00 </option>
+                                    <option value='20:15:00'> 20:15:00 </option>
                                 </select>
                                 <p className={ StatusInputHora ? "mensaje-error" : "mensaje-error-oculto"}>
                                     Debe seleccionar una hora.
