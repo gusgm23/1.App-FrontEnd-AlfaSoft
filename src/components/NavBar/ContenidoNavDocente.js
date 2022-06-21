@@ -45,7 +45,6 @@ export const ContenidoNavDocente = () => {
                     </NavLink>
                     
 
-                    
                     <NavLink
                         exact='true'
                         to='/docente/verrechazados'
