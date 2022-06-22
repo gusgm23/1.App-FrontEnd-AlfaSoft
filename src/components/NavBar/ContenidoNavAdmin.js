@@ -105,16 +105,16 @@ useEffect(() => {
                 (<b>{data.length}</b>)
             </span>
             <section
-              class="dropdown-menu notification-container"
+              className="dropdown-menu notification-container"
               aria-labelledby="notification"
             >
               {/* <section>Notificaiones</section>
                             <hr/> */}
-                            <NavLink style={{color:"black"}} to="/admin/versolicitudes">
-              <li>
-                Tienes <b>{data.length}</b> solicitudes de
-                reserva de aulas pendientes!
-              </li>
+                <NavLink style={{color:"black"}} to="/admin/versolicitudes">
+                    <li>
+                      Tienes <b>{data.length}</b> solicitudes de
+                      reserva de aulas pendientes!
+                    </li>
                 </NavLink>
             </section>
           </div>
