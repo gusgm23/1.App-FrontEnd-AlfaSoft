@@ -4,6 +4,9 @@ import { AuthContext } from "../../auth/authContext";
 import { getSolicitudPendiente } from '../../service/apiSolicitudAulas';
 import { types } from "../../types/types";
 
+//este comentario es para pruebas 
+
+
 export const ContenidoNavAdmin = () => {
   const { user, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -44,6 +47,7 @@ useEffect(() => {
                 "nav-item nav-link " + (isActive ? "active" : "no-active")
               }
             >
+
               Ver Usuarios
             </NavLink>
             {/*<NavLink 
