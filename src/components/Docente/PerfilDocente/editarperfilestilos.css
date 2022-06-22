@@ -22,7 +22,7 @@
     display: flex;
     flex-direction: row;
 }
-.inputs{
+.inputs-perfil{
     /* border-style:   ; */
     border: 1.5px solid rgb(55, 157, 252);
     border-radius: 7px;
@@ -30,7 +30,7 @@
     width: 300px;
     background-color: azure;
 }
-.inputs:hover{
+.inputs-perfil:hover{
     box-shadow: 0px 0px 8px rgb(95,176,251);
 }
 .input-email{
@@ -49,22 +49,29 @@
 .rigth-item{
     padding-left: 50px;
 }
-.contenedor-botones{
-    /* background-color: blueviolet; */
-    padding-left: 30px;
-}
-#btn-opciones-soli {
+.contenedor-botonesPerfil{
+    display: flex;
+    align-items: flex-end;
     width: 100%;
+    padding-left: 200px;
+}
+#btn-opciones-soliperfil {
+    width: 220px;
     height: 35px;
     border-radius: 15px;
     color: #ffffff;
     border: none;
 }
 
-.btn-rechazar {
+.btn-cancelarperfil {
     background-color: rgba(220, 53, 69, .9);
+    margin: 10px ;
+    margin-left: 30px;
 }
-.btn-guardar{
-    width: 10%;
-    height: 35px;
+.btn-guardarperfil{
+    background-color: rgba(53, 181, 220, 0.9);
+    margin-right: 15px;
+    margin: 10px ;
+    width: 250px;
+
 }   
