@@ -4,6 +4,7 @@ import { AuthContext } from "../../auth/authContext";
 import { getSolicitudPendiente } from '../../service/apiSolicitudAulas';
 import { types } from "../../types/types";
 
+
 //este comentario es para pruebas 
 
 
