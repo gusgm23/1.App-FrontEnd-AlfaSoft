@@ -1,7 +1,7 @@
 import React from "react";
 
 const CamposTablaSolicitud = () => {
-    const columnas = ['#', 'Nombre', 'Apellido', 'Cantidad', 'Motivo', 'Fecha', 'Hora', 'Opciones']
+    const columnas = ['#', 'Nombre', 'Apellido', 'Materia', 'Cantidad', 'Motivo', 'Fecha', 'Hora', 'Opciones']
 
     return (
         <>

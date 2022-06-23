@@ -6,11 +6,6 @@ import {getSolicitud} from '../../../service/apiSolicitudAulas';
 import { FormularioReservaAula } from '../FormularioReservaAula';
 import CamposTablaSolicitud from './CamposTablaSolicitud';
 
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'bootstrap';
-import { Row } from 'primereact/row';
-import { ColumnGroup } from 'primereact/columngroup';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
 
 
@@ -44,12 +39,9 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
         } = Valores;
 
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
-    const[isOpenModalEdition, openModalEdition, closeModalEdition] = useModal(false);
     const [ isOpenModalConfirm, openModalConfirm, closeModalConfirm ] = useModal(false); 
 
     const [dataSolicitud, setdataSolicitud] = useState([]);
-
-
 
 
     //Para mostrar los campos en la tabla 
@@ -71,7 +63,6 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
     }
 
 
-
     return(
         <>
         <div className="contendedor-tabla-generalSolicitud">
@@ -85,6 +76,7 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
                                     <td>{ i+1}</td>
                                     <td>{ item.nombreDocenteSolicitud}</td>
                                     <td>{ item.apellidoDocenteSolicitud}</td>
+                                    <td>{item.materiaSolicitud}</td>
                                     <td>{ item.numeroEstudiantesSolicitud}</td>
                                     <td>{ item.motivoSolicitud}</td>
                                     <td>{ item.fechaSolicitud}</td>
@@ -119,15 +111,16 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
                         nomDocente     ={nombreSoli  }
                         apeDocente     ={apellidoSoli}
                         cantEstudiantes={numeroSoli  }
-                        motSolicitud   ={motivoSoli  }
-                        fecSolicitud   ={fechaSoli   }
-                        horSolicitud   ={horaSol     }
+                        selectMotivoR   ={motivoSoli  }
+                        fechaSolicitud   ={fechaSoli   }
+                        setSelectHora   ={horaSol     }
                         perSolicitud   ={periodoSoli }
                         selects        ={materiaSoli}
                         selectsGrupos  ={grupoSoli   }
                         closeModal={ closeModalEdicion }
-                        setListaSolicitud={ setListaSolicitud }
                         dataOptenida={data}
+                        setListaSolicitud={ setListaSolicitud }
+                       
                     />
                 </ModalGenerico>
             }

@@ -82,9 +82,6 @@ export const VerSolicitudesDoc = () => {
                     : <Spinner/>
                 }
             </div>
-            {/* <ModalGenerico isOpen={isOpenModalCreate} closeModal={closeModalCreate}> */}
-                {/* <FormularioReservaAula closeModalCreate={closeModalCreate} titulo='Registrar'/> */}
-            {/* </ModalGenerico> */}
         </div>
     )
 }
