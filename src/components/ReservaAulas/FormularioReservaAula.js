@@ -224,6 +224,7 @@ export const FormularioReservaAula = ({
         setListaGruposDocente(obtenerGrupos(listaGrupos.data, data, selects, user.idDocente))
         console.log(user.idDocente, 'iddocente');
     }, [selects])
+    console.log("🚀 ~ file: FormularioReservaAula.js ~ line 225 ~ useEffect ~ user.idDocente", user.idDocente)
 
 
     const navegar = useNavigate();

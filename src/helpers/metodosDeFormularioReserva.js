@@ -17,11 +17,15 @@ export const obtenerMaterias = (listaMaterias=[], listaGrupos=[], idDocente) => 
 }
 
 const obtenerGrupoDocente = ( listaGrupos=[], idDocente) => {
-    console.log(typeof (idDocente), 'idDocente')
+console.log("🚀 ~ file: metodosDeFormularioReserva.js ~ line 20 ~ obtenerGrupoDocente ~ idDocente", idDocente)
     let gruposDocente = [];
 
     listaGrupos.filter(grupo => {
+        console.log("🚀 ~ file: metodosDeFormularioReserva.js ~ line 25 ~ obtenerGrupoDocente ~ grupo.idDocente", grupo.idDocente)
+
             if(grupo.idDocente === idDocente.toString()){
+                gruposDocente.push(grupo);
+            } else if( grupo.idAuxiliar === idDocente.toString() ){
                 gruposDocente.push(grupo);
             }
         }) 
