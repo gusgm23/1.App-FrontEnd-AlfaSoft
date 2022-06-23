@@ -179,9 +179,9 @@ export const RegistroUsuarios = ({
         setStatePetition(true);
 
         if ( idUsu === '' ) {
-            createUsuario( formValues, '2', selectsRoles, 'Habilitado', openModalSuccess, openModalWarning );
+            createUsuario( formValues, (selectsRoles==='Docente') ? '2':'3', selectsRoles, 'Habilitado', openModalSuccess, openModalWarning );
         } else {
-            updateUsuario( formValues, '2', selectsRoles, 'Habilitado', openModalSuccess, openModalWarning, idUsu );
+            updateUsuario( formValues, (selectsRoles==='Docente') ? '2':'3', selectsRoles, 'Habilitado', openModalSuccess, openModalWarning, idUsu );
             editarUsuario( nombreUsuario, 
                 apellidoUsuario, 
                 telefonoUsuario, 

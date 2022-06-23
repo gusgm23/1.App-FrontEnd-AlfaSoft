@@ -63,7 +63,7 @@
 .p-calendar {
     width: 250px;
     margin-left: 40%;
-    font-size: small;
+    font-size: small;  
 }
 
 .p-datepicker-group{
@@ -116,7 +116,7 @@ input{
 }
 
 .input-error{
-    width: 250px;
+    width: 200px;
     background: #e3e6ec;
     box-shadow: 5px 5px 12px #d1d9e6,
     -5px -5px 12px #ffffff;

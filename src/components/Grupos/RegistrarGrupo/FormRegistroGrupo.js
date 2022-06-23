@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { obtenerAuxiliares, obtenerDocentes } from '../../../helpers/obtenerTiposDeUsuarios';
 import { controlarCampoGrupo, validaCamposVaciosGrupo, validarCamposLlenosGrupo, verificarExistenciaGrupo } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
@@ -10,6 +11,7 @@ import { ErrorGuardarDatos } from '../../Modal/Contenidos/ErrorGuardarDatos';
 import { GrupoExiste } from '../../Modal/Contenidos/GrupoExiste';
 import { Hecho } from '../../Modal/Contenidos/Hecho';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
+import { ListaAuxiliares } from './ListaAuxiliares';
 import { ListaDocentes } from './ListaDocentes';
 
 export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeModal = () => {}, closeModalCreate = () => {}, dataLimpia, setDataLimpia }) => {
@@ -30,6 +32,12 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     })
     const { states, datas } = usuarios;
 
+    const [tipoUsuarios, setTipoUsuarios] = useState({
+        docentes: [],
+        auxiliares: []
+    })
+
+    const { docentes, auxiliares } = tipoUsuarios;
 
     //Hooks par controlar Modales
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
@@ -57,6 +65,9 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     //!Hook para controlar estado de Combobox de docentes
     const [selectDocente, setSelectDocente] = useState('Vacio');
 
+    //!Hook para controlar estado de Combobox de auxiliares
+    const [selectAuxiliar, setSelectAuxiliar] = useState('No asignado');
+
     useEffect(() => {
         
         getUsuariosHabilitados(setUsuarios);
@@ -64,6 +75,15 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
 
     }, [])
 
+    useEffect(() => {
+
+        setTipoUsuarios({
+            docentes: obtenerDocentes(datas),
+            auxiliares: obtenerAuxiliares(datas)
+        });
+        
+    }, [datas])
+    
     useEffect(() => {
         if( grupo === '' ){
             setStatusInputGrupo(false);
@@ -138,12 +158,12 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
         if( !verificarExistenciaGrupo(dataLimpia, grupo, selectDocente) && selectDocente !== 'Vacio' ){
             if(titulo === 'Registrar'){
             
-                createGrupoMateria(grupo, selects, idMat, selectDocente, openModalSuccess, openModalWarning);    
+                createGrupoMateria(grupo, selects, idMat, selectDocente, selectAuxiliar, openModalSuccess, openModalWarning);    
                 nuevoGrupo(dataLimpia.length+10, grupo, selects, idMat);
     
             }else{
     
-                updateGrupoMateriaId(grupo, selects, idMat, selectDocente, openModalSuccess, openModalWarning, idEdit);
+                updateGrupoMateriaId(grupo, selects, idMat, selectDocente, selectAuxiliar, openModalSuccess, openModalWarning, idEdit);
                 editarMateria(idEdit, grupo, selects);
     
             }
@@ -180,10 +200,14 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
                             </div>
                             <div className='contenedor-flex-grupo'>
                                 <label className='labels'>Docente:</label>
-                                <ListaDocentes listaDocentes={ datas } selects={ selectDocente } setSelects={ setSelectDocente }/>
+                                <ListaDocentes listaDocentes={ docentes } selects={ selectDocente } setSelects={ setSelectDocente }/>
                                 <p className={ StatusInputDocente ? 'msj-error' : 'msj-error-oculto' }>
                                     Debes asignar un docente.
                                 </p>
+                            </div>
+                            <div className='contenedor-flex-grupo'>
+                                <label className='labels'>Auxiliar:</label>
+                                <ListaAuxiliares listaAuxiliares={ auxiliares } selects={ selectAuxiliar } setSelects={ setSelectAuxiliar }/>
                             </div>
                             <div className='contenedor-flex-grupo'>
                                 <label className='labels'>Estado:</label>

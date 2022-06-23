@@ -1,8 +1,3 @@
-
-
-
-
-
 export const obtenerMaterias = (listaMaterias=[], listaGrupos=[], idDocente) => {
 
     let listaGrupoDocentes = obtenerGrupoDocente( listaGrupos, idDocente);
@@ -12,16 +7,16 @@ export const obtenerMaterias = (listaMaterias=[], listaGrupos=[], idDocente) => 
         return listaNombresMaterias.indexOf(item) === index;
     })
 
-    console.log(resultado);
     return resultado;
 }
 
 const obtenerGrupoDocente = ( listaGrupos=[], idDocente) => {
-    console.log(typeof (idDocente), 'idDocente')
     let gruposDocente = [];
 
     listaGrupos.filter(grupo => {
             if(grupo.idDocente === idDocente.toString()){
+                gruposDocente.push(grupo);
+            } else if( grupo.idAuxiliar.localeCompare(idDocente) == 0){
                 gruposDocente.push(grupo);
             }
         }) 
@@ -46,15 +41,13 @@ const obtenerNombresMaterias = ( listaMaterias=[], listaGrupos=[]) => {
 export const obtenerGrupos = (listaGrupos=[], listaMaterias=[], nombreMateria, idDocente) => {
     let gruposDocente = obtenerGrupoDocente( listaGrupos, idDocente);
     let idMateriaDocente = obtenerIdMateria( listaMaterias, nombreMateria);
-    let listaFiltradaGrupos = filtrarGruposPorIdMateria( listaGrupos, idMateriaDocente);
-   
+    let listaFiltradaGrupos = filtrarGruposPorIdMateria( gruposDocente, idMateriaDocente);
 
     return listaFiltradaGrupos;
 }
 
 const obtenerIdMateria = ( listaMaterias=[], nombreMateria) => {
-    console.log(listaMaterias, 'listaMaterias')
-    console.log(nombreMateria, 'nombreMateria')
+
     let idMateria = '';
 
     listaMaterias.filter(materia => {

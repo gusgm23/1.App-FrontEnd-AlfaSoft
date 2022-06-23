@@ -4,6 +4,10 @@ import { AuthContext } from "../../auth/authContext";
 import { getSolicitudPendiente } from '../../service/apiSolicitudAulas';
 import { types } from "../../types/types";
 
+
+//este comentario es para pruebas 
+
+
 export const ContenidoNavAdmin = () => {
   const { user, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -44,6 +48,7 @@ useEffect(() => {
                 "nav-item nav-link " + (isActive ? "active" : "no-active")
               }
             >
+
               Ver Usuarios
             </NavLink>
             {/*<NavLink 
@@ -105,16 +110,16 @@ useEffect(() => {
                 (<b>{data.length}</b>)
             </span>
             <section
-              class="dropdown-menu notification-container"
+              className="dropdown-menu notification-container"
               aria-labelledby="notification"
             >
               {/* <section>Notificaiones</section>
                             <hr/> */}
-                            <NavLink style={{color:"black"}} to="/admin/versolicitudes">
-              <li>
-                Tienes <b>{data.length}</b> solicitudes de
-                reserva de aulas pendientes!
-              </li>
+                <NavLink style={{color:"black"}} to="/admin/versolicitudes">
+                    <li>
+                      Tienes <b>{data.length}</b> solicitudes de
+                      reserva de aulas pendientes!
+                    </li>
                 </NavLink>
             </section>
           </div>
