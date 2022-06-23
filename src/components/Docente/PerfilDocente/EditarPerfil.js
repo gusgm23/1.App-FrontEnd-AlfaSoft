@@ -1,5 +1,7 @@
-import React, { useContext,useEffect,useState } from 'react'
+import React, { StrictMode, useContext,useEffect,useState } from 'react'
 import "./editarperfilestilos.css";
+import { Password } from 'primereact/password';
+
 import { updateUsuario,getUsuarioId} from '../../../service/apiUsuarios'
 import { AuthContext } from '../../../auth/authContext';
 import { useModal } from "../../../hooks/useModal";
@@ -17,10 +19,11 @@ export const EditarPerfil = ({
   cor='',
   con='',
   conf=''
+
 }) => {
 
 const{user}= useContext (AuthContext);
-//
+
 const [usuario, setUsuario ] = useState({
   state: false,
   data: []
@@ -32,8 +35,19 @@ const [ StatePetition, setStatePetition ] = useState(false);
 useEffect(() => {
   getUsuarioId(setUsuario,user.idDocente);
 }, [state]);
+const establecerDatos =()=>{
+  nombreUsuario='juan'
+
+}
+// useEffect(() =>{
+//   establecerDatos();
+
+// }, []);
+
+
 
 const [formValues,setValues] = useState({
+  
   nombreUsuario: nom,
   apellidoUsuario: ape,
   telefonoUsuario: tel,
@@ -75,6 +89,9 @@ const validacionCampos=()=>{
   }
  else if (nombreUsuario.length <3 ){
   alerta("La longitud del nombre debe ser mayor a 3")
+ }
+ else if(!apel.test(nombreUsuario)){
+  alerta("Los nombres solo contienen letras")
  }
  else if(apellidoUsuario.length<4){
   alerta("La longitud del apellido debe ser mayor a 3")
@@ -209,26 +226,46 @@ const actualizarDatos=(item)=>{
             </div>
             
 			<div className='item-container'>
-
             <div className='password'>
             <label>Contraseña:</label>
-            <div className='input-perfil'>
+            <Password 
+            style={ { } }
+            inputStyle={{width:'300px',height:'40px',borderRadius: '7px',
+            border: '1.5px solid rgb(55, 157, 252)', backgroundColor:'white'}}
+              name="contraseñaUsuario"
+              className={ "input-perfil" }
+              placeholder="Contraseña"
+              value={contraseñaUsuario} 
+              onChange={ handleInputChange } toggleMask
+               //onChange={(e) => setcontraseñaUsuarioConf(e.target.value)} toggleMask
+                                />
+            {/* <div className='input-perfil'>
             <input name='contraseñaUsuario' placeholder='********' className='inputs-perfil' type='password'
             value={contraseñaUsuario}
             onChange={handleInputChange} 
             ></input>
+            </div> */}
             </div>
-            </div>
-
+            
             <div className='rigth-item'>
-            <label>Confirmar Contraseña:</label>
-			<div className='input-perfil'>
+             <label>Confirmar Contraseña:</label>
+            <Password 
+            inputStyle={{width:'300px',height:'40px',borderRadius: '7px',
+            border: '1.5px solid rgb(55, 157, 252)', backgroundColor:'white'}}
+              name="contraseñaUsuarioConf"
+              className={ "" }
+              placeholder="Repetir Contraseña"
+              value={contraseñaUsuarioConf} 
+              onChange={ handleInputChange } toggleMask
+               //onChange={(e) => setcontraseñaUsuarioConf(e.target.value)} toggleMask
+                                />
+			{/* <div className='input-perfil'>
             <input name='contraseñaUsuarioConf' placeholder='********' className='inputs-perfil' type='password'
             value={contraseñaUsuarioConf}
             onChange={handleInputChange} 
             ></input>
-             </div>
-            </div>
+             </div> */}
+          </div>
 			</div>
 
         <div className='contenedor-botonesPerfil'>
@@ -236,8 +273,8 @@ const actualizarDatos=(item)=>{
             <button
              id='btn-opciones-soliperfil'
              className='btn-guardarperfil'
-             onClick={()=> validacionCampos() }
-            // onClick={()=> actualizarDatos(data) }
+             onClick={()=> validacionCampos()}
+            // onClick={()=> console.log(data)}
 
             >
               Guardar</button>

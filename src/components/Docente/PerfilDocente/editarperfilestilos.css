@@ -4,11 +4,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    /* background-color: azure; */
+    
+    
 
 }
 .inputs-container{
-   margin-left:50%;
+   margin-left:40%;
 }
 
 
@@ -28,8 +29,8 @@
     border-radius: 7px;
     height: 40px;
     width: 300px;
-    background-color: azure;
-}
+    /* background-color: azure; */
+    }
 .inputs-perfil:hover{
     box-shadow: 0px 0px 8px rgb(95,176,251);
 }
