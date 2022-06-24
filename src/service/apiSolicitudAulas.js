@@ -28,6 +28,10 @@ export const getSolicitud = async (setListaSolicitud) => {
         })
 }
 
+export const getSolicitudByDocent = (params) => {
+    return axios.get(`${baseUrl}/getSolicitudAulaByDocent`,{params})
+ }
+
 export const getSolicitudId = async (id, setter) => {
     await axios.get(`${baseUrl}/obtenerSolicitudId/${id}`)
         .then(response => {
@@ -43,33 +47,35 @@ export const createSolicitud = (
     materia_id, 
     materiaSolicitud, 
     grupoSolicitud, 
+    motivoSolicitud,
+    fechaSolicitud,
+    horaInicioSolicitud,
     pendiente='pendiente',
     motivo='ninguno', 
+    cantidadAsignada='0',
+    nombre,
+    apellido,
     openModalSuccess, 
     openModalWarning 
     ) => {
     
-    const { nombreDocente, 
-            apellidoDocente, 
-            cantidadEstudiantes, 
-            motivoSolicitud, 
-            // motivoRechazo,
-            fechaSolicitud, 
-            horaSolicitud, 
+    const { cantidadEstudiantes,  
+            // motivoRechazo, 
             peridoSolicitud
         } = formValues;
 
     return axios.post(`${baseUrl}/crearSolicitud`, 
     {
         //id:                             `${data.id}`,
-        nombreDocenteSolicitud:         `${nombreDocente}`,
-        apellidoDocenteSolicitud:       `${apellidoDocente}`,
+        nombreDocenteSolicitud:         `${nombre}`,
+        apellidoDocenteSolicitud:       `${apellido}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
+        cantidadEstudiantesAsignada:    `${cantidadAsignada}`,
         motivoSolicitud:                `${motivoSolicitud}`,
         //nuevo atributo
         motivoRechazo:                  `${motivo}`,
         fechaSolicitud:                 `${fechaSolicitud}`,
-        horaInicioSolicitud:            `${horaSolicitud}`,
+        horaInicioSolicitud:            `${horaInicioSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
         estadoSolicitud:                `${pendiente}`,
         materiaSolicitud:               `${materiaSolicitud}`,
@@ -89,33 +95,33 @@ export const updateSolicitudId = async (
     materia_id,
     materiaSolicitud,
     grupoSolicitud,
+    motivoSolicitud,
+    fechaSolicitud,
+    horaInicioSolicitud,
     pendiente='pendiente',
     motivo='ninguno',
+    cantidadAsignada='0',
+    nombre,
+    apellido,
     openModalSuccess,
     openModalWarning, 
     id 
     ) => {
-        const {
-            nombreDocente, 
-            apellidoDocente, 
-            cantidadEstudiantes,
-            motivoSolicitud, 
-            fechaSolicitud, 
-            horaSolicitud, 
-            peridoSolicitud
+        const { cantidadEstudiantes,   
+                peridoSolicitud
         } = formValues;
 
     return await axios.put(`${baseUrl}/actualizarSolicitud/${id}`, 
     {
         id:                             `${id}`,
-        nombreDocenteSolicitud:         `${nombreDocente}`,
-        apellidoDocenteSolicitud:       `${apellidoDocente}`,
+        nombreDocenteSolicitud:         `${nombre}`,
+        apellidoDocenteSolicitud:       `${apellido}`,
         numeroEstudiantesSolicitud:     `${cantidadEstudiantes}`,
+        cantidadEstudiantesAsignada:    `${cantidadAsignada}`,
         motivoSolicitud:                `${motivoSolicitud}`,
         motivoRechazo:                  `${motivo}`,
-
         fechaSolicitud:                 `${fechaSolicitud}`,
-        horaInicioSolicitud:            `${horaSolicitud}`,
+        horaInicioSolicitud:            `${horaInicioSolicitud}`,
         periodoSolicitud:               `${peridoSolicitud}`,
         estadoSolicitud:                `${pendiente}`,
         materiaSolicitud:               `${materiaSolicitud}`,
@@ -138,7 +144,8 @@ export const updateSolicitud = async (solicitud) => {
         id, 
         nombreDocenteSolicitud, 
         apellidoDocenteSolicitud, 
-        numeroEstudiantesSolicitud, 
+        numeroEstudiantesSolicitud,
+        cantidadEstudiantesAsignada, 
         motivoSolicitud,
         motivoRechazo, 
         fechaSolicitud, 
@@ -155,6 +162,7 @@ export const updateSolicitud = async (solicitud) => {
             nombreDocenteSolicitud:         `${nombreDocenteSolicitud}`,
             apellidoDocenteSolicitud:       `${apellidoDocenteSolicitud}`,
             numeroEstudiantesSolicitud:     `${numeroEstudiantesSolicitud}`,
+            cantidadEstudiantesAsignada:    `${cantidadEstudiantesAsignada}`,
             motivoSolicitud:                `${motivoSolicitud}`,
             motivoRechazo:                   `${motivoRechazo}`,
             fechaSolicitud:                 `${fechaSolicitud}`,

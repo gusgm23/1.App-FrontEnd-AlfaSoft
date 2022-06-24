@@ -3,9 +3,9 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 
     const Sis = parseInt(codSis);
 
-    if(Sis === 0 && materia.length == 0){
+    if(Sis === 0 && materia.length === 0){
         return true;
-    }else if(Sis === 0 || materia.length == 0){
+    }else if(Sis === 0 || materia.length === 0){
         return true;
     }else {
         return false;
@@ -13,10 +13,10 @@ export const validarCamposVaciosMateria = (valores = {}) => {
 
 }
 
-export const validaCamposVaciosGrupo = ( valores = {} ) => {
+export const validaCamposVaciosGrupo = ( valores = {}, docente ) => {
     const { grupo } = valores;
 
-    if( grupo.length == 0){
+    if( grupo.length === 0 || docente === 'Vacio' ){
         return true;
     }else {
         return false;
@@ -54,10 +54,10 @@ export const validarCamposVaciosAula = ( valores = {}, estado = '' ) => {
 
     const { aula, capacidad } = valores;
 
-    if( aula.length == 0 && capacidad == 0 && estado ===  'estado'){
+    if( aula.length === 0 && capacidad === 0 && estado ===  'estado'){
         console.log('campos vacios');
         return true;
-    }else if( aula.length == 0 || capacidad == 0 || estado ===  'estado' ){
+    }else if( aula.length === 0 || capacidad === 0 || estado ===  'estado' ){
         console.log('existen campos vacios')
         return true;
     }else {
@@ -171,8 +171,8 @@ export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExis
             }
         }else{
             
-            if(element.codigoMateria === codSis && element.codigoMateria != codiSis){
-                if(element.nombreMateria === materia && element.nombreMateria != materi){
+            if(element.codigoMateria === codSis && element.codigoMateria !== codiSis){
+                if(element.nombreMateria === materia && element.nombreMateria !== materi){
                     setCodExiste(true);
                     setMateriaExiste(true);
                     setSePuedeGuardar(false);
@@ -180,7 +180,7 @@ export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExis
                     setCodExiste(true);
                     setSePuedeGuardar(false);
                 }
-            }else if(element.nombreMateria === materia && element.nombreMateria != materi){
+            }else if(element.nombreMateria === materia && element.nombreMateria !== materi){
                 setMateriaExiste(true);
                 setSePuedeGuardar(false);
             }else{
@@ -188,43 +188,6 @@ export const verificarExistenciaMateria = ({data=[]}, formValues, setMateriaExis
             }
         }
 
-    });
-
-}
-
-//Métodos para formulario Grupo
-export const verificarExistenciaGrupo = (data=[], formValues, setExisteGrupo, setSePuedeGuardar, grupoEdit) => {
-
-    const idMat = localStorage.getItem('id');
-
-    const { grupo } = formValues;
-
-    let existeGrupo = false
-
-    data.forEach(element => {
-        if( grupoEdit === '' ){
-            if(element.materia_id == idMat){
-                if( element.grupoMateria === grupo && !existeGrupo ){
-            
-                    setExisteGrupo(true);
-                    existeGrupo = true;
-                    
-                }else if(element.grupoMateria != grupo &&!existeGrupo ){
-                    setExisteGrupo(false);
-                    setSePuedeGuardar(true);
-                }
-            }
-        }else{
-            if( element.grupoMateria === grupo && !existeGrupo && element.grupoMateria != grupoEdit){
-            
-                setExisteGrupo(true);
-                existeGrupo = true;
-                
-            }else if(element.grupoMateria != grupo &&!existeGrupo && element.grupoMateria != grupoEdit){
-                setExisteGrupo(false);
-                setSePuedeGuardar(true);
-            }
-        }
     });
 
 }
@@ -263,69 +226,40 @@ export const controlarCampoApeDocente = ( apellidoDocente='', setStatusInputApeD
 export const controlarCampoCantidad = ( cantidadEstudiantes, setStatusInputCantidad, setMsjErrorCantidad) => {
     const cantidadE = parseInt(cantidadEstudiantes);
 
-    if( cantidadE >= 5 && cantidadE <= 100){
+    if( cantidadE >= 5 && cantidadE <= 350){
         setStatusInputCantidad(false);
         setMsjErrorCantidad('');
     }else {
         setStatusInputCantidad(true);
-        setMsjErrorCantidad('Debe ingresar una cantidad entre 5 y 100.');
-    }
-}
-
-export const controlarCampoMotivo = ( motivoSolicitud, setStatusInputMotivo, setMsjErrorMotivo ) => {
-    const tamanioMotivo = motivoSolicitud.length
-
-    if( tamanioMotivo < 10 ) {
-        setStatusInputMotivo(true);
-        setMsjErrorMotivo('Texto muy corto. Ej: Reserva para examen de primer parcial.');
-    }else if( tamanioMotivo > 100 ) {
-        setStatusInputMotivo(true);
-        setMsjErrorMotivo('Mensaje muy largo.');
-    }else {
-        setStatusInputMotivo(false);
-        setMsjErrorMotivo('');
+        setMsjErrorCantidad('Debe ingresar una cantidad entre 5 y 350.');
     }
 }
 
 export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, setMsjErrorPeriodo ) => {
     const tamanioPeriodo = parseInt(peridoSolicitud);
 
-    if( tamanioPeriodo >= 1 && tamanioPeriodo <= 5 ){
+    if( tamanioPeriodo >= 1 && tamanioPeriodo <= 2 ){
         setStatusInputPeriodo(false);
         setMsjErrorPeriodo('');
-    }else {
+    }else{
         setStatusInputPeriodo(true);
-        setMsjErrorPeriodo('Debe ingresar un numero entre 1 y 5.');
+        setMsjErrorPeriodo('Debe ingresar periodos entre 1 y 2.');
     }
 }
 
 export const validarCamposVaciosSolicitud = (valores = {}) => {
-    const { nombreDocente,      
-            apellidoDocente,    
-            cantidadEstudiantes,
-            motivoSolicitud,    
-            fechaSolicitud,     
-            peridoSolicitud,    
-            horaSolicitud } = valores;
+    const { cantidadEstudiantes,    
+            peridoSolicitud,
+        } = valores;
 
     const cantEst = parseInt(cantidadEstudiantes);
     const perSol = parseInt(peridoSolicitud);
 
-    if(nombreDocente.length === 0 && 
-        apellidoDocente.length === 0 &&
-        cantEst === 0 && 
-        motivoSolicitud.length === 0 &&
-        fechaSolicitud.length === 0 &&
-        perSol === 0 &&
-        horaSolicitud.length === 0) {
+    if( cantEst === 0 &&   
+        perSol === 0 ) {
             return true;
-        }else if(nombreDocente.length === 0 || 
-                apellidoDocente.length === 0 || 
-                cantEst === 0 || 
-                motivoSolicitud.length === 0 || 
-                fechaSolicitud.length === 0 || 
-                perSol === 0 || 
-                horaSolicitud.length === 0) {
+        }else if(cantEst === 0 ||              
+                perSol === 0 ) {
                     return true;
                 }else {
                     return false;
@@ -333,27 +267,33 @@ export const validarCamposVaciosSolicitud = (valores = {}) => {
 }
 
 export const validarCamposLlenosSolicitud = (valores = {}) => {
-    const {nombreDocente,
-        apellidoDocente,
-        cantidadEstudiantes,
-        motivoSolicitud,
+    const {cantidadEstudiantes,
         peridoSolicitud} = valores;
 
         const cantEst = parseInt(cantidadEstudiantes);
         const perSol = parseInt(peridoSolicitud);
 
-        if(nombreDocente.length >= 3 &&
-            apellidoDocente.length >= 3 && 
-            cantEst >= 5 && 
-            motivoSolicitud.length >= 10 && 
+        if(cantEst >= 5 && 
+            //motivoSolicitud.length >= 10 && 
             perSol >= 1) {
                 return true;
             }else {
-                console.log(nombreDocente.length, 
-                    apellidoDocente.length,
+                console.log(
                     cantidadEstudiantes.length,
-                    motivoSolicitud.length,
+                    //motivoSolicitud.length,
                     peridoSolicitud);
                 return false;
             }
+}
+
+export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc, idEdit) => {
+    let existeGrupo = false;
+
+    listaGrupos.forEach(element => {
+        if(element.grupoMateria === grupo && element.idDocente === idDoc && !existeGrupo && idEdit.length > 0) {
+            existeGrupo = true
+        }
+    })
+
+    return existeGrupo
 }

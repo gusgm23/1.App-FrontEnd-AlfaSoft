@@ -1,6 +1,6 @@
 .titulo-reserva-aulas{
     margin-top: 20px;
- 
+    margin-right: 60px;
 }
 .contenedor-reserva-aulas{
     margin-top: 30px;
@@ -8,6 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 300px;
 }
 
 .form-registro-solicitud{
@@ -15,7 +16,7 @@
 }
 
 .contenedor-reserva{
-    width: 500px;
+    width: 550px;
 }
 
 .contenedor-elementos-reserva-aulas{
@@ -40,20 +41,53 @@
     font-size: 18px;
 }
 
+
 .inputsSolicitud{
+    width: 200px;
+    border: 1px solid #c8c8c8;
+    background: #e3e6ec;
+    box-shadow: 5px 5px 12px #d1d9e6,
+    -5px -5px 12px #ffffff;  
+}
+
+/* Estilos para el input calendario */
+.p-inputtext {
     width: 250px;
     border: 1px solid #c8c8c8;
     background: #e3e6ec;
     box-shadow: 5px 5px 12px #d1d9e6,
-    -5px -5px 12px #ffffff;
-    
+    -5px -5px 12px #ffffff; 
+    padding: 0%;    
 }
 
+.p-calendar {
+    width: 250px;
+    margin-left: 40%;
+    font-size: small;  
+}
+
+.p-datepicker-group{
+    font-size: xx-small;
+    padding: 0%;
+    color: black;
+}
+
+.contenedor-inputsFecha{
+    width: 50%;
+}
+
+.p-button.p-button-icon-only {
+    width: 2rem;
+    padding: 0%;
+}
+
+/* Estilos para los botones */
 .btns-reserva-aula{
     display: flex;
     justify-content: space-evenly;
     margin-block-end: 100px;
     margin-top: 20px;
+    margin-right: 50px;
  }
 
 .btn{
@@ -82,7 +116,7 @@ input{
 }
 
 .input-error{
-    width: 250px;
+    width: 200px;
     background: #e3e6ec;
     box-shadow: 5px 5px 12px #d1d9e6,
     -5px -5px 12px #ffffff;
@@ -106,25 +140,7 @@ input{
     display: none;
 }
 
-/*.boton-cancelar{
-    background-color: red;
-    height: 40px;
-    width: 130px;
-    border: none;
-    border-radius: 30px;
-    font-weight: bolder;
-    margin-bottom: 20px ;
-
+/* Para mostrar el mensaje cuando no tiene materias asigandas */
+.parrafoMateriasDocenteVacio{
+    color: #000;
 }
-.boton-aceptar{
-    background-color: rgb(77, 202, 77);
-    height: 40px;
-    width: 120px;
-    border: none;
-    border-radius: 30px;
-    font-weight: bolder;
-
-    margin-left: 30px;
-    margin-bottom: 20px ;
-
-}*/

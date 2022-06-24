@@ -1,6 +1,7 @@
 .parrafo-advertencia-reserva,
 .parrafo-advertencia-solicitud,
-.parrafo-aula-registrada {
+.parrafo-aula-registrada,
+.parrafo-advertencia {
     color: #000;
     margin: 15px;
 }
@@ -8,4 +9,30 @@
 
 .btn-cancelar-reserva {
     background: rgb(238, 62, 62);
+}
+
+/* estilos modal confirmacion */
+.btn-cancelar-guardado {
+    width: 40%;
+    margin: 10px;
+    border: none;
+    color: #ffffff;
+    background: rgb(238, 62, 62);
+}
+
+.btn-confirmacion-aula {
+    width: 40%;
+    margin: 10px;
+    border: none;
+    color: #ffffff;
+}
+
+.btn-guardar-aula {
+    background-color: #4fa8fb;
+}
+
+.btn-guardar-solicitud{
+    width: 40%;
+    margin: 10px;
+    background-color: #4fa8fb;
 }
