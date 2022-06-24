@@ -87,6 +87,7 @@ export const Solicitudes = ({data=[]}) => {
                             <th>Nombre </th>
                             <th>Apellido</th>
                             <th>Materia</th>
+                            <th>Grupo</th>
                             <th>Cantidad</th>
                             <th>Motivo</th>
                             <th onClick={handleSort}>Fecha</th>
@@ -103,6 +104,7 @@ export const Solicitudes = ({data=[]}) => {
                                     <td> { item.nombreDocenteSolicitud } </td>
                                     <td> { item.apellidoDocenteSolicitud } </td>
                                     <td> {item.materiaSolicitud}</td>
+                                    <td> {item.grupoSolicitud} </td>
                                     <td> { item.numeroEstudiantesSolicitud } </td>
                                     <td> { item.motivoSolicitud } </td>
                                     <td> { item.fechaSolicitud } </td>
