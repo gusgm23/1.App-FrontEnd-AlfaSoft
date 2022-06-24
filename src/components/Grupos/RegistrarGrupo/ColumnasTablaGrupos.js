@@ -7,8 +7,8 @@ export const ColumnasTablaGrupos = () => {
         <thead>
             <tr className='titulo-tabla'>
                 {
-                    titulosColumnas.map( titulo => (
-                        <th>{ titulo }</th>
+                    titulosColumnas.map( (titulo, i) => (
+                        <th key={i}>{ titulo }</th>
                     ) )
                 }
             </tr>
