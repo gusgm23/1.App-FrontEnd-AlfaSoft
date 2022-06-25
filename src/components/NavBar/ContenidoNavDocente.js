@@ -16,7 +16,8 @@ export const ContenidoNavDocente = () => {
         })
     }
     
-    
+    var us=JSON.parse(localStorage.getItem('datos'));
+
     return (
         <>
             <div className="navbar-collapse">
@@ -27,9 +28,7 @@ export const ContenidoNavDocente = () => {
                     >
                         Reserva de Aulas
                     </Link>
-                
                     <div className='nav-container' >
-
                     <NavLink
                         exact='true'
                         to='/docente/listarsolicitudes'
@@ -44,8 +43,6 @@ export const ContenidoNavDocente = () => {
                         >
                         Solicitudes aprobadas
                     </NavLink>
-                    
-
                     <NavLink
                         exact='true'
                         to='/docente/verrechazados'
@@ -53,12 +50,9 @@ export const ContenidoNavDocente = () => {
                     >
                         Solicitudes Rechazadas
                     </NavLink>
-
-
-
                     <NavLink
                         exact='true'
-                        to='/docente/perfildocente'
+                        to='/docente/editarscreen'
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
                         Mi Perfil
@@ -67,12 +61,10 @@ export const ContenidoNavDocente = () => {
                     </div>
                 </div>
             </div>
-            
-                                
             <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav">
                     <span className='nav-item nav-link text-info icon-home'>
-                        <i className="bi bi-person icon-user"></i> { user.name } - { user.rol }
+                        <i className="bi bi-person icon-user"></i> { us.nombreUsuario } - { user.rol }
                     </span>
                     <button
                         className='nav-item nav-link btn-logout'
