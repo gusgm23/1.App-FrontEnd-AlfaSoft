@@ -1,0 +1,51 @@
+.contenedor-gral-usrs-sin-mat {
+    margin-top: 40px;
+    min-height: 300px;
+
+    display: flex;
+    justify-content: center;
+    
+}
+
+.seccion-usrs-sin-mat {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.contenedor-titulo-usr-sin-mat {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px;
+}
+
+.cont-componentes-usrs-sin-mat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.btn-volver-atras-usrs-sin-mat {
+    border: none;
+}
+
+.tabla-usrs-sin-mat {
+    width: 80%;
+}
+
+.cont-btn-asing-mat {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-link-asing-materia {
+    border: none;
+    background-color: transparent;
+    color: #00AB66;
+    font-size: 20px;
+}

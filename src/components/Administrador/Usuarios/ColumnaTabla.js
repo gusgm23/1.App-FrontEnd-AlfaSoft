@@ -1,17 +1,18 @@
 import React from 'react'
 
-const titulosColumnas = ['#', 'Grupo', 'Estado', 'Docente', 'Auxiliar', 'Opciones']
+const listaTitulos = ['#', 'Nombre', 'Apellido', 'Cargo', 'Opciones'];
 
-export const ColumnasTablaGrupos = () => {
-    return (
+export const ColumnaTabla = () => {
+    return(
         <thead>
             <tr className='titulo-tabla'>
                 {
-                    titulosColumnas.map( (titulo, i) => (
+                    listaTitulos.map( (titulo, i) => (
                         <th key={i}>{ titulo }</th>
                     ) )
                 }
             </tr>
         </thead>
     )
+    
 }

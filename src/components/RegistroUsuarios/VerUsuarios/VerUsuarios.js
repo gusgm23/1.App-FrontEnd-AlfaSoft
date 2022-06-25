@@ -8,9 +8,12 @@ import { Usuarios } from './Usuarios';
 import { useModal } from "../../../hooks/useModal";
 import { ModalGenerico } from "../../Modal/ModalGenerico";
 import { RegistroUsuarios } from '../RegistroUsuarios';
+import { useNavigate } from "react-router-dom";
 
 
 export const VerUsuarios = () => {
+
+    const navigate = useNavigate();
 
     const [ isOpenModalCreate, openModalCreate, closeModalCreate ] = useModal(false);
     const [datos, setDatos] = useState([]);
@@ -27,16 +30,23 @@ export const VerUsuarios = () => {
         getUsuariosHabilitados(setListaUsuariosHabilitados);
     }, [states]);
 
+    const redireccionar = () => {
+        
+        navigate('/admin/verusrssnmat');
+
+    }
+
     return (
         <div className="contenedor-general-verusuarios">
             <div className="contendedor-elementos-verusuarios">
                 <div className="contenedor-titulo-boton">
                     <h2 className="titulo-ver-usuarios"> Usuarios Registrados: {datas.length} </h2>
-                    {/* <div className="contenedor-botones-listarusuarios"> */}
-                        {/* <button className="boton-crear-usuarios" onClick={ openModalCreate }> */}
-                        {/* <i class="bi bi-plus-circle-fill"></i> */}
-                        {/* </button> */}
-                    {/* </div> */}
+                    <button 
+                        className="btn-usuarios-sin-materias"
+                        onClick={redireccionar}
+                    >
+                        Ver usuarios sin materias
+                    </button>
                 </div>
                 <hr/>
                 {
