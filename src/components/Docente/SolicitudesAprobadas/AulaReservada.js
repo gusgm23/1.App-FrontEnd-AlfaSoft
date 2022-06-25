@@ -52,7 +52,7 @@ export const AulaReservada = ({ reservedClassRoom }) => {
   console.log(fullDate);
 
 
-  
+  //123
   return (
     <>
       <div className="title-modal">Aula Reservada</div>
