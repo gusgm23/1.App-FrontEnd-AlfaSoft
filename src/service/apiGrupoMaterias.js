@@ -30,12 +30,13 @@ export const getGrupoMateriaId = (id, setStateData) => {
     } )
 }
 
-export const createGrupoMateria = async ( grupoMateria, estadoGrupoMateria, materia_id, idDocente, openModalSuccess, openModalWarning) => {
+export const createGrupoMateria = async ( grupoMateria, estadoGrupoMateria, materia_id, idDocente, idAuxiliar, openModalSuccess, openModalWarning) => {
     
     await axios.post(`${baseUrl}/crearGrupos`,
     {
         grupoMateria:        `${grupoMateria}`,
         idDocente:           `${idDocente}`,
+        idAuxiliar:          `${idAuxiliar}`,
         estadoGrupoMateria:  `${estadoGrupoMateria}`,
         materia_id:          `${materia_id}`
     }
@@ -50,12 +51,13 @@ export const createGrupoMateria = async ( grupoMateria, estadoGrupoMateria, mate
     });
 }
 
-export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_id, idDocente,openModalSuccess, openModalWarning, id) => {
+export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_id, idDocente, idAuxiliar, openModalSuccess, openModalWarning, id) => {
     return axios.put(`${baseUrl}/actualizarGrupos/${id}`,
     {
         id:                  `${id}`,
         grupoMateria:        `${grupoMateria}`,
         idDocente:           `${idDocente}`,
+        idAuxiliar:          `${idAuxiliar}`,
         estadoGrupoMateria:  `${estadoGrupoMateria}`,
         materia_id:          `${materia_id}`
     }

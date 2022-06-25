@@ -47,10 +47,12 @@ export const AulaReservada = ({ reservedClassRoom }) => {
   const d = new Date(fechaSolicitud);
   console.log(d);
 
-  const fullDate = `${days[d.getDay()]} ${d.getDate()} de ${months[d.getMonth()]} del ${d.getFullYear()} `;
+  const fullDate = `${d.getDate()} de ${months[d.getMonth()]} del ${d.getFullYear()} `;
 
   console.log(fullDate);
 
+
+  
   return (
     <>
       <div className="title-modal">Aula Reservada</div>

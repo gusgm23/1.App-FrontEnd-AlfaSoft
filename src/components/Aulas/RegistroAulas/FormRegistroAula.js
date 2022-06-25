@@ -132,7 +132,7 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
                                 />
                                 <p className={statusInputCapacidad===true? "msj-error": "msj-error-oculto"}
                                 >
-                                    Debe ingresar una cantidad entre 5 y 100
+                                    Debe ingresar una cantidad entre 5 y 350
                                 </p>
                             </div>
                         </div>
