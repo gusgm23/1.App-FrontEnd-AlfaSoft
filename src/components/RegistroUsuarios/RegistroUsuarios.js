@@ -363,7 +363,7 @@ export const RegistroUsuarios = ({
                             <button 
                                 className="botonU boton-aceptar-usuario" 
                                 type="button"
-                                onClick={ validarForm }
+                                onClick={ validarForm ? reset : closeModal  }
                             >
                                 Aceptar
                             </button>
