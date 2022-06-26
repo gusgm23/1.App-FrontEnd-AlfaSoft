@@ -16,6 +16,7 @@ export const ContenidoNavDocente = () => {
         })
     }
     
+    //Cuidado con el cambio de variables
     var us=JSON.parse(localStorage.getItem('datos'));
 
     return (
