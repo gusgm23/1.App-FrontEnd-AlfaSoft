@@ -1,0 +1,47 @@
+
+.AdvertenciaEliminarUsuario{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.cuerpoEliminarUsuario{
+    display: flex;
+    justify-content: center;
+}
+
+.botonesEliminarUsuario{
+    padding-top: 20px;
+    padding-block-end: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.btnModalAceptar{
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: aliceblue;
+    font-size: 20px;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.btnModalAceptar:hover {
+    background-color: #3781f1;
+    transition: 0.5;
+}
+
+.btnModalCancelar {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: black;
+    font-size: 20px;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.btnModalCancelar:hover {
+    background-color: #f3cd22;
+    transition: 0.5;
+}
