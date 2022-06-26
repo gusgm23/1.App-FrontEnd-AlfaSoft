@@ -1,20 +1,29 @@
 import React, {useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 import { rechazar } from '../../../helpers/metodosOpcionesSolicitud';
-import  {ModalRechazo}  from '../Modal/ModalRechazo';
-import { ModalGenerico } from '../Modal/ModalGenerico';
+import { ModalGenerico } from '../../Modal/ModalGenerico';
+import { ModalRechazo } from '../../Modal/ModalRechazo';
+
+
 
 import './estilos-opciones.css'
 
 export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
+
+    const {state:solicitud} = useLocation();    
+    const capacidadAsignada = parseInt(capacidad);
     
+
     const navigate = useNavigate();
     const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
 
 
+
+    
     const volverAtras = () => {
 
-        if( capacidad > 0 ){
+        if( capacidadAsignada < parseInt(capacidadOriginal) && capacidadAsignada > 0 ){
             openModal();
         }else{
             navigate(-1);
@@ -24,7 +33,7 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
 
     const rechazarSolicitud = () => {
 
-        rechazar();
+        setOpenModalRechazo(true)
 
     }
 
@@ -35,43 +44,32 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                 <div className='contenedor-btns-aprob'>
                     <button 
                         id='btn-opciones-soli-volver'
-                        onClick={ volverAtras }
+                        onClick={ () => volverAtras() }
                     >
                         <i className="bi bi-chevron-left"></i> Volver 
                     </button>
+
                     {
-                        ( capacidad > 0 && capacidad === parseInt(capacidadOriginal) )
+                        ( capacidadAsignada == 0 )
                         ? (
                             <button 
-                                id='btn-opciones-soli'
+                                id='btn-opciones-solicitud'
                                 className='btn-rechazar-soli'
-                                onClick={ setOpenModalRechazo(true)}
-                            >
-                                Rechazar
+                                onClick={ () => 
+                                    rechazarSolicitud()
+                                    // setOpenModalRechazo(true)
+                                }
+                            ><i className="bi bi-x-lg"></i> Rechazar
                             </button>
                         )
                         : ''
-                    }
+                    } 
                 </div>
             </section>
         </div>
         {openModalRechazo && 
             <ModalGenerico  isOpen={openModalRechazo} closeModal={closeModalRechazo}>
               <ModalRechazo 
-            //   nombre_doc ={nombreDocenteSolicitud} 
-            //   ape_doc ={apellidoDocenteSolicitud} 
-            //   motivoRechazo=""
-            //   nro_est ={numeroEstudiantesSolicitud} 
-            //   motivo ={motivoSolicitud}
-            //   fecha_res ={fechaSolicitud}
-            //   hora_res ={horaInicioSolicitud}
-    
-            //   periodo ={periodoSolicitud}
-            //   estado ="Solicitud Rechazada"
-            //   materiaId={materia_id}
-            //   materiaSolicitud={materiaSolicitud}
-            //   solicitudId={soliID}
-              
               closeModal={setOpenModalRechazo}/> 
             </ModalGenerico>
             }

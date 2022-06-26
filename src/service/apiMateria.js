@@ -1,7 +1,8 @@
 import axios from "axios";
+import { baseUrl } from "./apiAulas";
 
 export const getMateria = async ( setListaMateria )  =>{
-    await axios.get(`http://127.0.0.1:8000/api/obtenerMaterias`)
+    await axios.get(`${baseUrl}/obtenerMaterias`)
     .then( response => {
         setListaMateria({
             state: true,
@@ -14,11 +15,11 @@ export const getMateria = async ( setListaMateria )  =>{
 }
 
 export const getMateriaId = (id) =>{
-    return axios.get(`http://127.0.0.1:8000/api/obtenerMateriasId/${id}`);
+    return axios.get(`${baseUrl}/obtenerMateriasId/${id}`);
 }
 
 export const createMateria = ({ codSis, materia }, user_id, estado,openModalSuccess, openModalWarning) =>{
-    return axios.post('http://127.0.0.1:8000/api/crearMateria',
+    return axios.post(`${baseUrl}/crearMateria`,
     {
         codigoMateria:  `${codSis}`,
         nombreMateria:  `${materia}`,
@@ -38,7 +39,7 @@ export const createMateria = ({ codSis, materia }, user_id, estado,openModalSucc
 }
 
 export const updateMateriaId = ({ codSis, materia }, user_id, estado,openModalSuccess, openModalWarning, id) =>{
-    return axios.put(`http://127.0.0.1:8000/api/actualizarMateria/${id}`,
+    return axios.put(`${baseUrl}/actualizarMateria/${id}`,
     {
         id:             `${id}`,
         codigoMateria:  `${codSis}`,

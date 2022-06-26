@@ -16,37 +16,65 @@ export const ContenidoNavDocente = () => {
         })
     }
     
+    //Cuidado con el cambio de variables
+    var us=JSON.parse(localStorage.getItem('datos'));
+
     return (
         <>
             <div className="navbar-collapse">
-                <div className='navbar-nav'>
+                <div >
                     <Link 
                         to='/docente/home' 
                         className="navbar-brand"
                     >
                         Reserva de Aulas
                     </Link>
+                    <div className='nav-container' >
                     <NavLink
                         exact='true'
-                        to='/docente/listarlassolicitudes'
+                        to='/docente/listarsolicitudes'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                        >
+                        Solicitudes pendientes
+                    </NavLink>
+                    <NavLink
+                        exact='true'
+                        to='/docente/veraprobados'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                        >
+                        Solicitudes aprobadas
+                    </NavLink>
+                    <NavLink
+                        exact='true'
+                        to='/docente/verrechazados'
                         className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
                     >
-                        Ver solicitudes
+                        Solicitudes Rechazadas
                     </NavLink>
+                    <NavLink
+                        exact='true'
+                        to='/docente/editarscreen'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                    >
+                        Mi Perfil
+                    </NavLink>
+
+                    </div>
                 </div>
             </div>
-                                
             <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav">
-                    <span className='nav-item nav-link text-info'>
-                        { user.name } - { user.rol }
+                    <span className='nav-item nav-link text-info icon-home'>
+                        <i className="bi bi-person icon-user"></i> { us.nombreUsuario } - { user.rol }
                     </span>
                     <button
-                        className='nav-item nav-link btn'
+                        className='nav-item nav-link btn-logout'
                         onClick={ handleLogout }
                     >
-                        Cerrar sesión
+                        <i className="bi bi-box-arrow-right icon-logout"></i>
                     </button>
+
+                    
                 </ul>
             </div>
         </>

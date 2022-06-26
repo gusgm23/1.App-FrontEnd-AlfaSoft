@@ -1,5 +1,5 @@
 import React from 'react'
-
+// 123 probando
 import {
     Routes,
     Route,
@@ -21,7 +21,7 @@ import { ContenidoNavPublico } from '../components/NavBar/ContenidoNavPublico';
 import { RegistroUsuarios } from '../components/RegistroUsuarios/RegistroUsuarios';
 
 
-import { ListarSolicitudes } from '../components/ReservaAulas/ListarSolicitudes';
+import { VerSolicitudesDoc } from '../components/ReservaAulas/VerSolicitudes/VerSolicitudesDoc';
 
 
 export const AppRouter = () => {
@@ -75,7 +75,7 @@ export const AppRouter = () => {
                         </PrivateRouteDoc>
                     }/>
 
-                    <Route exact path='/listarlassolicitudes'  element={<ListarSolicitudes/>}/>
+                    <Route exact path='/listarlassolicitudes'  element={<VerSolicitudesDoc/>}/>
 
                     <Route path='*'                         element={<Error404Screen/>}/>
                 </Routes>

@@ -37,7 +37,7 @@
   }
   
   .modalrechazo-body {
-    flex: 50%;
+    /* flex: 50%; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,9 +54,9 @@
   }
   
   .btn-modalrechazo {
-    flex: 20%;
+    /* flex: 20%; */
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
   }
   .btn-aceptar{

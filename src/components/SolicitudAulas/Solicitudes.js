@@ -68,17 +68,11 @@ export const Solicitudes = ({data=[]}) => {
         }  
     }
     
-
-
     //creado por vivi para unificar el boton admin solicitudes con el boton solicitudes
    const navigate=useNavigate();
 
-
-
-
-
     function handleNavigate(solicitud) {
-        console.log(solicitud);
+        
         navigate("/admin/administrarsolicitud",{ state:solicitud })
     }
 
@@ -91,12 +85,14 @@ export const Solicitudes = ({data=[]}) => {
                         <tr className='titulo-tabla-soli'>
                             <th>#</th>
                             <th>Nombre </th>
-                            <th>Apellido Docente</th>
-                            <th># de Estud.</th>
+                            <th>Apellido</th>
+                            <th>Materia</th>
+                            <th>Grupo</th>
+                            <th>Cantidad</th>
                             <th>Motivo</th>
-                            <th onClick={handleSort}>Fecha de Solicitud</th>
-                            <th>Hora de Solicitud</th>
-                            <th>Estado de Solicitud</th>
+                            <th onClick={handleSort}>Fecha</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>               
@@ -107,33 +103,27 @@ export const Solicitudes = ({data=[]}) => {
                                     <td> { i+1 } </td>
                                     <td> { item.nombreDocenteSolicitud } </td>
                                     <td> { item.apellidoDocenteSolicitud } </td>
+                                    <td> {item.materiaSolicitud}</td>
+                                    <td> {item.grupoSolicitud} </td>
                                     <td> { item.numeroEstudiantesSolicitud } </td>
                                     <td> { item.motivoSolicitud } </td>
                                     <td> { item.fechaSolicitud } </td>
                                     <td> { item.horaInicioSolicitud } </td>
-                                    <td> { item.estadoSolicitud } </td>
+                                    <td> { item.estadoSolicitud[0].toUpperCase() +  item.estadoSolicitud.substring(1)} </td>
                                     <td className='td-btns-soli'>
-                                        <section className='caja-btns-soli'>
-
-                                            
+                                        <section className='caja-btns-soli-admin'>
                                             <button 
-                                                className='btn-editar editar-soli'
+                                                className='btn-ver-soli btns-solicitudes'
                                                 onClick={ () => {actualizar(item)} }
                                             >
-                                                Detalles
+                                                <i className="bi bi-eye-fill"></i>
                                             </button>
-                                           
-                                            
-
-                                            
                                             <button 
-                                                className='btn-editar editar-solii'
+                                                className='btns-solicitudes'
                                                 onClick={()=>{handleNavigate(item)}}
                                             >
-                                                Reservas
+                                                <i className="bi bi-clipboard2-plus-fill"></i>
                                             </button>
-                                            
-
                                         </section>
                                     </td>
                                 </tr>

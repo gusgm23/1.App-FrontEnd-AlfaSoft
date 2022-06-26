@@ -32,11 +32,7 @@ export const AdministradorScreen = () => {
                 <section>
                     <div>
                         <div>
-                            <p>¡Atención! Tienes <b>{data.length}</b> solicitudes de reserva de aulas pendientes! Dirígete a la sección <b>Solicitudes</b> para poder atenderlas!</p>
-                            <hr/>
-                            <p>Para poder ver las aulas disponibles en la plataforma, debes dirigirte a la sección <b>Aulas.</b></p>
-                            <p>Si deseas ver las materias y sus respectivos grupos disponibles en la plataforma, debes dirigirte a la sección <b>Materias.</b></p>
-                            <p>Para poder registrar una nueva materia, debes dirigirte a la sección <b>Registrar Materia.</b></p>
+                           
                         </div>
                         <div className='contenedor-img-home-admin'>
                             <img className='img-home-admin' src={ homeImg } alt='home img'/>

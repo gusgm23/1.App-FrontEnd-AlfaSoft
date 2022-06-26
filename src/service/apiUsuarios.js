@@ -1,8 +1,11 @@
 import axios from "axios";
+import { baseUrl } from "./apiAulas";
+
+
 
 //API para obtener solo los usuarios que estan habilitados
 export const getUsuariosHabilitados = async ( setListaUsuariosHabilitados )  =>{
-    await axios.get(`http://127.0.0.1:8000/api/obtenerUsuariosActivos`)
+    await axios.get(`${baseUrl}/obtenerUsuariosActivos`)
     .then( response => {
         setListaUsuariosHabilitados({
             states: true,
@@ -16,7 +19,7 @@ export const getUsuariosHabilitados = async ( setListaUsuariosHabilitados )  =>{
 
 //API para obtener todos los usuarios
 export const getUsuarios = async ( setListaUsuarios )  =>{
-    await axios.get(`http://127.0.0.1:8000/api/obtenerUsuarios`)
+    await axios.get(`${baseUrl}/obtenerUsuarios`)
     .then( response => {
         setListaUsuarios({
             state: true,
@@ -29,7 +32,23 @@ export const getUsuarios = async ( setListaUsuarios )  =>{
 }
 
 export const getUsuariosId = (id) => {
-    return axios.get(`http://127.0.0.1:8000/api/obtenerUsuariosId/${id}`);
+    return axios.get(`${baseUrl}/obtenerUsuariosId/${id}`);
+}
+export const getUsuarioId = async (setUser,id) => {
+    await axios.get(`${baseUrl}/obtenerUsuariosId/${id}`)
+    .then(response =>{
+        setUser({
+            state: true,
+            data: response.data
+          
+        });
+    })
+    .catch( e=>{
+        console.log(e);
+    })
+    
+    
+    // return axios.get(`${baseUrl}/obtenerUsuariosId/${id}`);
 }
 
 export const createUsuario = ( 
@@ -50,7 +69,7 @@ export const createUsuario = (
             contraseñaUsuarioConf
         } = formValues;
 
-    return axios.post(`http://127.0.0.1:8000/api/crearUsuarios`,
+    return axios.post(`${baseUrl}/crearUsuarios`,
     {
         name:               `${nombreUsuario}`,
         apellido:           `${apellidoUsuario}`,
@@ -76,7 +95,7 @@ export const updateUsuario = (
     formValues, 
     rol_id, 
     cargoUsuario,
-    estadoUsuario='Habilitado',
+    estadoUsuario,
     openModalSuccess, 
     openModalWarning,
     id
@@ -91,7 +110,7 @@ export const updateUsuario = (
            contraseñaUsuarioConf
         } = formValues;
 
-    return axios.put(`http://127.0.0.1:8000/api/actualizarUsuarios/${id}`,
+    return axios.put(`${baseUrl}/actualizarUsuarios/${id}`,
     {
         id:                 `${id}`,
         name:               `${nombreUsuario}`,
@@ -113,6 +132,47 @@ export const updateUsuario = (
     });
 }
 
-export const deleteUsuario = (id) => {
-    return axios.delete(`http://127.0.0.1:8000/api/eliminarUsuarios/${id}`);
+export const ModificarUsuario = async ( {
+    apellido,
+    cargoUsuario,
+    direccionUsuario,
+    email,
+    estadoUsuario,
+    id,
+    name,
+    password,
+    repeatPassword,
+    rol_id,
+    telefonoUsuario
+    }, openModalSuccess) => {
+       
+
+    await axios.put(`${baseUrl}/actualizarUsuarios/${id}`,
+    {
+        id:                 `${id}`,
+        name:               `${name}`,
+        apellido:           `${apellido}`,
+        telefonoUsuario:    `${telefonoUsuario}`,
+        direccionUsuario:   `${direccionUsuario}`,
+        email:              `${email}`,
+        password:           `${password}`,
+        repeatPassword:     `${repeatPassword}`,
+        estadoUsuario:      `${estadoUsuario}`,
+        cargoUsuario:       `${cargoUsuario}`,
+        rol_id:             `${rol_id}`
+    }
+    ).then(( response ) => {
+        openModalSuccess();
+       console.log('asda')
+    }
+    ).catch( function ( error )  {
+        // openModalWarning();
+        console.log('error')
+    });
+}
+
+export const eliminarUsuarios = async (id) => {
+    await axios.put(`${baseUrl}/actualizarUsuarios/${id}`, {
+        estadoUsuario: 'Inhabilitado'
+    });
 }

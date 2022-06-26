@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Solicitud } from '../components/AdministracioSolicitud/Solicitud'
+
 import { AdministradorScreen } from '../components/Administrador/AdministradorScreen'
 import { RegistroAulasScreen } from '../components/Aulas/RegistroAulas/RegistroAulasScreen'
 import { VistaAulas } from '../components/Aulas/Ver Aulas/VistaAulas'
@@ -13,6 +13,8 @@ import { RegistroRoles } from '../components/Roles/RegistroRoles'
 import { VerSolicitudes } from '../components/SolicitudAulas/VerSolicitudes'
 import { VerUsuarios } from '../components/RegistroUsuarios/VerUsuarios/VerUsuarios';
 import { VerGrupos } from '../components/Grupos/VerGrupos'
+import { Solicitud } from '../components/AdministracionSolicitud/Solicitud'
+import { UsuariosSinMateria } from '../components/Administrador/Usuarios/UsuariosSinMateria'
 
 
 export const AdminRoutes = () => {
@@ -23,22 +25,25 @@ export const AdminRoutes = () => {
                 <ContenidoNavAdmin/>
             </NavBar>
             <Routes>
-                <Route path='adminhome'                 element={ <AdministradorScreen/> }/>
-                <Route exact path='/verusarios'         element={<VerUsuarios/>}/>
-                <Route exact path='registroaula'        element={ <RegistroAulasScreen/> }/>
-                <Route exact path='registrorol'         element={<RegistroRoles/>}/>
-                <Route exact path='registromateria'     element={<RegistroMateria/>}/>
+                <Route path='adminhome'                             element={ <AdministradorScreen/> }/>
+                <Route exact path='registroaula'                    element={ <RegistroAulasScreen/> }/>
+                <Route exact path='registrorol'                     element={<RegistroRoles/>}/>
+                <Route exact path='registromateria'                 element={<RegistroMateria/>}/>
 
-                <Route exact path='versolicitudes'      element={<VerSolicitudes/>}/>
-                <Route exact path='veraulas'            element={<VistaAulas/>}/>
-                <Route exact path='vermaterias'         element={<VerMaterias/>}/>
-                <Route exact path='vergrupos'           element={<VerGrupos/>}/>
+                <Route exact path='/verusarios'                     element={<VerUsuarios/>}/>
+                <Route exact path='versolicitudes'                  element={<VerSolicitudes/>}/>
+                <Route exact path='veraulas'                        element={<VistaAulas/>}/>
+                <Route exact path='vermaterias'                     element={<VerMaterias/>}/>
+                <Route exact path='vergrupos'                       element={<VerGrupos/>}/>
+                <Route exact path='verSolicitudes'                  element={<VerSolicitudes/>}/>
+                <Route exact path='verusrssnmat'                    element={<UsuariosSinMateria/>}/>
 
-                <Route exact path='administrarsolicitud'         element={<Solicitud/>}/>
+                <Route exact path='administrarsolicitud'            element={<Solicitud/>}/>
 
-                <Route exact path='administrarsolicitud'         element={<Solicitud/>}/>
 
-                <Route path='*'                         element={<Error404Screen/>}/>
+                
+
+                <Route path='*'                                     element={<Error404Screen/>}/>
             </Routes>
         </>
     )

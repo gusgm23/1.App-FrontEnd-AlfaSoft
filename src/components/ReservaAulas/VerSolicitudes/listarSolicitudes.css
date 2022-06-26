@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    min-height: 320px;
 }
 
 .contenedor-titulo-botonSolicitud{
@@ -29,8 +30,8 @@
     background-color: #c8c8c8(25, 135, 84, .9);
     color: #fff;
     width: 100%;
-    box-shadow: 5px 5px 12px #c8c8c8;
-    border: solid 1px silver;
+    
+    border: none;
     transition: .5s;
     border-radius: 5px;
 }
@@ -60,9 +61,13 @@ table tr th{
     justify-content: space-evenly;
 }
 
+.parraf-solicitudes-vacias {
+    color: #000;
+}
 
-
-
+.mrg-der-titulo {
+    margin-right: 20px;
+}
 
 
 

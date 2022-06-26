@@ -13,3 +13,23 @@ export const obtenerUsuariosPorId = (listaUsuarios=[], idDocente) => {
 
     return usuarioEncontrado;
 }
+
+export const obtenerAuxiliaresPorId = ( listaUsuarios=[], idAuxiliar ) => {
+
+    let existeAuxiliar = false;
+    let auxiliarEncontrado = '';
+
+    listaUsuarios.forEach( usuario => {
+        if(idAuxiliar === 'No asignado'){
+            auxiliarEncontrado = idAuxiliar;
+        }else{
+            if( usuario.id == parseInt(idAuxiliar) && !existeAuxiliar ){
+                auxiliarEncontrado = usuario.name + ' ' + usuario.apellido;
+                existeAuxiliar = true;
+            }
+        }
+    } )
+
+    return auxiliarEncontrado;
+
+}

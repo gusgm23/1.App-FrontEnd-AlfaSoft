@@ -2,7 +2,7 @@ import React from 'react'
 
 const CamposTabla = () => {
   
-    const columnas = ['#', 'Nombre', 'Apellido', 'Cargo', 'Telefono', 'Direccio', 'Email', 'Opciones']
+    const columnas = ['#', 'Nombre', 'Apellido', 'Cargo', 'Telefono', 'Direccion', 'Email', 'Opciones']
 
     return (
     <>

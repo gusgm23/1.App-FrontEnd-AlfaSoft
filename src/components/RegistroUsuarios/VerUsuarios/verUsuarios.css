@@ -5,11 +5,12 @@
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    min-width: 1000px;
 }
 
 .contenedor-titulo-boton{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 
@@ -17,8 +18,8 @@
     background-color: #c8c8c8(25, 135, 84, .9);
     color: #fff;
     width: 100%;
-    box-shadow: 5px 5px 12px #c8c8c8;
-    border: solid 1px silver;
+    
+    border: none;
     transition: .5s;
     border-radius: 5px;
 }
@@ -27,8 +28,8 @@
     background-color: #c8c8c8(25, 135, 84, .9);
     color: #fff;
     width: 100%;
-    box-shadow: 5px 5px 12px #c8c8c8;
-    border: solid 1px silver;
+    
+    border: none;
     transition: .5s;
     border-radius: 5px;
 }
@@ -44,7 +45,7 @@
 }
 
 .bi-trash-fill {
-    font-size: 20px;
+    font-size: 25px;
     color: red;
 }
 
@@ -72,4 +73,10 @@ color: #ffffff;
 .columna-botones-usuario{
     display: flex;
     justify-content: space-evenly;
+}
+
+.btn-usuarios-sin-materias {
+    border: none;
+    padding: 0;
+    color: #0d6efd;
 }

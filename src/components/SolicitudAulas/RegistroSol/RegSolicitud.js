@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './estilosRegistroSol.css'
 
-import { controlarCampoNomDocente, controlarCampoApeDocente, controlarCampoCantidad, controlarCampoMotivo, controlarCampoPeriodo, validarCamposVaciosSolicitud, validarCamposLlenosSolicitud } from '../../../helpers/validarForms';
+import { controlarCampoNomDocente, controlarCampoApeDocente, controlarCampoCantidad, controlarCampoPeriodo, validarCamposVaciosSolicitud, validarCamposLlenosSolicitud } from '../../../helpers/validarForms';
 import { useForm } from '../../../hooks/useForm'
 import { useModal } from '../../../hooks/useModal'
 import { ModalGenerico } from '../../Modal/ModalGenerico'
@@ -94,7 +94,7 @@ export const RegSolicitud = ({
         if( motivoSol === '' ){
             setStatusInputMotivo(false);
         }else{
-            controlarCampoMotivo( motivoSol, setStatusInputMotivo, setMsjErrorMotivo );
+            //controlarCampoMotivo( motivoSol, setStatusInputMotivo, setMsjErrorMotivo );
         }
     }, [motivoSol])
 

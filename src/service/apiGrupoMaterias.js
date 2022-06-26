@@ -1,12 +1,16 @@
 import axios from "axios";
+import { baseUrl } from "./apiAulas";
 
 export const getGrupoMateria = async ( setStateData ) => {
-    await axios.get('http://127.0.0.1:8000/api/obtenerGrupos')
+    await axios.get(`${baseUrl}/obtenerGrupos`)
     .then( response => {
-        setStateData({
-            states: true,
-            datas: response.data
-        });
+
+        const data = {
+            state: true,
+            data: response.data
+        }
+
+        setStateData(data);
     } )
     .catch( e => {
         console.log(e);
@@ -14,7 +18,7 @@ export const getGrupoMateria = async ( setStateData ) => {
 }
 
 export const getGrupoMateriaId = (id, setStateData) => {
-    axios.get(`http://127.0.0.1:8000/api/obtenerGruposId/${id}`)
+    axios.get(`${baseUrl}/obtenerGruposId/${id}`)
     .then( response => {
         setStateData({
             state: true,
@@ -26,10 +30,13 @@ export const getGrupoMateriaId = (id, setStateData) => {
     } )
 }
 
-export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning) => {
-    return axios.post(`http://127.0.0.1:8000/api/crearGrupos`,
+export const createGrupoMateria = async ( grupoMateria, estadoGrupoMateria, materia_id, idDocente, idAuxiliar, openModalSuccess, openModalWarning) => {
+    
+    await axios.post(`${baseUrl}/crearGrupos`,
     {
         grupoMateria:        `${grupoMateria}`,
+        idDocente:           `${idDocente}`,
+        idAuxiliar:          `${idAuxiliar}`,
         estadoGrupoMateria:  `${estadoGrupoMateria}`,
         materia_id:          `${materia_id}`
     }
@@ -44,11 +51,19 @@ export const createGrupoMateria = ( grupoMateria, estadoGrupoMateria, materia_id
     });
 }
 
-export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_id, openModalSuccess, openModalWarning, id) => {
-    return axios.put(`http://127.0.0.1:8000/api/actualizarGrupos/${id}`,
+export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_id, idDocente, idAuxiliar, openModalSuccess, openModalWarning, id) => {
+    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 67 ~ updateGrupoMateriaId ~ materia_id", materia_id)
+    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 67 ~ updateGrupoMateriaId ~ estadoGrupoMateria", estadoGrupoMateria)
+    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 59 ~ updateGrupoMateriaId ~ grupoMateria", grupoMateria)
+    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 59 ~ updateGrupoMateriaId ~ id", id)
+    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 63 ~ updateGrupoMateriaId ~ idAuxiliar", idAuxiliar)
+    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 63 ~ updateGrupoMateriaId ~ idDocente", idDocente)
+    return axios.put(`${baseUrl}/actualizarGrupos/${id}`,
     {
         id:                  `${id}`,
         grupoMateria:        `${grupoMateria}`,
+        idDocente:           `${idDocente}`,
+        idAuxiliar:          `${idAuxiliar}`,
         estadoGrupoMateria:  `${estadoGrupoMateria}`,
         materia_id:          `${materia_id}`
     }
