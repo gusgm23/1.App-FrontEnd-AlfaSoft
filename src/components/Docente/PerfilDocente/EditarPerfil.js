@@ -1,4 +1,4 @@
-import React, { StrictMode, useContext,useEffect,useState } from 'react'
+import React, {useContext,useEffect,useState } from 'react'
 import "./editarperfilestilos.css";
 import { Password } from 'primereact/password';
 
@@ -8,7 +8,6 @@ import { useModal } from "../../../hooks/useModal";
 import { ModalGenerico } from "../../Modal/ModalGenerico";
 import { ErrorGuardarDatos } from "../../Modal/Contenidos/ErrorGuardarDatos";
 import { Hecho } from "../../Modal/Contenidos/Hecho";
-// import { establecerDatos } from './docenteDatos.js';
 import swal from 'sweetalert';
 
 export const EditarPerfil = ({
@@ -135,7 +134,7 @@ const [ isOpenModalWarning, openModalWarning, closeModalWarning ] = useModal(fal
 
 const actualizarDatos=(item)=>{
   setStatePetition(true);
-  updateUsuario(formValues,'2','Docente','Habilitado',openModalSuccess,closeModalSuccess,data.id);
+  updateUsuario(formValues,data.rol_id,data.cargoUsuario,'Habilitado',openModalSuccess,closeModalSuccess,data.id);
 }
 
 
@@ -242,7 +241,8 @@ const actualizarDatos=(item)=>{
             <button
              id='btn-opciones-soliperfil'
              className='btn-guardarperfil'
-             onClick={()=> validacionCampos()}
+              onClick={()=> validacionCampos()}
+            // onClick={()=> console.log(data) }
             >
               Guardar</button>
               </div>   
