@@ -222,10 +222,8 @@ export const FormularioReservaAula = ({
 
     useEffect(() => {
         setListaGruposDocente(obtenerGrupos(listaGrupos.data, data, selects, user.idDocente))
-        console.log(user.idDocente, 'iddocente');
     }, [selects])
-
-
+    
     const navegar = useNavigate();
 
     const volverAtrasSolicitud = () => {
@@ -234,10 +232,6 @@ export const FormularioReservaAula = ({
 
     //Invalidar dias del calendario
     const [ fechaSolicitud, setfechaSolicitud ] = useState(null);
-
-    useEffect(() => {
-        console.log(JSON.stringify(fechaSolicitud).substring(1,11));
-    }, [fechaSolicitud]);
 
         
         let today = new Date();

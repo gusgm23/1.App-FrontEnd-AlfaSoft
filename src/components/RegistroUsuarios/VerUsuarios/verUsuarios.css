@@ -5,11 +5,12 @@
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    min-width: 1000px;
 }
 
 .contenedor-titulo-boton{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 
@@ -72,4 +73,10 @@ color: #ffffff;
 .columna-botones-usuario{
     display: flex;
     justify-content: space-evenly;
+}
+
+.btn-usuarios-sin-materias {
+    border: none;
+    padding: 0;
+    color: #0d6efd;
 }

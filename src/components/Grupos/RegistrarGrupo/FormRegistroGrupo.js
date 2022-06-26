@@ -119,6 +119,8 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
         const grupo = {
             id:newID,
             grupoMateria: newGroup,
+            idDocente: selectDocente,
+            idAuxiliar: selectAuxiliar,
             estadoGrupoMateria: newEstado,
             materia_id: materiaID
         }
@@ -142,6 +144,7 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
             if(id == materia.id){
                 arreglo[contador].grupoMateria = nuevoGrupo;
                 arreglo[contador].idDocente = selectDocente;
+                arreglo[contador].idAuxiliar = selectAuxiliar;
                 arreglo[contador].estadoGrupoMateria = nuevoEstado;
             }
             contador++;
@@ -155,7 +158,7 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
 
         const idMat = localStorage.getItem('id');
 
-        if( !verificarExistenciaGrupo(dataLimpia, grupo, selectDocente) && selectDocente !== 'Vacio' ){
+        if( !verificarExistenciaGrupo(dataLimpia, grupo, selectDocente, idEdit) && selectDocente !== 'Vacio' ){
             if(titulo === 'Registrar'){
             
                 createGrupoMateria(grupo, selects, idMat, selectDocente, selectAuxiliar, openModalSuccess, openModalWarning);    
@@ -163,6 +166,7 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     
             }else{
     
+                console.log("🚀 ~ file: FormRegistroGrupo.js ~ line 169 ~ guardarDatos ~ grupo", grupo)
                 updateGrupoMateriaId(grupo, selects, idMat, selectDocente, selectAuxiliar, openModalSuccess, openModalWarning, idEdit);
                 editarMateria(idEdit, grupo, selects);
     

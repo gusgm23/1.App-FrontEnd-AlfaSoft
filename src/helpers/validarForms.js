@@ -235,21 +235,6 @@ export const controlarCampoCantidad = ( cantidadEstudiantes, setStatusInputCanti
     }
 }
 
-// export const controlarCampoMotivo = ( motivoSolicitud, setStatusInputMotivo, setMsjErrorMotivo ) => {
-    // const tamanioMotivo = motivoSolicitud.length
-
-    // if( tamanioMotivo < 10 ) {
-        // setStatusInputMotivo(true);
-        // setMsjErrorMotivo('Texto muy corto. Ej: Reserva para examen de primer parcial.');
-    // }else if( tamanioMotivo > 100 ) {
-        // setStatusInputMotivo(true);
-        // setMsjErrorMotivo('Mensaje muy largo.');
-    // }else {
-        // setStatusInputMotivo(false);
-        // setMsjErrorMotivo('');
-    // }
-// }
-
 export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, setMsjErrorPeriodo ) => {
     const tamanioPeriodo = parseInt(peridoSolicitud);
 
@@ -301,11 +286,11 @@ export const validarCamposLlenosSolicitud = (valores = {}) => {
             }
 }
 
-export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc) => {
+export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc, idEdit) => {
     let existeGrupo = false;
 
     listaGrupos.forEach(element => {
-        if(element.grupoMateria === grupo && element.idDocente === idDoc && !existeGrupo) {
+        if(element.grupoMateria === grupo && element.idDocente === idDoc && !existeGrupo && idEdit.length > 0) {
             existeGrupo = true
         }
     })

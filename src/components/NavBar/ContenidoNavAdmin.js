@@ -99,16 +99,17 @@ useEffect(() => {
 
       <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
         <ul className="navbar-nav">
-          <div class="dropdown notification-info  text-info icon-home">
-            <button
-              className='bell-icon'
+          <div className="dropdown notification-info  text-info icon-home">
+            
+            <span
+              className=""
               id="notification"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <i className="bi bi-bell icon-bell"></i>
                 (<b>{data.length}</b>)
-            </button>
+            </span>
             <section
               className="dropdown-menu notification-container"
               aria-labelledby="notification"
