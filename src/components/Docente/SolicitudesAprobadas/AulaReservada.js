@@ -7,8 +7,10 @@ const days = {
   4: "Jueves",
   5: "Viernes",
   6: "Sabado",
-  7: "Domingo",
+  0: "Domingo",
 };
+
+
 const months = {
   1: "Enero",
   2: "Febrero",
