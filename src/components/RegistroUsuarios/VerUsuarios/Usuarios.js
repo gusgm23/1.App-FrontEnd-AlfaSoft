@@ -82,7 +82,7 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
         closeModalConfirm();
     }
 
-    
+
 
     return (
         <>
@@ -132,6 +132,7 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
                         }
                     </tbody>
                 </table>
+
             </div>
                 {
                     isOpen && 

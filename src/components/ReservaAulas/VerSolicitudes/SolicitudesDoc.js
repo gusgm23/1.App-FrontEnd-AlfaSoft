@@ -77,6 +77,7 @@ export const Solicitudes = ({data=[], setListaSolicitud}) => {
                                     <td>{ item.nombreDocenteSolicitud}</td>
                                     <td>{ item.apellidoDocenteSolicitud}</td>
                                     <td>{item.materiaSolicitud}</td>
+                                    <td>{item.grupoSolicitud}</td>
                                     <td>{ item.numeroEstudiantesSolicitud}</td>
                                     <td>{ item.motivoSolicitud}</td>
                                     <td>{ item.fechaSolicitud}</td>

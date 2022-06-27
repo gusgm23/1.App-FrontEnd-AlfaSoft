@@ -1,4 +1,4 @@
-import React, { StrictMode, useContext,useEffect,useState } from 'react'
+import React, {useContext,useEffect,useState } from 'react'
 import "./editarperfilestilos.css";
 import { Password } from 'primereact/password';
 
@@ -8,7 +8,6 @@ import { useModal } from "../../../hooks/useModal";
 import { ModalGenerico } from "../../Modal/ModalGenerico";
 import { ErrorGuardarDatos } from "../../Modal/Contenidos/ErrorGuardarDatos";
 import { Hecho } from "../../Modal/Contenidos/Hecho";
-// import { establecerDatos } from './docenteDatos.js';
 import swal from 'sweetalert';
 
 export const EditarPerfil = ({
@@ -21,28 +20,20 @@ export const EditarPerfil = ({
   conf=''
 
 }) => {
-
-const{user}= useContext (AuthContext);
-
-const [usuario, setUsuario ] = useState({
-  state: false,
-  data: []
-});
-
-const {state, data} = usuario;
+  const{user}= useContext (AuthContext);
+  const [usuario, setUsuario ] = useState({
+    state: false,
+    data: []
+  });
+  
+  const {state, data} = usuario;
+  
+  useEffect(() => {
+    getUsuarioId(setUsuario,user.idDocente);
+    // localStorage.setItem('datos', JSON.stringify(data));
+  
+  }, [state]);
 const [ StatePetition, setStatePetition ] = useState(false);
-
-useEffect(() => {
-  getUsuarioId(setUsuario,user.idDocente);
-}, [state]);
-const establecerDatos =()=>{
-  nombreUsuario='juan'
-
-}
-// useEffect(() =>{
-//   establecerDatos();
-
-// }, []);
 
 
 
@@ -57,10 +48,9 @@ const [formValues,setValues] = useState({
   contraseñaUsuarioConf: conf
 
 })
-
-
  const { nombreUsuario,
 apellidoUsuario, telefonoUsuario, direccionUsuario, correoUsuario,contraseñaUsuario, contraseñaUsuarioConf } = formValues;
+
 
 //Alertas
 const alerta=(mensaje)=>{
@@ -81,6 +71,11 @@ const tele = new RegExp("^[67]{1}[0-9]{7}$");
 const apel = new RegExp("^[a-zA-Z ]+$");
 const corre = new RegExp('^(.+)@(\\S+)$');
 
+const recargar=()=>{
+  setTimeout(function() {
+    window.location.reload(true);
+  }, 3000);
+}
 
 const validacionCampos=()=>{
   if (nombreUsuario==='' || apellidoUsuario===''||telefonoUsuario===''
@@ -116,13 +111,14 @@ const validacionCampos=()=>{
  }
  else{
   actualizarDatos();
-  alertaSuccess();
+  localStorage.setItem('datos', JSON.stringify(formValues));
+  recargar();
+  // window.location.reload();
+
  }
 
 }
-
 const handleInputChange=(event)=>{
-  //  console.log(event.target.value)
   setValues({
     ...formValues,
     [event.target.name] : event.target.value,
@@ -138,7 +134,7 @@ const [ isOpenModalWarning, openModalWarning, closeModalWarning ] = useModal(fal
 
 const actualizarDatos=(item)=>{
   setStatePetition(true);
-  updateUsuario(formValues,'2','Docente','Habilitado',openModalSuccess,closeModalSuccess,data.id);
+  updateUsuario(formValues,data.rol_id,data.cargoUsuario,'Habilitado',openModalSuccess,closeModalSuccess,data.id);
 }
 
 
@@ -151,32 +147,25 @@ const actualizarDatos=(item)=>{
         <form
         onSubmit={handleSubmit}
         >
-
         <div className='inputs-container'>
         <div className='item-container'>
 			<div>
                  <label>Nombre(s):</label>
                  <div className='input'>
                 <input 
-                // name={StatusInputNombre===true? "input-error" : "nombreUsuario"}
                 name='nombreUsuario'
                 placeholder='nombre' 
                 className='inputs-perfil' 
                 type="text" 
                 value={nombreUsuario}
                 onChange={handleInputChange}
-                 
                 ></input>
-                {/* <p className={ StatusInputNombre===true? "mensaje-error" : "mensaje-error-oculto" }>
-                                    { MsjErrorNombre }
-                                </p> */}
                  </div>
 			</div>
 			<div className='rigth-item'>
 			   <label>Apellido(s):</label>
                 <div className='input-perfil'>
                   <input 
-                  // name={StatusInputApellido===true? "input-error" :'apellidoUsuario'} 
                   name='apellidoUsuario'
                   placeholder='apellido' 
                   className='inputs-perfil' 
@@ -184,9 +173,6 @@ const actualizarDatos=(item)=>{
                   value={apellidoUsuario} 
                   onChange={handleInputChange}
                   ></input>
-                  {/* <p className={ StatusInputApellido===true? "mensaje-error" : "mensaje-error-oculto" }>
-                                    { MsjErrorApellido }
-                                </p> */}
                 </div>
 			</div>
         </div>
@@ -202,7 +188,6 @@ const actualizarDatos=(item)=>{
             ></input>
             </div>
             </div>
-
             <div className='rigth-item'>
             <label>Direccion:</label>
             <div className='input-perfil'>
@@ -213,8 +198,6 @@ const actualizarDatos=(item)=>{
             </div>
             </div>
 	    </div>
-		
-
             <div className='correo'>
             <label>Correo electronico:</label>
             <div className='input-perfil'>
@@ -224,7 +207,6 @@ const actualizarDatos=(item)=>{
             ></input>
             </div>
             </div>
-            
 			<div className='item-container'>
             <div className='password'>
             <label>Contraseña:</label>
@@ -237,16 +219,8 @@ const actualizarDatos=(item)=>{
               placeholder="Contraseña"
               value={contraseñaUsuario} 
               onChange={ handleInputChange } toggleMask
-               //onChange={(e) => setcontraseñaUsuarioConf(e.target.value)} toggleMask
                                 />
-            {/* <div className='input-perfil'>
-            <input name='contraseñaUsuario' placeholder='********' className='inputs-perfil' type='password'
-            value={contraseñaUsuario}
-            onChange={handleInputChange} 
-            ></input>
-            </div> */}
             </div>
-            
             <div className='rigth-item'>
              <label>Confirmar Contraseña:</label>
             <Password 
@@ -257,14 +231,8 @@ const actualizarDatos=(item)=>{
               placeholder="Repetir Contraseña"
               value={contraseñaUsuarioConf} 
               onChange={ handleInputChange } toggleMask
-               //onChange={(e) => setcontraseñaUsuarioConf(e.target.value)} toggleMask
                                 />
-			{/* <div className='input-perfil'>
-            <input name='contraseñaUsuarioConf' placeholder='********' className='inputs-perfil' type='password'
-            value={contraseñaUsuarioConf}
-            onChange={handleInputChange} 
-            ></input>
-             </div> */}
+
           </div>
 			</div>
 
@@ -273,14 +241,11 @@ const actualizarDatos=(item)=>{
             <button
              id='btn-opciones-soliperfil'
              className='btn-guardarperfil'
-             onClick={()=> validacionCampos()}
-            // onClick={()=> console.log(data)}
-
+              onClick={()=> validacionCampos()}
+            // onClick={()=> console.log(data) }
             >
               Guardar</button>
-              </div>
-
-            
+              </div>   
         </div>
         </div>
       </form>

@@ -11,7 +11,7 @@ export const SolicitudesRechazadas = () => {
   const { user } = useContext(AuthContext);
 
   const [solicitudesRechazadas, setSolicitudesRechazadas] = useState([]);
-  const [rejectDetail, setRejectDetail] = useState("");
+  const [solicitud, setSolicitud] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, openModal, closeModal] = useModal(false);
 
@@ -28,8 +28,8 @@ export const SolicitudesRechazadas = () => {
     });
   }, [user]);
 
-  function showRefusedDetail(rejectDetail) {
-    setRejectDetail(rejectDetail);
+  function showRefusedDetail(solicitud) {
+    setSolicitud(solicitud);
     openModal();
   }
 
@@ -76,7 +76,7 @@ export const SolicitudesRechazadas = () => {
                     <button
                       className="btn-ver-aulas-reservadas"
                       onClick={() => {
-                        showRefusedDetail(solicitud.motivoRechazo);
+                        showRefusedDetail(solicitud);
                       }}
                     >
                       <i className="bi bi-eye-fill icon-ver-aulas-reserv"></i>
@@ -91,7 +91,32 @@ export const SolicitudesRechazadas = () => {
       <ModalGenerico isOpen={isOpen} closeModal={closeModal}>
         <div className="title-modal">Detalle de Rechazo</div>
         <div className="separator"></div>
-        <div className="modal-contend-reserva-aula">{rejectDetail}</div>
+        <div className="modal-contend-reserva-aula">
+         <label>
+          {solicitud.nombreDocenteSolicitud} {solicitud.apellidoDocenteSolicitud}
+        </label>
+        <label>
+        <span>Motivo Rechazo : </span>
+          {solicitud.motivoRechazo}
+        </label>
+        <label>{solicitud.materiaSolicitud}</label>
+        <label>
+          <span>Grupo : </span>
+          {solicitud.grupoSolicitud}
+        </label>
+        <label>
+          <span>Fecha : </span>
+          {solicitud.fechaSolicitud}
+        </label>
+        <label>
+          <span>Hora : </span>
+          {solicitud.horaInicioSolicitud}
+        </label>
+        <label>
+          <span>Periodo : </span>
+          {solicitud.periodoSolicitud}
+        </label>
+        </div>
       </ModalGenerico>
     </div>
   );
