@@ -1,4 +1,3 @@
-
 export const obtenerUsuariosPorId = (listaUsuarios=[], idDocente) => {
 
     let existeDocente = false;

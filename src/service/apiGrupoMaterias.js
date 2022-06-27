@@ -52,12 +52,6 @@ export const createGrupoMateria = async ( grupoMateria, estadoGrupoMateria, mate
 }
 
 export const updateGrupoMateriaId = (grupoMateria, estadoGrupoMateria, materia_id, idDocente, idAuxiliar, openModalSuccess, openModalWarning, id) => {
-    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 67 ~ updateGrupoMateriaId ~ materia_id", materia_id)
-    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 67 ~ updateGrupoMateriaId ~ estadoGrupoMateria", estadoGrupoMateria)
-    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 59 ~ updateGrupoMateriaId ~ grupoMateria", grupoMateria)
-    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 59 ~ updateGrupoMateriaId ~ id", id)
-    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 63 ~ updateGrupoMateriaId ~ idAuxiliar", idAuxiliar)
-    console.log("🚀 ~ file: apiGrupoMaterias.js ~ line 63 ~ updateGrupoMateriaId ~ idDocente", idDocente)
     return axios.put(`${baseUrl}/actualizarGrupos/${id}`,
     {
         id:                  `${id}`,
