@@ -100,6 +100,7 @@ useEffect(() => {
       <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
         <ul className="navbar-nav">
           <div className="dropdown notification-info  text-info icon-home">
+            
             <span
               className=""
               id="notification"
@@ -113,10 +114,10 @@ useEffect(() => {
               className="dropdown-menu notification-container"
               aria-labelledby="notification"
             >
-              {/* <section>Notificaiones</section>
-                            <hr/> */}
+              <section>Notificaciones</section>
+              <div style={{background:"#d3d4d4" ,height:"1px"}}></div>
                 <NavLink style={{color:"black"}} to="/admin/versolicitudes">
-                    <li>
+                    <li className='notification-item'>
                       Tienes <b>{data.length}</b> solicitudes de
                       reserva de aulas pendientes!
                     </li>

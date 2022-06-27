@@ -392,7 +392,7 @@ export const RegistroUsuarios = ({
             </ModalGenerico>
 
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <Hecho cerrarModal={ closeModalSuccess }/>
+                <Hecho cerrarModal={ closeModalSuccess } funcReset={reset} />
             </ModalGenerico>
         </div>
 

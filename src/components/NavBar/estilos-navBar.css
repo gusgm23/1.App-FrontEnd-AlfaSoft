@@ -78,3 +78,16 @@ nav>img {
     flex-wrap: wrap;
     gap: 10;
 }
+.bell-icon{
+    cursor: pointer;
+    border: none;
+    color: #25c3e2;
+    background-color: transparent;
+}
+.bell-icon:hover{
+    background-color: transparent;
+    color: blue;
+}
+.notification-item:hover{
+    color: #25c3e2;
+}
