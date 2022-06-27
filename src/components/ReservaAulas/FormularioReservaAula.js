@@ -36,7 +36,7 @@ export const FormularioReservaAula = ({
 
         closeModal = () => {}, titulo='', idsolicitud='', dataOptenida, setListaSolicitud }) => {
 
-    const [formValues, handleInputChange] = useForm({
+    const [formValues, handleInputChange, reset] = useForm({
        
         nombreDocente:          nomDocente,
         apellidoDocente:        apeDocente,

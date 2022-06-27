@@ -1,7 +1,12 @@
 import React from 'react'
 import okImg from '../../../images/ok.svg'
 
-export const Hecho = ({ cerrarModal }) => {
+export const Hecho = ({ cerrarModal, funcReset }) => {
+
+    // const btnReset = () => {
+        // funcReset();
+    // }
+
     return (
         <>
             <h2>Perfecto!</h2>
