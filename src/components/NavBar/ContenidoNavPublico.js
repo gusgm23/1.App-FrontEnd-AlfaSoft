@@ -12,13 +12,9 @@ export const ContenidoNavPublico = () => {
                     >
                        Sistema Reserva de Aulas
                     </Link>
-                    <NavLink 
-                        exact='true'
-                        to='/about' 
-                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
-                    >
-                        Acerca de
-                    </NavLink>
+                    {/* <NavLink exact='true'to='/about' className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}> */}
+                        {/* Acerca de */}
+                    {/* </NavLink> */}
                     
                 </div>
             </div>

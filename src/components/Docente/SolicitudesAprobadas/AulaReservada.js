@@ -88,9 +88,10 @@ export const AulaReservada = ({ reservedClassRoom }) => {
         <label>
           <span>Capacidad Aula : </span>
           {capacidadAula}
-        </label><label>
-          <span>Cantidad de estudiante Asignada : </span>
-          { cantidadEstudiantesAsignada}
+        </label>
+        <label>
+          <span>Cantidad de estudiantes: </span>
+          { numeroEstudiantesSolicitud}
         </label>
         <label>
           <span>Fecha : </span>
@@ -98,7 +99,8 @@ export const AulaReservada = ({ reservedClassRoom }) => {
         </label>
         <label>
           <span>Hora : </span>
-          {horaInicioSolicitud} - {horafin}
+          {horaInicioSolicitud} 
+          {/* - {horafin} */}
         </label>
         <label>
           <span>Periodo : </span>

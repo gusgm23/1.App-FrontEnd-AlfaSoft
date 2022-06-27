@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../auth/authContext';
 import { classroomRequestStatus } from '../../../enums/solicitudes';
+import { obtenerReservasDeUsuario } from '../../../helpers/obtenciondeReservas';
 import { getSolicitudesAprobadasDeUsuario } from '../../../helpers/obtenerSolicitudesDeUsuario';
 import { useModal } from '../../../hooks/useModal';
+import { getAulas } from '../../../service/apiAulas';
+import { getReserva } from '../../../service/apiReservaAulas';
 import { getSolicitud, getSolicitudByDocent } from '../../../service/apiSolicitudAulas';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
 import Spinner from '../../Spinner/Spinner';
@@ -26,6 +29,19 @@ export const SolicitudesAprobadas = () => {
     const [isLoading, setIsLoading] = useState(true);
     // const { dataAprob, stateAprob } = solicitudesAprobadas;
 
+    const [listaReservas, setListaReservas] = useState(
+        {
+            stateReserva: false,
+        dataReserva: []
+    })
+
+    const [listaAulas, setListaAulas] = useState(
+        {
+            state: false,
+            data: []
+        }
+    )
+
     useEffect(() => {
         const config = {
             nombreDocenteSolicitud: user.name,
@@ -37,13 +53,24 @@ export const SolicitudesAprobadas = () => {
             setSolicitudesAprobadas(resp.data);
             setIsLoading(false)
           });
+
+          getReserva(setListaReservas);
+          getAulas(setListaAulas);
     }, [])
+
+    useEffect(() => {
+        const reservaUsuarioSol = obtenerReservasDeUsuario(listaReservas.dataReserva, '1', listaAulas.data)
+        console.log(reservaUsuarioSol)
+    })
+
 
     
     function showReservedClassroom(reservedClassRoom){
         openModalEdicion();
         setReservedClassRoom(reservedClassRoom);
     }
+
+
 
     return (
         <>

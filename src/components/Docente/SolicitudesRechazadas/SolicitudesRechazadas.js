@@ -109,14 +109,14 @@ export const SolicitudesRechazadas = () => {
          <label>
           {solicitud.nombreDocenteSolicitud} {solicitud.apellidoDocenteSolicitud}
         </label>
-        <label>
-        <span>Motivo Rechazo : </span>
-          {solicitud.motivoRechazo}
-        </label>
         <label>{solicitud.materiaSolicitud}</label>
         <label>
           <span>Grupo : </span>
           {solicitud.grupoSolicitud}
+        </label>
+        <label>
+          <span>Cantidad de Estudiantes:</span>
+          {solicitud.numeroEstudiantesSolicitud}
         </label>
         <label>
           <span>Fecha : </span>
@@ -124,11 +124,16 @@ export const SolicitudesRechazadas = () => {
         </label>
         <label>
           <span>Hora : </span>
-          {solicitud.horaInicioSolicitud}-{horafin}
+          {solicitud.horaInicioSolicitud}
+          {/* -{horafin} */}
         </label>
         <label>
           <span>Periodo : </span>
           {solicitud.periodoSolicitud}
+        </label>
+        <label>
+        <span>Motivo del Rechazo : </span>
+          {solicitud.motivoRechazo}
         </label>
         </div>
       </ModalGenerico>
