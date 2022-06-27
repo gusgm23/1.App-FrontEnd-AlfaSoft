@@ -31,3 +31,17 @@ hr {
 .icon-ver-aulas-reserv::before {
     color: #00AB66;
 }
+
+.cont-btn-info-reserva {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-entendido-reserva {
+    background-color: #0F7ABC;
+    color: #ffffff;
+    border: none;
+    width: 40%;
+    height: 30px;
+}
