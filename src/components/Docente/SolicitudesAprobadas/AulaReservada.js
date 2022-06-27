@@ -1,30 +1,30 @@
 import React from "react";
 
-const days = {
-  1: "Lunes",
-  2: "Martes",
-  3: "Miercoles",
-  4: "Jueves",
-  5: "Viernes",
-  6: "Sabado",
-  0: "Domingo",
-};
+const days = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miercoles",
+  "Jueves",
+  "Viernes",
+  "Sabado",
+ 
+];
 
-
-const months = {
-  1: "Enero",
-  2: "Febrero",
-  3: "Marzo",
-  4: "Abril",
-  5: "Mayo",
-  6: "Junio",
-  7: "Julio",
-  8: "Agosto",
-  9: "Septiembre",
-  10: "Octubre",
-  11: "Noviembre",
-  12: "Diciembre",
-};
+const months = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
 
 export const AulaReservada = ({ reservedClassRoom }) => {
   const {
@@ -49,11 +49,24 @@ export const AulaReservada = ({ reservedClassRoom }) => {
   const d = new Date(fechaSolicitud);
   console.log(d);
 
-  const fullDate = `${d.getDate()} de ${months[d.getMonth()]} del ${d.getFullYear()} `;
+  const fullDate = `${days[d.getDay()]}${d.getDate()} de ${months[d.getMonth()]} del ${d.getFullYear()} `;
 
   console.log(fullDate);
 
+  let horafin="";
 
+  if (horaInicioSolicitud !== undefined) {
+    const hourArr = horaInicioSolicitud.split(":");
+
+    const lastHour = (periodoSolicitud * 1.5).toString().split(".");
+    const horaFin=Number(hourArr[0])+Number(lastHour[0]);
+    var minFin=hourArr[1];
+    if(lastHour[1]){
+     minFin=Number(hourArr[1])+30;
+    }
+
+    horafin=`${horaFin}:${minFin}:00`
+  }
   //123
   return (
     <>
@@ -77,12 +90,17 @@ export const AulaReservada = ({ reservedClassRoom }) => {
           {capacidadAula}
         </label>
         <label>
+          <span>Cantidad de estudiantes: </span>
+          { numeroEstudiantesSolicitud}
+        </label>
+        <label>
           <span>Fecha : </span>
           {fullDate}
         </label>
         <label>
           <span>Hora : </span>
-          {horaInicioSolicitud}
+          {horaInicioSolicitud} 
+          {/* - {horafin} */}
         </label>
         <label>
           <span>Periodo : </span>

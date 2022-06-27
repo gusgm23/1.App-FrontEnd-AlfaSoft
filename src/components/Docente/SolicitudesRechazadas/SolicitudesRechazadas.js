@@ -32,6 +32,20 @@ export const SolicitudesRechazadas = () => {
     setSolicitud(solicitud);
     openModal();
   }
+  let horafin="";
+
+  if (solicitud.horaInicioSolicitud !== undefined) {
+    const hourArr = solicitud.horaInicioSolicitud.split(":");
+
+    const lastHour = (solicitud.periodoSolicitud * 1.5).toString().split(".");
+    const horaFin=Number(hourArr[0])+Number(lastHour[0]);
+    var minFin=hourArr[1];
+    if(lastHour[1]){
+     minFin=Number(hourArr[1])+30;
+    }
+
+    horafin=`${horaFin}:${minFin}:00`
+  }
 
   return (
     <div className="solicitudes-container">
@@ -95,14 +109,14 @@ export const SolicitudesRechazadas = () => {
          <label>
           {solicitud.nombreDocenteSolicitud} {solicitud.apellidoDocenteSolicitud}
         </label>
-        <label>
-        <span>Motivo Rechazo : </span>
-          {solicitud.motivoRechazo}
-        </label>
         <label>{solicitud.materiaSolicitud}</label>
         <label>
           <span>Grupo : </span>
           {solicitud.grupoSolicitud}
+        </label>
+        <label>
+          <span>Cantidad de Estudiantes:</span>
+          {solicitud.numeroEstudiantesSolicitud}
         </label>
         <label>
           <span>Fecha : </span>
@@ -111,10 +125,15 @@ export const SolicitudesRechazadas = () => {
         <label>
           <span>Hora : </span>
           {solicitud.horaInicioSolicitud}
+          {/* -{horafin} */}
         </label>
         <label>
           <span>Periodo : </span>
           {solicitud.periodoSolicitud}
+        </label>
+        <label>
+        <span>Motivo del Rechazo : </span>
+          {solicitud.motivoRechazo}
         </label>
         </div>
       </ModalGenerico>
