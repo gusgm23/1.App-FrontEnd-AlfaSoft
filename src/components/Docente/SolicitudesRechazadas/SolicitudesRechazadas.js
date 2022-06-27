@@ -32,6 +32,20 @@ export const SolicitudesRechazadas = () => {
     setSolicitud(solicitud);
     openModal();
   }
+  let horafin="";
+
+  if (solicitud.horaInicioSolicitud !== undefined) {
+    const hourArr = solicitud.horaInicioSolicitud.split(":");
+
+    const lastHour = (solicitud.periodoSolicitud * 1.5).toString().split(".");
+    const horaFin=Number(hourArr[0])+Number(lastHour[0]);
+    var minFin=hourArr[1];
+    if(lastHour[1]){
+     minFin=Number(hourArr[1])+30;
+    }
+
+    horafin=`${horaFin}:${minFin}:00`
+  }
 
   return (
     <div className="solicitudes-container">
@@ -110,7 +124,7 @@ export const SolicitudesRechazadas = () => {
         </label>
         <label>
           <span>Hora : </span>
-          {solicitud.horaInicioSolicitud}
+          {solicitud.horaInicioSolicitud}-{horafin}
         </label>
         <label>
           <span>Periodo : </span>
