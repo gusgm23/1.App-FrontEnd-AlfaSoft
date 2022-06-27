@@ -20,57 +20,45 @@ const columnas = ['#', 'Motivo', 'Materia','Fecha', 'Hora', 'Estado', 'Aula(s)']
 export const SolicitudesAprobadas = () => {
     const [isOpen, openModalEdicion, closeModalEdicion] = useModal(false);
 
-    const [reservedClassRoom, setReservedClassRoom] = useState({});
     const {user} = useContext(AuthContext);
 
 
     //!Bloque encargado de almacenar solicitudes aprobadas que pertenezcan al usuario que ha iniciado sesión
     const [solicitudesAprobadas, setSolicitudesAprobadas] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    // const { dataAprob, stateAprob } = solicitudesAprobadas;
+    const [isLoading, setisLoading] = useState('')
 
-    const [listaReservas, setListaReservas] = useState(
-        {
-            stateReserva: false,
+    const [listaReservas, setListaReservas] = useState({
+        stateReserva: false,
         dataReserva: []
     })
 
-    const [listaAulas, setListaAulas] = useState(
-        {
+    const [listaAulas, setListaAulas] = useState({
             state: false,
             data: []
         }
     )
 
-    useEffect(() => {
-        const config = {
-            nombreDocenteSolicitud: user.name,
-            apellidoDocenteSolicitud: user.apellido,
-            estadoSolicitud: classroomRequestStatus.ACCEPTED,
-          };
-      
-          getSolicitudByDocent(config).then((resp) => {
-            setSolicitudesAprobadas(resp.data);
-            setIsLoading(false)
-          });
+    const [listaSolicitudes, setListaSolicitudes] = useState({
+        stateS: false,
+        dataS: []
+    })
 
-          getReserva(setListaReservas);
-          getAulas(setListaAulas);
+    const [reservasDeSolicitud, setReservasDeSolicitud] = useState([]);
+    console.log("🚀 ~ file: SolicitudesAprobadas.js ~ line 47 ~ SolicitudesAprobadas ~ reservasDeSolicitud", reservasDeSolicitud)
+
+    useEffect(() => {
+        getSolicitud(setListaSolicitudes);
+        getReserva(setListaReservas);
+        getAulas(setListaAulas);
     }, [])
 
     useEffect(() => {
-        const reservaUsuarioSol = obtenerReservasDeUsuario(listaReservas.dataReserva, '1', listaAulas.data)
-        console.log(reservaUsuarioSol)
-    })
+        
+        if(listaSolicitudes.stateS){
+            setSolicitudesAprobadas(getSolicitudesAprobadasDeUsuario(listaSolicitudes.dataS, user.name, user.apellido));
+        }
 
-
-    
-    function showReservedClassroom(reservedClassRoom){
-        openModalEdicion();
-        setReservedClassRoom(reservedClassRoom);
-    }
-
-
+    }, [listaSolicitudes.dataS])
 
     return (
         <>
@@ -89,9 +77,12 @@ export const SolicitudesAprobadas = () => {
                                 <table className='animate__animated animate__fadeIn'>
                                     <ColumnasTabla columnas={ columnas }/>
                                     <FilaTabla
-                                        showReservedClassroom={showReservedClassroom}
-                                        openModalEdicion={openModalEdicion}
-                                        listaSoliAprob={ solicitudesAprobadas }/>
+                                        listaSoliAprob={ solicitudesAprobadas }
+                                        setListaReservas= { setReservasDeSolicitud }
+                                        listaReservas={ listaReservas.dataReserva }
+                                        listaAulas={ listaAulas.data }
+                                        showModal={ openModalEdicion }
+                                    />
                                 </table>
                             )
                             : <p className='parraf-soli-aprob'>No tienes solicitudes que hayan sido aprobadas.</p>
@@ -101,10 +92,12 @@ export const SolicitudesAprobadas = () => {
             </section>
         </div>
         <ModalGenerico isOpen={isOpen} closeModal={closeModalEdicion}>
-            <AulaReservada reservedClassRoom={reservedClassRoom}>
-                
-            </AulaReservada>
-      </ModalGenerico>
+            {
+                reservasDeSolicitud.length > 0 ?
+                <AulaReservada listaReservas={reservasDeSolicitud} closeModal={closeModalEdicion}/>
+                :''
+            }
+        </ModalGenerico>
     </>
     )
 }
