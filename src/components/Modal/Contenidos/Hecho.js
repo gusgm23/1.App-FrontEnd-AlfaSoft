@@ -3,9 +3,9 @@ import okImg from '../../../images/ok.svg'
 
 export const Hecho = ({ cerrarModal, funcReset }) => {
 
-    const btnReset = () => {
-        funcReset();
-    }
+    // const btnReset = () => {
+        // funcReset();
+    // }
 
     return (
         <>
@@ -21,7 +21,7 @@ export const Hecho = ({ cerrarModal, funcReset }) => {
                 </p>
                 <button
                     className='btn-entendido'
-                    onClick={() => btnReset()  }
+                    onClick={cerrarModal}
                 >
                     Entendido
                 </button>
