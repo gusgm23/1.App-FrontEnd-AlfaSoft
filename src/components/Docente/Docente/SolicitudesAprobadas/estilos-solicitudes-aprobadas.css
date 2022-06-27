@@ -1,0 +1,33 @@
+.cont-gral-soli-aprob {
+    min-height: 360px;
+    display: flex;
+    justify-content: center;
+}
+
+.section-soli-aprob {
+    max-width: 1000px;
+}
+
+.parraf-soli-aprob {
+    color: #000;
+}
+
+hr {
+    width: 100%;
+}
+
+.cont-titulo-soli-aprob {
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+}
+
+.btn-ver-aulas-reservadas {
+    border: none;
+    background-color: transparent;
+}
+
+.icon-ver-aulas-reserv::before {
+    color: #00AB66;
+}
