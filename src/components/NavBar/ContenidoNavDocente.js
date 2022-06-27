@@ -65,7 +65,7 @@ export const ContenidoNavDocente = () => {
             <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav">
                     <span className='nav-item nav-link text-info icon-home'>
-                        <i className="bi bi-person icon-user"></i> { us.nombreUsuario } - { user.rol }
+                        <i className="bi bi-person icon-user"></i> { user.name } - { user.rol }
                     </span>
                     <button
                         className='nav-item nav-link btn-logout'

@@ -112,7 +112,7 @@ const validacionCampos=()=>{
  else{
   actualizarDatos();
   localStorage.setItem('datos', JSON.stringify(formValues));
-  recargar();
+  //recargar();
   // window.location.reload();
 
  }
