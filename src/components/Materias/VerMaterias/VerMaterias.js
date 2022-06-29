@@ -25,7 +25,9 @@ export const VerMaterias = () => {
         navigate('/admin/registromateria')
 
     }
+  
 
+    
     return (
         <div className='contenedor-gral animate__animated animate__fadeIn'>
             <div className='contenedor-elementos-lista'>
