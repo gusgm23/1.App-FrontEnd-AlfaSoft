@@ -67,7 +67,7 @@ export const Materia = ({data=[], setListaMateria}) => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Buscar Aulas"
+                    placeholder="Buscar Materias"
                     value={search}
                    
                     onChange={handleSearch}

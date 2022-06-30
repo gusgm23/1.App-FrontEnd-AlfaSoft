@@ -122,7 +122,7 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Buscar Aulas"
+                placeholder="Buscar Usuarios"
                 value={search}
                
                 onChange={handleSearch}
