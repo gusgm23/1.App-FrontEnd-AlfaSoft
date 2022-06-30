@@ -18,7 +18,8 @@ import { UsuarioEliminado } from "../../Modal/Contenidos/UsuarioEliminado";
 export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
 
     const [usuariosTabla, setUsuariosTabla] = useState(data);
-
+    const [search, setSearch] = useState("");
+    const [searchFilter, setSearchFilter] = useState([]);
     const [ valores, setValores ] = useState({
         id:                 '',
         nomUsuario:         '',
@@ -82,17 +83,66 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
         closeModalConfirm();
     }
 
+    
+
+ useEffect(() => {
+        setSearchFilter(usuariosTabla);
+      }, [usuariosTabla]);
+    
+      useEffect(() => {
+        function searchClassRoom() {
+          const searchArr = [];
+    
+          usuariosTabla.forEach((data) => {
+           
+            if (data.name.toLowerCase().startsWith(search.toLowerCase())) {
+                searchArr.push(data);
+              }
+          });
+          setSearchFilter(searchArr);
+        }
+        searchClassRoom();
+      }, [search]);
+    
+    function handleSearch(e) {
+        const {value}=e.target
+        
+        if(value.trim()===""){
+          setSearch(e.target.value);
+        }
+      
+        setSearch(e.target.value);
+      }
 
 
     return (
         <>
         <div className="contenedor-tabla-general">
+        <div className="input-group mb-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Buscar Aulas"
+                value={search}
+               
+                onChange={handleSearch}
+              />
+              <button
+                type="submit"
+                className="btn btn-primary"
+                id="basic-addon2"
+              >
+                Buscar
+              </button>
+            </div>
+
             <div className="contenedor-tabla-usuarios">
+
                 <table>
                     <CamposTabla/>
                     <tbody>
                         {
-                            usuariosTabla.map((item, i) => (
+                            searchFilter.map((item, i) => (
                                 <tr key={item.id}>
                                     <td> { i+1 } </td>
                                     <td> { item.name } </td>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './estilos-ver-materias.css'
 import { useModal } from '../../../hooks/useModal';
@@ -16,7 +16,8 @@ export const Materia = ({data=[], setListaMateria}) => {
 
     const { codigoMat, nombreMat, id, estado } = values;
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
-
+    const [search, setSearch] = useState("");
+    const [searchFilter, setSearchFilter] = useState([]);
     const actualizar = (item) => {
         setValues({
             codigoMat: item.codigoMateria,
@@ -29,9 +30,56 @@ export const Materia = ({data=[], setListaMateria}) => {
     const guardarID  = (id) => {
         localStorage.setItem("id", id);
     }
+    useEffect(() => {
+        setSearchFilter(data);
+      }, [data]);
+    
+      useEffect(() => {
+        function searchClassRoom() {
+          const searchArr = [];
+    
+          data.forEach((data) => {
+           
+            if (data.nombreMateria.toLowerCase().startsWith(search.toLowerCase())) {
+                searchArr.push(data);
+              }
+          });
+          setSearchFilter(searchArr);
+        }
+        searchClassRoom();
+      }, [search]);
+    
+    function handleSearch(e) {
+        const {value}=e.target
+        
+        if(value.trim()===""){
+          setSearch(e.target.value);
+        }
+      
+        setSearch(e.target.value);
+      }
 
+      
     return (
-            <>
+            <> 
+            
+            <div className="input-group mb-3">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Buscar Aulas"
+                    value={search}
+                   
+                    onChange={handleSearch}
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    id="basic-addon2"
+                  >
+                    Buscar
+                  </button>
+                </div>
             <div className='contenedor-tabla'>
                 <table>
                     <thead>
@@ -45,7 +93,7 @@ export const Materia = ({data=[], setListaMateria}) => {
                     </thead>
                     <tbody className='animate__animated animate__fadeIn'>
                         {
-                            data.map((item, i) => (
+                            searchFilter.map((item, i) => (
                                 <tr key={item.id}>
                                     <td> { i+1 } </td>
                                     <td> { item.codigoMateria } </td>

@@ -1,4 +1,6 @@
+import { arrow, end } from '@popperjs/core';
 import React from "react";
+import { periodHours } from "../../../enums/classHours";
 
 import  './estilos-solicitudes-aprobadas.css';
 
@@ -10,7 +12,6 @@ const days = [
   "Jueves",
   "Viernes",
   "Sabado",
- 
 ];
 
 const months = [
@@ -79,7 +80,7 @@ export const AulaReservada = ({ listaReservas=[], closeModal }) => {
         {
           listaReservas.map( reserva => (
             <>
-              <label>
+            <label>
                 <span>Aula: </span>
                 {reserva.nombreAula}
               </label>
@@ -87,6 +88,7 @@ export const AulaReservada = ({ listaReservas=[], closeModal }) => {
                 <span>Capacidad: </span>
                 {reserva.capacidadAula}
               </label>
+              
               <hr/>
             </>
           ) )
