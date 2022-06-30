@@ -115,6 +115,24 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
       }
 
 
+      //Paginador para la tabla
+      const [paginaActual, setPaginaActual] = useState(0);
+
+      const filtrarUsuarios = () => {
+
+        return searchFilter.slice(paginaActual, paginaActual + 10);
+      }
+
+      const siguientePagina = () => {
+            setPaginaActual( paginaActual + 10 );
+      }
+
+      const anteriorPagina = () => {
+        if (paginaActual > 0)
+            setPaginaActual( paginaActual - 10);
+      }
+
+
     return (
         <>
         <div className="contenedor-tabla-general">
@@ -142,15 +160,15 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
                     <CamposTabla/>
                     <tbody>
                         {
-                            searchFilter.map((item, i) => (
+                            filtrarUsuarios().map((item, i) => (
                                 <tr key={item.id}>
-                                    <td> { i+1 } </td>
-                                    <td> { item.name } </td>
-                                    <td> { item.apellido } </td>
-                                    <td> { item.cargoUsuario  } </td>
-                                    <td> { item.telefonoUsuario } </td>
-                                    <td> { item.direccionUsuario } </td>
-                                    <td> { item.email } </td>
+                                    <td> { item.id } </td>
+                                    <td style={{width:150}}> { item.name } </td>
+                                    <td style={{width:150}}> { item.apellido } </td>
+                                    <td style={{width:100}}> { item.cargoUsuario  } </td>
+                                    <td style={{width:100}}> { item.telefonoUsuario } </td>
+                                    <td style={{width:150}}> { item.direccionUsuario } </td>
+                                    <td style={{width:150}}> { item.email } </td>
                                     <td className="columna-botones-usuario">
                                         <section className="caja-botones-usuario">
                                             <button
@@ -184,6 +202,13 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
                 </table>
 
             </div>
+            <button className="botonPaginador" onClick={anteriorPagina}>
+                    Anterior
+            </button>
+            
+            <button className="botonPaginador" onClick={siguientePagina}>
+                    Siguiente
+            </button>
                 {
                     isOpen && 
                     <ModalGenerico isOpen={ isOpen } closeModal={ closeModalEdicion }>
