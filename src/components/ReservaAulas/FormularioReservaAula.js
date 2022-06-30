@@ -432,7 +432,7 @@ export const FormularioReservaAula = ({
             </ModalGenerico>
 
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <Hecho cerrarModal={ closeModalSuccess } />
+                <Hecho cerrarModal={ closeModalSuccess } funcResetSol={reset} />
             </ModalGenerico>
         </div>
     )
