@@ -127,7 +127,7 @@ export const FormularioReservaAula = ({
 
 
     const validarForm = () => {
-        if( validarCamposVaciosSolicitud(formValues, selectMotivo, selectHora) ){
+        if( validarCamposVaciosSolicitud(formValues) ){
             openModalFormVacio();
         }else {
             if( validarCamposLlenosSolicitud(formValues, selectMotivo ,selectHora) ){
