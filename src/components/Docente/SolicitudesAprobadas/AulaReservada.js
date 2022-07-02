@@ -31,18 +31,6 @@ const months = [
 
 export const AulaReservada = ({ listaReservas=[], closeModal }) => {
 
-<<<<<<< HEAD
-  const d = new Date(fechaSolicitud);
-  console.log(d);
-
-  const fullDate = `${days[d.getDay()]} ${d.getDate()} de ${months[d.getMonth()]} del ${d.getFullYear()} `;
-
-  const startPeriod=periodHours.indexOf(horaInicioSolicitud);
-  const endPeriod=startPeriod+ Number(periodoSolicitud);
-  
-
-=======
->>>>>>> 6190a5124dedf32390d1339c2a1fb79e41fd4087
   return (
     <>
       <div className="title-modal">Información de solicitud aprobada</div>
@@ -58,39 +46,12 @@ export const AulaReservada = ({ listaReservas=[], closeModal }) => {
           </label>
         <label>
           <span>Grupo : </span>
-<<<<<<< HEAD
-          {grupoSolicitud}
-        </label>
-        <label>
-          <span>Nombre Aula : </span>
-          {nombreAula}
-        </label>
-        <label>
-          <span>Capacidad Aula : </span>
-          {capacidadAula}
-        </label>
-        <label>
-          <span>Cantidad de estudiantes: </span>
-          { numeroEstudiantesSolicitud}
-        </label>
-        <label>
-          <span>Fecha : </span>
-          {fullDate}
-        </label>
-        <label>
-          <span>Hora : </span>
-          {horaInicioSolicitud} - {periodHours[endPeriod]}
-=======
           {listaReservas[0].grupoMateria}
->>>>>>> 6190a5124dedf32390d1339c2a1fb79e41fd4087
         </label>
         <label>
           <span>Periodo : </span>
           {listaReservas[0].periodo}
         </label>
-<<<<<<< HEAD
-
-=======
         <label>
           <span>Fecha : </span>
           {listaReservas[0].fechaReserva}
@@ -131,7 +92,6 @@ export const AulaReservada = ({ listaReservas=[], closeModal }) => {
             </>
           ) )
         }
->>>>>>> 6190a5124dedf32390d1339c2a1fb79e41fd4087
       </section>
       <div className="cont-btn-info-reserva">
         <button
