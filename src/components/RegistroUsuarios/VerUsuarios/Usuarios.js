@@ -115,22 +115,22 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
       }
 
 
-      //Paginador para la tabla
-      const [paginaActual, setPaginaActual] = useState(0);
+    //Paginador para la tabla
+    const [paginaActual, setPaginaActual] = useState(0);
 
-      const filtrarUsuarios = () => {
+    const filtrarUsuarios = () => {
 
-        return searchFilter.slice(paginaActual, paginaActual + 10);
-      }
+      return searchFilter.slice(paginaActual, paginaActual + 10);
+    }
 
-      const siguientePagina = () => {
-            setPaginaActual( paginaActual + 10 );
-      }
+    const siguientePagina = () => {
+          setPaginaActual( paginaActual + 10 );
+    }
 
-      const anteriorPagina = () => {
-        if (paginaActual > 0)
-            setPaginaActual( paginaActual - 10);
-      }
+    const anteriorPagina = () => {
+      if (paginaActual > 0)
+          setPaginaActual( paginaActual - 10);
+    }
 
 
     return (
@@ -202,13 +202,15 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
                 </table>
 
             </div>
-            <button className="botonPaginador" onClick={anteriorPagina}>
-                    Anterior
-            </button>
-            
-            <button className="botonPaginador" onClick={siguientePagina}>
-                    Siguiente
-            </button>
+            <div className="contenedorBtnPaginador">
+                <button className="botonPaginador" onClick={anteriorPagina}>
+                        Anterior
+                </button>
+                        
+                <button className="botonPaginador" onClick={siguientePagina}>
+                        Siguiente
+                </button>
+            </div>
                 {
                     isOpen && 
                     <ModalGenerico isOpen={ isOpen } closeModal={ closeModalEdicion }>

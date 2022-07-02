@@ -59,6 +59,18 @@ export const Materia = ({data=[], setListaMateria}) => {
         setSearch(e.target.value);
       }
 
+    //Paginador para la tabla
+    const [paginaActual, setPaginaActual] = useState(0);
+    const filtrarUsuarios = () => {
+      return searchFilter.slice(paginaActual, paginaActual + 10);
+    }
+    const siguientePagina = () => {
+          setPaginaActual( paginaActual + 10 );
+    }
+    const anteriorPagina = () => {
+      if (paginaActual > 0)
+          setPaginaActual( paginaActual - 10);
+    }      
       
     return (
             <> 
@@ -93,11 +105,11 @@ export const Materia = ({data=[], setListaMateria}) => {
                     </thead>
                     <tbody className='animate__animated animate__fadeIn'>
                         {
-                            searchFilter.map((item, i) => (
+                            filtrarUsuarios().map((item, i) => (
                                 <tr key={item.id}>
-                                    <td> { i+1 } </td>
+                                    <td> { item.id } </td>
                                     <td> { item.codigoMateria } </td>
-                                    <td> { item.nombreMateria } </td>
+                                    <td style={{width:250}}> { item.nombreMateria } </td>
                                     <td> { item.estadoMateria } </td>
                                     <td className='td-btns'>
                                         <section className='caja-btns-materia'>
@@ -120,6 +132,15 @@ export const Materia = ({data=[], setListaMateria}) => {
                         }
                     </tbody>
                 </table>
+            </div>
+            <div className="contenedorBtnPaginadorMateria">
+                <button className="botonPaginadorMateria" onClick={anteriorPagina}>
+                        Anterior
+                </button>
+
+                <button className="botonPaginadorMateria" onClick={siguientePagina}>
+                        Siguiente
+                </button>
             </div>
             {
                 isOpen &&

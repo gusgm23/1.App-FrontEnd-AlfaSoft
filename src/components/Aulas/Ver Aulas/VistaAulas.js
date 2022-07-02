@@ -152,7 +152,18 @@ export const VistaAulas = () => {
 
   const navigate = useNavigate();
 
-
+  //Paginador para la tabla
+  const [paginaActual, setPaginaActual] = useState(0);
+  const filtrarAula = () => {
+    return searchFilter.slice(paginaActual, paginaActual + 10);
+  }
+  const siguientePagina = () => {
+        setPaginaActual( paginaActual + 10 );
+  }
+  const anteriorPagina = () => {
+    if (paginaActual > 0)
+        setPaginaActual( paginaActual - 10);
+  }
 
 
 
@@ -187,7 +198,7 @@ export const VistaAulas = () => {
             
           </div>
           <div style={{display:"flex",justifyContent:"space-between"}}>
-          <h2 className="titulo-ver-aulas">Aulas Registradas: </h2>
+          <h2 className="titulo-ver-aulas">Aulas Registradas: {searchFilter.length} </h2>
           <button 
                         className='btn-crear-materia'
                         onClick={ ()=>{navigate('/admin/registroAula')} }
@@ -214,7 +225,7 @@ export const VistaAulas = () => {
                 </tr>
               </thead>
               <tbody>
-                {searchFilter.map((item) => (
+                {filtrarAula().map((item) => (
                   <tr key={item.id}>
                     <td className="col-id">{item.id}</td>
                     <td className="col-grupo">{item.nombreAula}</td>
@@ -244,6 +255,15 @@ export const VistaAulas = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="contenedorBtnPaginadorAula">
+              <button className="botonPaginadorAula" onClick={anteriorPagina}>
+                      Anterior
+              </button>
+
+              <button className="botonPaginadorAula" onClick={siguientePagina}>
+                      Siguiente
+              </button>
           </div>
         </div>
       </div>

@@ -147,8 +147,6 @@ export const Solicitud = () => {
                                 : <p className='parrafo-info-soli'>No existen aulas disponibles para la solicitud, debes rechazar la solicitud.</p>
                     }
                 </section>
-
-                
             </div>
             {
                 solicitudRecuperada != []
