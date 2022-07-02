@@ -42,13 +42,25 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
     //modal rechazo
     const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
 
+    //Paginador para la tabla
+    const [paginaActual, setPaginaActual] = useState(0);
+    const filtrarAula = () => {
+      return data.slice(paginaActual, paginaActual + 5);
+    }
+    const siguientePagina = () => {
+          setPaginaActual( paginaActual + 5 );
+    }
+    const anteriorPagina = () => {
+      if (paginaActual > 0)
+          setPaginaActual( paginaActual - 5);
+    }
 
     return (
         <>
             {
-                data.map((elem, i) => (
+                filtrarAula().map((elem, i) => (
                     <tr key={elem.id} className='animate__animated animate__fadeIn'>
-                        <td>{ i+1 }</td>
+                        <td>{ elem.id }</td>
                         <td>{ elem.nombreAula }</td>
                         <td>{ elem.capacidadAula }</td>
                         <td>
@@ -84,7 +96,15 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
               
               closeModal={setOpenModalRechazo}/> 
             </ModalGenerico>
-            }
-        </>
+            }  
+            <div className="contenedorBtnPaginadorReservarAula">
+               <button className="botonPaginadorAulaReservarAula" onClick={anteriorPagina}>
+               <i className="bi bi-chevron-left"></i>
+               </button>
+               <button className="botonPaginadorAulaReservarAula" onClick={siguientePagina}>
+               <i className="bi bi-chevron-right"></i>
+               </button>
+            </div>                                                                       
+        </>      
     )
 }

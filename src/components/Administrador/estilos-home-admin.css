@@ -24,7 +24,7 @@ section > div {
 }
 
 .contenedor-img-home-admin{
-    width: 90%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;

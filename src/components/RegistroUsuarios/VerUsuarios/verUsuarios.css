@@ -67,7 +67,7 @@ justify-content: center;
 
 .titulo-tabla-usuarios{
     background-color: rgba(33, 37, 41, .9);
-color: #ffffff;
+    color: #ffffff;
 }
 
 .columna-botones-usuario{
@@ -79,4 +79,21 @@ color: #ffffff;
     border: none;
     padding: 0;
     color: #0d6efd;
+}
+
+
+.contenedorBtnPaginador{
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 290px;
+    margin-right: 290px;
+}
+
+.botonPaginador{
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    background-color: #0d6efd;
+    color: white;
+    
 }

@@ -80,7 +80,7 @@ export const AulaReservada = ({ listaReservas=[], closeModal }) => {
         {
           listaReservas.map( reserva => (
             <>
-              <label>
+            <label>
                 <span>Aula: </span>
                 {reserva.nombreAula}
               </label>
@@ -88,6 +88,7 @@ export const AulaReservada = ({ listaReservas=[], closeModal }) => {
                 <span>Capacidad: </span>
                 {reserva.capacidadAula}
               </label>
+              
               <hr/>
             </>
           ) )

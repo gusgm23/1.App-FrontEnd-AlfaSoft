@@ -127,7 +127,7 @@ export const FormularioReservaAula = ({
 
 
     const validarForm = () => {
-        if( validarCamposVaciosSolicitud(formValues, selectMotivo, selectHora) ){
+        if( validarCamposVaciosSolicitud(formValues) ){
             openModalFormVacio();
         }else {
             if( validarCamposLlenosSolicitud(formValues, selectMotivo ,selectHora) ){
@@ -432,7 +432,7 @@ export const FormularioReservaAula = ({
             </ModalGenerico>
 
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <Hecho cerrarModal={ closeModalSuccess } />
+                <Hecho cerrarModal={ closeModalSuccess } funcResetSol={reset} />
             </ModalGenerico>
         </div>
     )

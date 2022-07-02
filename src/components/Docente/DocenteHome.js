@@ -21,7 +21,7 @@ export const DocenteHome = () => {
                 <div className='contenido-home-docente'>
                     <div>
                         <p className='parrafo-home-docente'>
-                            Recuerda que puedes ver el historial de todas las solicitudes que registraste dentro del sistema, crear una nueva solicitud y editar aquellas solicitudes que fueron rechazadas en la sección: <b>Ver Solicitudes.</b>
+                            Recuerda que puedes ver el historial de todas las solicitudes que registraste dentro del sistema, para reservar un aula dirigite a <b>Solicitudes pendientes</b> y presiona en el boton <b>[+]</b>
                         </p>
                     </div>
                     <img src={homeImg} alt='image-home'/>
