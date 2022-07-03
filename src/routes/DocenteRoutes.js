@@ -16,6 +16,7 @@ import {EditarPerfil} from '../components/Docente/PerfilDocente/EditarPerfil';
 import { getUsuarioId } from '../service/apiUsuarios'
 import { AuthContext } from '../auth/authContext';
 import { SolicitudesRechazadas } from '../components/Docente/SolicitudesRechazadas/SolicitudesRechazadas';
+import { CrearSolicitud } from '../components/Docente/crearSolicitud/CrearSolicitud';
 
 
 export const DocenteRoutes = () => {
@@ -55,6 +56,7 @@ useEffect(() => {
             <Routes>
                 <Route exact path='home'                        element={<DocenteHome/>}/>
                 <Route exact path='listarsolicitudes'           element={<VerSolicitudesDoc/>}/>
+                <Route exact path='crearSolicitud'              element={<CrearSolicitud/>}/>
                 <Route exact path='veraprobados'                element={<SolicitudesAprobadas/>}/>
                 <Route exact path='registrarsolicitud'          element={<FormularioReservaAula/>} />
                 <Route exact path='perfildocente'               element={<EditarPerfil nom={data.name} ape={data.apellido} tel={data.telefonoUsuario} dir={data.direccionUsuario} cor={data.email} con={data.password} conf={data.repeatPassword} />}/>

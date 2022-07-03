@@ -21,6 +21,7 @@ import { Calendar } from 'primereact/calendar';
 import { addLocale } from 'primereact/api';
 import { AuthContext } from '../../auth/authContext';
 import { obtenerGrupos, obtenerMaterias } from '../../helpers/metodosDeFormularioReserva';
+import { Spinner } from 'react-bootstrap';
 
 
 
@@ -209,6 +210,8 @@ export const FormularioReservaAula = ({
 
     const [listaMateriasDocente, setListaMateriasDocente] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(true);
+
     const [listaGruposDocente, setListaGruposDocente] = useState([]);
 
     useEffect(() => {
@@ -218,6 +221,7 @@ export const FormularioReservaAula = ({
 
     useEffect(() => {
         setListaMateriasDocente(obtenerMaterias(data, listaGrupos.data, user.idDocente))  
+        setIsLoading (false)
     },[data, listaGrupos.data])
 
     useEffect(() => {
@@ -264,9 +268,18 @@ export const FormularioReservaAula = ({
 
     return (
         <div className='contenedor-reserva-aulas'>
+            
+      {isLoading && <Spinner />}
             <h1 className="titulo-reserva-aulas">{titulo === ''? 'Solicitud de Reserva de Aula' : `${titulo} Solicitud de Reserva` }</h1>
             {
-                listaMateriasDocente.length > 0 ? 
+
+               listaMateria.state &&
+                 listaMateriasDocente.length > 0
+                
+
+                ? 
+
+                
             
             <form onSubmit={ handleSubmit } >
                 <div className="contenedor-reserva">
