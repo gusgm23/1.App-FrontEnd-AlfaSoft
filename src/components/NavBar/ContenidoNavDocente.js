@@ -23,12 +23,7 @@ export const ContenidoNavDocente = () => {
         <>
             <div className="navbar-collapse">
                 <div >
-                    <Link 
-                        to='/docente/home' 
-                        className="navbar-brand"
-                    >
-                        Sistema Reserva de Aulas
-                    </Link>
+                    <h2 className='titulo-home-docente'> Sistema Reserva de Aulas </h2>
                     <div className='nav-container' >
 
                     <NavLink
