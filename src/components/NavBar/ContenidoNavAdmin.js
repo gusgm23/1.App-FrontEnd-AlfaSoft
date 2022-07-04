@@ -31,7 +31,13 @@ useEffect(() => {
     
     getSolicitudPendiente(setSolicitudesPendientes);
 
-}, [])
+}, []);
+
+window.addEventListener('beforeunload', () => {
+
+  dispatch({type: types.logout})
+
+})
 
   return (
     <>

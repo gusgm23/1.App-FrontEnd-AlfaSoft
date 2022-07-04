@@ -22,7 +22,6 @@ export const AdministradorScreen = () => {
         getSolicitudPendiente(setSolicitudesPendientes);
 
     }, [])
-    
 
     return (
         <div className='contenedor-home-admin animate__animated animate__fadeIn'>
