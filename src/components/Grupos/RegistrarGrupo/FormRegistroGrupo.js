@@ -109,7 +109,6 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     }, [selectDocente])
 
     const validarForm = () => {
-
         if( validaCamposVaciosGrupo(formValues, selectDocente) ){
             openModalFormVacio();
         }else{
@@ -164,8 +163,8 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
 
         const idMat = localStorage.getItem('id');
 
-        if( !verificarExistenciaGrupo(dataLimpia, grupo, selectDocente, idEdit) && selectDocente !== 'Vacio' ){
-            console.log("🚀 ~ file: FormRegistroGrupo.js ~ line 168 ~ guardarDatos ~ dataLimpia", dataLimpia)
+        if( !verificarExistenciaGrupo(dataLimpia, grupo, selectDocente, idEdit, grupoEdit) && selectDocente !== 'Vacio' ){
+
             if(titulo === 'Registrar'){
             
                 createGrupoMateria(grupo, selects, idMat, selectDocente, selectAuxiliar, openModalSuccess, openModalWarning);    
@@ -231,7 +230,7 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
                             <button
                                 className='btn btn-warning btn-form-crear-grupo'
                                 onClick={ 
-                                    titulo === 'Registrar' ? closeModalCreate : closeModal
+                                    titulo === 'Registrar' ? () => { closeModalCreate(); reset() } : closeModal
                                 }
                             >
                                 Cancelar
