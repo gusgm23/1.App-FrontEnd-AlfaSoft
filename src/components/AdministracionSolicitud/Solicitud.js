@@ -54,20 +54,19 @@ export const Solicitud = () => {
     const [capacidadSolicitud, setCapacidadSolicitud] = useState('0');
 
     const [aulasLibres, setAulasLibres] = useState([]);
-
+    
     const [capOrignal, setCapOrignal] = useState(0);
-
+    
     //! Hooks para modales
     const [isOpenModalConfirmReserva, opelModalReserva, closeModalReserva] = useModal(false);
     const [isOpenModalAlert, openModalAlert, closeModalAlert] = useModal(false);
     const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
     const [isOpenModalFail, openModalFail, closeModalFail] = useModal(false);
-
-
+    
     useEffect(() => {
         
-        getSolicitudId(solicitud.id, setSolicitudRecuperada);
         
+        getSolicitudId(solicitud.id, setSolicitudRecuperada);
         getAulas( setDataAulas );
         getReserva( setDataReservas );
         
@@ -83,7 +82,7 @@ export const Solicitud = () => {
     
     useEffect(() => {
         
-        generarAulasDisponibles(dataReserva, data, solicitud.horaInicioSolicitud, solicitud.fechaSolicitud, setAulasLibres)
+        generarAulasDisponibles(dataReserva, data, solicitudRecuperada.horaInicioSolicitud, solicitudRecuperada.fechaSolicitud, setAulasLibres)
         
     }, [state, stateReserva])
     
@@ -106,35 +105,42 @@ export const Solicitud = () => {
         quitarAulaTabla(listaReservas[0].idAula, aulasLibres, setAulasLibres);
 
         //!Actualizando capacidad de peticion en solicitud
-        reducirCapacidadSolicitud(solicitud, parseInt(solicitud.cantidadEstudiantesAsignada) + parseInt(capacidadAulaRescatado));
-        
+        reducirCapacidadSolicitud(solicitudRecuperada, parseInt(capacidadSolicitud) + parseInt(capacidadAulaRescatado));
     }
 
     return (
         <div className='contenedor-solicitud animate__animated animate__fadeIn'>
             <div className='contenedor-parrafos-soli'>
-                <DatosSolicitud item={ solicitud } capacidad={ capacidadSolicitud }/>
+                <DatosSolicitud item={ solicitudRecuperada } capacidad={ capacidadSolicitud }/>
             </div>
             <hr/>
             <div className='contenedor-tabla-aulas-soli'>
                 <section className='seccion-aulas-disponibles'>
                     <div className='contenedor-tablas'>
-                        <AulasSugeridas 
-                            data={aulasLibres} 
-                            solicitud={solicitud}
-                            capacidadSolicitud={capacidadSolicitud}
-                            modalReserva={opelModalReserva}
-                            datosCapacidad={datosCapacidad}
-                            setdatosCapacidad={setdatosCapacidad}
-                        />
-                        <TodasLasAulas 
-                            aulasLibres={aulasLibres}
-                            capacidadSolicitud={capacidadSolicitud}
-                            solicitud={solicitud}
-                            setdatosCapacidad={setdatosCapacidad}
-                            opelModalReserva={opelModalReserva}
-                            datosCapacidad={datosCapacidad}
-                        />
+                        {
+                            (aulasLibres.length > 0 && parseInt(capacidadSolicitud) < parseInt(solicitudRecuperada.numeroEstudiantesSolicitud))
+                            ? <>
+                                <AulasSugeridas 
+                                    data={aulasLibres} 
+                                    solicitud={solicitud}
+                                    capacidadSolicitud={capacidadSolicitud}
+                                    opelModalReserva={opelModalReserva}
+                                    datosCapacidad={datosCapacidad}
+                                    setdatosCapacidad={setdatosCapacidad}
+                                />
+                                <TodasLasAulas 
+                                    aulasLibres={aulasLibres}
+                                    capacidadSolicitud={capacidadSolicitud}
+                                    solicitud={solicitud}
+                                    setdatosCapacidad={setdatosCapacidad}
+                                    opelModalReserva={reservar}
+                                    datosCapacidad={datosCapacidad}
+                                />
+                            </>
+                            : ( parseInt(capacidadSolicitud) >= parseInt(solicitud.numeroEstudiantesSolicitud) )
+                            ? <p className='parrafo-info-soli'>La solicitud ha sido atendida con éxito, puedes volver a la sección de solicitudes. </p>
+                            : <p className='parrafo-info-soli'>No existen aulas disponibles para la solicitud, debes rechazar la solicitud.</p>
+                        }
                     </div>
                 </section>
             </div>
@@ -158,3 +164,4 @@ export const Solicitud = () => {
         </div>
     )
 }
+    

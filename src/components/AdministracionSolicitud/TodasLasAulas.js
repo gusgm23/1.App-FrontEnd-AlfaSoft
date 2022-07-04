@@ -20,30 +20,22 @@ export const TodasLasAulas = ({ aulasLibres, capacidadSolicitud, solicitud, setd
 
     return (
         <div className='contenedor-tabla-aulas'>
-            <h3>Todas las aulas disponibles: {aulasLibres.length}</h3>
-            {
-                ( aulasLibres.length > 0 && capacidadSolicitud < solicitud.numeroEstudiantesSolicitud )
-                    ? (
-                        <table className='tabla-aulas-soli'>
-                            <ColumnaTabla listaTitulos={listaTitulos}/>
-                            <tbody>
-                                <FilaTabla 
-                                    data={aulasLibres} 
-                                    fecha={ solicitud.fechaSolicitud } 
-                                    hora={ solicitud.horaInicioSolicitud }
-                                    periodo={ solicitud.periodoSolicitud }
-                                    guardarDatos={ setdatosCapacidad }
-                                    capacidadSoli={ capacidadSolicitud }
-                                    modalReserva={ opelModalReserva }
-                                    datosCapacidad={ datosCapacidad }
-                                />
-                            </tbody>
-                        </table>
-                    )
-                    : ( capacidadSolicitud >= solicitud.numeroEstudiantesSolicitud )
-                        ? <p className='parrafo-info-soli'>La solicitud ha sido atendida con éxito, puedes volver a la sección de solicitudes. </p>
-                        : <p className='parrafo-info-soli'>No existen aulas disponibles para la solicitud, debes rechazar la solicitud.</p>
-            }
+            <h4>Todas las aulas disponibles: {aulasLibres.length}</h4>
+            <table className='tabla-aulas-soli'>
+                <ColumnaTabla listaTitulos={listaTitulos}/>
+                <tbody>
+                    <FilaTabla 
+                        data={aulasLibres} 
+                        fecha={ solicitud.fechaSolicitud } 
+                        hora={ solicitud.horaInicioSolicitud }
+                        periodo={ solicitud.periodoSolicitud }
+                        guardarDatos={ setdatosCapacidad }
+                        capacidadSoli={ capacidadSolicitud }
+                        modalReserva={ opelModalReserva }
+                        datosCapacidad={ datosCapacidad }
+                    />
+                </tbody>
+            </table>
         </div>
     )
 }

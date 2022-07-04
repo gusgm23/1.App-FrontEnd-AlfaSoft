@@ -27,6 +27,7 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
             idAula: id,
             idSolicitud: ''
         }
+        console.log("🚀 ~ file: FilaTabla.js ~ line 30 ~ reducirCapacidad ~ reserva", reserva)
 
         const lista = [];
         lista.push(reserva);
@@ -36,7 +37,10 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
             capacidadAulaRescatado: capacidadAula,
             listaReservas: lista
         })
+
+        console.log("🚀 ~ file: FilaTabla.js ~ line 42 ~ reducirCapacidad ~ reserva.idAula", reserva.idAula)
         modalReserva();
+        
 
     }
     //modal rechazo
@@ -70,7 +74,7 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
                             <section>
                                 <button 
                                     className='btn-reserva'
-                                    onClick={ () => ( reducirCapacidad(elem.capacidadAula, elem.id) ) }
+                                    onClick={ () => { reducirCapacidad(elem.capacidadAula, elem.id) } }
                                 
                                 >
                                     <i className="bi bi-plus-circle-fill icono-reserva"></i>
