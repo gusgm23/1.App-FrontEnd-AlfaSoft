@@ -53,11 +53,7 @@ export const VerSolicitudesDoc = () => {
 
     console.log(dataSolicitudesUsuario, "asdada");
 
-    const navegar = useNavigate();
-
-    const navegarRegistroSolicitud = () => {
-        navegar('/docente/registrarsolicitud')
-    }
+    
 
     return (
         <div className="contenedor-general-versolicitudes">
@@ -65,12 +61,8 @@ export const VerSolicitudesDoc = () => {
                 <div className="contenedor-titulo-botonSolicitud">
                     <h2 className="titulo-ver-solicitud mrg-der-titulo"> Lista de solicitudes pendientes: {dataSolicitudesUsuario.length} </h2>
                     <div className="contenedor-botones-solicitud">
-                        <button 
-                            className="boton-crear-solicitudes"
-                            onClick={navegarRegistroSolicitud}
-                        >
-                            <i className="bi bi-plus-square-fill"></i>
-                        </button>
+                       
+
                     </div>
                 </div>
                 <hr/>

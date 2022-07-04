@@ -21,3 +21,8 @@
 .contenedor-input {
     width: 70%;
 }
+
+.btn-volverAtras-materia,
+.btn-volverAtras-materia:hover {
+    color: #ffffff;
+}

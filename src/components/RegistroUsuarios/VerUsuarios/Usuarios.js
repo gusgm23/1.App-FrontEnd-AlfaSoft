@@ -169,32 +169,38 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
                                     <td style={{width:100}}> { item.telefonoUsuario } </td>
                                     <td style={{width:150}}> { item.direccionUsuario } </td>
                                     <td style={{width:150}}> { item.email } </td>
-                                    <td className="columna-botones-usuario">
-                                        <section className="caja-botones-usuario">
-                                            <button
-                                                className="boton-editar-usuarios"
-                                                onClick={ () => { actualizarUsuario(item) } }
-                                            >
-                                            <i className="bi bi-pencil-fill"></i>
-                                            </button>
-                                        </section>
-                                        <section className="caja-botones-usuario">
-                                            <button
-                                                className="boton-editar-usuarios"
-                                                // onClick={ () => {
-                                                    // openModalConfirm(); 
-                                                    // seteliminarUsu(item);  
-                                                // }}
-                                                // onClick={() => { 
-                                                    // openModalConfirm();
-                                                    // eliminarUsuario(item);}} 
-                                                    onClick={() => {eliminarUsuario(item)}}
-                                            >
-                                            <i className="bi bi-trash-fill"></i>
-                                            </button>
-                                            
-                                        </section>
-                                    </td>
+                                    {
+                                        item.rol_id == 1 ?
+                                        <td></td>
+                                        :(
+                                            <td className="columna-botones-usuario">
+                                                <section className="caja-botones-usuario">
+                                                    <button
+                                                        className="boton-editar-usuarios"
+                                                        onClick={ () => { actualizarUsuario(item) } }
+                                                    >
+                                                    <i className="bi bi-pencil-fill"></i>
+                                                    </button>
+                                                </section>
+                                                <section className="caja-botones-usuario">
+                                                    <button
+                                                        className="boton-editar-usuarios"
+                                                        // onClick={ () => {
+                                                            // openModalConfirm(); 
+                                                            // seteliminarUsu(item);  
+                                                        // }}
+                                                        // onClick={() => { 
+                                                            // openModalConfirm();
+                                                            // eliminarUsuario(item);}} 
+                                                            onClick={() => {eliminarUsuario(item)}}
+                                                    >
+                                                    <i className="bi bi-trash-fill"></i>
+                                                    </button>
+                                                    
+                                                </section>
+                                            </td>
+                                        )
+                                    }
                                 </tr>
                             ))
                         }

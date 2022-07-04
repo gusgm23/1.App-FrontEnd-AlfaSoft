@@ -12,7 +12,7 @@ export const GrupoExiste = ({ cerrarModal }) => {
                 className='img-advertencia'
             />
             <p className='parrafo-advertencia'>
-                No se pudo guardar los datos ingresados debido a que ya existe un grupo con los datos ingresados.
+                Ya existe un grupo con el nombre que ingresaste, por favor prueba con otro.
             </p>
             <button
                 className='btn-entendido'

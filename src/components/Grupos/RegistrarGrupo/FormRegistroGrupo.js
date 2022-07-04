@@ -41,7 +41,6 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
 
     //Hooks par controlar Modales
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
-    const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
     const [isOpenModalWarning, openModalWarning, closeModalWarning] = useModal(false);
     const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
     const [isOpenModalGroupExist, openModalGroupExist, closeModalGroupExist] = useModal(false);
@@ -56,8 +55,17 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     //Hooks para mostrar mensajes de errores en los campos respectivos
     const [MsjErrorGroup, setMsjErrorGroup] = useState('');
 
-    //Hook para controlar estado de peticion
-    const [statePetition, setStatePetition] = useState(false);
+    //!Hook para activar peticion a los grupos
+    const [hacerPeticion, setHacerPeticion] = useState(false);
+
+    useEffect(() => {
+    
+        if(hacerPeticion){
+            getGrupoMateria(setListaABuscar);
+        }
+
+    }, [hacerPeticion])
+    
 
     //!Hook para controlar estado de Combobox de estado de grupo
     const [selects, setSelects] = useState('Habilitado');
@@ -71,7 +79,6 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     useEffect(() => {
         
         getUsuariosHabilitados(setUsuarios);
-        getGrupoMateria(setListaABuscar);
 
     }, [])
 
@@ -102,13 +109,12 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     }, [selectDocente])
 
     const validarForm = () => {
-
         if( validaCamposVaciosGrupo(formValues, selectDocente) ){
             openModalFormVacio();
         }else{
 
             if( validarCamposLlenosGrupo(formValues) && !existeGrupo ){
-                openModalConfirm();
+                guardarDatos();
             }else{
                 console.log('no cumple');
             }
@@ -154,11 +160,11 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     }
 
     const guardarDatos = () => {
-        setStatePetition(true);
 
         const idMat = localStorage.getItem('id');
 
-        if( !verificarExistenciaGrupo(dataLimpia, grupo, selectDocente, idEdit) && selectDocente !== 'Vacio' ){
+        if( !verificarExistenciaGrupo(dataLimpia, grupo, selectDocente, idEdit, grupoEdit) && selectDocente !== 'Vacio' ){
+
             if(titulo === 'Registrar'){
             
                 createGrupoMateria(grupo, selects, idMat, selectDocente, selectAuxiliar, openModalSuccess, openModalWarning);    
@@ -166,7 +172,6 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     
             }else{
     
-                console.log("🚀 ~ file: FormRegistroGrupo.js ~ line 169 ~ guardarDatos ~ grupo", grupo)
                 updateGrupoMateriaId(grupo, selects, idMat, selectDocente, selectAuxiliar, openModalSuccess, openModalWarning, idEdit);
                 editarMateria(idEdit, grupo, selects);
     
@@ -225,7 +230,7 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
                             <button
                                 className='btn btn-warning btn-form-crear-grupo'
                                 onClick={ 
-                                    titulo === 'Registrar' ? closeModalCreate : closeModal
+                                    titulo === 'Registrar' ? () => { closeModalCreate(); reset() } : closeModal
                                 }
                             >
                                 Cancelar
@@ -243,14 +248,11 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
             <ModalGenerico isOpen={ isOpenModalFormVacio } closeModal={ closeModalFormVacio }>
                 <AdvertenciaFormVacio cerrarModal={ closeModalFormVacio }/>
             </ModalGenerico>
-            <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
-                <Confirmacion cerrarModal={closeModalConfirm} funcGuardar={guardarDatos}/>
-            </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalWarning } closeModal={ closeModalWarning }>
                 <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <Hecho cerrarModal={ closeModalSuccess }/>
+                <Hecho cerrarModal={ closeModalSuccess } funcReset={reset}/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalGroupExist } closeModal={ closeModalGroupExist }>
                 <GrupoExiste cerrarModal={ closeModalGroupExist }/>

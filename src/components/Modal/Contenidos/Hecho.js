@@ -17,7 +17,7 @@ export const Hecho = ({ cerrarModal, funcReset=()=>{}, funcResetSol=()=>{} }) =>
             <div className='contenedor-advertencia'>
                 <img
                     src={ okImg }
-                    className='img-advertencia'
+                    className='img-advertencia img-hecho'
                 />
                 <p className='parrafo-advertencia'>
                     Los datos ingresados fueron guardados exitosamente.

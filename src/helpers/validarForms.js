@@ -286,12 +286,20 @@ export const validarCamposLlenosSolicitud = (valores = {}) => {
             }
 }
 
-export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc, idEdit) => {
+export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc, idEdit, grupoAEditar='') => {
+
     let existeGrupo = false;
 
     listaGrupos.forEach(element => {
-        if(element.grupoMateria === grupo && element.idDocente === idDoc && !existeGrupo && idEdit.length > 0) {
-            existeGrupo = true
+        if(idEdit.length == 0 ){
+            if(element.grupoMateria === grupo && !existeGrupo) {
+                existeGrupo = true
+            }
+        }else{
+            //!Seccion para validar datos cuando se quiera editar un grupo
+            if( element.grupoMateria === grupo && grupo != grupoAEditar ){
+                existeGrupo = true;
+            }
         }
     })
 
