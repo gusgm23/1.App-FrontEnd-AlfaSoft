@@ -108,7 +108,7 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
         }else{
 
             if( validarCamposLlenosGrupo(formValues) && !existeGrupo ){
-                openModalConfirm();
+                guardarDatos();
             }else{
                 console.log('no cumple');
             }
@@ -243,14 +243,11 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
             <ModalGenerico isOpen={ isOpenModalFormVacio } closeModal={ closeModalFormVacio }>
                 <AdvertenciaFormVacio cerrarModal={ closeModalFormVacio }/>
             </ModalGenerico>
-            <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
-                <Confirmacion cerrarModal={closeModalConfirm} funcGuardar={guardarDatos}/>
-            </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalWarning } closeModal={ closeModalWarning }>
                 <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <Hecho cerrarModal={ closeModalSuccess }/>
+                <Hecho cerrarModal={ closeModalSuccess } funcReset={reset}/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalGroupExist } closeModal={ closeModalGroupExist }>
                 <GrupoExiste cerrarModal={ closeModalGroupExist }/>
