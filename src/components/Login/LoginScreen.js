@@ -133,10 +133,10 @@ export const LoginScreen = () => {
                         value={ pass }
                         onChange={ handleInputChange }
                     />
-                    <p className={ errorLogin === true ? 'error-login-activo' : 'error-login-inhabilitado' }>
+                    <p className={ errorLogin === true ? 'error-login-activo animate__animated animate__fadeIn' : 'error-login-inhabilitado' }>
                         El Correo o contraseña ingresado no es correcto, porfavor intenta otra vez
                     </p>
-                    <p className={ usuarioBloqueado === true ? 'error-login-activo' : 'error-login-inhabilitado' }>
+                    <p className={ usuarioBloqueado === true ? 'error-login-activo animate__animated animate__fadeIn' : 'error-login-inhabilitado' }>
                         Su cuenta ha sido eliminada por el administrador, no puede acceder a la plataforma.
                     </p>
                     <Link to='/registrousuario' className='link element-login'>¿No tienes cuenta? Registrate aqui</Link>
