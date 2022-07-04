@@ -100,7 +100,7 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
             
             if( validarCamposLlenosMateria(formValues)){
                 if(!codExiste && !materiaExiste){
-                    openModalConfirm();
+                    guardarDatos();
                 }
             }else{
                 console.log(typeof(codSis));
@@ -209,12 +209,12 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                     <div className='contenedor-botones'>
                         <button 
                             type='button' 
-                            className='btn btn-warning'
+                            className='btn btn-warning btn-volverAtras-materia'
                             onClick={ 
                                 codiSis === '' ? volverAtras : closeModal
                             }
                         >
-                            Cancelar
+                            { codiSis === '' ? 'Volver' : 'Cancelar' }
                         </button>
                         <button 
                             type='submit' 
@@ -237,7 +237,7 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                 <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <Hecho cerrarModal={ closeModalSuccess }/>
+                <Hecho cerrarModal={ closeModalSuccess } funcReset={reset}/>
             </ModalGenerico>
         </div>
     )
