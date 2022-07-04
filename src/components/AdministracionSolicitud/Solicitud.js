@@ -15,11 +15,13 @@ import { AulaReservada } from '../Modal/Contenidos/AulaReservada';
 import { ConfirmarReservaAula } from '../Modal/Contenidos/ConfirmarReservaAula';
 import { ErrorReservaAula } from '../Modal/Contenidos/ErrorReservaAula';
 import { ModalGenerico } from '../Modal/ModalGenerico';
+import { AulasSugeridas } from './AulasSugeridas';
 import { DatosSolicitud } from './DatosSolicitud';
 
 import './estilos-solicitud.css';
 import { FilaTabla } from './FilaTabla';
 import { Opciones } from './OpcionesSolicitud/Opciones';
+import { TodasLasAulas } from './TodasLasAulas';
 
 export const Solicitud = () => {
 
@@ -116,36 +118,24 @@ export const Solicitud = () => {
             <hr/>
             <div className='contenedor-tabla-aulas-soli'>
                 <section className='seccion-aulas-disponibles'>
-                    {
-                        ( aulasLibres.length > 0 && capacidadSolicitud < solicitud.numeroEstudiantesSolicitud )
-                            ? (
-                                <table className='tabla-aulas-soli'>
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th className='col-solicitud'>Aula</th>
-                                            <th className='col-solicitud'>Capacidad</th>
-                                            <th className='col-solicitud'>Gestionar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <FilaTabla 
-                                            data={aulasLibres} 
-                                            fecha={ solicitud.fechaSolicitud } 
-                                            hora={ solicitud.horaInicioSolicitud }
-                                            periodo={ solicitud.periodoSolicitud }
-                                            guardarDatos={ setdatosCapacidad }
-                                            capacidadSoli={ capacidadSolicitud }
-                                            modalReserva={ opelModalReserva }
-                                            datosCapacidad={ datosCapacidad }
-                                        />
-                                    </tbody>
-                                </table>
-                            )
-                            : ( capacidadSolicitud >= solicitud.numeroEstudiantesSolicitud )
-                                ? <p className='parrafo-info-soli'>La solicitud ha sido atendida con éxito, puedes volver a la sección de solicitudes. </p>
-                                : <p className='parrafo-info-soli'>No existen aulas disponibles para la solicitud, debes rechazar la solicitud.</p>
-                    }
+                    <div className='contenedor-tablas'>
+                        <AulasSugeridas 
+                            data={aulasLibres} 
+                            solicitud={solicitud}
+                            capacidadSolicitud={capacidadSolicitud}
+                            modalReserva={opelModalReserva}
+                            datosCapacidad={datosCapacidad}
+                            setdatosCapacidad={setdatosCapacidad}
+                        />
+                        <TodasLasAulas 
+                            aulasLibres={aulasLibres}
+                            capacidadSolicitud={capacidadSolicitud}
+                            solicitud={solicitud}
+                            setdatosCapacidad={setdatosCapacidad}
+                            opelModalReserva={opelModalReserva}
+                            datosCapacidad={datosCapacidad}
+                        />
+                    </div>
                 </section>
             </div>
             {

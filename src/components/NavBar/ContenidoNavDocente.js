@@ -25,7 +25,13 @@ export const ContenidoNavDocente = () => {
                 <div >
                     <h2 className='titulo-home-docente'> Sistema Reserva de Aulas </h2>
                     <div className='nav-container' >
-
+                    <NavLink
+                        exact='true'
+                        to='/docente/home'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                        >
+                        Inicio
+                    </NavLink>
                     <NavLink
                         exact='true'
                         to='/docente/crearSolicitud'

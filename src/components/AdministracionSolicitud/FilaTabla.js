@@ -44,15 +44,18 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
 
     //Paginador para la tabla
     const [paginaActual, setPaginaActual] = useState(0);
+
     const filtrarAula = () => {
-      return data.slice(paginaActual, paginaActual + 5);
+        return data.slice(paginaActual, paginaActual + 5);
     }
+
     const siguientePagina = () => {
-          setPaginaActual( paginaActual + 5 );
+        setPaginaActual( paginaActual + 5 );
     }
+
     const anteriorPagina = () => {
-      if (paginaActual > 0)
-          setPaginaActual( paginaActual - 5);
+        if (paginaActual > 0)
+            setPaginaActual( paginaActual - 5);
     }
 
     return (
@@ -60,7 +63,7 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
             {
                 filtrarAula().map((elem, i) => (
                     <tr key={elem.id} className='animate__animated animate__fadeIn'>
-                        <td>{ elem.id }</td>
+                        <td>{ i+1 }</td>
                         <td>{ elem.nombreAula }</td>
                         <td>{ elem.capacidadAula }</td>
                         <td>

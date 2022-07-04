@@ -37,10 +37,17 @@ useEffect(() => {
     <>
       <div >
         <div>
-          <Link to="/admin/adminhome" className="navbar-brand">
-           Sistema Reserva de Aulas
-          </Link>
+          <h3 className="titulo-home-docente"> Sistema de Reserva de Aulas </h3>
           <div className="nav-container">
+          <NavLink
+              exact="true"
+              to="/admin/adminhome"
+              className={({ isActive }) =>
+                "nav-item nav-link " + (isActive ? "active" : "no-active")
+              }
+            >
+              Inicio
+            </NavLink>
             <NavLink
               exact="true"
               to="/admin/verusarios"
