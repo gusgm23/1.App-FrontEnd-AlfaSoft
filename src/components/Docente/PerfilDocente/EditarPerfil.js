@@ -141,9 +141,11 @@ const actualizarDatos=(item)=>{
 
     return (
       <div className='form-container'>
-        <h1>
+        <div className='titulo-editar-perfil'>
+        <h3>
         Editar Perfil
-        </h1>
+        </h3>
+        </div>
         <form
         onSubmit={handleSubmit}
         >

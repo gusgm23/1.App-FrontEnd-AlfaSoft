@@ -8,6 +8,13 @@
     
 
 }
+
+.titulo-editar-perfil{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
 .inputs-container{
    margin-left:40%;
 }

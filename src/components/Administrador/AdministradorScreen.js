@@ -26,7 +26,7 @@ export const AdministradorScreen = () => {
 
     return (
         <div className='contenedor-home-admin animate__animated animate__fadeIn'>
-            <h2>¡Hola, {user.name} {user.apellido}!</h2>
+            <h5>¡Hola, {user.name} {user.apellido}!</h5>
             <hr/>
             <div className='contenedor-info-admin'>
                 <section>

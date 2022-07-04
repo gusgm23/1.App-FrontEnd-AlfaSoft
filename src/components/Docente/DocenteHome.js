@@ -12,9 +12,9 @@ export const DocenteHome = () => {
     return (
         <div className='contenedor-home-docente animate__animated animate__fadeIn'>
             <div className='contenedor-titulo-home-docente'>
-                <h2>
+                <h5>
                     ¡Hola, {user.name} {user.apellido}!
-                </h2>
+                </h5>
                 <hr/>
             </div>
             <section>

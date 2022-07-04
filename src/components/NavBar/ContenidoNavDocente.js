@@ -27,7 +27,7 @@ export const ContenidoNavDocente = () => {
                         to='/docente/home' 
                         className="navbar-brand"
                     >
-                        Reserva de Aulas
+                        Sistema de Reserva de Aulas
                     </Link>
                     <div className='nav-container' >
                     <NavLink

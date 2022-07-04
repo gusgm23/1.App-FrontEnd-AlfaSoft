@@ -38,7 +38,7 @@ useEffect(() => {
       <div >
         <div>
           <Link to="/admin/adminhome" className="navbar-brand">
-           Sistema Reserva de Aulas
+           Sistema de Reserva de Aulas
           </Link>
           <div className="nav-container">
             <NavLink
