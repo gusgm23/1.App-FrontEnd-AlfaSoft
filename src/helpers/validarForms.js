@@ -287,10 +287,11 @@ export const validarCamposLlenosSolicitud = (valores = {}) => {
 }
 
 export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc, idEdit) => {
+console.log("🚀 ~ file: validarForms.js ~ line 290 ~ verificarExistenciaGrupo ~ idEdit", idEdit)
     let existeGrupo = false;
 
     listaGrupos.forEach(element => {
-        if(element.grupoMateria === grupo && element.idDocente === idDoc && !existeGrupo && idEdit.length > 0) {
+        if(element.grupoMateria === grupo && !existeGrupo && idEdit.length == 0) {
             existeGrupo = true
         }
     })

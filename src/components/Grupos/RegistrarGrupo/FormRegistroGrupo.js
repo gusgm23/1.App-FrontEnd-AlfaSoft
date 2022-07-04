@@ -41,7 +41,6 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
 
     //Hooks par controlar Modales
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
-    const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
     const [isOpenModalWarning, openModalWarning, closeModalWarning] = useModal(false);
     const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
     const [isOpenModalGroupExist, openModalGroupExist, closeModalGroupExist] = useModal(false);
@@ -56,8 +55,17 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     //Hooks para mostrar mensajes de errores en los campos respectivos
     const [MsjErrorGroup, setMsjErrorGroup] = useState('');
 
-    //Hook para controlar estado de peticion
-    const [statePetition, setStatePetition] = useState(false);
+    //!Hook para activar peticion a los grupos
+    const [hacerPeticion, setHacerPeticion] = useState(false);
+
+    useEffect(() => {
+    
+        if(hacerPeticion){
+            getGrupoMateria(setListaABuscar);
+        }
+
+    }, [hacerPeticion])
+    
 
     //!Hook para controlar estado de Combobox de estado de grupo
     const [selects, setSelects] = useState('Habilitado');
@@ -71,7 +79,6 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     useEffect(() => {
         
         getUsuariosHabilitados(setUsuarios);
-        getGrupoMateria(setListaABuscar);
 
     }, [])
 
@@ -154,11 +161,11 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     }
 
     const guardarDatos = () => {
-        setStatePetition(true);
 
         const idMat = localStorage.getItem('id');
 
         if( !verificarExistenciaGrupo(dataLimpia, grupo, selectDocente, idEdit) && selectDocente !== 'Vacio' ){
+            console.log("🚀 ~ file: FormRegistroGrupo.js ~ line 168 ~ guardarDatos ~ dataLimpia", dataLimpia)
             if(titulo === 'Registrar'){
             
                 createGrupoMateria(grupo, selects, idMat, selectDocente, selectAuxiliar, openModalSuccess, openModalWarning);    
@@ -166,7 +173,6 @@ export const FormRegistroGrupo = ({ idEdit='', grupoEdit='', titulo='', closeMod
     
             }else{
     
-                console.log("🚀 ~ file: FormRegistroGrupo.js ~ line 169 ~ guardarDatos ~ grupo", grupo)
                 updateGrupoMateriaId(grupo, selects, idMat, selectDocente, selectAuxiliar, openModalSuccess, openModalWarning, idEdit);
                 editarMateria(idEdit, grupo, selects);
     
