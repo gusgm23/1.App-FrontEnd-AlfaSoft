@@ -25,7 +25,7 @@
 }
 
 .boton-editar-usuarios{
-    background-color: #c8c8c8(25, 135, 84, .9);
+    background-color: transparent;
     color: #fff;
     width: 100%;
     
@@ -73,6 +73,8 @@ justify-content: center;
 .columna-botones-usuario{
     display: flex;
     justify-content: space-evenly;
+    height: 100%;
+    background-color: transparent;
 }
 
 .btn-usuarios-sin-materias {
