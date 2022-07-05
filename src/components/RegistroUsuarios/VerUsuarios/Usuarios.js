@@ -125,6 +125,7 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
 
     const siguientePagina = () => {
           setPaginaActual( paginaActual + 10 );
+        
     }
 
     const anteriorPagina = () => {
