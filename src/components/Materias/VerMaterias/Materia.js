@@ -56,6 +56,7 @@ export const Materia = ({data=[], setListaMateria}) => {
           setSearch(e.target.value);
         }
       
+        setPaginaActual(0);
         setSearch(e.target.value);
       }
 
@@ -135,11 +136,11 @@ export const Materia = ({data=[], setListaMateria}) => {
             </div>
             <div className="contenedorBtnPaginadorMateria">
                 <button className="botonPaginadorMateria" onClick={anteriorPagina}>
-                        Anterior
+                    <i className="bi bi-chevron-left"></i>
                 </button>
 
                 <button className="botonPaginadorMateria" onClick={siguientePagina}>
-                        Siguiente
+                    <i className="bi bi-chevron-right"></i>
                 </button>
             </div>
             {

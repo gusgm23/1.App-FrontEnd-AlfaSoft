@@ -35,6 +35,7 @@ import {
 } from "../../helpers/metodosDeFormularioReserva";
 // import { Spinner } from 'react-bootstrap';
 import Spinner from "../Spinner/Spinner";
+import { HechoSolicitud } from "../Modal/Contenidos/HechoSolicitud";
 
 export const FormularioReservaAula = ({
   nomDocente = "",
@@ -70,6 +71,7 @@ export const FormularioReservaAula = ({
   const [StatusInputMotivo, setStatusInputMotivo] = useState(false);
   const [StatusInputHora, setStatusInputHora] = useState(false);
   const [StatusInputPeriodo, setStatusInputPeriodo] = useState(false);
+  const [StatusInputFecha, setStatusInputFecha] = useState(false);
 
   //Hooks para mostrar el mensaje de error en los campos
   const [MsjErrorCantidad, setMsjErrorCantidad] = useState("");
@@ -93,6 +95,8 @@ export const FormularioReservaAula = ({
   const [selectsGrupos, setSelectsGrupos] = useState("GrupoVacio");
   const [selectMotivo, setSelectMotivo] = useState("Vacio");
   const [selectHora, setSelectHora] = useState("HoraVacia");
+  const [fechaSolicitud, setfechaSolicitud] = useState("fechaVacia");
+
 
   useEffect(() => {
     if (selects === "MateriaVacia") {
@@ -149,6 +153,14 @@ export const FormularioReservaAula = ({
       );
     }
   }, [peridoSolicitud]);
+
+  useEffect(() => {
+    if(fechaSolicitud === "fechaVacia"){
+      setStatusInputFecha(true);
+    } else {
+      setStatusInputFecha(false);
+    }
+  },[fechaSolicitud]);
 
   const validarForm = () => {
         
@@ -302,7 +314,6 @@ export const FormularioReservaAula = ({
   };
 
   //Invalidar dias del calendario
-  const [fechaSolicitud, setfechaSolicitud] = useState(null);
 
   let today = new Date();
   let month = today.getMonth();
@@ -415,7 +426,7 @@ export const FormularioReservaAula = ({
                           : "mensaje-error-oculto"
                       }
                     >
-                      Debe seleccionar primero una materia y luego el grupo.
+                      Debe seleccionar una materia y luego el grupo.
                     </p>
                   </div>
                 </div>
@@ -492,7 +503,7 @@ export const FormularioReservaAula = ({
                 </div>
                 <div className="campos-reserva-aulas">
                   <label className="labels"> Fecha de Examen: </label>
-                  <div className="contenedor-inputsFecha">
+                  <div className="contenedor-inputs">
                     {/* <input name='fechaSolicitud' className='inputsSolicitud' type="date" min={disableDates} value={ fechaSolicitud } onChange={ handleInputChange } /> */}
                     <Calendar
                       id="disableddays"
@@ -508,6 +519,9 @@ export const FormularioReservaAula = ({
                       showIcon
                       readOnlyInput
                     />
+                    <p className={StatusInputFecha ? "mensaje-error" : "mensaje-error-oculto"}>
+                      Debe seleccionar una fecha
+                    </p>
                   </div>
                 </div>
                 <div className="campos-reserva-aulas">
@@ -622,7 +636,7 @@ export const FormularioReservaAula = ({
       </ModalGenerico>
 
       <ModalGenerico isOpen={isOpenModalSuccess} closeModal={closeModalSuccess}>
-        <Hecho cerrarModal={closeModalSuccess} funcResetSol={reset} />
+        <HechoSolicitud cerrarModal={closeModalSuccess} funcResetSol={reset} />
       </ModalGenerico>
     </div>
   );
