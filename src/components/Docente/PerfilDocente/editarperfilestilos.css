@@ -76,10 +76,56 @@
     margin: 10px ;
     margin-left: 30px;
 }
-.btn-guardarperfil{
+.btn-guardarperfilactivo{
     background-color: rgba(53, 181, 220, 0.9);
     margin-right: 15px;
     margin: 10px ;
     width: 250px;
 
+} 
+.btn-guardarperfilinactivo{
+    background-color: rgba(54, 90, 102, 0.9);
+    margin-right: 15px;
+    margin: 10px ;
+    width: 250px;
+
 }   
+/* mensajes error */
+.mensaje-error-oculto{
+    display: none;
+}
+
+
+.mensaje-error{
+    font-size: 12px;
+    margin: 0px;
+    color: red;
+    display: flex;
+    width: 250px;
+}
+.input-errorperfil{
+    /* width: 250px;
+    background: #e3e6ec;
+    box-shadow: 5px 5px 12px #d1d9e6,
+    -5px -5px 12px #ffffff;
+    outline-color: red;
+    border: 1px solid #c8c8c8; */
+    border: 1.5px solid rgb(55, 157, 252);
+    border-radius: 7px;
+    height: 40px;
+    width: 300px;
+}
+.inputsUsuario{
+    width: 230px;
+    border: 1px solid #c8c8c8;
+    background: #e3e6ec;
+    box-shadow: 5px 5px 12px #d1d9e6,
+    -5px -5px 12px #ffffff;
+}
+.input-errorperfilemail{
+    border: 1.5px solid rgb(55, 157, 252);
+    border-radius: 7px;
+    width: 500px;
+    height: 40px;
+    background-color: azure;
+}

@@ -1,11 +1,14 @@
 import React, {useContext,useEffect,useState } from 'react'
+import { controlarCampoNombre, controlarCampoApellido, controlarCampoTelefono, controlarCampoDireccion, controlarCampoCorreo, controlarCampoContraseniaConf, validarCamposVaciosUsuario} from '../../../helpers/validarRolUser';
+import { useNavigate } from 'react-router-dom';
 import "./editarperfilestilos.css";
 import { Password } from 'primereact/password';
-
 import { updateUsuario,getUsuarioId} from '../../../service/apiUsuarios'
 import { AuthContext } from '../../../auth/authContext';
 import { useModal } from "../../../hooks/useModal";
 import { ModalGenerico } from "../../Modal/ModalGenerico";
+import { AdvertenciaFormVacio } from "../../Modal/Contenidos/AdvertenciaFormVacio";
+import { Confirmacion } from "../../Modal/Contenidos/Confirmacion";
 import { ErrorGuardarDatos } from "../../Modal/Contenidos/ErrorGuardarDatos";
 import { Hecho } from "../../Modal/Contenidos/Hecho";
 import swal from 'sweetalert';
@@ -34,7 +37,29 @@ export const EditarPerfil = ({
   
   }, [state]);
 const [ StatePetition, setStatePetition ] = useState(false);
+//hooks
+const [StatusInputNombre, setStatusInputNombre] = useState(false);
+const [StatusInputApellido, setStatusInputApellido] = useState(false);
+const [StatusInputTelefono, setStatusInputTelefono] = useState(false);
+const [StatusInputDireccion, setStatusInputDireccion] = useState(false);
+const [StatusInputCorreo, setStatusInputCorreo] = useState(false);
+const [StatusInputContrasenia, setStatusInputContrasenia] = useState(false);
+const [StatusInputContraseniaConf, setStatusInputContraseniaConf] = useState(false);
 
+    //Hooks para controlar los modales
+const [ isOpenModalConfirm, openModalConfirm, closeModalConfirm ] = useModal(false);
+const [ isOpenModalWarning, openModalWarning, closeModalWarning ] = useModal(false);
+const [ isOpenModalSuccess, openModalSuccess, closeModalSuccess ] = useModal(false);
+const [ isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio ] = useModal(false);
+
+//errores
+const [MsjErrorNombre, setMsjErrorNombre] = useState('');
+const [MsjErrorApellido, setMsjErrorApellido] = useState('');
+const [MsjErrorTelefono, setMsjErrorTelefono] = useState('')
+const [MsjErrorDireccion, setMsjErrorDireccion] = useState('');
+const [MsjErrorCorreo, setMsjErrorCorreo] = useState('');
+const [MsjErrorContrasenia, setMsjErrorContrasenia] = useState('');
+const [MsjErrorContraseniaConf, setMsjErrorContraseniaConf] = useState('');
 
 
 const [formValues,setValues] = useState({
@@ -50,7 +75,7 @@ const [formValues,setValues] = useState({
 })
  const { nombreUsuario,
 apellidoUsuario, telefonoUsuario, direccionUsuario, correoUsuario,contraseñaUsuario, contraseñaUsuarioConf } = formValues;
-
+const[botonActivo,setBotonActivo]=useState(false);
 
 //Alertas
 const alerta=(mensaje)=>{
@@ -59,89 +84,119 @@ const alerta=(mensaje)=>{
     icon:"error"
   })
 }
-const alertaSuccess=()=>{
-  swal({
-    title:"Datos guardados vuelva a ingresar para ver los cambios",
+
+const redirigir =()=>{
+  swal("Redirigiendo", {
+    buttons: false,
+    timer: 3000,
     icon:"success"
-  })
+  });
 }
-
-//Validaciones
-const tele = new RegExp("^[67]{1}[0-9]{7}$");
-const apel = new RegExp("^[a-zA-Z ]+$");
-const corre = new RegExp('^(.+)@(\\S+)$');
-
-const recargar=()=>{
-  setTimeout(function() {
-    window.location.reload(true);
-  }, 3000);
-}
-// const cambios=()=>{
-//   if (nombreUsuario===nombreUsuario || apellidoUsuario===pellidoUsuario||telefonoUsuario===telefonoUsuario
-//   ||direccionUsuario===direccionUsuario||correoUsuario===correoUsuario ||contraseñaUsuario===ontraseñaUsuario||contraseñaUsuarioConf===contraseñaUsuarioConf){
-//   }
-// }
-
-const validacionCampos=()=>{
-  if (nombreUsuario==='' || apellidoUsuario===''||telefonoUsuario===''
-  ||direccionUsuario===''||correoUsuario===''||contraseñaUsuario===''||contraseñaUsuarioConf===''){
-    alerta("Existen campos vacios")
+//validaciones
+useEffect(() => {
+  if( nombreUsuario === '' ) {
+      setStatusInputNombre(false);
+  }else {
+      controlarCampoNombre( nombreUsuario, setStatusInputNombre, setMsjErrorNombre );
   }
-  // else if (nombreUsuario===nombreUsuario || apellidoUsuario===apellidoUsuario||telefonoUsuario===telefonoUsuario
-  //   ||direccionUsuario===direccionUsuario||correoUsuario===correoUsuario ||contraseñaUsuario===contraseñaUsuario||contraseñaUsuarioConf===contraseñaUsuarioConf){
-  // }
- else if (nombreUsuario.length <3 || apellidoUsuario.length<3){
-  alerta("La longitud del nombre/apellido debe ser mayor a 3")
- }
- else if(!apel.test(nombreUsuario)|| !apel.test(apellidoUsuario)){
-  alerta("Los nombres/apellidos solo contienen letras")
- }
- else if (!tele.test(telefonoUsuario)){
-  alerta("Los numeros de celular empiezan con 6 o 7 y contienen 8 digitos")
- }
- else if ( direccionUsuario.length<5 || direccionUsuario.length>=50){
-  alerta("La direccion debe estar entre 5 y 50 caracteres")
- }
- else if(!corre.test(correoUsuario )){
-  alerta("Correo invalido. Ejm: xxxxx@fcyt.umss.edu.bo o xxxxx@est.umss.edu")
- }
- else if(contraseñaUsuario.length<6 || contraseñaUsuarioConf.length<6 ){
-   alerta("La contraseña debe tener minimo 6 caracteres")
- }
- else if(contraseñaUsuario!== contraseñaUsuarioConf){
-  alerta("Las contraseñas deben coincidir")
- }
- else{
-  actualizarDatos();
-  localStorage.setItem('datos', JSON.stringify(formValues));
-  //recargar();
-  // window.location.reload();
+}, [nombreUsuario])
 
- }
+useEffect(() => {
+  if( apellidoUsuario === '' ) {
+      setStatusInputApellido(false);
+  }else {
+      controlarCampoApellido( apellidoUsuario, setStatusInputApellido, setMsjErrorApellido );
+  }
+}, [apellidoUsuario])
 
-}
-var modified;
+useEffect(() => {
+  if( telefonoUsuario === '' ) {
+      setStatusInputTelefono(false);
+  }else {
+      controlarCampoTelefono( telefonoUsuario, setStatusInputTelefono, setMsjErrorTelefono );
+  }
+}, [telefonoUsuario])
+
+useEffect(() => {
+  if( direccionUsuario === '' ) {
+      setStatusInputDireccion(false);
+  }else {
+      controlarCampoDireccion( direccionUsuario, setStatusInputDireccion, setMsjErrorDireccion );
+  }
+}, [direccionUsuario])
+
+useEffect(() => {
+  if( correoUsuario === '' ) {
+      setStatusInputCorreo(false);
+  }else {
+      controlarCampoCorreo( correoUsuario, setStatusInputCorreo, setMsjErrorCorreo );
+  }
+}, [correoUsuario])
+
+useEffect(() => {
+  if( contraseñaUsuario === '') {
+      setStatusInputContrasenia(false);
+  }else if ( contraseñaUsuarioConf === '' ) {
+      setStatusInputContraseniaConf(false);
+  } else {controlarCampoContraseniaConf(
+          contraseñaUsuario, contraseñaUsuarioConf, setStatusInputContrasenia, setStatusInputContraseniaConf, setMsjErrorContrasenia, setMsjErrorContraseniaConf
+      ); 
+  }
+}, [contraseñaUsuario, contraseñaUsuarioConf])
+
 const handleInputChange=(event)=>{
   setValues({
     ...formValues,
     [event.target.name] : event.target.value,
-
-  })  
+  }
+  ) 
+  if (event){
+    setBotonActivo(true);
+  } else{
+    setBotonActivo(false);
+  }
 }
 
 const handleSubmit = (e) => {
   e.preventDefault();
 }
-const [ isOpenModalSuccess, openModalSuccess, closeModalSuccess ] = useModal(false);
-const [ isOpenModalWarning, openModalWarning, closeModalWarning ] = useModal(false);
+//redireccion
+const navigate=useNavigate();
 
+function handleNavigate() {
+  setTimeout(()=>{
+    navigate("/docente/home")
+    // redirigir();
+}, 3000);
 
-const actualizarDatos=(item)=>{
+    }
+
+const evaluarInputs=()=>{
+  if(StatusInputNombre===true||StatusInputApellido===true|| StatusInputCorreo===true||
+    StatusInputDireccion===true||StatusInputTelefono===true||StatusInputContrasenia===true||StatusInputContraseniaConf===true){
+    alerta("No se pudo guardar los datos.Intenta nuevamente")
+  }else{
+    actualizarDatos();
+    localStorage.setItem('datos', JSON.stringify(formValues));
+    setTimeout(()=>{
+      window.location.reload(false);
+      // redirigir();
+  }, 3000);
+
+  }
+}
+
+const validarForm = () => {
+  if ( validarCamposVaciosUsuario(formValues) ) {
+      openModalFormVacio();
+  } else {
+      evaluarInputs();
+  }
+}
+const actualizarDatos=()=>{
   setStatePetition(true);
   updateUsuario(formValues,data.rol_id,data.cargoUsuario,'Habilitado',openModalSuccess,closeModalSuccess,data.id);
 }
-
-
 
     return (
       <div className='form-container'>
@@ -161,11 +216,16 @@ const actualizarDatos=(item)=>{
                 <input 
                 name='nombreUsuario'
                 placeholder='nombre' 
-                className='inputs-perfil' 
+                // className='inputs-perfil' 
+                className={ StatusInputNombre===true? "input-errorperfil" : "inputs-perfil" }
+
                 type="text" 
                 value={nombreUsuario}
                 onChange={handleInputChange}
                 ></input>
+                <p className={ StatusInputNombre===true? "mensaje-error" : "mensaje-error-oculto" }>
+                                    { MsjErrorNombre }
+                                </p>
                  </div>
 			</div>
 			<div className='rigth-item'>
@@ -174,11 +234,16 @@ const actualizarDatos=(item)=>{
                   <input 
                   name='apellidoUsuario'
                   placeholder='apellido' 
-                  className='inputs-perfil' 
+                  className={ StatusInputApellido===true? "input-errorperfil" : "inputs-perfil" }
+
+                  // className='inputs-perfil' 
                   type="text" 
                   value={apellidoUsuario} 
                   onChange={handleInputChange}
                   ></input>
+                  <p className={ StatusInputApellido===true? "mensaje-error" : "mensaje-error-oculto" }>
+                                    { MsjErrorApellido }
+                                </p>
                 </div>
 			</div>
         </div>
@@ -188,29 +253,51 @@ const actualizarDatos=(item)=>{
             <div className='phonenumber'>
             <label>Celular*</label>
             <div className='input-perfil'>
-            <input name='telefonoUsuario' placeholder='77777777' className='inputs-perfil' type="text"
+            <input name='telefonoUsuario'
+             placeholder='61620541' 
+            //  className='inputs-perfil' 
+            className={ StatusInputTelefono===true? "input-errorperfil" : "inputs-perfil" }
+             type="text"
             value={telefonoUsuario}
             onChange={handleInputChange}
             ></input>
+             <p className={ StatusInputTelefono===true? "mensaje-error" : "mensaje-error-oculto" }>
+                                    { MsjErrorTelefono }
+                                </p>
             </div>
             </div>
+
             <div className='rigth-item'>
             <label>Direccion*</label>
             <div className='input-perfil'>
-            <input name='direccionUsuario' placeholder='Av.Panamericana' className='inputs-perfil' type="text"
+            <input name='direccionUsuario'
+             placeholder='Av.Panamericana' 
+            // className='inputs-perfil' 
+            className={ StatusInputDireccion===true? "input-errorperfil" : "inputs-perfil" }
+            type="text"
             value={direccionUsuario}
             onChange={handleInputChange}
             ></input>
+              <p className={ StatusInputDireccion===true? "mensaje-error" : "mensaje-error-oculto" }>
+                                    { MsjErrorDireccion }
+                                </p>
             </div>
             </div>
 	    </div>
             <div className='correo'>
             <label>Correo electronico*</label>
             <div className='input-perfil'>
-            <input name='correoUsuario' placeholder='alfasoft@gmail.com' className='input-email'
+            <input name='correoUsuario' 
+            placeholder='Ingresar correo' 
+            // className='input-email'
+            className={ StatusInputCorreo===true? "input-errorperfilemail" : "input-email" }
+
             value={correoUsuario}
             onChange={handleInputChange}
             ></input>
+            <p className={ StatusInputCorreo===true? "mensaje-error" : "mensaje-error-oculto"}>
+                                    { MsjErrorCorreo }
+                                </p>
             </div>
             </div>
 			<div className='item-container'>
@@ -221,11 +308,16 @@ const actualizarDatos=(item)=>{
             inputStyle={{width:'300px',height:'40px',borderRadius: '7px',
             border: '1.5px solid rgb(55, 157, 252)', backgroundColor:'white'}}
               name="contraseñaUsuario"
-              className={ "input-perfil" }
+              // className={ "input-perfil" }
+              className={ StatusInputContrasenia===true? "input-errorperfil" : "inputs-perfil" }
+
               placeholder="Contraseña"
               value={contraseñaUsuario} 
               onChange={ handleInputChange } toggleMask
                                 />
+               <p className={ StatusInputContrasenia===true? "mensaje-error" : "mensaje-error-oculto" }>
+                  { MsjErrorContrasenia }
+                 </p>
             </div>
             <div className='rigth-item'>
              <label>Confirmar Contraseña*</label>
@@ -233,11 +325,15 @@ const actualizarDatos=(item)=>{
             inputStyle={{width:'300px',height:'40px',borderRadius: '7px',
             border: '1.5px solid rgb(55, 157, 252)', backgroundColor:'white'}}
               name="contraseñaUsuarioConf"
-              className={ "" }
+              // className={ "" }
+              className={ StatusInputContraseniaConf===true? "input-errorperfil" : "inputs-perfil" }
               placeholder="Repetir Contraseña"
               value={contraseñaUsuarioConf} 
               onChange={ handleInputChange } toggleMask
                                 />
+             <p className={ StatusInputContraseniaConf===true? "mensaje-error" : "mensaje-error-oculto" }>
+              { MsjErrorContraseniaConf }
+              </p>                   
 
           </div>
 			</div>
@@ -245,17 +341,25 @@ const actualizarDatos=(item)=>{
         <div className='contenedor-botonesPerfil'>
           <div className='container-guardarperfil'>
             <button
+            disabled={!botonActivo}
              id='btn-opciones-soliperfil'
-             className='btn-guardarperfil'
-              // onClick={()=> validacionCampos()}
-            onClick={()=> console.log(handleInputChange) }
+             className={ botonActivo===true? "btn-guardarperfilactivo":"btn-guardarperfilinactivo"}
+            //  'btn-guardarperfil'
+            onClick={()=> validarForm() }
             >
               Guardar</button>
               </div>   
         </div>
         </div>
       </form>
-      <ModalGenerico isOpen={ isOpenModalWarning } closeModal={ closeModalWarning }>
+      <ModalGenerico isOpen={ isOpenModalFormVacio } closeModal={ closeModalFormVacio }>
+                <AdvertenciaFormVacio cerrarModal={ closeModalFormVacio } />
+            </ModalGenerico>
+
+            <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
+                <Confirmacion cerrarModal={ closeModalConfirm }  />
+            </ModalGenerico>
+            <ModalGenerico isOpen={ isOpenModalWarning } closeModal={ closeModalWarning }>
                 <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
