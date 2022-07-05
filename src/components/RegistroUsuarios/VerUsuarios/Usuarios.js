@@ -111,6 +111,7 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
           setSearch(e.target.value);
         }
       
+        setPaginaActual(0);
         setSearch(e.target.value);
       }
 
@@ -119,12 +120,12 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
     const [paginaActual, setPaginaActual] = useState(0);
 
     const filtrarUsuarios = () => {
-
-      return searchFilter.slice(paginaActual, paginaActual + 10);
+            return searchFilter.slice(paginaActual, paginaActual + 10);
     }
 
     const siguientePagina = () => {
           setPaginaActual( paginaActual + 10 );
+        
     }
 
     const anteriorPagina = () => {
@@ -139,7 +140,7 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
         <div className="input-group mb-3">
               <input
                 type="text"
-                className="form-control"
+                className="form-control buscar-Usuarios"
                 placeholder="Buscar Usuarios"
                 value={search}
                
@@ -210,11 +211,11 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
             </div>
             <div className="contenedorBtnPaginador">
                 <button className="botonPaginador" onClick={anteriorPagina}>
-                        Anterior
+                    <i className="bi bi-chevron-left"></i>
                 </button>
                         
                 <button className="botonPaginador" onClick={siguientePagina}>
-                        Siguiente
+                    <i className="bi bi-chevron-right"></i>
                 </button>
             </div>
                 {

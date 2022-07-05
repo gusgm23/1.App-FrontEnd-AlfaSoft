@@ -33,11 +33,6 @@ useEffect(() => {
 
 }, []);
 
-window.addEventListener('beforeunload', () => {
-
-  dispatch({type: types.logout})
-
-})
 
   return (
     <>

@@ -71,9 +71,9 @@ a {
 
 .botonPaginadorAula{
     border-radius: 5px;
-    width: 150px;
-    height: 40px;
+    width: 90px;
+    height: 30px;
     background-color: #0d6efd;
     color: white;
-    
+    border: none;
 }

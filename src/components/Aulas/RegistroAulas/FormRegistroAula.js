@@ -115,7 +115,7 @@ export const FormRegistroAula = ({ aulaEdi='', cap='', estado='', closeModal = (
                                     autoComplete='off'
                                 />
                                 <p className={ statusInputAula===true? "msj-error": "msj-error-oculto" }>
-                                    Debes ingresar un nombre con almenos 3 letras y no más de 10 letras
+                                    Debe ingresar un nombre con almenos 3 numeros y no más de 35 letras
                                 </p>
                             </div>
                         </div>

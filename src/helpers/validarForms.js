@@ -93,7 +93,7 @@ export const controlarCampoAula = ( aula='', setStatusInputAula ) => {
 
     const tamanioAula = aula.length
     
-    if(tamanioAula >= 3 && tamanioAula <= 10){
+    if(tamanioAula >= 3 && tamanioAula <= 35){
         setStatusInputAula(false);
     }else{
         setStatusInputAula(true);

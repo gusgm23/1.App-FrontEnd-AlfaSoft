@@ -52,6 +52,7 @@ export const VistaAulas = () => {
     if(reg.test(value)===false){
       return;
     }
+    setPaginaActual(0);
     setSearch(e.target.value);
   }
 
@@ -258,11 +259,11 @@ export const VistaAulas = () => {
           </div>
           <div className="contenedorBtnPaginadorAula">
               <button className="botonPaginadorAula" onClick={anteriorPagina}>
-                      Anterior
+                <i className="bi bi-chevron-left"></i>
               </button>
 
               <button className="botonPaginadorAula" onClick={siguientePagina}>
-                      Siguiente
+                <i className="bi bi-chevron-right"></i>
               </button>
           </div>
         </div>

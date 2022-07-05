@@ -11,7 +11,7 @@ export const UsuarioEliminado = ({ cerrarModal, idUsuario, listaUsuarios, setter
 
     return (
         <>
-            <h2>Perfecto!</h2>
+            <h4>Perfecto!</h4>
             <hr/>
             <div className='contenedor-advertencia'>
                 <img
