@@ -19,6 +19,12 @@ export const ContenidoNavDocente = () => {
     //Cuidado con el cambio de variables
     var us=JSON.parse(localStorage.getItem('datos'));
 
+    window.addEventListener('beforeunload', () => {
+
+        dispatch({type: types.logout})
+    
+    })
+
     return (
         <>
             <div className="navbar-collapse">
