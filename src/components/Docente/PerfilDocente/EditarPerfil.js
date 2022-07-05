@@ -76,29 +76,31 @@ const recargar=()=>{
     window.location.reload(true);
   }, 3000);
 }
+// const cambios=()=>{
+//   if (nombreUsuario===nombreUsuario || apellidoUsuario===pellidoUsuario||telefonoUsuario===telefonoUsuario
+//   ||direccionUsuario===direccionUsuario||correoUsuario===correoUsuario ||contraseñaUsuario===ontraseñaUsuario||contraseñaUsuarioConf===contraseñaUsuarioConf){
+//   }
+// }
 
 const validacionCampos=()=>{
   if (nombreUsuario==='' || apellidoUsuario===''||telefonoUsuario===''
   ||direccionUsuario===''||correoUsuario===''||contraseñaUsuario===''||contraseñaUsuarioConf===''){
     alerta("Existen campos vacios")
   }
- else if (nombreUsuario.length <3 ){
-  alerta("La longitud del nombre debe ser mayor a 3")
+  // else if (nombreUsuario===nombreUsuario || apellidoUsuario===apellidoUsuario||telefonoUsuario===telefonoUsuario
+  //   ||direccionUsuario===direccionUsuario||correoUsuario===correoUsuario ||contraseñaUsuario===contraseñaUsuario||contraseñaUsuarioConf===contraseñaUsuarioConf){
+  // }
+ else if (nombreUsuario.length <3 || apellidoUsuario.length<3){
+  alerta("La longitud del nombre/apellido debe ser mayor a 3")
  }
- else if(!apel.test(nombreUsuario)){
-  alerta("Los nombres solo contienen letras")
- }
- else if(apellidoUsuario.length<4){
-  alerta("La longitud del apellido debe ser mayor a 3")
- }
- else if(!apel.test(apellidoUsuario)){
-  alerta("Los apellidos solo contienen letras")
+ else if(!apel.test(nombreUsuario)|| !apel.test(apellidoUsuario)){
+  alerta("Los nombres/apellidos solo contienen letras")
  }
  else if (!tele.test(telefonoUsuario)){
   alerta("Los numeros de celular empiezan con 6 o 7 y contienen 8 digitos")
  }
  else if ( direccionUsuario.length<5 || direccionUsuario.length>=50){
-  alerta("La direccion debe estra entre 5 y 50 caracteres")
+  alerta("La direccion debe estar entre 5 y 50 caracteres")
  }
  else if(!corre.test(correoUsuario )){
   alerta("Correo invalido. Ejm: xxxxx@fcyt.umss.edu.bo o xxxxx@est.umss.edu")
@@ -118,6 +120,7 @@ const validacionCampos=()=>{
  }
 
 }
+var modified;
 const handleInputChange=(event)=>{
   setValues({
     ...formValues,
@@ -125,6 +128,7 @@ const handleInputChange=(event)=>{
 
   })  
 }
+
 const handleSubmit = (e) => {
   e.preventDefault();
 }
@@ -150,7 +154,7 @@ const actualizarDatos=(item)=>{
         <div className='inputs-container'>
         <div className='item-container'>
 			<div>
-                 <label>Nombre(s):</label>
+                 <label>Nombre(s)*</label>
                  <div className='input'>
                 <input 
                 name='nombreUsuario'
@@ -163,7 +167,7 @@ const actualizarDatos=(item)=>{
                  </div>
 			</div>
 			<div className='rigth-item'>
-			   <label>Apellido(s):</label>
+			   <label>Apellido(s)*</label>
                 <div className='input-perfil'>
                   <input 
                   name='apellidoUsuario'
@@ -180,7 +184,7 @@ const actualizarDatos=(item)=>{
 		<div className='item-container'>
 
             <div className='phonenumber'>
-            <label>Celular:</label>
+            <label>Celular*</label>
             <div className='input-perfil'>
             <input name='telefonoUsuario' placeholder='77777777' className='inputs-perfil' type="text"
             value={telefonoUsuario}
@@ -189,7 +193,7 @@ const actualizarDatos=(item)=>{
             </div>
             </div>
             <div className='rigth-item'>
-            <label>Direccion:</label>
+            <label>Direccion*</label>
             <div className='input-perfil'>
             <input name='direccionUsuario' placeholder='Av.Panamericana' className='inputs-perfil' type="text"
             value={direccionUsuario}
@@ -199,7 +203,7 @@ const actualizarDatos=(item)=>{
             </div>
 	    </div>
             <div className='correo'>
-            <label>Correo electronico:</label>
+            <label>Correo electronico*</label>
             <div className='input-perfil'>
             <input name='correoUsuario' placeholder='alfasoft@gmail.com' className='input-email'
             value={correoUsuario}
@@ -209,7 +213,7 @@ const actualizarDatos=(item)=>{
             </div>
 			<div className='item-container'>
             <div className='password'>
-            <label>Contraseña:</label>
+            <label>Contraseña*</label>
             <Password 
             style={ { } }
             inputStyle={{width:'300px',height:'40px',borderRadius: '7px',
@@ -222,7 +226,7 @@ const actualizarDatos=(item)=>{
                                 />
             </div>
             <div className='rigth-item'>
-             <label>Confirmar Contraseña:</label>
+             <label>Confirmar Contraseña*</label>
             <Password 
             inputStyle={{width:'300px',height:'40px',borderRadius: '7px',
             border: '1.5px solid rgb(55, 157, 252)', backgroundColor:'white'}}
@@ -241,8 +245,8 @@ const actualizarDatos=(item)=>{
             <button
              id='btn-opciones-soliperfil'
              className='btn-guardarperfil'
-              onClick={()=> validacionCampos()}
-            // onClick={()=> console.log(data) }
+              // onClick={()=> validacionCampos()}
+            onClick={()=> console.log(handleInputChange) }
             >
               Guardar</button>
               </div>   

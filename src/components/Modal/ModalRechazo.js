@@ -10,38 +10,55 @@ import { updateSolicitud } from '../../service/apiSolicitudAulas';
 
 export const ModalRechazo = ({
 
+    id_soli         ='',
+	nombre_doc      ='',
+	ape_doc         ='',
+	nro_est         ='',
+	motivo          ='',
+	fecha_res       ='',
+	hora_res        ='',
+	periodo         ='',
+	mat_soli        ='',
+	grupo           ='',
+	mat_id          ='',
+
 	motivoRechazo='',
 	closeModal })=> {
 
-		const {state:solicitud} = useLocation();    
+    // const {state:solicitud} = useLocation();    
 
 	const [formValues,setDatos] = useState ({
-				id:solicitud.id, 
-				nombreDocenteSolicitud:solicitud.nombreDocenteSolicitud, 
-				apellidoDocenteSolicitud:solicitud.apellidoDocenteSolicitud, 
-				numeroEstudiantesSolicitud:solicitud.numeroEstudiantesSolicitud, 
-				motivoSolicitud:solicitud.motivoSolicitud,
-				//motivoRechazo:, 
-				fechaSolicitud:solicitud.fechaSolicitud, 
-				horaInicioSolicitud:solicitud.horaInicioSolicitud, 
-				periodoSolicitud:'1', 
+				id:id_soli, 
+				nombreDocenteSolicitud:nombre_doc, 
+				apellidoDocenteSolicitud:ape_doc, 
+				numeroEstudiantesSolicitud:nro_est, 
+				cantidadEstudiantesAsignada:'0',
+				motivoSolicitud:motivo,
+				fechaSolicitud:fecha_res, 
+				horaInicioSolicitud:hora_res, 
+				periodoSolicitud:periodo, 
 				estadoSolicitud:'Solicitud Rechazada', 
-				materiaSolicitud:solicitud.materiaSolicitud, 
-				grupoSolicitud:solicitud.grupoSolicitud, 
-				materia_id:solicitud.materia_id 
+				materiaSolicitud:mat_soli, 
+				grupoSolicitud:grupo, 
+				materia_id:mat_id 
 				 
 	});
 	const navigate=useNavigate();
+	const recargar=()=>{
+		setTimeout(function() {
+		  window.location.reload(true);
+		}, 300);
+	  }
 	function handleNavigate() {
         
         navigate("/admin/verSolicitudes")
+		//recargar()
     }
-
     const Alerta=()=>{
 		swal({
 			title:"Solicitud Rechazada",
 			icon:"success",
-			button:"Ok"
+			button:"Aceptar"
 		}).then(respuesta=>{
 			if(respuesta){
                handleNavigate();

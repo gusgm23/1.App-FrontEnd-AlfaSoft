@@ -108,3 +108,13 @@ table tr:nth-child(odd) td {
 .parraf-solicitudes-vacio {
     color: #000;
 }
+.btns-rechazarsoli{
+    background: transparent;
+    border: none;
+    font-size: 25px;
+    width: 40%;
+
+}
+.bi-trash3-fill{
+    color: rgb(216, 66, 66);
+}

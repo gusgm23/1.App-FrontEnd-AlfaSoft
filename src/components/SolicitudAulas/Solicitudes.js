@@ -4,6 +4,8 @@ import { useModal } from '../../hooks/useModal';
 import { ModalGenerico } from '../Modal/ModalGenerico';
 //import {FormularioReservaAula} from '../ReservaAulas/FormularioReservaAula';
 import { RegSolicitud } from './RegistroSol/RegSolicitud';
+import { ModalRechazo } from '../Modal/ModalRechazo';
+
 
 import './estilos-ver-soli.css';
 
@@ -25,9 +27,30 @@ export const Solicitudes = ({data=[]}) => {
         materia_id:''
 
     });
+    const[datos,setDatos]=useState({
+        id:'',
+        nombre:'',
+        apellido:'',
+        numero:'',
+        motivo:'',
+        fecha:'',
+        hora:'',
+        periodo:'',
+        materia:'',
+        grupo:'',
+        idmateria:''
+
+    });
 
     const { nombreDocenteSolicitud,apellidoDocenteSolicitud,numeroEstudiantesSolicitud,motivoSolicitud,fechaSolicitud,horaInicioSolicitud,periodoSolicitud,estadoSolicitud,materia_id} = values;
     const [ isOpen, openModalEdicion, closeModalEdicion ] = useModal(false);
+    //Modal rechazo
+    const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
+    const{id,nombre,apellido,numero,motivo,fecha,hora,periodo,materia,grupo,idmateria}=datos
+    const rechazarSolicitud = () => {
+        setOpenModalRechazo(true)
+    }
+
 
     const actualizar = (item) => {
         setValues({
@@ -42,6 +65,23 @@ export const Solicitudes = ({data=[]}) => {
             materia_id: item.materia_id
         });
         openModalEdicion();
+    }
+    const rechazar=(item)=>{
+        setDatos({
+            id:item.id,
+            nombre:item.nombreDocenteSolicitud,
+            apellido:item.apellidoDocenteSolicitud,
+            numero:item.numeroEstudiantesSolicitud,
+            motivo:item.motivoSolicitud,
+            fecha:item.fechaSolicitud,
+            hora:item.horaInicioSolicitud,
+            periodo:item.periodoSolicitud,
+            materia:item.materiaSolicitud,
+            grupo:item.grupoSolicitud,
+            idmateria:item.materia_id
+
+        });
+        setOpenModalRechazo(true)
     }
     
     
@@ -75,7 +115,7 @@ export const Solicitudes = ({data=[]}) => {
         
         navigate("/admin/administrarsolicitud",{ state:solicitud })
     }
-
+  
     return (
             <>
             <div className='contenedor-tabla-soli'>
@@ -124,6 +164,14 @@ export const Solicitudes = ({data=[]}) => {
                                             >
                                                 <i className="bi bi-clipboard2-plus-fill"></i>
                                             </button>
+
+                                            <button 
+                                                className='btns-rechazarsoli'
+                                                onClick={()=>{rechazar(item)}}
+
+                                            >
+                                                <i  className="bi bi-trash3-fill"></i>
+                                            </button>
                                         </section>
                                     </td>
                                 </tr>
@@ -148,6 +196,23 @@ export const Solicitudes = ({data=[]}) => {
                     titulo='Detalles' 
                     materia_id={materia_id} />
                 </ModalGenerico>
+            }
+            {openModalRechazo && 
+            <ModalGenerico  isOpen={openModalRechazo} closeModal={closeModalRechazo}>
+              <ModalRechazo 
+              id_soli={id}
+              nombre_doc={nombre}
+              ape_doc={apellido}
+              nro_est={numero}
+              motivo={motivo}
+              fecha_res={fecha}
+              hora_res={hora}
+              periodo={periodo}
+              mat_soli={materia}
+              grupo={grupo}
+              mat_id={idmateria}
+              closeModal={setOpenModalRechazo}/> 
+            </ModalGenerico>
             }
             </>
     )
