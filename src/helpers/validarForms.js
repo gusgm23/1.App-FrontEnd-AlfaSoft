@@ -248,18 +248,18 @@ export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, s
 }
 
 export const validarCamposVaciosSolicitud = (valores = {}) => {
-    const { cantidadEstudiantes,    
+    const { 
+
+            cantidadEstudiantes,    
             peridoSolicitud,
         } = valores;
 
     const cantEst = parseInt(cantidadEstudiantes);
     const perSol = parseInt(peridoSolicitud);
 
-    if( cantEst === 0 &&   
-        perSol === 0 ) {
+    if( cantEst === 0 && perSol === 0 ) {
             return true;
-        }else if(cantEst === 0 ||              
-                perSol === 0 ) {
+        }else if(cantEst === 0 || perSol === 0 ) {
                     return true;
                 }else {
                     return false;

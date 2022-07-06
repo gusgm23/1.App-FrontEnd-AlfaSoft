@@ -52,12 +52,10 @@ export const FormularioReservaAula = ({
   setListaSolicitud,
 }) => {
   const [formValues, handleInputChange, reset] = useForm({
-    nombreDocente: nomDocente,
-    apellidoDocente: apeDocente,
+    // nombreDocente: nomDocente,
+    // apellidoDocente: apeDocente,
     cantidadEstudiantes: cantEstudiantes,
-    // motvioRechazo:          motRechazo,
     peridoSolicitud: perSolicitud,
-    selectHora: horSolicitud,
   });
 
   const { cantidadEstudiantes, peridoSolicitud } = formValues;
@@ -143,7 +141,7 @@ export const FormularioReservaAula = ({
   }, [selectHora]);
 
   useEffect(() => {
-    if (peridoSolicitud === "") {
+    if (peridoSolicitud === '') {
       setStatusInputPeriodo(false);
     } else {
       controlarCampoPeriodo(
@@ -162,20 +160,16 @@ export const FormularioReservaAula = ({
     }
   },[fechaSolicitud]);
 
-  const validarForm = () => {
-        
-    if (validarCamposVaciosSolicitud(formValues)) {
-       
-      openModalFormVacio();
-      
-    } else {
-      if (validarCamposLlenosSolicitud(formValues, selectMotivo, selectHora)) {
+
+  const validarForm = () => {      
+    if (validarCamposVaciosSolicitud(formValues)) {     
+        openModalFormVacio();     
+    } else if (validarCamposLlenosSolicitud(formValues, selectMotivo, selectHora)) {
         openModalConfirm();
       } else {
         console.log(typeof nombreDocente);
       }
-    }
-  };
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -617,10 +611,7 @@ export const FormularioReservaAula = ({
         
       }
 
-      <ModalGenerico
-        isOpen={isOpenModalFormVacio}
-        closeModal={closeModalFormVacio}
-      >
+      <ModalGenerico isOpen={isOpenModalFormVacio} closeModal={closeModalFormVacio}>
         <AdvertenciaFormVacio cerrarModal={closeModalFormVacio} />
       </ModalGenerico>
 

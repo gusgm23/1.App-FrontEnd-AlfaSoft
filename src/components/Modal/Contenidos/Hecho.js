@@ -2,11 +2,10 @@ import React from 'react'
 import { quitarAulaTabla } from '../../../helpers/quitarAulaTabla';
 import okImg from '../../../images/ok.svg'
 
-export const Hecho = ({ cerrarModal, funcReset=()=>{}, funcResetSol=()=>{} }) => {
+export const Hecho = ({ cerrarModal, funcReset=()=>{}  }) => {
 
     const btnReset = () => {
         funcReset();
-        funcResetSol();
         cerrarModal();
     }
 
