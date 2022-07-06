@@ -161,16 +161,7 @@ const handleSubmit = (e) => {
   e.preventDefault();
 }
 //redireccion
-const navigate=useNavigate();
-
-function handleNavigate() {
-  setTimeout(()=>{
-    navigate("/docente/home")
-    // redirigir();
-}, 3000);
-
-    }
-
+const navigate=useNavigate()
 const evaluarInputs=()=>{
   if(StatusInputNombre===true||StatusInputApellido===true|| StatusInputCorreo===true||
     StatusInputDireccion===true||StatusInputTelefono===true||StatusInputContrasenia===true||StatusInputContraseniaConf===true){
@@ -178,7 +169,6 @@ const evaluarInputs=()=>{
   }else{
     actualizarDatos();
     localStorage.setItem('datos', JSON.stringify(formValues));
-    handleNavigate();
 
   }
 }
@@ -360,7 +350,7 @@ const actualizarDatos=()=>{
                 <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <Hecho cerrarModal={ closeModalSuccess }/>
+            <Hecho cerrarModal={ ()=>{closeModalSuccess();  navigate("/docente/home");} }/>
             </ModalGenerico>
       </div>
     )
