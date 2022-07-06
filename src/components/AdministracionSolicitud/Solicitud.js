@@ -133,7 +133,7 @@ export const Solicitud = () => {
                                     capacidadSolicitud={capacidadSolicitud}
                                     solicitud={solicitud}
                                     setdatosCapacidad={setdatosCapacidad}
-                                    opelModalReserva={reservar}
+                                    opelModalReserva={opelModalReserva}
                                     datosCapacidad={datosCapacidad}
                                 />
                             </>

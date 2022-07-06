@@ -69,6 +69,13 @@ export const ContenidoNavDocente = () => {
                     >
                         Mi Perfil
                     </NavLink>
+                    {/* <NavLink
+                        exact='true'
+                        to='/docente/pruebas'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                    >
+                        Pruebas
+                    </NavLink> */}
 
                     </div>
                 </div>

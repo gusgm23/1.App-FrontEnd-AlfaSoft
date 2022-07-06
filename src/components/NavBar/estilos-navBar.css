@@ -93,7 +93,9 @@ nav>img {
     color: #25c3e2;
 }
 
-.titulo-home-docente {
+.titulo-home-docente,
+.titulo-home-principal {
     color: #4fa8fb;
     user-select: none;
 }
+

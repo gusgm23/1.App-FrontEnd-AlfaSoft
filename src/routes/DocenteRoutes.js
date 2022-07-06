@@ -17,6 +17,7 @@ import { getUsuarioId } from '../service/apiUsuarios'
 import { AuthContext } from '../auth/authContext';
 import { SolicitudesRechazadas } from '../components/Docente/SolicitudesRechazadas/SolicitudesRechazadas';
 import { CrearSolicitud } from '../components/Docente/crearSolicitud/CrearSolicitud';
+import { Probando } from '../components/Pruebas/Probando';
 
 
 export const DocenteRoutes = () => {
@@ -64,6 +65,8 @@ useEffect(() => {
                 <Route exact path='editarscreen'                 element={<EditarScreen/>}/>
 
                 <Route exact path='verrechazados'                element={<SolicitudesRechazadas/>}/>
+
+                <Route exact path='pruebas'                     element={<Probando/>}/>
 
                 <Route path='*'                                 element={<Error404Screen/>}/>
             </Routes>
