@@ -178,10 +178,7 @@ const evaluarInputs=()=>{
   }else{
     actualizarDatos();
     localStorage.setItem('datos', JSON.stringify(formValues));
-    setTimeout(()=>{
-      window.location.reload(false);
-      // redirigir();
-  }, 3000);
+    handleNavigate();
 
   }
 }
