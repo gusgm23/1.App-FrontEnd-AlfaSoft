@@ -6,12 +6,7 @@ export const ContenidoNavPublico = () => {
     <>
             <div className="navbar-collapse">
                 <div className='navbar-nav'>
-                    <Link 
-                        to='/' 
-                        className="navbar-brand"
-                    >
-                       Sistema Reserva de Aulas
-                    </Link>
+                    <h3 className='titulo-home-principal'>Sistema de Reserva de Aulas</h3>
                     {/* <NavLink exact='true'to='/about' className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}> */}
                         {/* Acerca de */}
                     {/* </NavLink> */}
