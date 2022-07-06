@@ -1,6 +1,6 @@
 import React, {useState } from 'react'
 import "./modalrechazo.css";
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 
@@ -115,7 +115,8 @@ export const ModalRechazo = ({
 						onClick={()=>
 							enviarMotivo(formValues)
 					}
-						>Aceptar</button>
+							><NavLink exact='true' to='/admin/adminhome'>Aceptar</NavLink>
+						</button>
 						<button className="btn-editar btn-cancelar"
 								
 						onClick={()=> closeModal(false) }>Cancelar</button>
