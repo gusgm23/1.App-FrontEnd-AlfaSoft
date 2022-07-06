@@ -65,6 +65,17 @@ export const VerGrupos = () => {
         openModalEdition();
     }
 
+    const listaOrdenada = dataLimpia.sort((a, b) => {
+        const numA = parseInt(a.grupoMateria);
+        const numB = parseInt(b.grupoMateria);
+
+        if ( numA < numB )
+            return -1;
+        if ( numA > numB )
+            return 1;
+        return 0;
+    });  
+
     return (
         <>
             <div className='contenedor-lista-grupos animate__animated animate__fadeIn'>
@@ -95,7 +106,7 @@ export const VerGrupos = () => {
                                 <tbody>
                                     {
                                         
-                                        dataLimpia.map( (item, i) => (
+                                        listaOrdenada.map( (item, i) => (
                                             <tr key={ item.id }>
                                                 <td className='col-id'>{i+1}</td>
                                                 <td className='col-grupo'>{ item.grupoMateria }</td>

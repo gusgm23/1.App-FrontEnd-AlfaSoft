@@ -22,8 +22,8 @@
     background-color: #0d6efd;
     border-color: #0d6efd;
     color: aliceblue;
-    font-size: 20px;
-    width: 150px;
+    font-size: 15px;
+    width: 90px;
     border-radius: 5px;
 }
 
@@ -33,15 +33,15 @@
 }
 
 .btnModalCancelar {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: black;
-    font-size: 20px;
-    width: 150px;
-    border-radius: 5px;
+    background-color: transparent;
+    border: none;
+    color: rgb(238, 62, 62);
+    font-size: 15px;
+    width: 90px;
+    
 }
 
 .btnModalCancelar:hover {
-    background-color: #f3cd22;
+    background-color: #e0e0e0;
     transition: 0.5;
 }

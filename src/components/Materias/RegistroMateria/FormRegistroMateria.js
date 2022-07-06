@@ -5,7 +5,6 @@ import { useForm } from '../../../hooks/useForm';
 import { useModal } from '../../../hooks/useModal';
 import { ModalGenerico } from '../../Modal/ModalGenerico';
 import { AdvertenciaFormVacio } from '../../Modal/Contenidos/AdvertenciaFormVacio';
-import { Confirmacion } from '../../Modal/Contenidos/Confirmacion';
 
 //importacion de las APIs para materia
 import { getMateria, getMateriaId, createMateria, updateMateriaId, deleteMateriaId } from '../../../service/apiMateria';
@@ -24,7 +23,6 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
 
     //Hooks para controlar Modales
     const [isOpenModalFormVacio, openModalFormVacio, closeModalFormVacio] = useModal(false);
-    const [isOpenModalConfirm, openModalConfirm, closeModalConfirm] = useModal(false);
     const [isOpenModalWarning, openModalWarning, closeModalWarning] = useModal(false);
     const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
 
@@ -100,7 +98,7 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
             
             if( validarCamposLlenosMateria(formValues)){
                 if(!codExiste && !materiaExiste){
-                    openModalConfirm();
+                    guardarDatos();
                 }
             }else{
                 console.log(typeof(codSis));
@@ -209,12 +207,12 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
                     <div className='contenedor-botones'>
                         <button 
                             type='button' 
-                            className='btn btn-warning'
+                            className='btn btn-warning btn-volverAtras-materia'
                             onClick={ 
                                 codiSis === '' ? volverAtras : closeModal
                             }
                         >
-                            Cancelar
+                            { codiSis === '' ? 'Volver' : 'Cancelar' }
                         </button>
                         <button 
                             type='submit' 
@@ -230,14 +228,11 @@ export const FormRegistroMateria = ({ codiSis='', materi='', group='', closeModa
             <ModalGenerico isOpen={ isOpenModalFormVacio } closeModal={ closeModalFormVacio }>
                 <AdvertenciaFormVacio cerrarModal={ closeModalFormVacio }/>
             </ModalGenerico>
-            <ModalGenerico isOpen={ isOpenModalConfirm } closeModal={ closeModalConfirm }>
-                <Confirmacion cerrarModal={closeModalConfirm} funcGuardar={guardarDatos}/>
-            </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalWarning } closeModal={ closeModalWarning }>
                 <ErrorGuardarDatos cerrarModal={ closeModalWarning }/>
             </ModalGenerico>
             <ModalGenerico isOpen={ isOpenModalSuccess } closeModal={ closeModalSuccess }>
-                <Hecho cerrarModal={ closeModalSuccess }/>
+                <Hecho cerrarModal={ closeModalSuccess } funcReset={reset}/>
             </ModalGenerico>
         </div>
     )

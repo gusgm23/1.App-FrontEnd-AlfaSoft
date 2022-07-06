@@ -91,3 +91,18 @@ table tr:nth-child(odd) td {
 }
 */
 
+.contenedorBtnPaginadorMateria{
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.botonPaginadorMateria{
+    border-radius: 5px;
+    width: 90px;
+    height: 30px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+}

@@ -5,8 +5,8 @@ import { AuthContext } from '../../auth/authContext'
 import { buscarRol } from '../../helpers/buscarRol'
 import { buscarUsuario } from '../../helpers/buscarUsuario'
 import { useForm } from '../../hooks/useForm'
-import { getRoles, getRolesId } from '../../service/apiRoles'
-import { getUsuarios } from '../../service/apiUsuarios'
+import { getRoles } from '../../service/apiRoles'
+import { getUsuarios, getUsuariosHabilitados } from '../../service/apiUsuarios'
 import { types } from '../../types/types'
 
 import './estilos-login.css'
@@ -37,6 +37,16 @@ export const LoginScreen = () => {
     const navigate = useNavigate();
     const { dispatch } = useContext(AuthContext);
 
+    //!Hook para indicar a un urs que ha sido bloqueado
+    const [usuarioBloqueado, setUsuarioBloqueado] = useState(false);
+
+    useEffect(() => {
+        
+        setUsuarioBloqueado(false);
+
+    }, [email, pass])
+    
+
     useEffect(() => {
         
         getUsuarios(setDataUsers); 
@@ -56,7 +66,12 @@ export const LoginScreen = () => {
         if(validar.resp){
 
             setErrorLogin(false);
-            redirigirUsr( userReg, rolEncontrado );
+            if(userReg.estadoUsuario === 'Habilitado'){
+                redirigirUsr( userReg, rolEncontrado );
+            }else{
+                setUsuarioBloqueado(true);
+            }
+            
             
         }else {
             setErrorLogin(true);
@@ -118,8 +133,11 @@ export const LoginScreen = () => {
                         value={ pass }
                         onChange={ handleInputChange }
                     />
-                    <p className={ errorLogin === true ? 'error-login-activo' : 'error-login-inhabilitado' }>
+                    <p className={ errorLogin === true ? 'error-login-activo animate__animated animate__fadeIn' : 'error-login-inhabilitado' }>
                         El Correo o contraseña ingresado no es correcto, porfavor intenta otra vez
+                    </p>
+                    <p className={ usuarioBloqueado === true ? 'error-login-activo animate__animated animate__fadeIn' : 'error-login-inhabilitado' }>
+                        Su cuenta ha sido eliminada por el administrador, no puede acceder a la plataforma.
                     </p>
                     <Link to='/registrousuario' className='link element-login'>¿No tienes cuenta? Registrate aqui</Link>
                 </div>

@@ -1,7 +1,17 @@
 import React from 'react'
+import { obtenerReservasDeUsuario } from '../../../helpers/obtenciondeReservas'
 
-export const FilaTabla = ({showReservedClassroom,listaSoliAprob=[]}) => {
+export const FilaTabla = ({listaSoliAprob=[], setListaReservas, listaReservas=[], listaAulas=[], showModal=()=>{}}) => {
     
+    const guardarDatos = (item) => {
+        const listaReservasSoli = obtenerReservasDeUsuario(listaReservas, item, listaAulas);
+        
+        setListaReservas(listaReservasSoli);
+
+        showModal();
+
+    }
+
     return (
         <tbody>
             {
@@ -16,7 +26,7 @@ export const FilaTabla = ({showReservedClassroom,listaSoliAprob=[]}) => {
                         <td>
                             <button
                                 className='btn-ver-aulas-reservadas'
-                                onClick={()=>{ showReservedClassroom(item)} }
+                                onClick={()=>{ guardarDatos( item ) } }
                             >
                                 <i className="bi bi-eye-fill icon-ver-aulas-reserv"></i>
                             </button>

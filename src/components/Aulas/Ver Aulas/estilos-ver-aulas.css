@@ -61,3 +61,19 @@ a {
 .biribanban {
     margin-left: 1900%;
 }
+
+.contenedorBtnPaginadorAula{
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+.botonPaginadorAula{
+    border-radius: 5px;
+    width: 90px;
+    height: 30px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+}

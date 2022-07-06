@@ -18,7 +18,8 @@ import { UsuarioEliminado } from "../../Modal/Contenidos/UsuarioEliminado";
 export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
 
     const [usuariosTabla, setUsuariosTabla] = useState(data);
-
+    const [search, setSearch] = useState("");
+    const [searchFilter, setSearchFilter] = useState([]);
     const [ valores, setValores ] = useState({
         id:                 '',
         nomUsuario:         '',
@@ -82,57 +83,140 @@ export const Usuarios = ({ data=[], setListaUsuariosHabilitados  }) => {
         closeModalConfirm();
     }
 
+    
+
+ useEffect(() => {
+        setSearchFilter(usuariosTabla);
+      }, [usuariosTabla]);
+    
+      useEffect(() => {
+        function searchClassRoom() {
+          const searchArr = [];
+    
+          usuariosTabla.forEach((data) => {
+           
+            if (data.name.toLowerCase().startsWith(search.toLowerCase())) {
+                searchArr.push(data);
+              }
+          });
+          setSearchFilter(searchArr);
+        }
+        searchClassRoom();
+      }, [search]);
+    
+    function handleSearch(e) {
+        const {value}=e.target
+        
+        if(value.trim()===""){
+          setSearch(e.target.value);
+        }
+      
+        setPaginaActual(0);
+        setSearch(e.target.value);
+      }
+
+
+    //Paginador para la tabla
+    const [paginaActual, setPaginaActual] = useState(0);
+
+    const filtrarUsuarios = () => {
+            return searchFilter.slice(paginaActual, paginaActual + 10);
+    }
+
+    const siguientePagina = () => {
+          setPaginaActual( paginaActual + 10 );
+        
+    }
+
+    const anteriorPagina = () => {
+      if (paginaActual > 0)
+          setPaginaActual( paginaActual - 10);
+    }
 
 
     return (
         <>
         <div className="contenedor-tabla-general">
+        <div className="input-group mb-3">
+              <input
+                type="text"
+                className="form-control buscar-Usuarios"
+                placeholder="Buscar Usuarios"
+                value={search}
+               
+                onChange={handleSearch}
+              />
+              <button
+                type="submit"
+                className="btn btn-primary"
+                id="basic-addon2"
+              >
+                Buscar
+              </button>
+            </div>
+
             <div className="contenedor-tabla-usuarios">
+
                 <table>
                     <CamposTabla/>
                     <tbody>
                         {
-                            usuariosTabla.map((item, i) => (
+                            filtrarUsuarios().map((item, i) => (
                                 <tr key={item.id}>
-                                    <td> { i+1 } </td>
-                                    <td> { item.name } </td>
-                                    <td> { item.apellido } </td>
-                                    <td> { item.cargoUsuario  } </td>
-                                    <td> { item.telefonoUsuario } </td>
-                                    <td> { item.direccionUsuario } </td>
-                                    <td> { item.email } </td>
-                                    <td className="columna-botones-usuario">
-                                        <section className="caja-botones-usuario">
-                                            <button
-                                                className="boton-editar-usuarios"
-                                                onClick={ () => { actualizarUsuario(item) } }
-                                            >
-                                            <i className="bi bi-pencil-fill"></i>
-                                            </button>
-                                        </section>
-                                        <section className="caja-botones-usuario">
-                                            <button
-                                                className="boton-editar-usuarios"
-                                                // onClick={ () => {
-                                                    // openModalConfirm(); 
-                                                    // seteliminarUsu(item);  
-                                                // }}
-                                                // onClick={() => { 
-                                                    // openModalConfirm();
-                                                    // eliminarUsuario(item);}} 
-                                                    onClick={() => {eliminarUsuario(item)}}
-                                            >
-                                            <i className="bi bi-trash-fill"></i>
-                                            </button>
-                                            
-                                        </section>
-                                    </td>
+                                    <td> { item.id } </td>
+                                    <td style={{width:150}}> { item.name } </td>
+                                    <td style={{width:150}}> { item.apellido } </td>
+                                    <td style={{width:100}}> { item.cargoUsuario  } </td>
+                                    <td style={{width:100}}> { item.telefonoUsuario } </td>
+                                    <td style={{width:150}}> { item.direccionUsuario } </td>
+                                    <td style={{width:150}}> { item.email } </td>
+                                    {
+                                        item.rol_id == 1 ?
+                                        <td></td>
+                                        :(
+                                            <td className="columna-botones-usuario">
+                                                <section className="caja-botones-usuario">
+                                                    <button
+                                                        className="boton-editar-usuarios"
+                                                        onClick={ () => { actualizarUsuario(item) } }
+                                                    >
+                                                    <i className="bi bi-pencil-fill"></i>
+                                                    </button>
+                                                </section>
+                                                <section className="caja-botones-usuario">
+                                                    <button
+                                                        className="boton-editar-usuarios"
+                                                        // onClick={ () => {
+                                                            // openModalConfirm(); 
+                                                            // seteliminarUsu(item);  
+                                                        // }}
+                                                        // onClick={() => { 
+                                                            // openModalConfirm();
+                                                            // eliminarUsuario(item);}} 
+                                                            onClick={() => {eliminarUsuario(item)}}
+                                                    >
+                                                    <i className="bi bi-trash-fill"></i>
+                                                    </button>
+                                                    
+                                                </section>
+                                            </td>
+                                        )
+                                    }
                                 </tr>
                             ))
                         }
                     </tbody>
                 </table>
 
+            </div>
+            <div className="contenedorBtnPaginador">
+                <button className="botonPaginador" onClick={anteriorPagina}>
+                    <i className="bi bi-chevron-left"></i>
+                </button>
+                        
+                <button className="botonPaginador" onClick={siguientePagina}>
+                    <i className="bi bi-chevron-right"></i>
+                </button>
             </div>
                 {
                     isOpen && 

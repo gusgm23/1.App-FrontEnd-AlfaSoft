@@ -19,17 +19,28 @@ export const ContenidoNavDocente = () => {
     //Cuidado con el cambio de variables
     var us=JSON.parse(localStorage.getItem('datos'));
 
+
+
     return (
         <>
             <div className="navbar-collapse">
                 <div >
-                    <Link 
-                        to='/docente/home' 
-                        className="navbar-brand"
-                    >
-                        Reserva de Aulas
-                    </Link>
+                    <h2 className='titulo-home-docente'> Sistema Reserva de Aulas </h2>
                     <div className='nav-container' >
+                    <NavLink
+                        exact='true'
+                        to='/docente/home'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                        >
+                        Inicio
+                    </NavLink>
+                    <NavLink
+                        exact='true'
+                        to='/docente/crearSolicitud'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                        >
+                        Crear Solicitud
+                    </NavLink>    
                     <NavLink
                         exact='true'
                         to='/docente/listarsolicitudes'
@@ -58,6 +69,13 @@ export const ContenidoNavDocente = () => {
                     >
                         Mi Perfil
                     </NavLink>
+                    {/* <NavLink
+                        exact='true'
+                        to='/docente/pruebas'
+                        className={({ isActive }) => 'nav-item nav-link ' + ( isActive ? 'active' : 'no-active' )}
+                    >
+                        Pruebas
+                    </NavLink> */}
 
                     </div>
                 </div>
@@ -65,7 +83,7 @@ export const ContenidoNavDocente = () => {
             <div className="navbar-collapse collapse w-300 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav">
                     <span className='nav-item nav-link text-info icon-home'>
-                        <i className="bi bi-person icon-user"></i> { us.nombreUsuario } - { user.rol }
+                        <i className="bi bi-person icon-user"></i> { user.name } - { user.rol }
                     </span>
                     <button
                         className='nav-item nav-link btn-logout'

@@ -21,10 +21,10 @@
 
 .contenedor-elementos-reserva-aulas{
     padding-top: 4%;
-    height: 450px;
+    height: 400px;
     display: flex;
     flex-direction: column;
-
+    width: 550px;
 }
 .campos-reserva-aulas{
     display: flex;
@@ -60,10 +60,12 @@
     padding: 0%;    
 }
 
-.p-calendar {
+.p-inputwrapper{
     width: 250px;
-    margin-left: 40%;
-    font-size: small;  
+}
+
+.p-calendar {
+    max-width: 200px;
 }
 
 .p-datepicker-group{
@@ -73,7 +75,8 @@
 }
 
 .contenedor-inputsFecha{
-    width: 50%;
+    width: 200px;
+    justify-content: space-between;
 }
 
 .p-button.p-button-icon-only {

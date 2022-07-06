@@ -93,7 +93,7 @@ export const controlarCampoAula = ( aula='', setStatusInputAula ) => {
 
     const tamanioAula = aula.length
     
-    if(tamanioAula >= 3 && tamanioAula <= 10){
+    if(tamanioAula >= 3 && tamanioAula <= 35){
         setStatusInputAula(false);
     }else{
         setStatusInputAula(true);
@@ -248,18 +248,18 @@ export const controlarCampoPeriodo = ( peridoSolicitud, setStatusInputPeriodo, s
 }
 
 export const validarCamposVaciosSolicitud = (valores = {}) => {
-    const { cantidadEstudiantes,    
+    const { 
+
+            cantidadEstudiantes,    
             peridoSolicitud,
         } = valores;
 
     const cantEst = parseInt(cantidadEstudiantes);
     const perSol = parseInt(peridoSolicitud);
 
-    if( cantEst === 0 &&   
-        perSol === 0 ) {
+    if( cantEst === 0 && perSol === 0 ) {
             return true;
-        }else if(cantEst === 0 ||              
-                perSol === 0 ) {
+        }else if(cantEst === 0 || perSol === 0 ) {
                     return true;
                 }else {
                     return false;
@@ -286,12 +286,20 @@ export const validarCamposLlenosSolicitud = (valores = {}) => {
             }
 }
 
-export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc, idEdit) => {
+export const verificarExistenciaGrupo = (listaGrupos=[], grupo, idDoc, idEdit, grupoAEditar='') => {
+
     let existeGrupo = false;
 
     listaGrupos.forEach(element => {
-        if(element.grupoMateria === grupo && element.idDocente === idDoc && !existeGrupo && idEdit.length > 0) {
-            existeGrupo = true
+        if(idEdit.length == 0 ){
+            if(element.grupoMateria === grupo && !existeGrupo) {
+                existeGrupo = true
+            }
+        }else{
+            //!Seccion para validar datos cuando se quiera editar un grupo
+            if( element.grupoMateria === grupo && grupo != grupoAEditar ){
+                existeGrupo = true;
+            }
         }
     })
 

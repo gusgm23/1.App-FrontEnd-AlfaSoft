@@ -12,16 +12,16 @@ export const DocenteHome = () => {
     return (
         <div className='contenedor-home-docente animate__animated animate__fadeIn'>
             <div className='contenedor-titulo-home-docente'>
-                <h2>
+                <h5>
                     ¡Hola, {user.name} {user.apellido}!
-                </h2>
+                </h5>
                 <hr/>
             </div>
             <section>
                 <div className='contenido-home-docente'>
                     <div>
                         <p className='parrafo-home-docente'>
-                            Recuerda que puedes ver el historial de todas las solicitudes que registraste dentro del sistema, crear una nueva solicitud y editar aquellas solicitudes que fueron rechazadas en la sección: <b>Ver Solicitudes.</b>
+                            Para reservar un aula dirigite a <b>Crear Solicitud.</b>
                         </p>
                     </div>
                     <img src={homeImg} alt='image-home'/>

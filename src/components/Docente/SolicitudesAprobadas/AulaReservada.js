@@ -1,94 +1,107 @@
+import { arrow, end } from '@popperjs/core';
 import React from "react";
+import { periodHours } from "../../../enums/classHours";
 
-const days = {
-  1: "Lunes",
-  2: "Martes",
-  3: "Miercoles",
-  4: "Jueves",
-  5: "Viernes",
-  6: "Sabado",
-  0: "Domingo",
-};
+import  './estilos-solicitudes-aprobadas.css';
 
+const days = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miercoles",
+  "Jueves",
+  "Viernes",
+  "Sabado",
+];
 
-const months = {
-  1: "Enero",
-  2: "Febrero",
-  3: "Marzo",
-  4: "Abril",
-  5: "Mayo",
-  6: "Junio",
-  7: "Julio",
-  8: "Agosto",
-  9: "Septiembre",
-  10: "Octubre",
-  11: "Noviembre",
-  12: "Diciembre",
-};
+const months = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
 
-export const AulaReservada = ({ reservedClassRoom }) => {
-  const {
-    apellidoDocenteSolicitud,
-    cantidadEstudiantesAsignada,
-    capacidadAula,
-    estadoSolicitud,
-    fechaSolicitud,
-    grupoSolicitud,
-    horaInicioSolicitud,
-    id,
-    materiaSolicitud,
-    materia_id,
-    motivoRechazo,
-    motivoSolicitud,
-    nombreAula,
-    nombreDocenteSolicitud,
-    numeroEstudiantesSolicitud,
-    periodoSolicitud,
-  } = reservedClassRoom;
+export const AulaReservada = ({ listaReservas=[], closeModal }) => {
 
-  const d = new Date(fechaSolicitud);
-  console.log(d);
-
-  const fullDate = `${d.getDate()} de ${months[d.getMonth()]} del ${d.getFullYear()} `;
-
-  console.log(fullDate);
-
-
-  //123
   return (
     <>
-      <div className="title-modal">Aula Reservada</div>
+      <div className="title-modal">Información de solicitud aprobada</div>
       <div className="separator"></div>
       <section className="modal-contend-reserva-aula">
         <label>
-          {nombreDocenteSolicitud} {apellidoDocenteSolicitud}
+          <span>Nombre : </span>
+          {listaReservas[0].nombreDocente} 
         </label>
-        <label>{materiaSolicitud}</label>
+        <label>
+          <span>Materia : </span>
+          {listaReservas[0].materiaDocente}
+          </label>
         <label>
           <span>Grupo : </span>
-          {grupoSolicitud}
-        </label>
-        <label>
-          <span>Nombre Aula : </span>
-          {nombreAula}
-        </label>
-        <label>
-          <span>Capacidad Aula : </span>
-          {capacidadAula}
-        </label>
-        <label>
-          <span>Fecha : </span>
-          {fullDate}
-        </label>
-        <label>
-          <span>Hora : </span>
-          {horaInicioSolicitud}
+          {listaReservas[0].grupoMateria}
         </label>
         <label>
           <span>Periodo : </span>
-          {periodoSolicitud}
+          {listaReservas[0].periodo}
         </label>
+        <label>
+          <span>Fecha : </span>
+          {listaReservas[0].fechaReserva}
+        </label>
+        <label>
+          <span>Hora inicio : </span>
+          {listaReservas[0].horaInicio}
+        </label>
+        <label>
+          <span>Hora fin : </span>
+          {listaReservas[0].horaFinal}
+        </label>
+        <label>
+          <span>Aula(s) asignada(s): {listaReservas.length} </span>
+        </label>
+        <label>
+          <span>Cantidad de estudiantes requerido: </span>
+          {listaReservas[0].cantidadEstudiante}
+        </label>
+        <label>
+          <span>Cantidad de estudiantes asignado: </span>
+          {listaReservas[0].asignado}
+        </label>
+        <hr/>
+
+        {
+          listaReservas.map( reserva => (
+            <>
+            <label>
+                <span>Aula: </span>
+                {reserva.nombreAula}
+              </label>
+              <label>
+                <span>Capacidad: </span>
+                {reserva.capacidadAula}
+              </label>
+              
+              <hr/>
+            </>
+          ) )
+        }
       </section>
+      <div className="cont-btn-info-reserva">
+        <button
+          className="btn-entendido-reserva"
+          onClick={closeModal}
+        >
+          Entendido
+        </button>
+      </div>
     </>
   );
 };

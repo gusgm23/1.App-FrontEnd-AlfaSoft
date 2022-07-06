@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../auth/authContext";
+import { periodHours } from '../../../enums/classHours';
 import { classroomRequestStatus } from "../../../enums/solicitudes";
 import { useModal } from "../../../hooks/useModal";
 import { getSolicitudByDocent } from "../../../service/apiSolicitudAulas";
@@ -32,6 +33,8 @@ export const SolicitudesRechazadas = () => {
     setSolicitud(solicitud);
     openModal();
   }
+  const startPeriod=periodHours.indexOf(solicitud.horaInicioSolicitud);
+  const endPeriod=startPeriod+ Number(solicitud.periodoSolicitud);
 
   return (
     <div className="solicitudes-container">
@@ -95,14 +98,14 @@ export const SolicitudesRechazadas = () => {
          <label>
           {solicitud.nombreDocenteSolicitud} {solicitud.apellidoDocenteSolicitud}
         </label>
-        <label>
-        <span>Motivo Rechazo : </span>
-          {solicitud.motivoRechazo}
-        </label>
         <label>{solicitud.materiaSolicitud}</label>
         <label>
           <span>Grupo : </span>
           {solicitud.grupoSolicitud}
+        </label>
+        <label>
+          <span>Cantidad de Estudiantes:</span>
+          {solicitud.numeroEstudiantesSolicitud}
         </label>
         <label>
           <span>Fecha : </span>
@@ -110,11 +113,15 @@ export const SolicitudesRechazadas = () => {
         </label>
         <label>
           <span>Hora : </span>
-          {solicitud.horaInicioSolicitud}
+          {solicitud.horaInicioSolicitud}  - {periodHours[endPeriod]}
         </label>
         <label>
           <span>Periodo : </span>
           {solicitud.periodoSolicitud}
+        </label>
+        <label>
+        <span>Motivo del Rechazo : </span>
+          {solicitud.motivoRechazo}
         </label>
         </div>
       </ModalGenerico>

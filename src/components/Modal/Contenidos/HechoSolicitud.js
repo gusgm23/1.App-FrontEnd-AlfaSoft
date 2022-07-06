@@ -1,12 +1,14 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 import { quitarAulaTabla } from '../../../helpers/quitarAulaTabla';
 import okImg from '../../../images/ok.svg'
 
-export const Hecho = ({ cerrarModal, funcReset=()=>{}  }) => {
+export const HechoSolicitud = ({ cerrarModal, funcResetSol=()=>{} }) => {
 
     const btnReset = () => {
-        funcReset();
+        funcResetSol();
         cerrarModal();
+       
     }
 
     return (
@@ -19,13 +21,13 @@ export const Hecho = ({ cerrarModal, funcReset=()=>{}  }) => {
                     className='img-advertencia img-hecho'
                 />
                 <p className='parrafo-advertencia'>
-                    Los datos ingresados fueron guardados exitosamente.
+                    Los datos fueron guardados exitosamente.
                 </p>
                 <button
                     className='btn-entendido'
                     onClick={btnReset}
                 >
-                    Entendido
+                     <NavLink exact='true' to='/docente/listarsolicitudes'>Entendido</NavLink>
                 </button>
             </div>
         </>

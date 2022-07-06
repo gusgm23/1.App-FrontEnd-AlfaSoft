@@ -27,6 +27,7 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
             idAula: id,
             idSolicitud: ''
         }
+        console.log("🚀 ~ file: FilaTabla.js ~ line 30 ~ reducirCapacidad ~ reserva", reserva)
 
         const lista = [];
         lista.push(reserva);
@@ -36,17 +37,35 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
             capacidadAulaRescatado: capacidadAula,
             listaReservas: lista
         })
+
+        console.log("🚀 ~ file: FilaTabla.js ~ line 42 ~ reducirCapacidad ~ reserva.idAula", reserva.idAula)
         modalReserva();
+        
 
     }
     //modal rechazo
     const[openModalRechazo,setOpenModalRechazo,closeModalRechazo]=useState(false);
 
+    //Paginador para la tabla
+    const [paginaActual, setPaginaActual] = useState(0);
+
+    const filtrarAula = () => {
+        return data.slice(paginaActual, paginaActual + 5);
+    }
+
+    const siguientePagina = () => {
+        setPaginaActual( paginaActual + 5 );
+    }
+
+    const anteriorPagina = () => {
+        if (paginaActual > 0)
+            setPaginaActual( paginaActual - 5);
+    }
 
     return (
         <>
             {
-                data.map((elem, i) => (
+                filtrarAula().map((elem, i) => (
                     <tr key={elem.id} className='animate__animated animate__fadeIn'>
                         <td>{ i+1 }</td>
                         <td>{ elem.nombreAula }</td>
@@ -55,7 +74,7 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
                             <section>
                                 <button 
                                     className='btn-reserva'
-                                    onClick={ () => ( reducirCapacidad(elem.capacidadAula, elem.id) ) }
+                                    onClick={ () => { reducirCapacidad(elem.capacidadAula, elem.id) } }
                                 
                                 >
                                     <i className="bi bi-plus-circle-fill icono-reserva"></i>
@@ -84,7 +103,15 @@ export const FilaTabla = ( {data=[], fecha, hora, periodo, guardarDatos, capacid
               
               closeModal={setOpenModalRechazo}/> 
             </ModalGenerico>
-            }
-        </>
+            }  
+            <div className="contenedorBtnPaginadorReservarAula">
+               <button className="botonPaginadorAulaReservarAula" onClick={anteriorPagina}>
+               <i className="bi bi-chevron-left"></i>
+               </button>
+               <button className="botonPaginadorAulaReservarAula" onClick={siguientePagina}>
+               <i className="bi bi-chevron-right"></i>
+               </button>
+            </div>                                                                       
+        </>      
     )
 }

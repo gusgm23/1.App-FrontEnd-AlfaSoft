@@ -15,11 +15,13 @@ import { AulaReservada } from '../Modal/Contenidos/AulaReservada';
 import { ConfirmarReservaAula } from '../Modal/Contenidos/ConfirmarReservaAula';
 import { ErrorReservaAula } from '../Modal/Contenidos/ErrorReservaAula';
 import { ModalGenerico } from '../Modal/ModalGenerico';
+import { AulasSugeridas } from './AulasSugeridas';
 import { DatosSolicitud } from './DatosSolicitud';
 
 import './estilos-solicitud.css';
 import { FilaTabla } from './FilaTabla';
 import { Opciones } from './OpcionesSolicitud/Opciones';
+import { TodasLasAulas } from './TodasLasAulas';
 
 export const Solicitud = () => {
 
@@ -52,20 +54,19 @@ export const Solicitud = () => {
     const [capacidadSolicitud, setCapacidadSolicitud] = useState('0');
 
     const [aulasLibres, setAulasLibres] = useState([]);
-
+    
     const [capOrignal, setCapOrignal] = useState(0);
-
+    
     //! Hooks para modales
     const [isOpenModalConfirmReserva, opelModalReserva, closeModalReserva] = useModal(false);
     const [isOpenModalAlert, openModalAlert, closeModalAlert] = useModal(false);
     const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = useModal(false);
     const [isOpenModalFail, openModalFail, closeModalFail] = useModal(false);
-
-
+    
     useEffect(() => {
         
-        getSolicitudId(solicitud.id, setSolicitudRecuperada);
         
+        getSolicitudId(solicitud.id, setSolicitudRecuperada);
         getAulas( setDataAulas );
         getReserva( setDataReservas );
         
@@ -81,7 +82,7 @@ export const Solicitud = () => {
     
     useEffect(() => {
         
-        generarAulasDisponibles(dataReserva, data, solicitud.horaInicioSolicitud, solicitud.fechaSolicitud, setAulasLibres)
+        generarAulasDisponibles(dataReserva, data, solicitudRecuperada.horaInicioSolicitud, solicitudRecuperada.fechaSolicitud, setAulasLibres)
         
     }, [state, stateReserva])
     
@@ -104,51 +105,44 @@ export const Solicitud = () => {
         quitarAulaTabla(listaReservas[0].idAula, aulasLibres, setAulasLibres);
 
         //!Actualizando capacidad de peticion en solicitud
-        reducirCapacidadSolicitud(solicitud, parseInt(solicitud.cantidadEstudiantesAsignada) + parseInt(capacidadAulaRescatado));
-        
+        reducirCapacidadSolicitud(solicitudRecuperada, parseInt(capacidadSolicitud) + parseInt(capacidadAulaRescatado));
     }
 
     return (
         <div className='contenedor-solicitud animate__animated animate__fadeIn'>
             <div className='contenedor-parrafos-soli'>
-                <DatosSolicitud item={ solicitud } capacidad={ capacidadSolicitud }/>
+                <DatosSolicitud item={ solicitudRecuperada } capacidad={ capacidadSolicitud }/>
             </div>
             <hr/>
             <div className='contenedor-tabla-aulas-soli'>
                 <section className='seccion-aulas-disponibles'>
-                    {
-                        ( aulasLibres.length > 0 && capacidadSolicitud < solicitud.numeroEstudiantesSolicitud )
-                            ? (
-                                <table className='tabla-aulas-soli'>
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th className='col-solicitud'>Aula</th>
-                                            <th className='col-solicitud'>Capacidad</th>
-                                            <th className='col-solicitud'>Gestionar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <FilaTabla 
-                                            data={aulasLibres} 
-                                            fecha={ solicitud.fechaSolicitud } 
-                                            hora={ solicitud.horaInicioSolicitud }
-                                            periodo={ solicitud.periodoSolicitud }
-                                            guardarDatos={ setdatosCapacidad }
-                                            capacidadSoli={ capacidadSolicitud }
-                                            modalReserva={ opelModalReserva }
-                                            datosCapacidad={ datosCapacidad }
-                                        />
-                                    </tbody>
-                                </table>
-                            )
-                            : ( capacidadSolicitud >= solicitud.numeroEstudiantesSolicitud )
-                                ? <p className='parrafo-info-soli'>La solicitud ha sido atendida con éxito, puedes volver a la sección de solicitudes. </p>
-                                : <p className='parrafo-info-soli'>No existen aulas disponibles para la solicitud, debes rechazar la solicitud.</p>
-                    }
+                    <div className='contenedor-tablas'>
+                        {
+                            (aulasLibres.length > 0 && parseInt(capacidadSolicitud) < parseInt(solicitudRecuperada.numeroEstudiantesSolicitud))
+                            ? <>
+                                <AulasSugeridas 
+                                    data={aulasLibres} 
+                                    solicitud={solicitud}
+                                    capacidadSolicitud={capacidadSolicitud}
+                                    opelModalReserva={opelModalReserva}
+                                    datosCapacidad={datosCapacidad}
+                                    setdatosCapacidad={setdatosCapacidad}
+                                />
+                                <TodasLasAulas 
+                                    aulasLibres={aulasLibres}
+                                    capacidadSolicitud={capacidadSolicitud}
+                                    solicitud={solicitud}
+                                    setdatosCapacidad={setdatosCapacidad}
+                                    opelModalReserva={opelModalReserva}
+                                    datosCapacidad={datosCapacidad}
+                                />
+                            </>
+                            : ( parseInt(capacidadSolicitud) >= parseInt(solicitud.numeroEstudiantesSolicitud) )
+                            ? <p className='parrafo-info-soli'>La solicitud ha sido atendida con éxito, puedes volver a la sección de solicitudes. </p>
+                            : <p className='parrafo-info-soli'>No existen aulas disponibles para la solicitud, debes rechazar la solicitud.</p>
+                        }
+                    </div>
                 </section>
-
-                
             </div>
             {
                 solicitudRecuperada != []
@@ -170,3 +164,4 @@ export const Solicitud = () => {
         </div>
     )
 }
+    

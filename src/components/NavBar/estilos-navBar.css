@@ -10,6 +10,7 @@ nav>img {
 
 .navbar-brand {
     color: #4fa8fb;
+    font-size: 24pt ;
 }
 
 .navbar-brand:hover {
@@ -91,3 +92,10 @@ nav>img {
 .notification-item:hover{
     color: #25c3e2;
 }
+
+.titulo-home-docente,
+.titulo-home-principal {
+    color: #4fa8fb;
+    user-select: none;
+}
+

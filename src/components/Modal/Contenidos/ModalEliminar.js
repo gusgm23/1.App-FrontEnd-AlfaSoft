@@ -11,10 +11,10 @@ export const ModalEliminar = ({cerrarModal, eliminarUsuario}) => {
     <div className='modalEliminarUusarios'>
       <div className='modalContenedorUsuario'>
         <div className='AdvertenciaEliminarUsuario'>
-          <h1>¡Advertencia!</h1>
+          <h3>¡Advertencia!</h3>
         </div>
         <div className='tituloEliminarUsuario'>
-            <h2>¿Estas seguro de eliminar el usuario?</h2>
+            <h4>¿Estas seguro de eliminar el usuario?</h4>
         </div>
         <div className='cuerpoEliminarUsuario'>
             <img src={confirmacionImg} className="img-advertencia" alt="alert" />

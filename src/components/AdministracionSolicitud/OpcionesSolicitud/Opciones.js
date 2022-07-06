@@ -1,9 +1,7 @@
 import React, {useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
-import { rechazar } from '../../../helpers/metodosOpcionesSolicitud';
-import { ModalGenerico } from '../../Modal/ModalGenerico';
-import { ModalRechazo } from '../../Modal/ModalRechazo';
+
 
 
 
@@ -11,7 +9,6 @@ import './estilos-opciones.css'
 
 export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
 
-    const {state:solicitud} = useLocation();    
     const capacidadAsignada = parseInt(capacidad);
     
 
@@ -49,7 +46,7 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                         <i className="bi bi-chevron-left"></i> Volver 
                     </button>
 
-                    {
+                    {/* {
                         ( capacidadAsignada == 0 )
                         ? (
                             <button 
@@ -63,16 +60,10 @@ export const Opciones = ( {capacidad, openModal, capacidadOriginal} ) => {
                             </button>
                         )
                         : ''
-                    } 
+                    }  */}
                 </div>
             </section>
         </div>
-        {openModalRechazo && 
-            <ModalGenerico  isOpen={openModalRechazo} closeModal={closeModalRechazo}>
-              <ModalRechazo 
-              closeModal={setOpenModalRechazo}/> 
-            </ModalGenerico>
-            }
             </>
     )
     
