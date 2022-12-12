@@ -4,6 +4,8 @@ import errorImg from '../../images/noPermitido.svg';
 
 import './estilos404.css';
 
+console.log('probando desde ubuntu');
+
 export const Error404Screen = () => {
     
     const navigate = useNavigate();
