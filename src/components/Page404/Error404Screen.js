@@ -4,7 +4,7 @@ import errorImg from '../../images/noPermitido.svg';
 
 import './estilos404.css';
 
-console.log('probando desde ubuntu');
+console.log('probando desde ubuntu2');
 
 export const Error404Screen = () => {
     
